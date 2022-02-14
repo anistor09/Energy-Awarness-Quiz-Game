@@ -2,10 +2,10 @@
 
 The Agenda for the second week of the project
 
-Date: {15/02/2022}\ 
-Main Focus: {Establish a definite backlog, delineate the application' structure, start delegating game features, plan the learning of the frameworks, establish some work related procedures, and sketch a rough design of the application}\
-Chair: {Rafael Borges}\
-Note Taker: {Ansh Kumar}\ 
+Date: {15/02/2022}
+Main Focus: {Establish a definite backlog, delineate the application' structure, start delegating game features, plan the learning of the frameworks, establish some work related procedures, and sketch a rough design of the application}
+Chair: {Rafael Borges}
+Note Taker: {Ansh Kumar}
 
 ## Opening
 
