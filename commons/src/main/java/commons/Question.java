@@ -29,28 +29,28 @@ public class Question {
         if (difficulty.equals("EASY")) {
             // 20% range
 
-            optionOne = generateRandomNumber(correctAnswer, correctAnswer*1.2, correctAnswer*0.8);
+            optionOne = generateRandomNumber(correctAnswer*1.2, correctAnswer*0.8);
 
             optionTwo = optionOne;
 
             while (optionOne==optionTwo) {
-                optionTwo = generateRandomNumber(correctAnswer, correctAnswer*1.2, correctAnswer*0.8);
+                optionTwo = generateRandomNumber(correctAnswer*1.2, correctAnswer*0.8);
             }
 
         } else if (difficulty.equals("MEDIUM")) {
 
-            optionOne = generateRandomNumber(correctAnswer, correctAnswer*1.1, correctAnswer*0.9);
+            optionOne = generateRandomNumber(correctAnswer*1.1, correctAnswer*0.9);
             optionTwo = optionOne;
             while (optionOne==optionTwo) {
-                optionTwo = generateRandomNumber(correctAnswer, correctAnswer*1.1, correctAnswer*0.9);
+                optionTwo = generateRandomNumber(correctAnswer*1.1, correctAnswer*0.9);
             }
         } else {
-            optionOne = generateRandomNumber(correctAnswer, correctAnswer*1.05, correctAnswer*0.95);
+            optionOne = generateRandomNumber( correctAnswer*1.05, correctAnswer*0.95);
 
             optionTwo = optionOne;
 
             while (optionOne==optionTwo) {
-                optionTwo = generateRandomNumber(correctAnswer, correctAnswer*1.05, correctAnswer*0.95);
+                optionTwo = generateRandomNumber( correctAnswer*1.05, correctAnswer*0.95);
             }
         }
 
@@ -58,11 +58,11 @@ public class Question {
         this.options.addAll(List.of(correctAnswer, optionOne, optionTwo));
     }
 
-    private Double generateRandomNumber(double base, double lowerBound, double upperBound) {
+    private Double generateRandomNumber(double lowerBound, double upperBound) {
         double range = upperBound - lowerBound;
 
         // generate 2 unique numbers within these bounds
-        double number = ((Math.random() * (upperBound - lowerBound)) + lowerBound);
+        double number = ((Math.random() * range) + lowerBound);
         return number;
     }
 
@@ -122,5 +122,5 @@ public class Question {
         this.availablePoints = availablePoints;
     }
 
-    
+
 }
