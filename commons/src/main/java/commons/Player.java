@@ -2,6 +2,7 @@ package commons;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Player {
@@ -37,6 +38,28 @@ public class Player {
      * Empty constructor for a player
      */
     public Player() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return currentScore == player.currentScore && id.equals(player.id) && username.equals(player.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, currentScore);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", currentScore=" + currentScore +
+                '}';
     }
 
     public Long getId() {
