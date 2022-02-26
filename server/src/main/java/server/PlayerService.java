@@ -16,6 +16,10 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
+    /**
+     * Returns a list of players in the repository.
+     * @return List of Player instances found the in the repository.
+     */
     public List<Player> getPlayers(){
         return playerRepository.findAll();
     }
