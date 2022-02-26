@@ -1,5 +1,6 @@
 package server;
 
+import commons.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.PlayerRepository;
@@ -17,5 +18,9 @@ public class PlayerService {
 
     public List<Player> getPlayers(){
         return playerRepository.findAll();
+    }
+
+    public void addPlayer(Player player) {
+        playerRepository.save(player);
     }
 }

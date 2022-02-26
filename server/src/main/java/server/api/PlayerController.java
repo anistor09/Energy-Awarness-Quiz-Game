@@ -1,10 +1,8 @@
 package server.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import server.Player;
+import org.springframework.web.bind.annotation.*;
+import commons.Player;
 import server.PlayerService;
 
 import java.util.List;
@@ -14,6 +12,10 @@ import java.util.List;
 public class PlayerController {
     private PlayerService playerService;
 
+    /**
+     * Constructor for the PlayerController Class
+     * @param playerService An instance of the utility class that links the API Layer to the Repository Layer
+     */
     @Autowired
     public PlayerController(PlayerService playerService) {
         this.playerService = playerService;
@@ -22,5 +24,9 @@ public class PlayerController {
     @GetMapping
     public List<Player> printPlayers(){
         return playerService.getPlayers();
+    }
+
+    @PostMapping
+    public void addNewPlayer( @RequestBody Player player){ playerService.addPlayer(player);
     }
 }
