@@ -29,10 +29,24 @@ public class PlayerService {
     }
 
     /**
-     * Service layer method for adding a player to the repository class
+     * Service layer method for adding a player to the repository.
      * @param player An instance of the Player Class
      */
     public void addPlayer(Player player) {
         playerRepository.save(player);
+    }
+
+    /**
+     * Service layer method for deleting a player from the repository.
+     * @param playerId Unique ID of the player to be deleted.
+     */
+    public void deletePlayer(Long playerId) {
+        // check if this playerId exists
+        boolean exists = playerRepository.existsById(playerId);
+        if (!exists) {
+            throw new IllegalStateException("Player with ID " + playerId + " does not exist.");
+        }
+
+        playerRepository.deleteById(playerId);
     }
 }
