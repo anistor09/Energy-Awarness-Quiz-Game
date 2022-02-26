@@ -30,7 +30,7 @@ public class PlayerService {
 
     /**
      * Service layer method for adding a player to the repository class
-     * @param player An instance of the Player Class testtttt
+     * @param player An instance of the Player Class
      */
     public void addPlayer(Player player) {
         playerRepository.save(player);
