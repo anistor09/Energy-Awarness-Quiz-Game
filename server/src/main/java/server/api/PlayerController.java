@@ -40,4 +40,13 @@ public class PlayerController {
     @PostMapping
     public void addNewPlayer( @RequestBody Player player){ playerService.addPlayer(player);
     }
+
+    /**
+     * API layer method for DELETE request.
+     * @param playerId ID of the player to be deleted.
+     */
+    @DeleteMapping(path="{playerId}")
+    public void deletePlayer(@PathVariable("playerId") Long playerId) {
+        playerService.deletePlayer(playerId);
+    }
 }
