@@ -13,7 +13,7 @@ public class PlayerController {
     private PlayerService playerService;
 
     /**
-     * Constructor for the PlayerController Class
+     * Creates an instance of PlayerController Class
      * @param playerService An instance of the utility class that links the API Layer to the Repository Layer
      */
     @Autowired
@@ -21,11 +21,16 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
+
     @GetMapping
     public List<Player> printPlayers(){
         return playerService.getPlayers();
     }
 
+    /**
+     * API layer method for the POST request
+     * @param player An instance of the utility class that links the API Layer to the Repository Layer
+     */
     @PostMapping
     public void addNewPlayer( @RequestBody Player player){ playerService.addPlayer(player);
     }
