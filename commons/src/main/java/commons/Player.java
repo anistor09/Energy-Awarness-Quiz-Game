@@ -11,17 +11,31 @@ public class Player {
     private String username;
     private int currentScore;
 
+    /**
+     * Constructor for a player without ID parameter
+     * @param username Player's username
+     * @param currentScore Player's score
+     */
     public Player(String username, int currentScore) {
         this.username = username;
         this.currentScore = currentScore;
     }
 
+    /**
+     * Constructor for a player. Creates a player with all given parameters
+     * @param id Player's ID in the database (primary key)
+     * @param username Player's username
+     * @param currentScore Player's score
+     */
     public Player(Long id, String username, int currentScore) {
         this.id = id;
         this.username = username;
         this.currentScore = currentScore;
     }
 
+    /**
+     * Empty constructor for a player
+     */
     public Player() {
     }
 

@@ -7,6 +7,9 @@ import server.PlayerService;
 
 import java.util.List;
 
+/**
+ * API layer of the Player class.
+ */
 @RestController
 @RequestMapping("api/player")
 public class PlayerController {
@@ -21,9 +24,12 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-
+    /**
+     * Serves the user's GET request by invoking the getPlayers method from the playerService object
+     * @return List of players returned by the service layer.
+     */
     @GetMapping
-    public List<Player> printPlayers(){
+    public List<Player> getPlayers(){
         return playerService.getPlayers();
     }
 
