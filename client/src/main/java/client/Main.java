@@ -15,27 +15,23 @@
  */
 package client;
 
-//import static com.google.inject.Guice.createInjector;
+import static com.google.inject.Guice.createInjector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-//import com.google.inject.Injector;
-
-//import client.scenes.AddQuoteCtrl;
-//import client.scenes.MainCtrl;
-//import client.scenes.QuoteOverviewCtrl;
+import client.scenes.MainCtrl;
+import client.scenes.MenuCtrl;
+import com.google.inject.Injector;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
 
 public class Main extends Application {
 
-    //    This was template code
-//    private static final Injector INJECTOR = createInjector(new MyModule());
-//    private static final MyFXML FXML = new MyFXML(INJECTOR);
+    private static final Injector INJECTOR = createInjector(new MyModule());
+    private static final MyFXML FXML = new MyFXML(INJECTOR);
 
     public static void main(String[] args) throws URISyntaxException, IOException {
         launch();
