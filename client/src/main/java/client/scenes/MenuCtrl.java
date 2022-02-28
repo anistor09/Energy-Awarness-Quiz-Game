@@ -1,14 +1,19 @@
 package client.scenes;
 
-import javafx.fxml.Initializable;
+import com.google.inject.Inject;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class MenuCtrl implements Initializable {
+public class MenuCtrl {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private final MainCtrl mainCtrl;
 
+    @Inject
+    public MenuCtrl(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
     }
+
+    public void exitButton() {
+        mainCtrl.closeStage();
+    }
+
 }
