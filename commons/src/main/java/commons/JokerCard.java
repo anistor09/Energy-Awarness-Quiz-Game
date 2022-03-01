@@ -14,8 +14,7 @@ public abstract class JokerCard {
         this.onlyMultiplayer = onlyMultiplayer;
     }
 
-    public void useCard(){
-    }
+    public abstract void useCard(Player player);
 
     public String getDescription() {
         return description;
