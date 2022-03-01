@@ -12,7 +12,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #126782;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerLobbyController">
     <children>
-        <Button layoutX="262.0" layoutY="245.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="2.0" scaleY="2.0" style="-fx-background-color: FFB703; -fx-border-color: 000000; -fx-border-width: 3px;" text="Start Game">
+        <Button layoutX="262.0" layoutY="245.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFB703; " text="Start Game">
          <opaqueInsets>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </opaqueInsets></Button>

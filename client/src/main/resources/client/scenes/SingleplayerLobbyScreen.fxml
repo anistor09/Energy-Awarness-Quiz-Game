@@ -13,7 +13,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #126782;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLobbyController">
    <children>
-      <Button layoutX="262.0" layoutY="245.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFB703; -fx-border-color: 000000; -fx-border-width: 3;" text="Start Game" />
+      <Button layoutX="262.0" layoutY="245.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FFB703; " text="Start Game" />
       <Label fx:id="tmpLabel1" layoutX="259.0" layoutY="285.0" text="Start the game?" />
       <Button layoutX="24.0" layoutY="361.0" mnemonicParsing="false" onAction="#returnScreen" prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: #023047;" text="Return" textFill="#fb8500" />
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToHelpScreen" style="-fx-background-color: #8ECAE6;" text="Help" textFill="#fb8500" />
