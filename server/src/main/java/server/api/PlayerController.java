@@ -3,7 +3,7 @@ package server.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import commons.Player;
-import server.PlayerService;
+import server.sevice.PlayerService;
 
 import java.util.List;
 
