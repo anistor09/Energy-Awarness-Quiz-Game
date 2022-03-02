@@ -1,5 +1,6 @@
 package client.scenes;
 
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -12,8 +13,6 @@ public class SinglePlayerLobbyController {
     private Label tmpLabel1;
     @FXML
     private Label helpLabel;
-    @FXML
-    private Label returnLabel;
     @FXML
     private Label jokerInfoLabel;
     @FXML
@@ -33,7 +32,13 @@ public class SinglePlayerLobbyController {
     @FXML
     private CheckBox emergencyCall;
 
+    private final MainCtrl mainCtrl;
     ArrayList<CheckBox> checkedJokers = new ArrayList<CheckBox>();
+
+    @Inject
+    public SinglePlayerLobbyController(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
 
     @FXML
     protected void startGameButtonClick(){
@@ -47,7 +52,7 @@ public class SinglePlayerLobbyController {
 
     @FXML
     protected void returnScreen(){
-        returnLabel.setText("Returning!");
+        mainCtrl.Return("menu");
     }
 
     @FXML

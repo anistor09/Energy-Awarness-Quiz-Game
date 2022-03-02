@@ -24,19 +24,48 @@ import javafx.util.Pair;
 public class MainCtrl {
 
     private Stage primaryStage;
+    private Stage singlePlayerLobbyStage;
+
 
     private MenuCtrl menuCtrl;
     private Scene menu;
 
+    private SinglePlayerLobbyController singlePlayerLobbyController;
+    private Scene singlePlayerLobby;
 
-    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair) {
+    private MultiPlayerLobbyController multiPlayerLobbyController;
+    private Scene multiPlayerLobby;
+
+    private CreditsController creditsController;
+    private Scene credits;
+
+    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair) {
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
+        this.singlePlayerLobbyController = singlePlayerLobbyControllerParentPair.getKey();
+        this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
+        this.multiPlayerLobbyController = multiPlayerLobbyControllerParentPair.getKey();
+        this.multiPlayerLobby = new Scene(multiPlayerLobbyControllerParentPair.getValue());
+        this.creditsController = creditsControllerParentPair.getKey();
+        this.credits = new Scene(creditsControllerParentPair.getValue());
 
         showMenu();
         primaryStage.show();
     }
+
+    public void goToSinglePlayerLobby(){
+        primaryStage.setScene(singlePlayerLobby);
+    }
+
+    public void goToMultiPlayerLobby(){
+        primaryStage.setScene(multiPlayerLobby);
+    }
+
+    public void goToCredits() {
+        primaryStage.setScene(credits);
+    }
+
 
 
     public void showMenu() {
@@ -46,5 +75,11 @@ public class MainCtrl {
 
     public void closeStage() {
         this.primaryStage.close();
+    }
+
+    public void Return(String screenName) {
+        if(screenName.equals("menu")){
+            primaryStage.setScene(menu);
+        }
     }
 }

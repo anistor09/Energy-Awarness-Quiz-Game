@@ -1,9 +1,13 @@
 package client.scenes;
 
+import client.Main;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import javax.inject.Inject;
 import java.util.Timer;
 
 import java.util.ArrayList;
@@ -14,8 +18,6 @@ public class MultiPlayerLobbyController {
     @FXML
     private Label helpLabel;
     @FXML
-    private Label returnLabel;
-    @FXML
     private Label numberOfPlayersLabel;
     @FXML
     private TextField userNameTextField;
@@ -24,8 +26,13 @@ public class MultiPlayerLobbyController {
     @FXML
     private TextArea gameStatusTextArea;
 
+    private final MainCtrl mainCtrl;
     ArrayList<String> currentUsernames = new ArrayList<String>();
 
+    @Inject
+    public MultiPlayerLobbyController(MainCtrl mainCtrl){
+        this.mainCtrl = mainCtrl;
+    }
 
     @FXML
     protected void startGameButtonClick(){
@@ -51,7 +58,7 @@ public class MultiPlayerLobbyController {
 
     @FXML
     protected void returnScreen(){
-        returnLabel.setText("Returning!");
+        mainCtrl.Return("menu");
     }
 
     @FXML
