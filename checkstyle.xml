@@ -21,7 +21,4 @@
             <property name="max" value="70" />
         </module>
     </module>
-
-    <!-- TODO: decide in your team with other checkers to add! -->
-
 </module>
