@@ -4,6 +4,9 @@
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name = "Checker">
+    <module name="LineLength">
+        <property name="max" value="120" />
+    </module>
     <module name="TreeWalker">
         <module name="UnusedImports" />
         <module name="MissingJavadocMethod">
@@ -13,10 +16,6 @@
         <module name="OneStatementPerLine" />
         <module name="AvoidStarImport" />
         <module name="RedundantImport" />
-        <module name="FileLength" />
-        <module name="LineLength">
-            <property name="max" value="120" />
-        </module>
         <module name="MethodLength">
             <property name="max" value="70" />
         </module>
