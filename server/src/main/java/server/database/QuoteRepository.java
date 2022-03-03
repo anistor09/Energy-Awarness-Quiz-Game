@@ -19,4 +19,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import commons.Quote;
 
+/**
+ * Repository for the Quote class
+ */
 public interface QuoteRepository extends JpaRepository<Quote, Long> {}
