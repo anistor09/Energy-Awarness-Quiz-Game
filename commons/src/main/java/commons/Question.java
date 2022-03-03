@@ -15,6 +15,15 @@ public class Question {
     private String difficulty;
     private Integer availablePoints;
 
+    /**
+     * Creates an instance of Question.
+     * @param question Activity to be asked.
+     * @param correctAnswer Correct answer to the energy consumption of the activity.
+     * @param questionImage Image of the question.
+     * @param allowedTime Time allowed for the question to be answered by the user.
+     * @param difficulty Difficulty of the question. This will determine the range of options that will be given to the user.
+     * @param availablePoints Maximum number of points that can be obtained by answering the question.
+     */
     public Question(String question, Double correctAnswer, BufferedImage questionImage, Integer allowedTime, String difficulty, Integer availablePoints) {
         this.question = question;
         this.correctAnswer = correctAnswer;
@@ -59,6 +68,12 @@ public class Question {
         this.options.addAll(List.of(correctAnswer, optionOne, optionTwo));
     }
 
+    /**
+     * Private utility method used by the constructor.
+     * @param lowerBound Lower bound.
+     * @param upperBound Upper bound.
+     * @return A random number (double) between the given lower bound and upper bound.
+     */
     private Double generateRandomNumber(double lowerBound, double upperBound) {
         double range = upperBound - lowerBound;
 
