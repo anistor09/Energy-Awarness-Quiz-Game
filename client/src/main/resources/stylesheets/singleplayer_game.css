@@ -26,3 +26,8 @@
 
 }
 
+#info {
+    -fx-background-color: gray;
+    -fx-background-radius: 15;
+}
+

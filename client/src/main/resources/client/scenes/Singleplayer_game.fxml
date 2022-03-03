@@ -49,7 +49,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </Button>
-            <Label alignment="BOTTOM_RIGHT" contentDisplay="CENTER" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+            <Label fx:id="info" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="60.0" top="130.0" />
                </VBox.margin>
@@ -60,7 +60,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="468.0" text="Your Score: " textAlignment="JUSTIFY">
+            <Label fx:id="info" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="468.0" prefHeight="40.0" prefWidth="210.0" text="Your Score: " textAlignment="JUSTIFY">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="100.0" top="10.0" />
                </padding>

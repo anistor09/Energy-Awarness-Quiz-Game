@@ -12,6 +12,9 @@ public class MenuCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * This action proceeds to close the stage
+     */
     public void exitButton() {
         mainCtrl.closeStage();
     }
