@@ -53,6 +53,10 @@ public class AddQuoteCtrl {
 //        mainCtrl.showOverview();
     }
 
+    /**
+     * This method will get the quotes from the server
+     */
+
     public void ok() {
         try {
             server.addQuote(getQuote());
@@ -80,6 +84,11 @@ public class AddQuoteCtrl {
         lastName.clear();
         quote.clear();
     }
+
+    /**
+     * This is the on action method for the key press
+     * @param e the pressed key
+     */
 
     public void keyPressed(KeyEvent e) {
         switch (e.getCode()) {
