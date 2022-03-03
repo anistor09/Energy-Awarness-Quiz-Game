@@ -29,6 +29,11 @@ public class MainCtrl {
     private Scene menu;
 
 
+    /**
+     * This initializes the different screens so that we can transition between them
+     * @param primaryStage = This is the Stage where the game will be displayed
+     * @param menuPair = This is the pair which contains the information for the menu screen
+     */
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair) {
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
