@@ -15,7 +15,9 @@ import static com.google.inject.Guice.createInjector;
 public class MenuCtrl {
 
     private final MainCtrl mainCtrl;
+    @javafx.fxml.FXML
     Button multiPlayerButton;
+    @javafx.fxml.FXML
     Button singlePlayerButton;
 
     private static final Injector INJECTOR = createInjector(new MyModule());
