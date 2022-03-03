@@ -21,10 +21,12 @@ public class Question {
      * @param correctAnswer Correct answer to the energy consumption of the activity.
      * @param questionImage Image of the question.
      * @param allowedTime Time allowed for the question to be answered by the user.
-     * @param difficulty Difficulty of the question. This will determine the range of options that will be given to the user.
+     * @param difficulty Difficulty of the question. This will determine the range of options that will be given to the
+     *                   user.
      * @param availablePoints Maximum number of points that can be obtained by answering the question.
      */
-    public Question(String question, Double correctAnswer, BufferedImage questionImage, Integer allowedTime, String difficulty, Integer availablePoints) {
+    public Question(String question, Double correctAnswer, BufferedImage questionImage, Integer allowedTime,
+                    String difficulty, Integer availablePoints) {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.questionImage = questionImage;
@@ -151,6 +153,11 @@ public class Question {
         return Objects.hash(getQuestion(), getOptions(), getCorrectAnswer(), getQuestionImage(), getAllowedTime(), getDifficulty(), getAvailablePoints());
     }
 
+
+    /**
+     * Returns a String representation of the question object.
+     * @return String displaying attributes of the question.
+     */
     @Override
     public String toString() {
         return "Question{" +
