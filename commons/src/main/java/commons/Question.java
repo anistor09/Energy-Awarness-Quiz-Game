@@ -145,12 +145,17 @@ public class Question {
         if (this == o) return true;
         if (!(o instanceof Question)) return false;
         Question question1 = (Question) o;
-        return getQuestion().equals(question1.getQuestion()) && getOptions().equals(question1.getOptions()) && getCorrectAnswer().equals(question1.getCorrectAnswer()) && Objects.equals(getQuestionImage(), question1.getQuestionImage()) && getAllowedTime().equals(question1.getAllowedTime()) && getDifficulty().equals(question1.getDifficulty()) && getAvailablePoints().equals(question1.getAvailablePoints());
+        return getQuestion().equals(question1.getQuestion()) && getOptions().equals(question1.getOptions())
+                && getCorrectAnswer().equals(question1.getCorrectAnswer()) && Objects.equals(getQuestionImage(),
+                question1.getQuestionImage()) && getAllowedTime().equals(question1.getAllowedTime()) &&
+                getDifficulty().equals(question1.getDifficulty()) &&
+                getAvailablePoints().equals(question1.getAvailablePoints());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestion(), getOptions(), getCorrectAnswer(), getQuestionImage(), getAllowedTime(), getDifficulty(), getAvailablePoints());
+        return Objects.hash(getQuestion(), getOptions(), getCorrectAnswer(), getQuestionImage(), getAllowedTime(),
+                getDifficulty(), getAvailablePoints());
     }
 
 
