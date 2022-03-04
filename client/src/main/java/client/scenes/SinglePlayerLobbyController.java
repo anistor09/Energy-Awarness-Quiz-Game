@@ -100,6 +100,10 @@ public class SinglePlayerLobbyController {
         addJokerCard(flash);
     }
 
+    /**
+     * This method adds the selected joker cards an ArrayList
+     * @param e is the checkbox that was selected
+     */
     protected void addJokerCard(CheckBox e){
         if(checkedJokers.size() < 3){
             checkedJokers.add(e);

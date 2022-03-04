@@ -27,13 +27,16 @@ public class MultiPlayerLobbyController {
     private TextArea gameStatusTextArea;
 
     private final MainCtrl mainCtrl;
-    ArrayList<String> currentUsernames = new ArrayList<String>();
+    ArrayList<String> currentUsernames = new ArrayList<>();
 
     @Inject
     public MultiPlayerLobbyController(MainCtrl mainCtrl){
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * This method starts the timer for the game to start and also starts the game
+     */
     @FXML
     protected void startGameButtonClick(){
         Timer timer = new Timer();

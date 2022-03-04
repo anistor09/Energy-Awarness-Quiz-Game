@@ -39,6 +39,16 @@ public class MainCtrl {
     private CreditsController creditsController;
     private Scene credits;
 
+    /**
+     * This method inistializes all the screens that will be used throughout the game
+     * @param primaryStage is the Stage where the game will take place
+     * @param menuPair is the Pair which contains the information for the menu screen
+     * @param singlePlayerLobbyControllerParentPair is the Pair which contains the information for the Single-player
+     *                                             lobby screen
+     * @param multiPlayerLobbyControllerParentPair is the Pair which contains the information for the multiplayer lobby
+     *                                            screen
+     * @param creditsControllerParentPair is the Pair which contains the information for the credits screen
+     */
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair) {
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();

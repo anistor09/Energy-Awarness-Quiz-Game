@@ -38,13 +38,22 @@ public class Main extends Application {
         launch();
     }
 
+    /**
+     * This method starts the game and initializes every different screen
+     * @param primaryStage is the Stage where the game will take place in
+     * @throws IOException is thrown incase of an error with the IO
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
-        Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair = FXML.load(SinglePlayerLobbyController.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
-        Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair = FXML.load(MultiPlayerLobbyController.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
-        Pair<CreditsController, Parent> creditsControllerParentPair= FXML.load(CreditsController.class, "client", "scenes", "CreditsScreen.fxml");
+        Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair =
+                FXML.load(SinglePlayerLobbyController.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
+        Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair =
+                FXML.load(MultiPlayerLobbyController.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
+        Pair<CreditsController, Parent> creditsControllerParentPair= FXML.load(CreditsController.class,
+                "client", "scenes", "CreditsScreen.fxml");
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, menu, singlePlayerLobbyControllerParentPair, multiPlayerLobbyControllerParentPair, creditsControllerParentPair);
+        mainCtrl.initialize(primaryStage, menu, singlePlayerLobbyControllerParentPair,
+                multiPlayerLobbyControllerParentPair, creditsControllerParentPair);
     }
 }
