@@ -1,7 +1,5 @@
 package client.scenes;
 
-import client.Main;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
