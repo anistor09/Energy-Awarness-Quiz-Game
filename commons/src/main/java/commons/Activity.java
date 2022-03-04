@@ -13,13 +13,23 @@ public class Activity {
     //this will be implemented later
     //public Image image;
 
-
+    /**
+     *
+     * @param id
+     * @param text
+     * @param correctAnswer
+     */
     public Activity(Long id, String text, int correctAnswer) {
         this.Id = id;
         this.text = text;
         this.correctAnswer = correctAnswer;
     }
 
+    /**
+     *
+     * @param text
+     * @param correctAnswer
+     */
     public Activity(String text, int correctAnswer) {
         this.text = text;
         this.correctAnswer = correctAnswer;

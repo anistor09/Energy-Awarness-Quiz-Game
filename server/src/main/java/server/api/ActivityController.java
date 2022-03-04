@@ -10,25 +10,41 @@ import java.util.List;
 @RestController
 @RequestMapping("api/activity")
 public class ActivityController {
-
+    /**
+     * API layer of the Activity class.
+     */
     private final ActivityService activityService;
+
+    /**
+     * Creates an instance of ActivityController Class
+     * @param activityService    An instance of the utility class that links the API Layer to the Repository Layer
+     */
     @Autowired
     public ActivityController(ActivityService activityService) {
         this.activityService = activityService;
     }
 
-
+    /**
+     * Serves the user's GET request by invoking the getActivities() method from the activityService object
+     * @return List of activities returned by the service layer.
+     */
     @GetMapping
     public List<Activity> getActivities(){
         return activityService.getActivities();
     }
 
-
+    /**
+     *  API layer method for the POST request
+     * @param activity An instance of the utility class that links the API Layer to the Repository Layer
+     */
     @PostMapping
     public void addNewActivity( @RequestBody Activity activity){ activityService.addActivity(activity);
     }
 
-
+    /**
+     *  API layer method for DELETE request.
+     * @param activityId ID of the activity to be deleted.
+     */
     @DeleteMapping(path="{activityId}")
     public void deleteActivity(@PathVariable("activityId") Long activityId) {
         activityService.deleteActivity(activityId);
