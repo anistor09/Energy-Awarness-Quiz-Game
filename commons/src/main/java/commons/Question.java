@@ -1,178 +1,129 @@
 package commons;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Question {
 
-    private String question;    // question text
-    private ArrayList<Double> options;  // display options
-    private Double correctAnswer;  // the actual answer
-    private BufferedImage questionImage;    // this is a front end issue. How should we do this?
-    private Integer allowedTime;
+    private Activity activity;
+    private int availablePoints;
     private String difficulty;
-    private Integer availablePoints;
+    private ArrayList<Double> options;
 
     /**
      * Creates an instance of Question.
-     * @param question Activity to be asked.
-     * @param correctAnswer Correct answer to the energy consumption of the activity.
-     * @param questionImage Image of the question.
-     * @param allowedTime Time allowed for the question to be answered by the user.
-     * @param difficulty Difficulty of the question. This will determine the range of options that will be given to the
-     *                   user.
+     * @param activity Activity to be used in the question.
+     * @param difficulty      Difficulty of the question. This will determine the range of options that will be given
+     *                        to the user.
      * @param availablePoints Maximum number of points that can be obtained by answering the question.
      */
-    public Question(String question, Double correctAnswer, BufferedImage questionImage, Integer allowedTime,
-                    String difficulty, Integer availablePoints) {
-        this.question = question;
-        this.correctAnswer = correctAnswer;
-        this.questionImage = questionImage;
-        this.allowedTime = allowedTime;
+    public Question(Activity activity, int availablePoints, String difficulty) {
+        this.activity = activity;
         this.availablePoints = availablePoints;
+        this.difficulty = difficulty;
 
         // create a range of answers
-
-        double optionOne;
-        double optionTwo;
-
-        if (difficulty.equals("EASY")) {
-            // 20% range
-
-            optionOne = generateRandomNumber(correctAnswer*1.2, correctAnswer*0.8);
-
-            optionTwo = optionOne;
-
-            while (optionOne==optionTwo) {
-                optionTwo = generateRandomNumber(correctAnswer*1.2, correctAnswer*0.8);
-            }
-
-        } else if (difficulty.equals("MEDIUM")) {
-
-            optionOne = generateRandomNumber(correctAnswer*1.1, correctAnswer*0.9);
-            optionTwo = optionOne;
-            while (optionOne==optionTwo) {
-                optionTwo = generateRandomNumber(correctAnswer*1.1, correctAnswer*0.9);
-            }
-        } else {
-            optionOne = generateRandomNumber( correctAnswer*1.05, correctAnswer*0.95);
-
-            optionTwo = optionOne;
-
-            while (optionOne==optionTwo) {
-                optionTwo = generateRandomNumber( correctAnswer*1.05, correctAnswer*0.95);
-            }
+        double correctAnswer = activity.getCorrectAnswer();
+        ArrayList<Double> options;
+        switch (difficulty){
+            case "EASY":
+                options = generateRandomNumbers(correctAnswer*0.8, correctAnswer*1.2);
+                break;
+            case "MEDIUM":
+                options = generateRandomNumbers(correctAnswer*0.9, correctAnswer*1.1);
+                break;
+            case "HARD":
+                options = generateRandomNumbers(correctAnswer*0.95, correctAnswer*1.05);
+                break;
+            default:
+                throw new IllegalArgumentException("You did not specify a valid difficulty");
         }
 
-        // add all possible answers to the arrayList
-        this.options.addAll(List.of(correctAnswer, optionOne, optionTwo));
+
+        options.add(correctAnswer);
+
+        this.options = options;
+    }
+
+    /**
+     * Creates a new Question instance if no difficulty is provided. By default, the difficulty is "EASY".
+     * @param activity Activity to be used in the question.
+     * @param availablePoints Maximum number of points that can be obtained by answering the question.
+     */
+    public Question(Activity activity, int availablePoints) {
+        this.activity = activity;
+        this.availablePoints = availablePoints;
+        this.difficulty = "EASY";
+
+        // create a range of answers
+        double correctAnswer = activity.getCorrectAnswer();
+        ArrayList<Double> options = generateRandomNumbers(correctAnswer * 0.8,
+                correctAnswer * 1.2);
+
+        options.add(correctAnswer);
+        this.options = options;
     }
 
     /**
      * Private utility method used by the constructor.
+     *
      * @param lowerBound Lower bound.
      * @param upperBound Upper bound.
-     * @return A random number (double) between the given lower bound and upper bound.
+     * @return An ArrayList of two distinct random numbers between lowerBound and upperBound.
      */
-    private Double generateRandomNumber(double lowerBound, double upperBound) {
+    private ArrayList<Double> generateRandomNumbers(double lowerBound, double upperBound) {
         double range = upperBound - lowerBound;
+        double optionOne;
+        double optionTwo;
 
         // generate 2 unique numbers within these bounds
-        double number = ((Math.random() * range) + lowerBound);
-        return number;
+        optionOne = ((Math.random() * range) + lowerBound);
+        optionTwo = optionOne;
+        while (optionOne == optionTwo) {
+            optionTwo = (int)((Math.random() * range) + lowerBound);
+        }
+
+        ArrayList<Double> returnable = new ArrayList<>();
+        returnable.add(optionOne);
+        returnable.add(optionTwo);
+        
+        return returnable;
     }
 
-    public String getQuestion() {
-        return question;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public ArrayList<Double> getOptions() {
-        return options;
-    }
-
-    public void setOptions(ArrayList<Double> options) {
-        this.options = options;
-    }
-
-    public Double getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(Double correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
-    public BufferedImage getQuestionImage() {
-        return questionImage;
-    }
-
-    public void setQuestionImage(BufferedImage questionImage) {
-        this.questionImage = questionImage;
-    }
-
-    public Integer getAllowedTime() {
-        return allowedTime;
-    }
-
-    public void setAllowedTime(Integer allowedTime) {
-        this.allowedTime = allowedTime;
+    public int getAvailablePoints() {
+        return availablePoints;
     }
 
     public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public Integer getAvailablePoints() {
-        return availablePoints;
-    }
-
-    public void setAvailablePoints(Integer availablePoints) {
-        this.availablePoints = availablePoints;
+    public ArrayList<Double> getOptions() {
+        return options;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Question)) return false;
-        Question question1 = (Question) o;
-        return getQuestion().equals(question1.getQuestion()) && getOptions().equals(question1.getOptions())
-                && getCorrectAnswer().equals(question1.getCorrectAnswer()) && Objects.equals(getQuestionImage(),
-                question1.getQuestionImage()) && getAllowedTime().equals(question1.getAllowedTime()) &&
-                getDifficulty().equals(question1.getDifficulty()) &&
-                getAvailablePoints().equals(question1.getAvailablePoints());
+        Question question = (Question) o;
+        boolean equalPoints = (getAvailablePoints() == question.getAvailablePoints());
+        boolean equalActivities = (getActivity().equals(question.getActivity()));
+        boolean equalDifficulties = (getDifficulty().equals(question.getDifficulty()));
+
+        return getAvailablePoints() == question.getAvailablePoints() && getActivity().equals(question.getActivity())
+                && getDifficulty().equals(question.getDifficulty());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestion(), getOptions(), getCorrectAnswer(), getQuestionImage(), getAllowedTime(),
-                getDifficulty(), getAvailablePoints());
-    }
-
-
-    /**
-     * Returns a String representation of the question object.
-     * @return String displaying attributes of the question.
-     */
-    @Override
-    public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", options=" + options +
-                ", correctAnswer=" + correctAnswer +
-                ", questionImage=" + questionImage +
-                ", allowedTime=" + allowedTime +
-                ", difficulty='" + difficulty + '\'' +
-                ", availablePoints=" + availablePoints +
-                '}';
+        return Objects.hash(getActivity(), getAvailablePoints(), getDifficulty());
     }
 }
+
+
+
