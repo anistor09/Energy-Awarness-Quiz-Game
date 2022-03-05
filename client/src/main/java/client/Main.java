@@ -21,7 +21,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-import client.scenes.*;
+import client.scenes.CreditsController;
+import client.scenes.MenuCtrl;
+import client.scenes.MultiPlayerLobbyController;
+import client.scenes.SinglePlayerLobbyController;
+import client.scenes.MainCtrl;
 import com.google.inject.Injector;
 
 import javafx.application.Application;
