@@ -17,9 +17,9 @@ public class Activity {
 
     /**
      *
-     * @param id
-     * @param text
-     * @param correctAnswer
+     * @param id Int representing the activity's id
+     * @param text String representing the activity's text.
+     * @param correctAnswer Int representing the correct value of the activity's energy consumption.
      */
     public Activity(Long id, String text, int correctAnswer) {
         this.Id = id;
@@ -29,8 +29,8 @@ public class Activity {
 
     /**
      *
-     * @param text
-     * @param correctAnswer
+     * @param text String representing the activity's text.
+     * @param correctAnswer Int representing the correct value of the activity's energy consumption
      */
     public Activity(String text, int correctAnswer) {
         this.text = text;
