@@ -4,6 +4,8 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -80,7 +82,7 @@
     <left>
         <VBox prefHeight="638.0" prefWidth="247.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="image" fitHeight="282.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="image" fitHeight="282.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="30.0" top="70.0" />
                     </VBox.margin>
@@ -136,7 +138,76 @@
                         <Insets left="10.0" top="50.0" />
                     </HBox.margin>
                 </Button>
-            <HBox prefHeight="100.0" prefWidth="656.0" HBox.hgrow="ALWAYS" />
+            <HBox prefHeight="100.0" prefWidth="656.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../../../docs/pictures/smilingTeeth.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../../../docs/pictures/crying.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../../../docs/pictures/devil.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../../../docs/pictures/in-love.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../../../docs/pictures/anger.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../../../docs/pictures/thinking.png" />
+                     </image>
+                  </ImageView>
+                  <Separator fx:id="bar" orientation="VERTICAL" prefHeight="72.0" prefWidth="4.0">
+                     <HBox.margin>
+                        <Insets bottom="3.0" left="5.0" top="25.0" />
+                     </HBox.margin>
+                  </Separator>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="ReactionName" text="Name of Player" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ImageView fx:id="reaction" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets left="10.0" top="4.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children></HBox>
                 <Button fx:id="help" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Help">
                     <padding>
                         <Insets bottom="10.0" top="10.0" />
