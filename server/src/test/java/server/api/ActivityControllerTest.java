@@ -7,8 +7,8 @@ import server.database.ActivityRepositoryTest;
 import server.sevice.ActivityService;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ActivityControllerTest {
    private ActivityRepositoryTest myRepo;
