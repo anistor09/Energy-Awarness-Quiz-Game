@@ -49,6 +49,9 @@ public class QuoteControllerTest {
         assertEquals(BAD_REQUEST, actual.getStatusCode());
     }
 
+    /**
+     * Test for random selection.
+     */
     @Test
     public void randomSelection() {
         sut.add(getQuote("q1"));

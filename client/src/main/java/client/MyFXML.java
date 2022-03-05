@@ -37,6 +37,13 @@ public class MyFXML {
         this.injector = injector;
     }
 
+    /**
+     * This method will create a  pair of controller and parent to be used in the stage
+     * @param c The class of the controller?
+     * @param parts The parts to be loaded
+     * @param <T> The controller class
+     * @return a pair of <controller, parent>
+     */
     public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
         try {
             var loader = new FXMLLoader(getLocation(parts), null, null, new MyFactory(), StandardCharsets.UTF_8);
@@ -48,6 +55,12 @@ public class MyFXML {
         }
     }
 
+    /**
+     * This method will get the locations of all the parts
+     * @param parts the parts to get the location from
+     * @return the URL of those parts
+     */
+
     private URL getLocation(String... parts) {
         var path = Path.of("", parts).toString();
         return MyFXML.class.getClassLoader().getResource(path);
@@ -55,6 +68,12 @@ public class MyFXML {
 
     private class MyFactory implements BuilderFactory, Callback<Class<?>, Object> {
 
+
+        /**
+         * This method will create a builder for the factory
+         * @param type the type to create the factory with
+         * @return the Builder of the factory?
+         */
         @Override
         @SuppressWarnings("rawtypes")
         public Builder<?> getBuilder(Class<?> type) {

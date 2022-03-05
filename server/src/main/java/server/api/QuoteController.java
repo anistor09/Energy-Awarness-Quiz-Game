@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import commons.Quote;
 import server.database.QuoteRepository;
-
+/**
+ * API layer of the Quote class.
+ */
 @RestController
 @RequestMapping("/api/quotes")
 public class QuoteController {
@@ -36,15 +38,32 @@ public class QuoteController {
     private final Random random;
     private final QuoteRepository repo;
 
+    /**
+     *
+     * Creates an instance of QuoteController Class.
+     * @param random An instance of Random class.
+     * @param repo   An instance of the repository class.
+     */
     public QuoteController(Random random, QuoteRepository repo) {
         this.random = random;
         this.repo = repo;
     }
 
+    /**
+     * Serves the user's GET request by invoking the findAll() method from the repository class.
+     * @return A list of Quote class returned by the Repository Class.
+     */
     @GetMapping(path = { "", "/" })
     public List<Quote> getAll() {
         return repo.findAll();
     }
+
+    /**
+     * Serves the user's GET request by invoking the getById() method from the repository class.
+     * @param id An int parameter that is the id of the Quote we want to retrieve from the database.
+     * @return An instance of ResponseEntity that contains the Quote with the specified id if it exists in the database
+     * or a bad request otherwise
+     */
 
     @GetMapping("/{id}")
     public ResponseEntity<Quote> getById(@PathVariable("id") long id) {
@@ -53,6 +72,13 @@ public class QuoteController {
         }
         return ResponseEntity.ok(repo.getById(id));
     }
+
+    /**
+     * API layer method for the POST request
+     * @param quote An instance of the Quote class that should be inserted in the database.
+     * @return An instance of ResponseEntity that contains a Quote if it was successfully inserted in the database or
+     * a badRequest otherwise
+     */
 
     @PostMapping(path = { "", "/" })
     public ResponseEntity<Quote> add(@RequestBody Quote quote) {
@@ -69,6 +95,12 @@ public class QuoteController {
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
+
+    /**
+     * Serves the user's GET request by invoking the random.nextInt() from the Random class.
+     * @return An instance of ResponseEntity that contains a Quote if a Quote with that random id exists
+     * in the database
+     */
 
     @GetMapping("rnd")
     public ResponseEntity<Quote> getRandom() {
