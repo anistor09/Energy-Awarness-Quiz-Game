@@ -8,7 +8,9 @@ import java.util.Objects;
 public class Activity {
     @Id
     private Long Id;
+    //String representing the activity's text.
     private String text;
+    //The correct value of the activity's energy consumption
     private int correctAnswer;
     //this will be implemented later
     //public Image image;
