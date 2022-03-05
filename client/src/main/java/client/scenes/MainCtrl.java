@@ -49,7 +49,9 @@ public class MainCtrl {
      *                                            screen
      * @param creditsControllerParentPair is the Pair which contains the information for the credits screen
      */
-    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair) {
+    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyController,
+            Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController,
+            Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair) {
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
