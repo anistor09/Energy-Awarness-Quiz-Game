@@ -49,7 +49,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </Button>
-            <Label id="info" fx:id="time" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+            <Label fx:id="time" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="60.0" top="130.0" />
                </VBox.margin>
@@ -60,7 +60,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label id="info" fx:id="score" contentDisplay="CENTER" layoutX="70.0" layoutY="468.0" prefHeight="40.0" prefWidth="210.0" text="Your Score: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+            <Label fx:id="score" contentDisplay="CENTER" layoutX="70.0" layoutY="468.0" prefHeight="40.0" prefWidth="210.0" text="Your Score: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="100.0" top="10.0" />
                </padding>
@@ -127,7 +127,7 @@
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="joker" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Exit" HBox.hgrow="ALWAYS">
+            <Button fx:id="exit" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Exit" HBox.hgrow="ALWAYS">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>
@@ -136,7 +136,7 @@
                </HBox.margin>
             </Button>
             <Region prefHeight="100.0" prefWidth="660.0" />
-            <Button fx:id="options" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Help">
+            <Button fx:id="help" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Help">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>
