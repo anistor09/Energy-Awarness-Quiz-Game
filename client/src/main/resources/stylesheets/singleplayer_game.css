@@ -13,16 +13,21 @@
     -fx-background-radius: 15;
 }
 
-#options {
+#option1, #option2, #option3, #help {
     -fx-background-color: #8ECAE6;
     -fx-text-fill: #FB8500;
     -fx-background-radius: 15;
 }
 
-#joker {
+#joker1, #joker2, #joker3, #exit {
     -fx-background-color: #023047;
     -fx-background-radius: 15;
     -fx-text-fill: #FFB703;
 
 }
 
+#time, #score {
+    -fx-background-color: #C4C4C4;
+    -fx-background-radius: 15;
+    -fx-text-fill: black;
+}
