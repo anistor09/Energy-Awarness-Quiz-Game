@@ -7,11 +7,9 @@ import java.util.Objects;
 @Entity
 public class Activity {
     @Id
-    private Long Id;
-    //String representing the activity's text.
-    private String text;
-    //The correct value of the activity's energy consumption
-    private int correctAnswer;
+    private Long Id;//Int representing the activity's id
+    private String text;//String representing the activity's text.
+    private int correctAnswer;//Int representing the correct value of the activity's energy consumption
     //this will be implemented later
     //public Image image;
 
