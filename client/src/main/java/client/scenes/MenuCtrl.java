@@ -4,9 +4,11 @@ import client.MyFXML;
 import client.MyModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 import static com.google.inject.Guice.createInjector;
@@ -26,6 +28,29 @@ public class MenuCtrl {
     @Inject
     public MenuCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
+    }
+
+    @FXML
+    private Button credits;
+
+    @FXML
+    private Button exit;
+
+    @FXML
+    private ImageView multiIcon;
+
+    @FXML
+    private Button multiPlayer;
+
+    @FXML
+    private ImageView singleIcon;
+
+    @FXML
+    private Button singlePlayer;
+
+    @FXML
+    void exitButton(ActionEvent event) {
+
     }
 
     /**
