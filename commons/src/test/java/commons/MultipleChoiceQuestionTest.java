@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class QuestionTest {
+class MultipleChoiceQuestionTest {
 
-    private Question q1;
-    private Question q2;
-    private Question q3;
-    private Question q4;
-    private Question q5;
+    private MultipleChoiceQuestion q1;
+    private MultipleChoiceQuestion q2;
+    private MultipleChoiceQuestion q3;
+    private MultipleChoiceQuestion q4;
+    private MultipleChoiceQuestion q5;
 
     private Activity act1;
     private Activity act2;
@@ -31,11 +31,11 @@ class QuestionTest {
         act2 = new Activity(1L, "Cook one egg", 1000);
         act3 = new Activity(2L, "Cook two eggs", 2000);
 
-        q1 = new Question(act1, 1000, "EASY");
-        q2 = new Question(act2, 2000, "MEDIUM");
-        q3 = new Question(act3, 3000, "HARD");
-        q4 = new Question(act3, 3000, "HARD");
-        q5 = new Question(act3, 2000);
+        q1 = new MultipleChoiceQuestion(act1, 1000, "EASY", 30);
+        q2 = new MultipleChoiceQuestion(act2, 2000, "MEDIUM", 30);
+        q3 = new MultipleChoiceQuestion(act3, 3000, "HARD", 30);
+        q4 = new MultipleChoiceQuestion(act3, 3000, "HARD", 30);
+        q5 = new MultipleChoiceQuestion(act3, 2000, 30);
 
     }
 
@@ -52,7 +52,7 @@ class QuestionTest {
     @Test
     void checkIllegalArgumentConstructor() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Question(act1, 2000, "TEST FAILURE"));
+                () -> new MultipleChoiceQuestion(act1, 2000, "TEST FAILURE", 30));
     }
 
     @Test
