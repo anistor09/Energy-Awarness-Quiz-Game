@@ -52,7 +52,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="207.0" text="Single Player" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Button fx:id="singlePlayerButton" mnemonicParsing="false" onAction="#goToSinglePlayerLobby" prefHeight="76.0" prefWidth="207.0" text="Single Player" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                                 <ImageView fitHeight="191.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                                     <image>
@@ -77,9 +77,9 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="159.0" text="Credits" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                <Button mnemonicParsing="false" onAction="#goToCredits" prefHeight="65.0" prefWidth="159.0" text="Credits" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                 <Button id="exit" mnemonicParsing="false" onAction="#exitButton" prefHeight="65.0" prefWidth="85.0" text="Exit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="207.0" text="MultiPlayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                <Button fx:id="multiPlayerButton" mnemonicParsing="false" onAction="#goToMultiPlayerLobby" prefHeight="76.0" prefWidth="207.0" text="MultiPlayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                 <ImageView fitHeight="200.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <image>
