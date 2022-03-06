@@ -20,9 +20,14 @@ import static com.google.inject.Guice.createInjector;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import client.scenes.MainCtrl;
+
+import client.scenes.CreditsController;
 import client.scenes.MenuCtrl;
+import client.scenes.MultiPlayerLobbyController;
+import client.scenes.SinglePlayerLobbyController;
+import client.scenes.MainCtrl;
 import com.google.inject.Injector;
+
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -38,10 +43,22 @@ public class Main extends Application {
         launch();
     }
 
+    /**
+     * This method starts the game and initializes every different screen
+     * @param primaryStage is the Stage where the game will take place in
+     * @throws IOException is thrown incase of an error with the IO
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
+        Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair =
+                FXML.load(SinglePlayerLobbyController.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
+        Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair =
+                FXML.load(MultiPlayerLobbyController.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
+        Pair<CreditsController, Parent> creditsControllerParentPair= FXML.load(CreditsController.class,
+                "client", "scenes", "CreditsScreen.fxml");
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, menu);
+        mainCtrl.initialize(primaryStage, menu, singlePlayerLobbyControllerParentPair,
+                multiPlayerLobbyControllerParentPair, creditsControllerParentPair);
     }
 }

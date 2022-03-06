@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import commons.Person;
 import commons.Quote;
+import server.database.TestQuoteRepository;
 
 public class QuoteControllerTest {
 
@@ -48,6 +49,9 @@ public class QuoteControllerTest {
         assertEquals(BAD_REQUEST, actual.getStatusCode());
     }
 
+    /**
+     * Test for random selection.
+     */
     @Test
     public void randomSelection() {
         sut.add(getQuote("q1"));

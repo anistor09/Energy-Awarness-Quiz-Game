@@ -36,26 +36,45 @@ public class Person {
     public String firstName;
     public String lastName;
 
+    /**
+     * Empty constructor for a Person class
+     */
     @SuppressWarnings("unused")
     private Person() {
         // for object mapper
     }
 
+    /**
+     * Constructor for Peron with following parameters
+     * @param firstName First name of a person
+     * @param lastName Last name of a person
+     */
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * Equals method that checks if two Person instances are equal
+     * @param obj Object that we want to compare to
+     * @return True if the Object obj is equal, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
+    /**
+     * @return hashCode for this person
+     */
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    /**
+     * @return String representation of the Person instance
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);

@@ -1,4 +1,4 @@
-package server;
+package server.sevice;
 
 import commons.Player;
 import org.springframework.beans.factory.annotation.Autowired;

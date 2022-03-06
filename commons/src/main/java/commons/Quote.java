@@ -39,26 +39,45 @@ public class Quote {
     public Person person;
     public String quote;
 
+    /**
+     * Empty constructor for Quote without any parameters
+     */
     @SuppressWarnings("unused")
     private Quote() {
         // for object mappers
     }
 
+    /**
+     * Constructor for a Quote with the following parameters
+     * @param person Person which the quote belongs to
+     * @param quote The quote itself
+     */
     public Quote(Person person, String quote) {
         this.person = person;
         this.quote = quote;
     }
 
+    /**
+     * Equals method that checks if two Quote instances are equal
+     * @param obj Object that we want to compare to
+     * @return True if the Object obj is equal, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
+    /**
+     * @return hashCode for this Quote
+     */
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    /**
+     * @return String representation of the Quote instance
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
