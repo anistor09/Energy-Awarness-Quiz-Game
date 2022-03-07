@@ -1,18 +1,21 @@
 package client.scenes;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+
+import javax.inject.Inject;
 
 
 public class CreditsController {
+    private final MainCtrl mainCtrl;
 
-
-    @FXML
-    private Label returnLabel;
+    @Inject
+    public CreditsController(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
 
     @FXML
     protected void returnMenu(){
-        returnLabel.setText("Returning!");
+        mainCtrl.Return("menu");
     }
 
 }

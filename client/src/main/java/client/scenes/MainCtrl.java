@@ -24,24 +24,60 @@ import javafx.util.Pair;
 public class MainCtrl {
 
     private Stage primaryStage;
+    private Stage singlePlayerLobbyStage;
+
 
     private MenuCtrl menuCtrl;
     private Scene menu;
 
+    private SinglePlayerLobbyController singlePlayerLobbyController;
+    private Scene singlePlayerLobby;
+
+    private MultiPlayerLobbyController multiPlayerLobbyController;
+    private Scene multiPlayerLobby;
+
+    private CreditsController creditsController;
+    private Scene credits;
 
     /**
-     * This initializes the different screens so that we can transition between them
-     * @param primaryStage = This is the Stage where the game will be displayed
-     * @param menuPair = This is the pair which contains the information for the menu screen
+     * This method inistializes all the screens that will be used throughout the game
+     * @param primaryStage is the Stage where the game will take place
+     * @param menuPair is the Pair which contains the information for the menu screen
+     * @param singlePlayerLobbyControllerParentPair is the Pair which contains the information for the Single-player
+     *                                             lobby screen
+     * @param multiPlayerLobbyControllerParentPair is the Pair which contains the information for the multiplayer lobby
+     *                                            screen
+     * @param creditsControllerParentPair is the Pair which contains the information for the credits screen
      */
-    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair) {
+    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyController,
+            Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController,
+            Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair) {
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
+        this.singlePlayerLobbyController = singlePlayerLobbyControllerParentPair.getKey();
+        this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
+        this.multiPlayerLobbyController = multiPlayerLobbyControllerParentPair.getKey();
+        this.multiPlayerLobby = new Scene(multiPlayerLobbyControllerParentPair.getValue());
+        this.creditsController = creditsControllerParentPair.getKey();
+        this.credits = new Scene(creditsControllerParentPair.getValue());
 
         showMenu();
         primaryStage.show();
     }
+
+    public void goToSinglePlayerLobby(){
+        primaryStage.setScene(singlePlayerLobby);
+    }
+
+    public void goToMultiPlayerLobby(){
+        primaryStage.setScene(multiPlayerLobby);
+    }
+
+    public void goToCredits() {
+        primaryStage.setScene(credits);
+    }
+
 
 
     public void showMenu() {
@@ -51,5 +87,11 @@ public class MainCtrl {
 
     public void closeStage() {
         this.primaryStage.close();
+    }
+
+    public void Return(String screenName) {
+        if(screenName.equals("menu")){
+            primaryStage.setScene(menu);
+        }
     }
 }
