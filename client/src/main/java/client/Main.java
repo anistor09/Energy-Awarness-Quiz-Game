@@ -21,10 +21,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-import client.scenes.CreditsController;
 import client.scenes.MenuCtrl;
 import client.scenes.MultiPlayerLobbyController;
+import client.scenes.SinglePlayerGameCtrl;
 import client.scenes.SinglePlayerLobbyController;
+import client.scenes.MultiPlayerGameCtrl;
+import client.scenes.CreditsController;
 import client.scenes.MainCtrl;
 import com.google.inject.Injector;
 
@@ -44,21 +46,25 @@ public class Main extends Application {
     }
 
     /**
-     * This method starts the game and initializes every different screen
+     * This method will prepare all the Pair of controller and fxml files for every scene. It will then call the
+     * initialize method of the mainCtrl class
      * @param primaryStage is the Stage where the game will take place in
-     * @throws IOException is thrown incase of an error with the IO
+     * @throws IOException is thrown in case of an error with the IO
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
-        Pair<SinglePlayerLobbyController, Parent> singlePlayerLobbyControllerParentPair =
+        Pair<SinglePlayerLobbyController, Parent> singleLobby =
                 FXML.load(SinglePlayerLobbyController.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
-        Pair<MultiPlayerLobbyController, Parent> multiPlayerLobbyControllerParentPair =
+        Pair<MultiPlayerLobbyController, Parent> multiLobby =
                 FXML.load(MultiPlayerLobbyController.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
-        Pair<CreditsController, Parent> creditsControllerParentPair= FXML.load(CreditsController.class,
-                "client", "scenes", "CreditsScreen.fxml");
+        Pair<SinglePlayerGameCtrl, Parent> singleGame =
+                FXML.load(SinglePlayerGameCtrl.class, "client", "scenes", "SingleplayerGame.fxml");
+        Pair<MultiPlayerGameCtrl, Parent> multiGame =
+                FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
+        Pair<CreditsController, Parent> credits =
+                FXML.load(CreditsController.class, "client", "scenes", "CreditsScreen.fxml");
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, menu, singlePlayerLobbyControllerParentPair,
-                multiPlayerLobbyControllerParentPair, creditsControllerParentPair);
+        mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby, credits, singleGame, multiGame);
     }
 }

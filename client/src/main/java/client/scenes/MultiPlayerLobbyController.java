@@ -50,6 +50,7 @@ public class MultiPlayerLobbyController {
                 }
             }
         }, 0, 1000);
+        mainCtrl.goTo("multiGame");
     }
 
     @FXML
@@ -59,9 +60,12 @@ public class MultiPlayerLobbyController {
 
     @FXML
     protected void returnScreen(){
-        mainCtrl.Return("menu");
+        mainCtrl.goTo("menu");
     }
 
+    /**
+     * This method will take care of registering user's names. It currently has no validation and/or sanity checks
+     */
     @FXML
     protected void enterUsersName(){
         currentUsernames.add(userNameTextField.getText());
@@ -69,6 +73,11 @@ public class MultiPlayerLobbyController {
         userNames.setText(MakeList(currentUsernames));
     }
 
+    /**
+     * This method will return a string-form of a list of users
+     * @param currentUsernames the list of users
+     * @return the string-form of the list
+     */
     private String MakeList(ArrayList<String> currentUsernames) {
         String currentUsers = "";
         for(int i = 0; i < currentUsernames.size(); i++){
