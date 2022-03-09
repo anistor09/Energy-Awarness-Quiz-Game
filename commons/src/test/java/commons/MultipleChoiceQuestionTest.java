@@ -56,16 +56,6 @@ class MultipleChoiceQuestionTest {
     }
 
     @Test
-    void testEquals() {
-        assertTrue(q3.equals(q4));
-    }
-
-    @Test
-    void testEqualHashCode() {
-        assertTrue(q3.hashCode() == q4.hashCode());
-    }
-
-    @Test
     void testNotEquals() {
         assertNotEquals(q2, q5);
     }

@@ -20,5 +20,37 @@ public abstract class Question {
         this.allowedTime = allowedTime;
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public int getAvailablePoints() {
+        return availablePoints;
+    }
+
+    public void setAvailablePoints(int availablePoints) {
+        this.availablePoints = availablePoints;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public int getAllowedTime() {
+        return allowedTime;
+    }
+
+    public void setAllowedTime(int allowedTime) {
+        this.allowedTime = allowedTime;
+    }
+
 
 }
