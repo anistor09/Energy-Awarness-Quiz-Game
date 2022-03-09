@@ -15,7 +15,7 @@ public class CreditsController {
 
     @FXML
     protected void returnMenu(){
-        mainCtrl.Return("menu");
+        mainCtrl.goTo("menu");
     }
 
 }

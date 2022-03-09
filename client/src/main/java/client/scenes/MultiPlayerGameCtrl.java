@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 
+import javax.inject.Inject;
+
 public class MultiPlayerGameCtrl {
 
     @FXML
@@ -70,5 +72,23 @@ public class MultiPlayerGameCtrl {
 
     @FXML
     private Label time;
+
+    private final MainCtrl mainCtrl;
+
+    @Inject
+    public MultiPlayerGameCtrl(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
+
+    /**
+     * This method is supposed to go to the help page. At the moment it goes to menu because there is no help page
+     */
+    public void help() {
+        mainCtrl.goTo("help");
+    }
+
+    public void exit() {
+        mainCtrl.goTo("menu");
+    }
 
 }

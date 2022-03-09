@@ -13,114 +13,126 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="960.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MenuCtrl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0"
+            prefWidth="960.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerGameCtrl">
     <top>
-        <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="737.0" text="Question" BorderPane.alignment="BOTTOM_CENTER">
+        <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="737.0"
+               text="Question" BorderPane.alignment="BOTTOM_CENTER">
             <BorderPane.margin>
-                <Insets top="20.0" />
+                <Insets top="20.0"/>
             </BorderPane.margin>
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
         </Label>
     </top>
     <center>
         <VBox BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="option1" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 1" VBox.vgrow="ALWAYS">
+                <Button fx:id="option1" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 1"
+                        VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets left="50.0" top="120.0" />
+                        <Insets left="50.0" top="120.0"/>
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="10.0" left="1.0" top="10.0" />
+                        <Insets bottom="10.0" left="1.0" top="10.0"/>
                     </padding>
                 </Button>
-                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
+                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 2"
+                        VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets left="50.0" top="40.0" />
+                        <Insets left="50.0" top="40.0"/>
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" top="10.0"/>
                     </padding>
                 </Button>
-                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 3" VBox.vgrow="ALWAYS">
+                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 3"
+                        VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets left="50.0" top="40.0" />
+                        <Insets left="50.0" top="40.0"/>
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" top="10.0"/>
                     </padding>
                 </Button>
-                <Label fx:id="time" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+                <Label fx:id="time" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0"
+                       text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets left="60.0" top="130.0" />
+                        <Insets left="60.0" top="130.0"/>
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="100.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="100.0" top="10.0"/>
                     </padding>
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </Label>
-                <Label fx:id="score" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="468.0" prefHeight="40.0" prefWidth="210.0" text="Your Score: " textAlignment="JUSTIFY">
+                <Label fx:id="score" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="468.0"
+                       prefHeight="40.0" prefWidth="210.0" text="Your Score: " textAlignment="JUSTIFY">
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="100.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="100.0" top="10.0"/>
                     </padding>
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets left="60.0" top="30.0" />
+                        <Insets left="60.0" top="30.0"/>
                     </VBox.margin>
                 </Label>
             </children>
             <padding>
-                <Insets bottom="20.0" right="300.0" />
+                <Insets bottom="20.0" right="300.0"/>
             </padding>
         </VBox>
     </center>
     <left>
         <VBox prefHeight="638.0" prefWidth="247.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="image" fitHeight="282.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                <ImageView fx:id="image" fitHeight="282.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true"
+                           VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets left="30.0" top="70.0" />
+                        <Insets left="30.0" top="70.0"/>
                     </VBox.margin>
                 </ImageView>
                 <Button fx:id="joker1" mnemonicParsing="false" prefHeight="44.0" prefWidth="285.0" text="Joker 1">
                     <VBox.margin>
-                        <Insets left="10.0" top="50.0" />
+                        <Insets left="10.0" top="50.0"/>
                     </VBox.margin>
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <viewport>
-                                <Rectangle2D />
+                                <Rectangle2D/>
                             </viewport>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="joker2" layoutX="20.0" layoutY="412.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="285.0" text="Joker 2">
+                <Button fx:id="joker2" layoutX="20.0" layoutY="412.0" mnemonicParsing="false" prefHeight="44.0"
+                        prefWidth="285.0" text="Joker 2">
                     <graphic>
-                        <ImageView fx:id="joker" fitHeight="40.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="joker" fitHeight="40.0" fitWidth="56.0" pickOnBounds="true"
+                                   preserveRatio="true">
                             <viewport>
-                                <Rectangle2D />
+                                <Rectangle2D/>
                             </viewport>
                         </ImageView>
                     </graphic>
                     <VBox.margin>
-                        <Insets left="10.0" top="1.0" />
+                        <Insets left="10.0" top="1.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="joker3" layoutX="10.0" layoutY="462.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="285.0" text="Joker 3">
+                <Button fx:id="joker3" layoutX="10.0" layoutY="462.0" mnemonicParsing="false" prefHeight="44.0"
+                        prefWidth="285.0" text="Joker 3">
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <viewport>
-                                <Rectangle2D />
+                                <Rectangle2D/>
                             </viewport>
                         </ImageView>
                     </graphic>
                     <VBox.margin>
-                        <Insets left="10.0" top="1.0" />
+                        <Insets left="10.0" top="1.0"/>
                     </VBox.margin>
                 </Button>
             </children>
@@ -129,94 +141,104 @@
     <bottom>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-            <Region prefHeight="100.0" prefWidth="0.0" HBox.hgrow="NEVER" />
-                <Button fx:id="exit" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Exit" HBox.hgrow="ALWAYS">
+                <Region prefHeight="100.0" prefWidth="0.0" HBox.hgrow="NEVER"/>
+                <Button fx:id="exit" mnemonicParsing="false" onAction="#exit" prefHeight="36.0" prefWidth="139.0"
+                        text="Exit" HBox.hgrow="ALWAYS">
                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" top="10.0"/>
                     </padding>
                     <HBox.margin>
-                        <Insets left="10.0" top="50.0" />
+                        <Insets left="10.0" top="50.0"/>
                     </HBox.margin>
                 </Button>
-            <HBox prefHeight="100.0" prefWidth="656.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../docs/pictures/smilingTeeth.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../docs/pictures/crying.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="25.0" top="25.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../docs/pictures/devil.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../docs/pictures/in-love.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../docs/pictures/anger.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../docs/pictures/thinking.png" />
-                     </image>
-                  </ImageView>
-                  <Separator fx:id="bar" orientation="VERTICAL" prefHeight="72.0" prefWidth="4.0">
-                     <HBox.margin>
-                        <Insets bottom="3.0" left="5.0" top="25.0" />
-                     </HBox.margin>
-                  </Separator>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label fx:id="ReactionName" text="Name of Player" VBox.vgrow="ALWAYS">
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ImageView fx:id="reaction" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                           <VBox.margin>
-                              <Insets left="10.0" top="4.0" />
-                           </VBox.margin>
+                <HBox prefHeight="100.0" prefWidth="656.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true"
+                                   preserveRatio="true" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="20.0" top="25.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../../../../../../docs/pictures/smilingTeeth.png"/>
+                            </image>
                         </ImageView>
-                     </children>
-                  </VBox>
-               </children></HBox>
-                <Button fx:id="help" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="139.0" text="Help">
+                        <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0"
+                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="20.0" top="25.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../../../../../../docs/pictures/crying.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0"
+                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="25.0" top="25.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../../../../../../docs/pictures/devil.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0"
+                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="20.0" top="25.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../../../../../../docs/pictures/in-love.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0"
+                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="20.0" top="25.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../../../../../../docs/pictures/anger.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0"
+                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="20.0" top="25.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../../../../../../docs/pictures/thinking.png"/>
+                            </image>
+                        </ImageView>
+                        <Separator fx:id="bar" orientation="VERTICAL" prefHeight="72.0" prefWidth="4.0">
+                            <HBox.margin>
+                                <Insets bottom="3.0" left="5.0" top="25.0"/>
+                            </HBox.margin>
+                        </Separator>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <Label fx:id="ReactionName" text="Name of Player" VBox.vgrow="ALWAYS">
+                                    <VBox.margin>
+                                        <Insets top="5.0"/>
+                                    </VBox.margin>
+                                </Label>
+                                <ImageView fx:id="reaction" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <VBox.margin>
+                                        <Insets left="10.0" top="4.0"/>
+                                    </VBox.margin>
+                                </ImageView>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Button fx:id="help" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#help"
+                        prefHeight="36.0" prefWidth="139.0" text="Help">
                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" top="10.0"/>
                     </padding>
                     <HBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="50.0"/>
                     </HBox.margin>
                 </Button>
-            <Region prefHeight="100.0" prefWidth="12.0" HBox.hgrow="NEVER" />
+                <Region prefHeight="100.0" prefWidth="12.0" HBox.hgrow="NEVER"/>
             </children>
         </HBox>
     </bottom>
