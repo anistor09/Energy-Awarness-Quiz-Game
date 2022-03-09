@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class MultipleChoiceQuestion extends Question{
 
-    private Activity activity;
-    private int availablePoints;
-    private String difficulty;
+    //private Activity activity;
+    //private int availablePoints;
+    //private String difficulty;
     private ArrayList<Double> options;
-    private int allowedTime;    // maximum allowed time for this question
+    //private int allowedTime;    // maximum allowed time for this question
 
     /**
      * Creates an instance of Question.
@@ -21,10 +21,10 @@ public class MultipleChoiceQuestion extends Question{
      */
     public MultipleChoiceQuestion(Activity activity, int availablePoints, String difficulty, int allowedTime) {
         super(activity, availablePoints, difficulty, allowedTime);
-        this.activity = activity;
-        this.availablePoints = availablePoints;
-        this.difficulty = difficulty;
-        this.allowedTime = allowedTime;
+//        this.activity = activity;
+//        this.availablePoints = availablePoints;
+//        this.difficulty = difficulty;
+//        this.allowedTime = allowedTime;
 
         // create a range of answers
         double correctAnswer = activity.getCorrectAnswer();
@@ -57,9 +57,9 @@ public class MultipleChoiceQuestion extends Question{
      */
     public MultipleChoiceQuestion(Activity activity, int availablePoints, int allowedTime) {
         super(activity, availablePoints, allowedTime);
-        this.difficulty = "EASY";
-        this.availablePoints = availablePoints;
-        this.allowedTime = allowedTime;
+        this.setDifficulty("EASY");
+//        this.availablePoints = availablePoints;
+//        this.allowedTime = allowedTime;
 
         // create a range of answers
         double correctAnswer = activity.getCorrectAnswer();
@@ -96,25 +96,11 @@ public class MultipleChoiceQuestion extends Question{
         return returnable;
     }
 
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public int getAvailablePoints() {
-        return availablePoints;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
-    }
 
     public ArrayList<Double> getOptions() {
         return options;
     }
 
-    public int getAllowedTime() {
-        return allowedTime;
-    }
 
     /**
      * Equals method between two instances of the Question class, not including the ArrayList options as this is
@@ -125,15 +111,14 @@ public class MultipleChoiceQuestion extends Question{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MultipleChoiceQuestion)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         MultipleChoiceQuestion that = (MultipleChoiceQuestion) o;
-        return getAvailablePoints() == that.getAvailablePoints() && getAllowedTime() == that.getAllowedTime() &&
-                getActivity().equals(that.getActivity()) && getDifficulty().equals(that.getDifficulty());
+        return Objects.equals(options, that.options);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getActivity(), getAvailablePoints(), getDifficulty(), getAllowedTime());
+        return Objects.hash(options);
     }
 }
 
