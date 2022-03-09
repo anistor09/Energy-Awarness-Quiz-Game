@@ -51,4 +51,6 @@ public abstract class Question {
     public void setAllowedTime(int allowedTime) {
         this.allowedTime = allowedTime;
     }
+
+
 }

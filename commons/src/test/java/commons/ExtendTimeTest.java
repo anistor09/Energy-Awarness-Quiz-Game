@@ -11,7 +11,7 @@ class ExtendTimeTest {
 
     @BeforeEach
     void setUp() {
-        Activity activity = new Activity();
+        Activity activity = new Activity(1L, "Cook one egg", 10);
         question = new MultipleChoiceQuestion(activity, 10, "EASY", 20);
         extend = new ExtendTime("10 seconds extend card",
                 "Gives you 10sec more time to answer this question",

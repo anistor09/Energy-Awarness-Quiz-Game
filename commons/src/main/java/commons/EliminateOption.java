@@ -21,7 +21,7 @@ public class EliminateOption extends JokerCard{
         if(optionToDelete == correctOption){
             optionToDelete = options.get(1);
         }
-        options.remove(correctOption);
+        options.remove(optionToDelete);
     }
 
     public MultipleChoiceQuestion getQuestion() {
