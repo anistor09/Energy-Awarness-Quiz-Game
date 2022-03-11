@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.ServerUtils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -78,6 +79,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+
     }
 
     public void closeStage() {
