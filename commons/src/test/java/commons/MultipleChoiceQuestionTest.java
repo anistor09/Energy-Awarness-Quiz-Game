@@ -27,9 +27,21 @@ class MultipleChoiceQuestionTest {
 
     @BeforeEach
     public void setup() {
-        act1 = new Activity(1L, "Cook one egg", 1000);
-        act2 = new Activity(1L, "Cook one egg", 1000);
-        act3 = new Activity(2L, "Cook two eggs", 2000);
+        act1 = new Activity("00-shower",
+                "00/shower.png",
+                "Taking a hot shower for 6 minutes",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        act2 = new Activity("00-shower",
+                "00/shower.png",
+                "Taking a hot shower for 6 minutes",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        act3 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "Charging your smartphone at night",
+                10,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
         q1 = new MultipleChoiceQuestion(act1, 1000, "EASY", 30);
         q2 = new MultipleChoiceQuestion(act2, 2000, "MEDIUM", 30);
@@ -71,7 +83,7 @@ class MultipleChoiceQuestionTest {
 
         // for each option check whether they are greater than 799 and less than 1201
         for (Double option : options) {
-            assertTrue((option > 799) && (option < 1201));
+            assertTrue((option >= 3200) && (option <= 4800));
         }
     }
 
@@ -81,7 +93,7 @@ class MultipleChoiceQuestionTest {
 
         // for each option check whether they are greater than 899 and less than 1101
         for (Double option : options) {
-            assertTrue((option > 899) && (option < 1101));
+            assertTrue((option >= 3600) && (option <= 4400));
         }
     }
 
@@ -91,7 +103,8 @@ class MultipleChoiceQuestionTest {
 
         // for each option check whether they are greater than 1899 and less than 2101
         for (Double option : options) {
-            assertTrue((option > 1899) && (option < 2101));
+            System.out.println(option);
+            assertTrue((option >= 8) && (option <= 11));
         }
     }
 

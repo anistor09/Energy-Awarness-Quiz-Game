@@ -54,7 +54,7 @@ public class ActivityController {
      * @param activityId ID of the activity to be deleted.
      */
     @DeleteMapping(path="{activityId}")
-    public void deleteActivity(@PathVariable("activityId") Long activityId) {
+    public void deleteActivity(@PathVariable("activityId") String activityId) {
         activityService.deleteActivity(activityId);
     }
 }
