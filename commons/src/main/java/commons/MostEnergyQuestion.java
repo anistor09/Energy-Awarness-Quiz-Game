@@ -15,7 +15,8 @@ public class MostEnergyQuestion extends Question{
      * @param allowedTime Maximum time allowed for this question.
      * @param otherActivities Other activities to be shown to the player.
      */
-    public MostEnergyQuestion(Activity activity, int availablePoints, String difficulty, int allowedTime, ArrayList<Activity> otherActivities) {
+    public MostEnergyQuestion(Activity activity, int availablePoints, String difficulty, int allowedTime,
+                              ArrayList<Activity> otherActivities) {
         super(activity, availablePoints, difficulty, allowedTime);
         this.otherActivities = otherActivities;
     }
@@ -26,9 +27,11 @@ public class MostEnergyQuestion extends Question{
      * @param availablePoints Maximum number of points that can be obtained by answering the question.
      * @param allowedTime Maximum time allowed for this question.
      */
-    public MostEnergyQuestion(Activity activity, int availablePoints, int allowedTime, ArrayList<Activity> otherActivities) {
+    public MostEnergyQuestion(Activity activity, int availablePoints, int allowedTime,
+                              ArrayList<Activity> otherActivities) {
         super(activity, availablePoints, allowedTime);
         this.otherActivities = otherActivities;
+        this.setDifficulty("EASY");
     }
 
     /**

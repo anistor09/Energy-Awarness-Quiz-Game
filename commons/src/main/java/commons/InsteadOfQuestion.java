@@ -32,6 +32,7 @@ public class InsteadOfQuestion extends Question{
      */
     public InsteadOfQuestion(Activity activity, int availablePoints, int allowedTime, ArrayList<Activity> options) {
         super(activity, availablePoints, allowedTime);
+        this.setDifficulty("EASY");
         this.options = options;
     }
 
@@ -44,7 +45,7 @@ public class InsteadOfQuestion extends Question{
         int thisConsumption = this.getActivity().getCorrectAnswer();
         int otherConsumption = other.getCorrectAnswer();
 
-        return otherConsumption/thisConsumption;
+        return thisConsumption/otherConsumption;
     }
 
     /**

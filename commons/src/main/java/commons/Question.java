@@ -59,7 +59,8 @@ public abstract class Question {
         if (this == o) return true;
         if (!(o instanceof Question)) return false;
         Question question = (Question) o;
-        return getAvailablePoints() == question.getAvailablePoints() && getAllowedTime() == question.getAllowedTime() && getActivity().equals(question.getActivity()) && getDifficulty().equals(question.getDifficulty());
+        return getAvailablePoints() == question.getAvailablePoints() && getAllowedTime() == question.getAllowedTime()
+                && getActivity().equals(question.getActivity()) && getDifficulty().equals(question.getDifficulty());
     }
 
     @Override

@@ -51,7 +51,7 @@ public class MultipleChoiceQuestion extends Question{
      */
     public MultipleChoiceQuestion(Activity activity, int availablePoints, int allowedTime) {
         super(activity, availablePoints, allowedTime);
-
+        this.setDifficulty("EASY");
         // create a range of answers
         double correctAnswer = activity.getCorrectAnswer();
         ArrayList<Double> options = generateRandomNumbers(correctAnswer * 0.8,
@@ -94,7 +94,8 @@ public class MultipleChoiceQuestion extends Question{
 
 
     /**
-     * Equals method between two instances of the MultipleChoiceQuestion class, not including the ArrayList options as this is
+     * Equals method between two instances of the MultipleChoiceQuestion class, not including the ArrayList options
+     * as this is
      * automatically generated.
      * @param o Object to be compared with
      * @return TRUE if objects have equal attributes, FALSE otherwise.

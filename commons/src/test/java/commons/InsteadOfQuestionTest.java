@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InsteadOfQuestionTest {
 
@@ -15,7 +17,6 @@ class InsteadOfQuestionTest {
     private InsteadOfQuestion q2;
     private InsteadOfQuestion q3;
     private InsteadOfQuestion q4;
-    private InsteadOfQuestion q5;
 
     private Activity act1;
     private Activity act2;
@@ -75,7 +76,7 @@ class InsteadOfQuestionTest {
 
     @Test
     void stringSubstituteActivities() {
-        String expected = "Instead of \nRun the washing machine\nYou could \nCook one egg";
+        String expected = "Instead of \nRun the washing machine\nYou could \nCook one egg\n3 times";
         assertEquals(expected, q3.substituteActivity(act1));
     }
 }
