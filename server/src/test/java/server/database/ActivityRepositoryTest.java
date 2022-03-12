@@ -49,10 +49,26 @@ public class ActivityRepositoryTest implements ActivityRepository{
     @Override
     public void deleteById(Long aLong) {
 
+    }
+
+    @Override
+    public boolean existsByStringId(String id) {
+        call("existsById");
+        for(Activity act:activities)
+        {
+            if(act.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void deleteByStringId(String aId) {
+
             call("deleteById");
             Activity deleteAct=null;
             for (Activity act : activities) {
-                if (act.getId() == aLong)
+                if (act.getId().equals(aId))
                     deleteAct = act;
             }
             activities.remove(deleteAct);
@@ -99,12 +115,6 @@ public class ActivityRepositoryTest implements ActivityRepository{
 
     @Override
     public boolean existsById(Long aLong) {
-        call("existsById");
-        for(Activity act:activities)
-        {
-            if(act.getId()==aLong)
-                return true;
-        }
         return false;
     }
 

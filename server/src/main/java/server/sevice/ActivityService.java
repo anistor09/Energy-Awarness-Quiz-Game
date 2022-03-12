@@ -41,12 +41,12 @@ public class ActivityService {
      *  Service layer method for deleting a player from the repository.
      * @param activityId Unique ID of the activity to be deleted.
      */
-    public void deleteActivity(Long activityId) {
-        boolean exists = activityRepository.existsById(activityId);
+    public void deleteActivity(String activityId) {
+        boolean exists = activityRepository.existsByStringId(activityId);
         if (!exists) {
             throw new IllegalStateException("activity with ID " + activityId + " does not exist.");
         }
 
-        activityRepository.deleteById(activityId);
+        activityRepository.deleteByStringId(activityId);
     }
 }
