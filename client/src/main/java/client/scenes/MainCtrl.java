@@ -99,9 +99,11 @@ public class MainCtrl {
         this.creditsController = creditsControllerParentPair.getKey();
         this.credits = new Scene(creditsControllerParentPair.getValue());
         this.multiPlayerChooseOptionQuestionController = multiPlayerChooseOptionQuestionControllerParentPair.getKey();
-        this.multiPlayerChooseOptionQuestion = new Scene(multiPlayerChooseOptionQuestionControllerParentPair.getValue());
+        this.multiPlayerChooseOptionQuestion = new
+                Scene(multiPlayerChooseOptionQuestionControllerParentPair.getValue());
         this.singlePlayerChooseOptionQuestionController = singlePlayerChooseOptionQuestionControllerParentPair.getKey();
-        this.singlePlayerChooseOptionQuestion = new Scene(singlePlayerChooseOptionQuestionControllerParentPair.getValue());
+        this.singlePlayerChooseOptionQuestion = new
+                Scene(singlePlayerChooseOptionQuestionControllerParentPair.getValue());
         this.multiPlayerOpenQuestionController = multiPlayerOpenQuestionControllerParentPair.getKey();
         this.multiPlayerOpenQuestion = new Scene(multiPlayerOpenQuestionControllerParentPair.getValue());
         this.singlePlayerOpenQuestionController = singlePlayerOpenQuestionControllerParentPair.getKey();
