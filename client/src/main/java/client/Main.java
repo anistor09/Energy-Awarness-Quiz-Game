@@ -21,13 +21,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
+import client.scenes.MainCtrl;
+import client.scenes.MultiPlayerGameCtrl;
 import client.scenes.MenuCtrl;
 import client.scenes.MultiPlayerLobbyController;
 import client.scenes.SinglePlayerGameCtrl;
 import client.scenes.SinglePlayerLobbyController;
-import client.scenes.MultiPlayerGameCtrl;
 import client.scenes.CreditsController;
-import client.scenes.MainCtrl;
+import client.scenes.InsertUsernameMultiplayerCtrl;
+
+
 import com.google.inject.Injector;
 
 import javafx.application.Application;
@@ -64,7 +67,10 @@ public class Main extends Application {
                 FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
         Pair<CreditsController, Parent> credits =
                 FXML.load(CreditsController.class, "client", "scenes", "CreditsScreen.fxml");
+        Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
+                FXML.load(InsertUsernameMultiplayerCtrl.class, "client", "scenes", "InsertUsernameMultiplayer.fxml");
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby, credits, singleGame, multiGame);
+        mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby,
+                credits, singleGame, multiGame,insertInfoMultiplayer);
     }
 }

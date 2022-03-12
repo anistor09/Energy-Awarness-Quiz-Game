@@ -25,6 +25,7 @@ public class MultiPlayerLobbyController {
     private TextArea gameStatusTextArea;
 
     private final MainCtrl mainCtrl;
+
     ArrayList<String> currentUsernames = new ArrayList<>();
 
     @Inject
@@ -60,7 +61,7 @@ public class MultiPlayerLobbyController {
 
     @FXML
     protected void returnScreen(){
-        mainCtrl.goTo("menu");
+        mainCtrl.goTo("insertInfoMultiPlayer");
     }
 
     /**
