@@ -6,6 +6,12 @@ import java.util.Objects;
 public class SinglePlayerGame extends Game{
     private Player player;
 
+    /**
+     * Creates an instance of a single-player game.
+     * @param questions Questions to be answered by the player in this game.
+     * @param jokerCards Joker cards to be made available to players in the game.
+     * @param player Player participating in this game.
+     */
     public SinglePlayerGame(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards, Player player) {
         super(questions, jokerCards);
         this.player = player;

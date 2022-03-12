@@ -8,8 +8,18 @@ public class MultiPlayerGame extends Game{
     private ArrayList<Player> players;
     private HashMap<Player, Integer> leaderboard;   // live leaderboard
 
-    public MultiPlayerGame(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards) {
+    /**
+     *
+     * @param questions Questions to be answered by players in this game.
+     * @param jokerCards Joker cards to be made available to players in the game.
+     * @param players Players playing in the game.
+     * @param leaderboard Live leaderboard showing each player and their current score.
+     */
+    public MultiPlayerGame(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards, ArrayList<Player> players,
+                           HashMap<Player, Integer> leaderboard) {
         super(questions, jokerCards);
+        this.players = players;
+        this.leaderboard = leaderboard;
     }
 
     public ArrayList<Player> getPlayers() {
