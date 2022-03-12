@@ -42,11 +42,11 @@ public class ActivityService {
      * @param activityId Unique ID of the activity to be deleted.
      */
     public void deleteActivity(String activityId) {
-        boolean exists = activityRepository.existsByStringId(activityId);
+        boolean exists = activityRepository.existsById(activityId);
         if (!exists) {
             throw new IllegalStateException("activity with ID " + activityId + " does not exist.");
         }
 
-        activityRepository.deleteByStringId(activityId);
+        activityRepository.deleteById(activityId);
     }
 }
