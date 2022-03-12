@@ -39,7 +39,7 @@ public class MultiPlayerLobbyController {
     protected void startGameButtonClick(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 15;
+            int i = 5;
             public void run() {
                 gameStatusTextArea.setText("Game Starts in\n" + i + " seconds");
                 i--;
@@ -47,10 +47,10 @@ public class MultiPlayerLobbyController {
                 if (i < 0) {
                     timer.cancel();
                     gameStatusTextArea.setText("Game Starting!");
+                    mainCtrl.goTo("multiGame");
                 }
             }
         }, 0, 1000);
-        mainCtrl.goTo("multiGame");
     }
 
     @FXML
