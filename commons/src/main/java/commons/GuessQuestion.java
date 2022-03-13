@@ -32,8 +32,8 @@ public class GuessQuestion extends Question{
      * @param guess Number guessed by the player.
      * @return Closeness of the guess to the correct answer.
      */
-    public double calculateCloseness(double guess) {
-        double correctAnswer = this.getActivity.getConsumption_in_wh();
+    public double calculateCloseness(int guess) {
+        int correctAnswer = this.getActivity.getConsumption_in_wh();
         // Formula: if the guess is 100% away from the actual answer, the closeness should be 0. Else, it is 1-error
 
         if (guess >= 2*correctAnswer || guess <= 0) {
