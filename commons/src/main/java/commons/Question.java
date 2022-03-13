@@ -52,5 +52,13 @@ public abstract class Question {
         this.allowedTime = allowedTime;
     }
 
-
+    @Override
+    public String toString() {
+        return "Question{" +
+                "activity=" + activity +
+                ", availablePoints=" + availablePoints +
+                ", difficulty='" + difficulty + '\'' +
+                ", allowedTime=" + allowedTime +
+                '}';
+    }
 }

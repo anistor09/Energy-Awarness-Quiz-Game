@@ -2,22 +2,28 @@ package commons;
 
 import java.util.Objects;
 
-public class ExtendTime extends JokerCard{
+public class ShortenTimeJoker extends JokerCard{
+    private static final boolean onlyMultiplayer = true;
     private int additionalTime;
     private Question question;
+    //private Game game;
 
 
-    public ExtendTime(String name, String description, boolean onlyMultiplayer, int additionalTime, Question question) {
+    public ShortenTimeJoker(String name, String description, int additionalTime, Question question) {
         super(name, description, onlyMultiplayer);
         this.additionalTime = additionalTime;
         this.question = question;
     }
 
+    /**
+     * This card is meant for solely multiplayer Games.
+     * Game class is needed to access another players' times.
+     */
     @Override
     public void useCard() {
         int newTime;
-        newTime = (int) (1.5 * question.getAllowedTime());
-        this.question.setAllowedTime(newTime);
+        newTime = (int) (0.75 * question.getAllowedTime());
+        //this.question.setAllowedTime(newTime);
     }
 
     public int getAdditionalTime() {
@@ -33,7 +39,7 @@ public class ExtendTime extends JokerCard{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        ExtendTime that = (ExtendTime) o;
+        ShortenTimeJoker that = (ShortenTimeJoker) o;
         return additionalTime == that.additionalTime && Objects.equals(question, that.question);
     }
 
@@ -44,7 +50,7 @@ public class ExtendTime extends JokerCard{
 
     @Override
     public String toString() {
-        return "ExtendTime{" +
+        return "ShortenTimeJoker{" +
                 "additionalTime=" + additionalTime +
                 '}';
     }
