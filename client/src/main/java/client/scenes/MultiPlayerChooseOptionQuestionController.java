@@ -1,14 +1,14 @@
 package client.scenes;
 
+import com.google.inject.Inject;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 
-import javax.inject.Inject;
-
-public class MultiPlayerGameCtrl {
+public class MultiPlayerChooseOptionQuestionController {
 
     @FXML
     private Label ReactionName;
@@ -32,13 +32,7 @@ public class MultiPlayerGameCtrl {
     private Button help;
 
     @FXML
-    private ImageView image;
-
-    @FXML
     private ImageView inLove;
-
-    @FXML
-    private ImageView joker;
 
     @FXML
     private Button joker1;
@@ -53,7 +47,19 @@ public class MultiPlayerGameCtrl {
     private Button option1;
 
     @FXML
+    private ImageView option1Image;
+
+    @FXML
+    private Button option2;
+
+    @FXML
+    private ImageView option2Image;
+
+    @FXML
     private Button option3;
+
+    @FXML
+    private ImageView option3Image;
 
     @FXML
     private Label question;
@@ -72,23 +78,23 @@ public class MultiPlayerGameCtrl {
 
     @FXML
     private Label time;
-
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerGameCtrl(MainCtrl mainCtrl) {
+    public MultiPlayerChooseOptionQuestionController(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
-    /**
-     * This method is supposed to go to the help page. At the moment it goes to menu because there is no help page
-     */
-    public void help() {
-        mainCtrl.goTo("help");
-    }
-
-    public void exit() {
+    @FXML
+    void exit(ActionEvent event) {
         mainCtrl.goTo("menu");
     }
 
+    @FXML
+    void help(ActionEvent event) {
+
+    }
+
 }
+
+

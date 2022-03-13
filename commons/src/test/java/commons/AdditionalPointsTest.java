@@ -9,68 +9,71 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AdditionalPointsTest {
 
-    AdditionalPoints additionalPoints1;
-    AdditionalPoints additionalPoints2;
+    AdditionalPointsJoker additionalPointsJoker1;
+    AdditionalPointsJoker additionalPointsJoker2;
+    Player player;
+    Question question;
 
     @BeforeEach
     public void setup(){
-        additionalPoints1 = new AdditionalPoints("Additional",
+        player = new Player("noname", 15);
+        Activity activity = new Activity("00-shower",
+                "00/shower.png",
+                "Taking a hot shower for 6 minutes",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        question = new MultipleChoiceQuestion(activity, 10,"EASY", 20);
+        additionalPointsJoker1 = new AdditionalPointsJoker("Additional",
                 "Adds 10 additional points if you answer correctly",
-                false,
-                10);
-        additionalPoints2 = new AdditionalPoints("Additional",
+                false, player, question);
+        additionalPointsJoker2 = new AdditionalPointsJoker("Additional",
                 "Adds 10 additional points if you answer correctly",
-                false,
-                10);
+                false, player, question);
 
-    }
 
-    @Test
-    void getAdditionalPoints() {
-        assertEquals(10, additionalPoints1.getAdditionalPoints());
-    }
 
-    @Test
-    void setAdditionalPoints() {
-        additionalPoints1.setAdditionalPoints(15);
-        assertEquals(15, additionalPoints1.getAdditionalPoints());
     }
 
     @Test
     void useCard() {
-        Player player = new Player("noname", 17);
-        additionalPoints1.useCard(player);
-        assertEquals(27, player.getCurrentScore());
+        additionalPointsJoker1.useCard();
+        assertEquals(20, player.getCurrentScore());
 
     }
 
     @Test
     void testEquals() {
-        assertEquals(additionalPoints1, additionalPoints2);
+        assertEquals(additionalPointsJoker1, additionalPointsJoker2);
     }
 
     @Test
     void testNotEquals() {
-        AdditionalPoints additionalPoints3 = new AdditionalPoints("Additional",
-                "Adds 10 additional points if you answer correctly",
+        AdditionalPointsJoker additionalPointsJoker3 = new AdditionalPointsJoker("Additional",
+                "different description",
                 false,
-                20);
-        assertNotEquals(additionalPoints1, additionalPoints3);
+                player, question);
+        assertNotEquals(additionalPointsJoker1, additionalPointsJoker3);
     }
 
     @Test
     void testNullEquals() {
-        AdditionalPoints additionalPoints3 = null;
-        assertNotEquals(additionalPoints1, additionalPoints3);
+        AdditionalPointsJoker additionalPointsJoker3 = null;
+        assertNotEquals(additionalPointsJoker1, additionalPointsJoker3);
     }
 
     @Test
     void testHashCode() {
-        assertTrue(additionalPoints1.hashCode() == additionalPoints2.hashCode());
+        assertTrue(additionalPointsJoker1.hashCode() == additionalPointsJoker2.hashCode());
     }
 
     @Test
     void testToString() {
-        assertEquals(additionalPoints1.toString(), "AdditionalPoints{additionalPoints=10}");
+        assertEquals(additionalPointsJoker1.toString(),
+                "AdditionalPointsJoker{player=Player{id=null, username='noname', currentScore=15}, " +
+                        "question=Question{activity=Activity{id='00-shower', image_path='00/shower.png', " +
+                        "title='Taking a hot shower for 6 minutes', consumption_in_wh=4000, " +
+                        "source='https://www.quora.com/" +
+                        "How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower'}, " +
+                        "availablePoints=10, difficulty='EASY', allowedTime=20}}");
     }
 }

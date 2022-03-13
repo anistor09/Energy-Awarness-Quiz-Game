@@ -1,13 +1,14 @@
 package client.scenes;
 
+import com.google.inject.Inject;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-import javax.inject.Inject;
-
-public class SinglePlayerGameCtrl {
+public class SinglePlayerOpenQuestionController {
 
     @FXML
     private Button exit;
@@ -16,16 +17,10 @@ public class SinglePlayerGameCtrl {
     private Button help;
 
     @FXML
-    private ImageView icon1;
-
-    @FXML
-    private ImageView icon2;
-
-    @FXML
-    private ImageView icon3;
-
-    @FXML
     private ImageView image;
+
+    @FXML
+    private ImageView joker;
 
     @FXML
     private Button joker1;
@@ -37,15 +32,6 @@ public class SinglePlayerGameCtrl {
     private Button joker3;
 
     @FXML
-    private Button option1;
-
-    @FXML
-    private Button option2;
-
-    @FXML
-    private Button option3;
-
-    @FXML
     private Label question;
 
     @FXML
@@ -54,18 +40,23 @@ public class SinglePlayerGameCtrl {
     @FXML
     private Label time;
 
+    @FXML
+    private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
     @Inject
-    public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
+    public SinglePlayerOpenQuestionController(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
-    public void help() {
-        mainCtrl.goTo("help");
-    }
-
-    public void exit() {
+    @FXML
+    void exit(ActionEvent event) {
         mainCtrl.goTo("menu");
     }
+
+    @FXML
+    void help(ActionEvent event) {
+
+    }
+
 }

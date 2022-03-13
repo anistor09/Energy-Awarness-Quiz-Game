@@ -1,5 +1,7 @@
 package commons;
 
+import java.util.Objects;
+
 public abstract class Question {
 
     private Activity activity;
@@ -20,5 +22,59 @@ public abstract class Question {
         this.allowedTime = allowedTime;
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
 
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public int getAvailablePoints() {
+        return availablePoints;
+    }
+
+    public void setAvailablePoints(int availablePoints) {
+        this.availablePoints = availablePoints;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public int getAllowedTime() {
+        return allowedTime;
+    }
+
+    public void setAllowedTime(int allowedTime) {
+        this.allowedTime = allowedTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question = (Question) o;
+        return getAvailablePoints() == question.getAvailablePoints() && getAllowedTime() == question.getAllowedTime()
+                && getActivity().equals(question.getActivity()) && getDifficulty().equals(question.getDifficulty());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getActivity(), getAvailablePoints(), getDifficulty(), getAllowedTime());
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "activity=" + activity +
+                ", availablePoints=" + availablePoints +
+                ", difficulty='" + difficulty + '\'' +
+                ", allowedTime=" + allowedTime +
+                '}';
+    }
 }

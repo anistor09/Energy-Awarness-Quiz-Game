@@ -1,18 +1,29 @@
 package commons;
 
 public class GuessQuestion extends Question{
-    private Activity activity;
-    private int availablePoints;
-    private String difficulty;
-    private int allowedTime;
 
+
+    /**
+     * Creates an instance of GuessQuestion.
+     * @param activity Activity to be used in the question.
+     * @param difficulty      Difficulty of the question. This will determine the range of options that will be given
+     *                        to the user.
+     * @param availablePoints Maximum number of points that can be obtained by answering the question.
+     * @param allowedTime Maximum time allowed for this question.
+     */
     public GuessQuestion(Activity activity, int availablePoints, String difficulty, int allowedTime) {
         super(activity, availablePoints, difficulty, allowedTime);
     }
 
+    /**
+     * Creates a new GuessQuestion instance if no difficulty is provided. By default, the difficulty is "EASY".
+     * @param activity Activity to be used in the question.
+     * @param availablePoints Maximum number of points that can be obtained by answering the question.
+     * @param allowedTime Maximum time allowed for this question.
+     */
     public GuessQuestion(Activity activity, int availablePoints, int allowedTime) {
         super(activity, availablePoints, allowedTime);
-        this.difficulty = "EASY";
+        this.setDifficulty("EASY");
     }
 
     /**
@@ -21,29 +32,15 @@ public class GuessQuestion extends Question{
      * @param guess Number guessed by the player.
      * @return Closeness of the guess to the correct answer.
      */
-    public double calculateCloseness(double guess) {
-        double correctAnswer = this.activity.getCorrectAnswer();
+    public double calculateCloseness(int guess) {
+        int correctAnswer = this.getActivity().getConsumption_in_wh();
         // Formula: if the guess is 100% away from the actual answer, the closeness should be 0. Else, it is 1-error
 
         if (guess >= 2*correctAnswer || guess <= 0) {
             return 0;
         }
-        return 1-(Math.abs(guess-correctAnswer))/correctAnswer;
+        return 1-(Math.abs((double)(guess-correctAnswer))/correctAnswer);
     }
 
-    public Activity getActivity() {
-        return activity;
-    }
 
-    public int getAvailablePoints() {
-        return availablePoints;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public int getAllowedTime() {
-        return allowedTime;
-    }
 }

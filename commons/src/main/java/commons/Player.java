@@ -1,13 +1,28 @@
 package commons;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Objects;
 
 @Entity
+@Table
 public class Player {
-
+    /**
+     * GenerationType.SEQUENCE : Hibernate requests the primary key value from a database sequence.
+     * @SequenceGenerator annotation lets us define the name of the generator, the schema
+     * of the database sequence and the allocation size of the sequence.
+     */
     @Id
+    @SequenceGenerator(name = "player_sequence",
+            sequenceName = "player_sequence",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "player_sequence")
     private Long id;
     private String username;
     private int currentScore;

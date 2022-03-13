@@ -33,6 +33,7 @@ public class SinglePlayerLobbyController {
     private CheckBox emergencyCall;
 
     private final MainCtrl mainCtrl;
+
     ArrayList<CheckBox> checkedJokers = new ArrayList<CheckBox>();
 
     @Inject
@@ -43,6 +44,7 @@ public class SinglePlayerLobbyController {
     @FXML
     protected void startGameButtonClick(){
         tmpLabel1.setText("Started the game!");
+        mainCtrl.goTo("singleGame");
     }
 
     @FXML
@@ -52,7 +54,7 @@ public class SinglePlayerLobbyController {
 
     @FXML
     protected void returnScreen(){
-        mainCtrl.Return("menu");
+        mainCtrl.goTo("menu");
     }
 
     @FXML

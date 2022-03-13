@@ -5,14 +5,11 @@ import java.util.Objects;
 
 public class MultipleChoiceQuestion extends Question{
 
-    private Activity activity;
-    private int availablePoints;
-    private String difficulty;
     private ArrayList<Double> options;
-    private int allowedTime;    // maximum allowed time for this question
+
 
     /**
-     * Creates an instance of Question.
+     * Creates an instance of MultipleChoiceQuestion.
      * @param activity Activity to be used in the question.
      * @param difficulty      Difficulty of the question. This will determine the range of options that will be given
      *                        to the user.
@@ -21,13 +18,10 @@ public class MultipleChoiceQuestion extends Question{
      */
     public MultipleChoiceQuestion(Activity activity, int availablePoints, String difficulty, int allowedTime) {
         super(activity, availablePoints, difficulty, allowedTime);
-        this.activity = activity;
-        this.availablePoints = availablePoints;
-        this.difficulty = difficulty;
-        this.allowedTime = allowedTime;
+
 
         // create a range of answers
-        double correctAnswer = activity.getCorrectAnswer();
+        double correctAnswer = activity.getConsumption_in_wh();
         ArrayList<Double> options;
         switch (difficulty){
             case "EASY":
@@ -50,19 +44,16 @@ public class MultipleChoiceQuestion extends Question{
     }
 
     /**
-     * Creates a new Question instance if no difficulty is provided. By default, the difficulty is "EASY".
+     * Creates a new MultipleChoiceQuestion instance if no difficulty is provided. By default, the difficulty is "EASY".
      * @param activity Activity to be used in the question.
      * @param availablePoints Maximum number of points that can be obtained by answering the question.
      * @param allowedTime Maximum time allowed for this question.
      */
     public MultipleChoiceQuestion(Activity activity, int availablePoints, int allowedTime) {
         super(activity, availablePoints, allowedTime);
-        this.difficulty = "EASY";
-        this.availablePoints = availablePoints;
-        this.allowedTime = allowedTime;
-
+        this.setDifficulty("EASY");
         // create a range of answers
-        double correctAnswer = activity.getCorrectAnswer();
+        double correctAnswer = activity.getConsumption_in_wh();
         ArrayList<Double> options = generateRandomNumbers(correctAnswer * 0.8,
                 correctAnswer * 1.2);
 
@@ -96,28 +87,15 @@ public class MultipleChoiceQuestion extends Question{
         return returnable;
     }
 
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public int getAvailablePoints() {
-        return availablePoints;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
-    }
 
     public ArrayList<Double> getOptions() {
         return options;
     }
 
-    public int getAllowedTime() {
-        return allowedTime;
-    }
 
     /**
-     * Equals method between two instances of the Question class, not including the ArrayList options as this is
+     * Equals method between two instances of the MultipleChoiceQuestion class, not including the ArrayList options
+     * as this is
      * automatically generated.
      * @param o Object to be compared with
      * @return TRUE if objects have equal attributes, FALSE otherwise.
@@ -125,15 +103,14 @@ public class MultipleChoiceQuestion extends Question{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MultipleChoiceQuestion)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         MultipleChoiceQuestion that = (MultipleChoiceQuestion) o;
-        return getAvailablePoints() == that.getAvailablePoints() && getAllowedTime() == that.getAllowedTime() &&
-                getActivity().equals(that.getActivity()) && getDifficulty().equals(that.getDifficulty());
+        return Objects.equals(options, that.options);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getActivity(), getAvailablePoints(), getDifficulty(), getAllowedTime());
+        return Objects.hash(options);
     }
 }
 
