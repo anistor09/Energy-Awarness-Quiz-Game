@@ -39,7 +39,7 @@ public class GuessQuestion extends Question{
         if (guess >= 2*correctAnswer || guess <= 0) {
             return 0;
         }
-        return 1-(Math.abs(guess-correctAnswer))/correctAnswer;
+        return 1-(Math.abs((double)(guess-correctAnswer))/correctAnswer);
     }
 
 
