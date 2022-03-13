@@ -40,7 +40,7 @@ public class MostEnergyQuestion extends Question{
      */
     public boolean checkValidity() {
         for (Activity activity : otherActivities) {
-            if (activity..getConsumption_in_wh() > this.getActivity()..getConsumption_in_wh()) {
+            if (activity.getConsumption_in_wh() > this.getActivity().getConsumption_in_wh()) {
                 return false;
             }
         }
