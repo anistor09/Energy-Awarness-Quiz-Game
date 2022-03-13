@@ -43,6 +43,9 @@ public class MainCtrl {
     private CreditsController creditsController;
     private Scene credits;
 
+    private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
+    private Scene  multiplayerInsertInfo;
+
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
      * menu
@@ -60,7 +63,7 @@ public class MainCtrl {
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair,
                            Pair<SinglePlayerGameCtrl, Parent> singlePlayerGamePair, Pair<MultiPlayerGameCtrl,
-            Parent> multiPlayerGamePair) {
+            Parent> multiPlayerGamePair,Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer) {
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
@@ -74,6 +77,11 @@ public class MainCtrl {
         this.multiPlayerGame = new Scene(multiPlayerGamePair.getValue());
         this.creditsController = creditsControllerParentPair.getKey();
         this.credits = new Scene(creditsControllerParentPair.getValue());
+        this.multiplayerInsertInfoCtrl =insertInfoMultiplayer.getKey();
+        this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());
+
+
+
 
         primaryStage.setTitle("Quizzz");
         goTo("menu");
@@ -107,6 +115,9 @@ public class MainCtrl {
                 break;
             case "multiLobby":
                 primaryStage.setScene(multiPlayerLobby);
+                break;
+            case "insertInfoMultiPlayer":
+                primaryStage.setScene(multiplayerInsertInfo);
                 break;
             default: primaryStage.setScene(menu);
         }
