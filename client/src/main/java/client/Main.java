@@ -90,17 +90,14 @@ public class Main extends Application {
         Pair<SinglePlayerOpenQuestionController, Parent> singlePlayerOpenQuestionControllerParentPair =
                 FXML.load(SinglePlayerOpenQuestionController.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
-
+        Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
+                FXML.load(InsertUsernameMultiplayerCtrl.class, "client", "scenes", "InsertUsernameMultiplayer.fxml");        
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby, credits, singleGame, multiGame,
                 multiPlayerChooseOptionQuestionControllerParentPair,
                 singlePlayerChooseOptionQuestionControllerParentPair, multiPlayerOpenQuestionControllerParentPair,
-                singlePlayerOpenQuestionControllerParentPair);
+                singlePlayerOpenQuestionControllerParentPair,insertInfoMultiplayer);
 
-        Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
-                FXML.load(InsertUsernameMultiplayerCtrl.class, "client", "scenes", "InsertUsernameMultiplayer.fxml");
-        MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby,
-                credits, singleGame, multiGame,insertInfoMultiplayer);
+
     }
 }
