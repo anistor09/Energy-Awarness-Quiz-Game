@@ -42,8 +42,8 @@ public class InsteadOfQuestion extends Question{
      * @return int How many times the second activity can be done using the same consumption as this activity.
      */
     public int compareActivities (Activity other) {
-        int thisConsumption = this.getActivity()..getConsumption_in_wh();
-        int otherConsumption = other..getConsumption_in_wh();
+        int thisConsumption = this.getActivity().getConsumption_in_wh();
+        int otherConsumption = other.getConsumption_in_wh();
 
         return thisConsumption/otherConsumption;
     }
