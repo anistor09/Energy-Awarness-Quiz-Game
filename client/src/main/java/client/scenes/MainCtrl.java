@@ -55,6 +55,9 @@ public class MainCtrl {
     private SinglePlayerOpenQuestionController singlePlayerOpenQuestionController;
     private Scene singlePlayerOpenQuestion;
 
+    private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
+    private Scene  multiplayerInsertInfo;
+
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
      * menu
@@ -83,7 +86,8 @@ public class MainCtrl {
                                    singlePlayerChooseOptionQuestionControllerParentPair,
                            Pair<MultiPlayerOpenQuestionController, Parent> multiPlayerOpenQuestionControllerParentPair,
                            Pair<SinglePlayerOpenQuestionController, Parent>
-                                   singlePlayerOpenQuestionControllerParentPair) {
+                                   singlePlayerOpenQuestionControllerParentPair,
+                                   Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -108,6 +112,10 @@ public class MainCtrl {
         this.multiPlayerOpenQuestion = new Scene(multiPlayerOpenQuestionControllerParentPair.getValue());
         this.singlePlayerOpenQuestionController = singlePlayerOpenQuestionControllerParentPair.getKey();
         this.singlePlayerOpenQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
+        this.multiplayerInsertInfoCtrl =insertInfoMultiplayer.getKey();
+        this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());
+
+
 
         primaryStage.setTitle("Quizzz");
         goTo("menu");
@@ -141,6 +149,9 @@ public class MainCtrl {
                 break;
             case "multiLobby":
                 primaryStage.setScene(multiPlayerLobby);
+                break;
+            case "insertInfoMultiPlayer":
+                primaryStage.setScene(multiplayerInsertInfo);
                 break;
             default: primaryStage.setScene(menu);
         }

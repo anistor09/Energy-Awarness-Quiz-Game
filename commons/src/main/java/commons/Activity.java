@@ -2,64 +2,81 @@ package commons;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 import java.util.Objects;
 
 @Entity
 public class Activity {
     @Id
-    private Long Id;//Int representing the activity's id
-    private String text;//String representing the activity's text.
-    private int correctAnswer;//Int representing the correct value of the activity's energy consumption
-    //this will be implemented later
-    //public Image image;
+    private String id;  // String representing the id found in the repository.
+    private String image_path; //String representing the file path of the image.
+    private String title;//String representing the activity's title.
+    private int consumption_in_wh;//Int representing the consumption_in_wh of the activity.
+    private String source; // String representing the source of the information.
 
+    //this will be implemented later
+//    @Transient
+//    private Image image;
     /**
      *
      * @param id Int representing the activity's id
-     * @param text String representing the activity's text.
-     * @param correctAnswer Int representing the correct value of the activity's energy consumption.
+     * @param image_path String representing the file path of the image.
+     * @param title String representing the activity's title.
+     * @param consumption_in_wh Int representing the correct value of the activity's energy consumption.
+     * @param source String representing the source of the information.
      */
-    public Activity(Long id, String text, int correctAnswer) {
-        this.Id = id;
-        this.text = text;
-        this.correctAnswer = correctAnswer;
+
+    public Activity(String id, String image_path, String title, int consumption_in_wh, String source) {
+        this.id = id;
+        this.image_path = image_path;
+        this.title = title;
+        this.consumption_in_wh = consumption_in_wh;
+        this.source = source;
     }
 
-    /**
-     *
-     * @param text String representing the activity's text.
-     * @param correctAnswer Int representing the correct value of the activity's energy consumption
-     */
-    public Activity(String text, int correctAnswer) {
-        this.text = text;
-        this.correctAnswer = correctAnswer;
-    }
 
     public Activity() {
     }
 
-    public Long getId() {
-        return Id;
+
+    public String getId() {
+        return id;
     }
 
-    public void setId(Long id) {
-        Id = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getImage_path() {
+        return image_path;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
     }
 
-    public int getCorrectAnswer() {
-        return correctAnswer;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCorrectAnswer(int correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getConsumption_in_wh() {
+        return consumption_in_wh;
+    }
+
+    public void setConsumption_in_wh(int consumption_in_wh) {
+        this.consumption_in_wh = consumption_in_wh;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     @Override
@@ -67,20 +84,24 @@ public class Activity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Activity activity = (Activity) o;
-        return Id == activity.Id && correctAnswer == activity.correctAnswer && text.equals(activity.text);
+        return consumption_in_wh == activity.consumption_in_wh && id.equals(activity.id)
+                && image_path.equals(activity.image_path) && title.equals(activity.title)
+                && source.equals(activity.source);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, text, correctAnswer);
+        return Objects.hash(id, image_path, title, consumption_in_wh, source);
     }
 
     @Override
     public String toString() {
         return "Activity{" +
-                "Id=" + Id +
-                ", text='" + text + '\'' +
-                ", correctAnswer=" + correctAnswer +
+                "id='" + id + '\'' +
+                ", image_path='" + image_path + '\'' +
+                ", title='" + title + '\'' +
+                ", consumption_in_wh=" + consumption_in_wh +
+                ", source='" + source + '\'' +
                 '}';
     }
 }

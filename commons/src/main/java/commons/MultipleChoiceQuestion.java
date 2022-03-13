@@ -27,7 +27,7 @@ public class MultipleChoiceQuestion extends Question{
 //        this.allowedTime = allowedTime;
 
         // create a range of answers
-        double correctAnswer = activity.getCorrectAnswer();
+        double correctAnswer = activity.getConsumption_in_wh();
         ArrayList<Double> options;
         switch (difficulty){
             case "EASY":
@@ -62,7 +62,7 @@ public class MultipleChoiceQuestion extends Question{
 //        this.allowedTime = allowedTime;
 
         // create a range of answers
-        double correctAnswer = activity.getCorrectAnswer();
+        double correctAnswer = activity.getConsumption_in_wh();
         ArrayList<Double> options = generateRandomNumbers(correctAnswer * 0.8,
                 correctAnswer * 1.2);
 
