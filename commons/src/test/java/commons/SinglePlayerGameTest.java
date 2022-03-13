@@ -71,11 +71,11 @@ class SinglePlayerGameTest {
         AdditionalPoints additionalPoints1 = new AdditionalPoints("Additional",
                 "Adds 10 additional points if you answer correctly",
                 false,
-                10);
+                10, player1);
 
         ExtendTime extend = new ExtendTime("10 seconds extend card",
                 "Gives you 10sec more time to answer this question",
-                false, 10);
+                false, 10, q6);
 
         spg1 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
