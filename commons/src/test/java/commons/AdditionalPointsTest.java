@@ -11,17 +11,19 @@ class AdditionalPointsTest {
 
     AdditionalPoints additionalPoints1;
     AdditionalPoints additionalPoints2;
+    Player player;
 
     @BeforeEach
     public void setup(){
+        player = new Player("noname", 17);
         additionalPoints1 = new AdditionalPoints("Additional",
                 "Adds 10 additional points if you answer correctly",
                 false,
-                10);
+                10, player);
         additionalPoints2 = new AdditionalPoints("Additional",
                 "Adds 10 additional points if you answer correctly",
                 false,
-                10);
+                10, player);
 
     }
 
@@ -38,8 +40,7 @@ class AdditionalPointsTest {
 
     @Test
     void useCard() {
-        Player player = new Player("noname", 17);
-        additionalPoints1.useCard(player);
+        additionalPoints1.useCard();
         assertEquals(27, player.getCurrentScore());
 
     }
@@ -54,7 +55,7 @@ class AdditionalPointsTest {
         AdditionalPoints additionalPoints3 = new AdditionalPoints("Additional",
                 "Adds 10 additional points if you answer correctly",
                 false,
-                20);
+                20, player);
         assertNotEquals(additionalPoints1, additionalPoints3);
     }
 

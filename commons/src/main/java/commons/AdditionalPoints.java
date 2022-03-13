@@ -5,10 +5,16 @@ import java.util.Objects;
 public class AdditionalPoints extends JokerCard{
 
     private int additionalPoints;
+    private Player player;
 
-    public AdditionalPoints(String name, String description, boolean onlyMultiplayer, int additionalPoints) {
+    public AdditionalPoints(String name,
+                            String description,
+                            boolean onlyMultiplayer,
+                            int additionalPoints,
+                            Player player) {
         super(name, description, onlyMultiplayer);
         this.additionalPoints = additionalPoints;
+        this.player = player;
     }
 
 
@@ -21,8 +27,8 @@ public class AdditionalPoints extends JokerCard{
     }
 
     @Override
-    public void useCard(Player player) {
-        player.setCurrentScore(player.getCurrentScore() + 10);
+    public void useCard() {
+        this.player.setCurrentScore(player.getCurrentScore() + 10);
     }
 
     @Override

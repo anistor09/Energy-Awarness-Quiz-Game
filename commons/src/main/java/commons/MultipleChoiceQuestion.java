@@ -21,7 +21,7 @@ public class MultipleChoiceQuestion extends Question{
 
 
         // create a range of answers
-        double correctAnswer = activity.getCorrectAnswer();
+        double correctAnswer = activity.getConsumption_in_wh();
         ArrayList<Double> options;
         switch (difficulty){
             case "EASY":
@@ -53,7 +53,7 @@ public class MultipleChoiceQuestion extends Question{
         super(activity, availablePoints, allowedTime);
         this.setDifficulty("EASY");
         // create a range of answers
-        double correctAnswer = activity.getCorrectAnswer();
+        double correctAnswer = activity.getConsumption_in_wh();
         ArrayList<Double> options = generateRandomNumbers(correctAnswer * 0.8,
                 correctAnswer * 1.2);
 
@@ -103,15 +103,14 @@ public class MultipleChoiceQuestion extends Question{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MultipleChoiceQuestion)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         MultipleChoiceQuestion that = (MultipleChoiceQuestion) o;
-        return getAvailablePoints() == that.getAvailablePoints() && getAllowedTime() == that.getAllowedTime() &&
-                getActivity().equals(that.getActivity()) && getDifficulty().equals(that.getDifficulty());
+        return Objects.equals(options, that.options);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getActivity(), getAvailablePoints(), getDifficulty(), getAllowedTime());
+        return Objects.hash(options);
     }
 }
 

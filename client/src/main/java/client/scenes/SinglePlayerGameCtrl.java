@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
+import javax.inject.Inject;
+
 public class SinglePlayerGameCtrl {
 
     @FXML
@@ -52,4 +54,18 @@ public class SinglePlayerGameCtrl {
     @FXML
     private Label time;
 
+    private final MainCtrl mainCtrl;
+
+    @Inject
+    public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
+
+    public void help() {
+        mainCtrl.goTo("help");
+    }
+
+    public void exit() {
+        mainCtrl.goTo("menu");
+    }
 }

@@ -20,6 +20,7 @@ public class ActivityRepositoryTest implements ActivityRepository{
     private void call(String name){
         calledMethods.add(name);
     }
+
     @Override
     public List<Activity> findAll() {
         call("findAll");
@@ -37,7 +38,7 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public List<Activity> findAllById(Iterable<Long> longs) {
+    public List<Activity> findAllById(Iterable<String> strings) {
         return null;
     }
 
@@ -47,17 +48,17 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    public void deleteById(String s) {
+        call("deleteAllById");
+        Activity deletedActivity=null;
+        for(Activity activity: activities)
+        {
 
-            call("deleteById");
-            Activity deleteAct=null;
-            for (Activity act : activities) {
-                if (act.getId() == aLong)
-                    deleteAct = act;
-            }
-            activities.remove(deleteAct);
-
-
+            if(activity.getId().equals(s))
+                deletedActivity = activity;
+        }
+        if(activities.contains(deletedActivity))
+        activities.remove(deletedActivity);
     }
 
     @Override
@@ -66,9 +67,9 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public void deleteAllById(Iterable<? extends Long> longs) {
+    public void deleteAllById(Iterable<? extends String> strings) {
+        }
 
-    }
 
     @Override
     public void deleteAll(Iterable<? extends Activity> entities) {
@@ -93,16 +94,16 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public Optional<Activity> findById(Long aLong) {
+    public Optional<Activity> findById(String s) {
         return Optional.empty();
     }
 
     @Override
-    public boolean existsById(Long aLong) {
+    public boolean existsById(String s) {
         call("existsById");
-        for(Activity act:activities)
+        for(Activity activity : activities)
         {
-            if(act.getId()==aLong)
+            if(activity.getId().equals(s))
                 return true;
         }
         return false;
@@ -129,7 +130,7 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public void deleteAllByIdInBatch(Iterable<Long> longs) {
+    public void deleteAllByIdInBatch(Iterable<String> strings) {
 
     }
 
@@ -139,13 +140,12 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public Activity getOne(Long aLong) {
+    public Activity getOne(String s) {
         return null;
     }
 
     @Override
-    public Activity getById(Long aLong) {
-        call("getById");
+    public Activity getById(String s) {
         return null;
     }
 
@@ -180,8 +180,9 @@ public class ActivityRepositoryTest implements ActivityRepository{
     }
 
     @Override
-    public <S extends Activity, R> R
-    findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Activity, R> R findBy(Example<S> example,
+                                            Function<FluentQuery.FetchableFluentQuery<S>,
+                                                    R> queryFunction) {
         return null;
     }
 }
