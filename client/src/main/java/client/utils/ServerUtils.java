@@ -15,7 +15,12 @@
  */
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import commons.Player;
+import commons.Quote;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,12 +28,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
-import org.glassfish.jersey.client.ClientConfig;
-
-import commons.Quote;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.GenericType;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
@@ -62,5 +62,33 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
+    }
+
+    /**
+     * This method will make a simple request for the leaderboard to the server
+     * @return the List of players representing the leaderboard
+     */
+
+    public List<Player> getLeaderboard() {
+        List<Player> leaderboard = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/player")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Player>>() {});
+        return leaderboard;
+    }
+
+    /**
+     * This method will make a POST request to the server with the new Player
+     * @param player the Player to add to the leaderboard/database
+     * @return the same Player in case it is needed
+     */
+
+    public Player addPlayer(Player player) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/player")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(player, APPLICATION_JSON), Player.class);
     }
 }

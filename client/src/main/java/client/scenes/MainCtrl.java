@@ -120,6 +120,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+
     }
 
     public void closeStage() {
