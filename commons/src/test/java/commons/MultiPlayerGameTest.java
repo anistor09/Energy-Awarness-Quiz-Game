@@ -73,29 +73,28 @@ class MultiPlayerGameTest {
                 Arrays.asList(new Activity(1L, "Cook one egg", 1000),
                         new Activity(2L, "Cook two eggs", 2000))
         ));
-        
-        AdditionalPointsJoker additionalPoints1 = new AdditionalPointsJoker("Additional",
-                "Adds 10 additional points if you answer correctly",
-                false,
-                10, player1);
 
-        ShortenTimeJoker extend = new ShortenTimeJoker("10 seconds extend card",
-                "Gives you 10sec more time to answer this question",
-                false, 10, q6);
+        AdditionalPointsJoker additionalPointsJoker1 = new AdditionalPointsJoker("Additional",
+                "Adds 10 additional points if you answer correctly",
+                false, player1, q4);
+
+
+        ShortenTimeJoker shorten = new ShortenTimeJoker("10 seconds reduce time card",
+                "Gives everyone 10sec less time to answer this question",10, q6);
 
         mpg = new MultiPlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPoints1, extend)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
 
         mpg2 = new MultiPlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPoints1, extend)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
 
         mpg3 = new MultiPlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPoints1, extend)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
     }
 

@@ -68,28 +68,28 @@ class SinglePlayerGameTest {
                         new Activity(2L, "Cook two eggs", 2000))
         ));
 
-        AdditionalPointsJoker additionalPoints1 = new AdditionalPointsJoker("Additional",
+        AdditionalPointsJoker additionalPointsJoker1 = new AdditionalPointsJoker("Additional",
                 "Adds 10 additional points if you answer correctly",
-                false,
-                10, player1);
+                false, player1, q4);
 
-        ShortenTimeJoker extend = new ShortenTimeJoker("10 seconds extend card",
-                "Gives you 10sec more time to answer this question",
-                false, 10, q6);
+
+        ShortenTimeJoker shorten = new ShortenTimeJoker("10 seconds reduce time card",
+                "Gives everyone 10sec less time to answer this question",10, q6);
+
 
         spg1 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPoints1, extend)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 player1);
 
         spg2 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPoints1, extend)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 player1);
 
         spg3 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPoints1, extend)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 player2);
     }
 
