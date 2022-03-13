@@ -3,14 +3,18 @@ package commons;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EliminateOption extends JokerCard{
+public class EliminateOptionJoker extends JokerCard{
     private MultipleChoiceQuestion question;
 
-    public EliminateOption(String name, String description, boolean onlyMultiplayer, MultipleChoiceQuestion question) {
+    public EliminateOptionJoker(String name, String description,
+                                boolean onlyMultiplayer, MultipleChoiceQuestion question) {
         super(name, description, onlyMultiplayer);
         this.question = question;
     }
 
+    /**
+     * This method deletes one of the wrong answers in the MultipleChoiceQuestion.
+     */
     @Override
     public void useCard() {
         ArrayList<Double> options = this.question.getOptions();
@@ -37,7 +41,7 @@ public class EliminateOption extends JokerCard{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        EliminateOption that = (EliminateOption) o;
+        EliminateOptionJoker that = (EliminateOptionJoker) o;
         return Objects.equals(question, that.question);
     }
 
@@ -48,7 +52,7 @@ public class EliminateOption extends JokerCard{
 
     @Override
     public String toString() {
-        return "EliminateOption{" +
+        return "EliminateOptionJoker{" +
                 "question=" + question +
                 '}';
     }
