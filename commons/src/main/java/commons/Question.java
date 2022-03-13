@@ -1,5 +1,7 @@
 package commons;
 
+import java.util.Objects;
+
 public abstract class Question {
 
     private Activity activity;
@@ -50,6 +52,20 @@ public abstract class Question {
 
     public void setAllowedTime(int allowedTime) {
         this.allowedTime = allowedTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question = (Question) o;
+        return getAvailablePoints() == question.getAvailablePoints() && getAllowedTime() == question.getAllowedTime()
+                && getActivity().equals(question.getActivity()) && getDifficulty().equals(question.getDifficulty());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getActivity(), getAvailablePoints(), getDifficulty(), getAllowedTime());
     }
 
     @Override

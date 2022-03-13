@@ -51,7 +51,7 @@ public class MenuCtrl {
 
     @FXML
     protected void goToMultiPlayerLobby(){
-        mainCtrl.goTo("multiLobby");
+        mainCtrl.goTo("insertInfoMultiPlayer");
     }
 
     @FXML

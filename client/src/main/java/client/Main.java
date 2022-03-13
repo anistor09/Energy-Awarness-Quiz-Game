@@ -21,15 +21,20 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-import client.scenes.MenuCtrl;
-import client.scenes.MultiPlayerLobbyController;
-import client.scenes.SinglePlayerGameCtrl;
-import client.scenes.SinglePlayerLobbyController;
-import client.scenes.MultiPlayerGameCtrl;
 import client.scenes.CreditsController;
 import client.scenes.MainCtrl;
-import com.google.inject.Injector;
+import client.scenes.MultiPlayerGameCtrl;
+import client.scenes.MenuCtrl;
+import client.scenes.MultiPlayerLobbyController;
+import client.scenes.SinglePlayerChooseOptionQuestionController;
+import client.scenes.SinglePlayerOpenQuestionController;
+import client.scenes.MultiPlayerOpenQuestionController;
+import client.scenes.MultiPlayerChooseOptionQuestionController;
+import client.scenes.SinglePlayerLobbyController;
+import client.scenes.SinglePlayerGameCtrl;
+import client.scenes.InsertUsernameMultiplayerCtrl;
 
+import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -54,17 +59,46 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
+
         Pair<SinglePlayerLobbyController, Parent> singleLobby =
                 FXML.load(SinglePlayerLobbyController.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
+
         Pair<MultiPlayerLobbyController, Parent> multiLobby =
                 FXML.load(MultiPlayerLobbyController.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
+
         Pair<SinglePlayerGameCtrl, Parent> singleGame =
                 FXML.load(SinglePlayerGameCtrl.class, "client", "scenes", "SingleplayerGame.fxml");
+
         Pair<MultiPlayerGameCtrl, Parent> multiGame =
                 FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
+
         Pair<CreditsController, Parent> credits =
                 FXML.load(CreditsController.class, "client", "scenes", "CreditsScreen.fxml");
+
+        Pair<MultiPlayerChooseOptionQuestionController, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
+                FXML.load(MultiPlayerChooseOptionQuestionController.class, "client", "scenes",
+                        "MultiplayerChooseOptionQuestionScreen.fxml");
+
+        Pair<SinglePlayerChooseOptionQuestionController, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
+                FXML.load(SinglePlayerChooseOptionQuestionController.class, "client", "scenes",
+                        "SingleplayerChooseOptionQuestionScreen.fxml");
+
+        Pair<MultiPlayerOpenQuestionController, Parent> multiPlayerOpenQuestionControllerParentPair =
+                FXML.load(MultiPlayerOpenQuestionController.class, "client", "scenes",
+                        "MultiplayerOpenQuestion.fxml");
+
+        Pair<SinglePlayerOpenQuestionController, Parent> singlePlayerOpenQuestionControllerParentPair =
+                FXML.load(SinglePlayerOpenQuestionController.class, "client", "scenes",
+                        "SingleplayerOpenQuestion.fxml");
+        Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
+                FXML.load(InsertUsernameMultiplayerCtrl.class, 
+                "client", "scenes", "InsertUsernameMultiplayer.fxml");        
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby, credits, singleGame, multiGame);
+        mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby, credits, singleGame, multiGame,
+                multiPlayerChooseOptionQuestionControllerParentPair,
+                singlePlayerChooseOptionQuestionControllerParentPair, multiPlayerOpenQuestionControllerParentPair,
+                singlePlayerOpenQuestionControllerParentPair,insertInfoMultiplayer);
+
+
     }
 }
