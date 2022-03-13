@@ -34,6 +34,17 @@ public class Activity {
         this.source = source;
     }
 
+    // all of Som's tests relied on the previous Activity constructor. Therefore, the constructor is being created so that
+    // the tests pass. This should be deleted when all the questions are rewritten.
+
+    public Activity(long id, String title, int consumption_in_wh) {
+        this.id = Long.toString(id);
+        this.title = title;
+        this.consumption_in_wh = consumption_in_wh;
+        this.image_path = "change/this";
+        this.source = "change/this";
+    }
+
 
     public Activity() {
     }
