@@ -68,12 +68,12 @@ class SinglePlayerGameTest {
                         new Activity(2L, "Cook two eggs", 2000))
         ));
 
-        AdditionalPoints additionalPoints1 = new AdditionalPoints("Additional",
+        AdditionalPointsJoker additionalPoints1 = new AdditionalPointsJoker("Additional",
                 "Adds 10 additional points if you answer correctly",
                 false,
                 10, player1);
 
-        ExtendTime extend = new ExtendTime("10 seconds extend card",
+        ShortenTimeJoker extend = new ShortenTimeJoker("10 seconds extend card",
                 "Gives you 10sec more time to answer this question",
                 false, 10, q6);
 
