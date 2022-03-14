@@ -1,10 +1,26 @@
 package commons;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Entity
 public class SinglePlayerGame extends Game{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Player player;
+
+    /**
+     * Empty constructor
+     */
+    @SuppressWarnings("unused")
+    private SinglePlayerGame() {
+        // for object mappers
+    }
 
     /**
      * Creates an instance of a single-player game.

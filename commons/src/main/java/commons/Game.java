@@ -1,9 +1,11 @@
 package commons;
 
 
+import javax.persistence.MappedSuperclass;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class Game {
     private ArrayList<Question> questions;  // this is the list of questions that players will be able to view
     // throughout the game
@@ -12,6 +14,10 @@ public abstract class Game {
     public Game(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards) {
         this.questions = questions;
         this.jokerCards = jokerCards;
+    }
+
+    public Game() {
+
     }
 
     public ArrayList<Question> getQuestions() {
