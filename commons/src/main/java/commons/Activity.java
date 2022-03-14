@@ -11,7 +11,7 @@ public class Activity {
     private String id;  // String representing the id found in the repository.
     private String image_path; //String representing the file path of the image.
     private String title;//String representing the activity's title.
-    private int consumption_in_wh;//Int representing the consumption_in_wh of the activity.
+    private long consumption_in_wh;//Int representing the consumption_in_wh of the activity.
     private String source; // String representing the source of the information.
 
     //this will be implemented later
@@ -26,7 +26,7 @@ public class Activity {
      * @param source String representing the source of the information.
      */
 
-    public Activity(String id, String image_path, String title, int consumption_in_wh, String source) {
+    public Activity(String id, String image_path, String title, long consumption_in_wh, String source) {
         this.id = id;
         this.image_path = image_path;
         this.title = title;
@@ -34,7 +34,7 @@ public class Activity {
         this.source = source;
     }
 
-    public Activity(long id, String title, int consumption_in_wh) {
+    public Activity(long id, String title, long consumption_in_wh) {
         this.id = Long.toString(id);
         this.title = title;
         this.consumption_in_wh = consumption_in_wh;
@@ -71,11 +71,11 @@ public class Activity {
         this.title = title;
     }
 
-    public int getConsumption_in_wh() {
+    public long getConsumption_in_wh() {
         return consumption_in_wh;
     }
 
-    public void setConsumption_in_wh(int consumption_in_wh) {
+    public void setConsumption_in_wh(long consumption_in_wh) {
         this.consumption_in_wh = consumption_in_wh;
     }
 
