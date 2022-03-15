@@ -39,7 +39,6 @@ public class Activity_config {
         truncateString(listOfActivities);
         activityRepository.deleteAll();
         activityRepository.saveAll(listOfActivities);
-        System.out.println(activityRepository.findAll());
     }
 
 
