@@ -36,4 +36,7 @@ public class InsertUsernameSinglePlayerCtrl {
         mainCtrl.playSinglePLayerGame(insertedUsername);
 
     }
+    public void returnToLobby(){
+        mainCtrl.goTo("singleLobby");
+    }
 }
