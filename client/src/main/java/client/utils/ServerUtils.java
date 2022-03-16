@@ -101,7 +101,7 @@ public class ServerUtils {
      * @return the Game object
      */
 
-    public Game createGame(Player player) {
+    public Game createSinglePlayerGame(Player player) {
         SinglePlayerGame game = ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("api/game/singleGame")
                 .request(APPLICATION_JSON)
