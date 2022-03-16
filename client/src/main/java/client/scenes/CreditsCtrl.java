@@ -5,11 +5,11 @@ import javafx.fxml.FXML;
 import javax.inject.Inject;
 
 
-public class CreditsController {
+public class CreditsCtrl {
     private final MainCtrl mainCtrl;
 
     @Inject
-    public CreditsController(MainCtrl mainCtrl) {
+    public CreditsCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 

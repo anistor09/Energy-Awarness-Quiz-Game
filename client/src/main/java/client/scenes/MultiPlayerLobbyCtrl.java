@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
-public class MultiPlayerLobbyController {
+public class MultiPlayerLobbyCtrl {
 
     @FXML
     private Label helpLabel;
@@ -29,7 +29,7 @@ public class MultiPlayerLobbyController {
     ArrayList<String> currentUsernames = new ArrayList<>();
 
     @Inject
-    public MultiPlayerLobbyController(MainCtrl mainCtrl){
+    public MultiPlayerLobbyCtrl(MainCtrl mainCtrl){
         this.mainCtrl = mainCtrl;
     }
 

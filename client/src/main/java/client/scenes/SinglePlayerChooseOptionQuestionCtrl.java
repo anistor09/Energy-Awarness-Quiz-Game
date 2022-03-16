@@ -5,22 +5,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class SinglePlayerOpenQuestionController {
+public class SinglePlayerChooseOptionQuestionCtrl {
 
     @FXML
     private Button exit;
 
     @FXML
     private Button help;
-
-    @FXML
-    private ImageView image;
-
-    @FXML
-    private ImageView joker;
 
     @FXML
     private Button joker1;
@@ -32,6 +25,24 @@ public class SinglePlayerOpenQuestionController {
     private Button joker3;
 
     @FXML
+    private Button option1;
+
+    @FXML
+    private ImageView option1Image;
+
+    @FXML
+    private Button option2;
+
+    @FXML
+    private ImageView option2Image;
+
+    @FXML
+    private Button option3;
+
+    @FXML
+    private ImageView option3Image;
+
+    @FXML
     private Label question;
 
     @FXML
@@ -40,15 +51,12 @@ public class SinglePlayerOpenQuestionController {
     @FXML
     private Label time;
 
-    @FXML
-    private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
     @Inject
-    public SinglePlayerOpenQuestionController(MainCtrl mainCtrl) {
+    public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
-
     @FXML
     void exit(ActionEvent event) {
         mainCtrl.goTo("menu");
@@ -60,3 +68,4 @@ public class SinglePlayerOpenQuestionController {
     }
 
 }
+

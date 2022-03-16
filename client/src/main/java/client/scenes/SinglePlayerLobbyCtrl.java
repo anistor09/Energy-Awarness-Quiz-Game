@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
-public class SinglePlayerLobbyController {
+public class SinglePlayerLobbyCtrl {
 
     @FXML
     private Label tmpLabel1;
@@ -37,7 +37,7 @@ public class SinglePlayerLobbyController {
     ArrayList<CheckBox> checkedJokers = new ArrayList<CheckBox>();
 
     @Inject
-    public SinglePlayerLobbyController(MainCtrl mainCtrl) {
+    public SinglePlayerLobbyCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
