@@ -1,4 +1,4 @@
-# Agenda Week 3
+# Agenda Week 6
 
 The Agenda for the forth week of the project
 
