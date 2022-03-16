@@ -57,6 +57,7 @@ public class ActivityService {
      */
     public Activity getRandomActivity() {
         List<Activity> list = activityRepository.findAll();
+        if(list.size() == 0) return null;
         int random = (int) (Math.random() * list.size());
         return list.get(random);
     }
