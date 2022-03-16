@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity
+@Table
 public class SinglePlayerGame extends Game{
 
     @Id
