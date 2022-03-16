@@ -14,7 +14,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0"
       prefWidth="950.0" style="-fx-background-color: #126782;" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLobbyController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLobbyCtrl">
     <children>
         <Button layoutX="425.0" layoutY="413.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="3.0"
                 scaleY="3.0" style="-fx-background-color: #FFB703; " text="Start Game"/>

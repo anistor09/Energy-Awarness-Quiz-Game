@@ -28,10 +28,10 @@ public class MainCtrl {
     private MenuCtrl menuCtrl;
     private Scene menu;
 
-    private SinglePlayerLobbyController singlePlayerLobbyController;
+    private SinglePlayerLobbyCtrl singlePlayerLobbyCtrl;
     private Scene singlePlayerLobby;
 
-    private MultiPlayerLobbyController multiPlayerLobbyController;
+    private MultiPlayerLobbyCtrl multiPlayerLobbyCtrl;
     private Scene multiPlayerLobby;
 
     private SinglePlayerGameCtrl singlePlayerGameCtrl;
@@ -40,19 +40,19 @@ public class MainCtrl {
     private MultiPlayerGameCtrl multiPlayerGameCtrl;
     private Scene multiPlayerGame;
 
-    private CreditsController creditsController;
+    private CreditsCtrl creditsCtrl;
     private Scene credits;
 
-    private MultiPlayerChooseOptionQuestionController multiPlayerChooseOptionQuestionController;
+    private MultiPlayerChooseOptionQuestionCtrl multiPlayerChooseOptionQuestionCtrl;
     private Scene multiPlayerChooseOptionQuestion;
 
-    private SinglePlayerChooseOptionQuestionController singlePlayerChooseOptionQuestionController;
+    private SinglePlayerChooseOptionQuestionCtrl singlePlayerChooseOptionQuestionCtrl;
     private Scene singlePlayerChooseOptionQuestion;
 
-    private MultiPlayerOpenQuestionController multiPlayerOpenQuestionController;
+    private MultiPlayerOpenQuestionCtrl multiPlayerOpenQuestionCtrl;
     private Scene multiPlayerOpenQuestion;
 
-    private SinglePlayerOpenQuestionController singlePlayerOpenQuestionController;
+    private SinglePlayerOpenQuestionCtrl singlePlayerOpenQuestionCtrl;
     private Scene singlePlayerOpenQuestion;
 
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
@@ -75,42 +75,42 @@ public class MainCtrl {
      * @param multiPlayerOpenQuestionControllerParentPair
      * @param singlePlayerOpenQuestionControllerParentPair
      */
-    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyController,
-            Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyController,
-            Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsController, Parent> creditsControllerParentPair,
+    public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
+            Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
+            Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
                            Pair<SinglePlayerGameCtrl, Parent> singlePlayerGamePair, Pair<MultiPlayerGameCtrl,
             Parent> multiPlayerGamePair,
-                           Pair<MultiPlayerChooseOptionQuestionController, Parent>
+                           Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
                                    multiPlayerChooseOptionQuestionControllerParentPair,
-                           Pair<SinglePlayerChooseOptionQuestionController, Parent>
+                           Pair<SinglePlayerChooseOptionQuestionCtrl, Parent>
                                    singlePlayerChooseOptionQuestionControllerParentPair,
-                           Pair<MultiPlayerOpenQuestionController, Parent> multiPlayerOpenQuestionControllerParentPair,
-                           Pair<SinglePlayerOpenQuestionController, Parent>
+                           Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
+                           Pair<SinglePlayerOpenQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
-        this.singlePlayerLobbyController = singlePlayerLobbyControllerParentPair.getKey();
+        this.singlePlayerLobbyCtrl = singlePlayerLobbyControllerParentPair.getKey();
         this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
-        this.multiPlayerLobbyController = multiPlayerLobbyControllerParentPair.getKey();
+        this.multiPlayerLobbyCtrl = multiPlayerLobbyControllerParentPair.getKey();
         this.multiPlayerLobby = new Scene(multiPlayerLobbyControllerParentPair.getValue());
         this.singlePlayerGameCtrl = singlePlayerGamePair.getKey();
         this.singlePlayerGame = new Scene(singlePlayerGamePair.getValue());
         this.multiPlayerGameCtrl = multiPlayerGamePair.getKey();
         this.multiPlayerGame = new Scene(multiPlayerGamePair.getValue());
-        this.creditsController = creditsControllerParentPair.getKey();
+        this.creditsCtrl = creditsControllerParentPair.getKey();
         this.credits = new Scene(creditsControllerParentPair.getValue());
-        this.multiPlayerChooseOptionQuestionController = multiPlayerChooseOptionQuestionControllerParentPair.getKey();
+        this.multiPlayerChooseOptionQuestionCtrl = multiPlayerChooseOptionQuestionControllerParentPair.getKey();
         this.multiPlayerChooseOptionQuestion = new
                 Scene(multiPlayerChooseOptionQuestionControllerParentPair.getValue());
-        this.singlePlayerChooseOptionQuestionController = singlePlayerChooseOptionQuestionControllerParentPair.getKey();
+        this.singlePlayerChooseOptionQuestionCtrl = singlePlayerChooseOptionQuestionControllerParentPair.getKey();
         this.singlePlayerChooseOptionQuestion = new
                 Scene(singlePlayerChooseOptionQuestionControllerParentPair.getValue());
-        this.multiPlayerOpenQuestionController = multiPlayerOpenQuestionControllerParentPair.getKey();
+        this.multiPlayerOpenQuestionCtrl = multiPlayerOpenQuestionControllerParentPair.getKey();
         this.multiPlayerOpenQuestion = new Scene(multiPlayerOpenQuestionControllerParentPair.getValue());
-        this.singlePlayerOpenQuestionController = singlePlayerOpenQuestionControllerParentPair.getKey();
+        this.singlePlayerOpenQuestionCtrl = singlePlayerOpenQuestionControllerParentPair.getKey();
         this.singlePlayerOpenQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
         this.multiplayerInsertInfoCtrl =insertInfoMultiplayer.getKey();
         this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());

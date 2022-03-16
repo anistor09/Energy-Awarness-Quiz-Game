@@ -21,16 +21,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-import client.scenes.CreditsController;
+import client.scenes.CreditsCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.MultiPlayerGameCtrl;
 import client.scenes.MenuCtrl;
-import client.scenes.MultiPlayerLobbyController;
-import client.scenes.SinglePlayerChooseOptionQuestionController;
-import client.scenes.SinglePlayerOpenQuestionController;
-import client.scenes.MultiPlayerOpenQuestionController;
-import client.scenes.MultiPlayerChooseOptionQuestionController;
-import client.scenes.SinglePlayerLobbyController;
+import client.scenes.MultiPlayerLobbyCtrl;
+import client.scenes.SinglePlayerChooseOptionQuestionCtrl;
+import client.scenes.SinglePlayerOpenQuestionCtrl;
+import client.scenes.MultiPlayerOpenQuestionCtrl;
+import client.scenes.MultiPlayerChooseOptionQuestionCtrl;
+import client.scenes.SinglePlayerLobbyCtrl;
 import client.scenes.SinglePlayerGameCtrl;
 import client.scenes.InsertUsernameMultiplayerCtrl;
 
@@ -60,11 +60,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
 
-        Pair<SinglePlayerLobbyController, Parent> singleLobby =
-                FXML.load(SinglePlayerLobbyController.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
+        Pair<SinglePlayerLobbyCtrl, Parent> singleLobby =
+                FXML.load(SinglePlayerLobbyCtrl.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
 
-        Pair<MultiPlayerLobbyController, Parent> multiLobby =
-                FXML.load(MultiPlayerLobbyController.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
+        Pair<MultiPlayerLobbyCtrl, Parent> multiLobby =
+                FXML.load(MultiPlayerLobbyCtrl.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
 
         Pair<SinglePlayerGameCtrl, Parent> singleGame =
                 FXML.load(SinglePlayerGameCtrl.class, "client", "scenes", "SingleplayerGame.fxml");
@@ -72,23 +72,23 @@ public class Main extends Application {
         Pair<MultiPlayerGameCtrl, Parent> multiGame =
                 FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
 
-        Pair<CreditsController, Parent> credits =
-                FXML.load(CreditsController.class, "client", "scenes", "CreditsScreen.fxml");
+        Pair<CreditsCtrl, Parent> credits =
+                FXML.load(CreditsCtrl.class, "client", "scenes", "CreditsScreen.fxml");
 
-        Pair<MultiPlayerChooseOptionQuestionController, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
-                FXML.load(MultiPlayerChooseOptionQuestionController.class, "client", "scenes",
+        Pair<MultiPlayerChooseOptionQuestionCtrl, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
+                FXML.load(MultiPlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "MultiplayerChooseOptionQuestionScreen.fxml");
 
-        Pair<SinglePlayerChooseOptionQuestionController, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
-                FXML.load(SinglePlayerChooseOptionQuestionController.class, "client", "scenes",
+        Pair<SinglePlayerChooseOptionQuestionCtrl, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
+                FXML.load(SinglePlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "SingleplayerChooseOptionQuestionScreen.fxml");
 
-        Pair<MultiPlayerOpenQuestionController, Parent> multiPlayerOpenQuestionControllerParentPair =
-                FXML.load(MultiPlayerOpenQuestionController.class, "client", "scenes",
+        Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
+                FXML.load(MultiPlayerOpenQuestionCtrl.class, "client", "scenes",
                         "MultiplayerOpenQuestion.fxml");
 
-        Pair<SinglePlayerOpenQuestionController, Parent> singlePlayerOpenQuestionControllerParentPair =
-                FXML.load(SinglePlayerOpenQuestionController.class, "client", "scenes",
+        Pair<SinglePlayerOpenQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
+                FXML.load(SinglePlayerOpenQuestionCtrl.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
         Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
                 FXML.load(InsertUsernameMultiplayerCtrl.class, 

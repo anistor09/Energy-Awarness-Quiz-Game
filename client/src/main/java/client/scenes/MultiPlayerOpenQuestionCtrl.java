@@ -6,9 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class MultiPlayerChooseOptionQuestionController {
+public class MultiPlayerOpenQuestionCtrl {
 
     @FXML
     private Label ReactionName;
@@ -32,7 +33,13 @@ public class MultiPlayerChooseOptionQuestionController {
     private Button help;
 
     @FXML
+    private ImageView image;
+
+    @FXML
     private ImageView inLove;
+
+    @FXML
+    private ImageView joker;
 
     @FXML
     private Button joker1;
@@ -42,24 +49,6 @@ public class MultiPlayerChooseOptionQuestionController {
 
     @FXML
     private Button joker3;
-
-    @FXML
-    private Button option1;
-
-    @FXML
-    private ImageView option1Image;
-
-    @FXML
-    private Button option2;
-
-    @FXML
-    private ImageView option2Image;
-
-    @FXML
-    private Button option3;
-
-    @FXML
-    private ImageView option3Image;
 
     @FXML
     private Label question;
@@ -78,10 +67,14 @@ public class MultiPlayerChooseOptionQuestionController {
 
     @FXML
     private Label time;
+
+    @FXML
+    private TextField userAnswer;
+
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerChooseOptionQuestionController(MainCtrl mainCtrl) {
+    public MultiPlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
@@ -96,5 +89,3 @@ public class MultiPlayerChooseOptionQuestionController {
     }
 
 }
-
-
