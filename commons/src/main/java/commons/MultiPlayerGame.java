@@ -3,9 +3,12 @@ package commons;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MultiPlayerGame extends Game{
-    private ArrayList<Player> players;
+    private static ArrayList<Player> players;
     private HashMap<Player, Integer> leaderboard;   // live leaderboard
 
     /**
@@ -61,5 +64,37 @@ public class MultiPlayerGame extends Game{
                 "players=" + players +
                 ", leaderboard=" + leaderboard +
                 '}';
+    }
+
+
+    /**
+     * This method starts the timer for the questions. It also displays the time left for the player. Once the timer is
+     * over this method will go to the intermediate screen
+     */
+    public void multiplayerInGameTimer(){
+        Timer timer1 = new Timer();
+        timer1.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                for(int i = 0; i < players.size(); i++){
+                    boolean timeUp = true;
+                    if(!(players.get(i).getTimeLeft() < 0)){
+                        players.get(i).setTimeLeft(players.get(i).getTimeLeft() - 1);
+                        timeUp = false;
+                    }
+                    else{
+                        players.get(i).setTimeLeft(0);
+                        //
+                        // Method that disables the players options
+                        //
+                    }
+                    if(timeUp){
+                        timer1.cancel();
+                        //
+                        // Method that goes to the intermediate screen
+                        //
+                    }
+                }
+            }
+        }, 0, 1000);
     }
 }

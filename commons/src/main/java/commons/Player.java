@@ -26,6 +26,7 @@ public class Player {
     private Long id;
     private String username;
     private int currentScore;
+    transient int timeLeft = 20;
 
     /**
      * Constructor for a player without ID parameter
@@ -99,5 +100,13 @@ public class Player {
 
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
     }
 }

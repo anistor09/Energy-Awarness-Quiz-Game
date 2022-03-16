@@ -38,17 +38,16 @@ public class MultiPlayerLobbyCtrl {
      */
     @FXML
     protected void startGameButtonClick(){
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        Timer timer1 = new Timer();
+        timer1.scheduleAtFixedRate(new TimerTask() {
             int i = 5;
             public void run() {
                 gameStatusTextArea.setText("Game Starts in\n" + i + " seconds");
                 i--;
 
                 if (i < 0) {
-                    timer.cancel();
+                    timer1.cancel();
                     gameStatusTextArea.setText("Game Starting!");
-                    mainCtrl.goTo("multiGame");
                 }
             }
         }, 0, 1000);

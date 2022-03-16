@@ -98,7 +98,6 @@ class MultiPlayerGameTest {
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
     }
 
-
     @Test
     void checkConstructor() {
         assertNotNull(mpg);
@@ -118,4 +117,5 @@ class MultiPlayerGameTest {
     void testNotEquals() {
         assertNotEquals(mpg, mpg3);
     }
+
 }
