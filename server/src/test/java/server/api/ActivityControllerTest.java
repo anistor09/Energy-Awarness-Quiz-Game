@@ -42,6 +42,13 @@ class ActivityControllerTest {
         List<Activity> repositoryList = controller.getActivities();
         assertEquals(localList,repositoryList);
     }
+
+    @Test
+    public void testGetRandomActivity() {
+        controller.addNewActivity(getActivity());
+        assertEquals(getActivity(), controller.getRandomActivity());
+    }
+
     public static Activity getActivity(){
         return new Activity("00-shower",
                 "00/shower.png",

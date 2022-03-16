@@ -15,8 +15,11 @@
  */
 package client.utils;
 
+import commons.Game;
 import commons.Player;
 import commons.Quote;
+import commons.SinglePlayerGame;
+import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -90,5 +93,22 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(player, APPLICATION_JSON), Player.class);
+    }
+
+    /**
+     * This method will make a request for the server to get a new Game with all the needed attributes
+     * Keep in mind that the player in the game is the one you provide and the list of jokers will be empty
+     * @param player to add to the game
+     * @return the Game object
+     */
+
+    public Game createGame(Player player) {
+        SinglePlayerGame game = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/singleGame")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+        game.setPlayer(player);
+        return game;
     }
 }

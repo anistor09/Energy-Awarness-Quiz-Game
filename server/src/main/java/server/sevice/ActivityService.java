@@ -49,4 +49,15 @@ public class ActivityService {
 
         activityRepository.deleteById(activityId);
     }
+
+    /**
+     * This method will pick a random activity from the database. It currently retrieves all and then picks a random
+     * one. Maybe there is a better way to do this
+     * @return the random Activity
+     */
+    public Activity getRandomActivity() {
+        List<Activity> list = activityRepository.findAll();
+        int random = (int) (Math.random() * list.size());
+        return list.get(random);
+    }
 }
