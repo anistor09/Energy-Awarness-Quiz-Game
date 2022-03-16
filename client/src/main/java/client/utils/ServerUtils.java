@@ -19,7 +19,6 @@ import commons.Game;
 import commons.Player;
 import commons.Quote;
 import commons.SinglePlayerGame;
-import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
