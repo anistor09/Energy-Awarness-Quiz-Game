@@ -65,7 +65,7 @@ public class SinglePlayerOpenQuestionCtrl {
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
      */
-    public void initialiseOpenQuestion() {
+    public void initialiseSinglePlayerOpenQuestion() {
         Game currentGame = mainCtrl.getGame();
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
