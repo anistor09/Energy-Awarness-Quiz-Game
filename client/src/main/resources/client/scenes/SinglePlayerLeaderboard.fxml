@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="680.0" prefWidth="943.0" stylesheets="@../../stylesheets/menu_stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLeaderboardCtrl">
+   <children>
+      <Rectangle fill="#8ecae6" height="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="950.0" />
+      <Text layoutX="406.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#219ebc" height="550.0" layoutX="146.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="700.0" />
+      <VBox layoutX="146.0" layoutY="80.0" prefHeight="550.0" prefWidth="700.0">
+         <children>
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="49.0" prefWidth="602.0" text="Name" />
+                  <Label alignment="CENTER" prefHeight="49.0" prefWidth="201.0" text="Score" />
+               </children>
+            </HBox>
+            <Line endX="700.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name1" alignment="CENTER" prefHeight="49.0" prefWidth="620.0" />
+                  <Label fx:id="score1" alignment="CENTER" prefHeight="49.0" prefWidth="219.0" />
+               </children>
+            </HBox>
+            <Line endX="700.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name2" alignment="CENTER" prefHeight="49.0" prefWidth="603.0" />
+                  <Label fx:id="score2" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name3" alignment="CENTER" prefHeight="49.0" prefWidth="602.0" />
+                  <Label fx:id="score3" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name4" alignment="CENTER" prefHeight="49.0" prefWidth="605.0" />
+                  <Label fx:id="score4" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name5" alignment="CENTER" prefHeight="49.0" prefWidth="602.0" />
+                  <Label fx:id="score5" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name6" alignment="CENTER" prefHeight="49.0" prefWidth="603.0" />
+                  <Label fx:id="score6" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name7" alignment="CENTER" prefHeight="49.0" prefWidth="603.0" />
+                  <Label fx:id="score7" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name8" alignment="CENTER" prefHeight="50.0" prefWidth="602.0" />
+                  <Label fx:id="score8" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name9" alignment="CENTER" prefHeight="50.0" prefWidth="602.0" />
+                  <Label fx:id="score9" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <Line endX="600.0" startX="-100.0" />
+            <HBox prefHeight="50.0" prefWidth="641.0">
+               <children>
+                  <Label fx:id="name10" alignment="CENTER" prefHeight="50.0" prefWidth="602.0" />
+                  <Label fx:id="score10" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Line endX="100.0" endY="-170.0" layoutX="597.0" layoutY="800.0" startX="100.0" startY="-720.0" />
+      <Button fx:id="menuButton" layoutX="28.0" layoutY="623.0" mnemonicParsing="false" onAction="#goToMenu" text="Menu" />
+      <Button fx:id="playButton" layoutX="861.0" layoutY="622.0" mnemonicParsing="false" onAction="#goToSPLobby" text="Play" />
+   </children>
+</AnchorPane>
