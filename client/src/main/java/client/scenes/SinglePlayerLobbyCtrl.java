@@ -12,8 +12,6 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     private Label tmpLabel1;
     @FXML
-    private Label helpLabel;
-    @FXML
     private Label jokerInfoLabel;
     @FXML
     private Label jokerNumber;
@@ -45,11 +43,6 @@ public class SinglePlayerLobbyCtrl {
     protected void startGameButtonClick(){
         tmpLabel1.setText("Started the game!");
         mainCtrl.goTo("singleGame");
-    }
-
-    @FXML
-    protected void goToHelpScreen(){
-        helpLabel.setText("You got help!");
     }
 
     @FXML

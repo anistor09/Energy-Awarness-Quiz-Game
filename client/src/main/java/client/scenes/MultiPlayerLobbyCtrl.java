@@ -14,8 +14,6 @@ import java.util.TimerTask;
 public class MultiPlayerLobbyCtrl {
 
     @FXML
-    private Label helpLabel;
-    @FXML
     private Label numberOfPlayersLabel;
     @FXML
     private TextField userNameTextField;
@@ -52,11 +50,6 @@ public class MultiPlayerLobbyCtrl {
                 }
             }
         }, 0, 1000);
-    }
-
-    @FXML
-    protected void goToHelpScreen(){
-        helpLabel.setText("You got help!");
     }
 
     @FXML

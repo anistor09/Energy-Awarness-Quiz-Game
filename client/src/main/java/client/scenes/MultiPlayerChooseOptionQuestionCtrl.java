@@ -29,9 +29,6 @@ public class MultiPlayerChooseOptionQuestionCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView inLove;
 
     @FXML
@@ -90,10 +87,6 @@ public class MultiPlayerChooseOptionQuestionCtrl {
         mainCtrl.goTo("menu");
     }
 
-    @FXML
-    void help(ActionEvent event) {
-
-    }
 
 }
 

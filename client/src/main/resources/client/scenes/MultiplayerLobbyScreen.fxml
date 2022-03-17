@@ -13,8 +13,6 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #126782;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerLobbyCtrl">
     <children>
         <Button layoutX="60.0" layoutY="630.0" mnemonicParsing="false" onAction="#returnScreen" prefHeight="25.0" prefWidth="62.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #023047;" text="Return" textFill="#fb8500" />
-        <Button layoutX="860.0" layoutY="630.0" mnemonicParsing="false" onAction="#goToHelpScreen" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #8ecae6;" text="Help" textFill="#fb8500" />
-        <Label fx:id="helpLabel" layoutX="849.0" layoutY="601.0" text="Need Help?" />
         <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#8ecae6" height="238.0" layoutX="719.0" layoutY="225.0" scaleX="1.5" scaleY="1.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0" />
         <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#8ecae6" height="272.0" layoutX="87.0" layoutY="209.0" scaleX="1.5" scaleY="1.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="128.0" />
         <Rectangle arcWidth="5.0" fill="#8ecae6" height="70.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="956.0" />

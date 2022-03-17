@@ -29,9 +29,6 @@ public class MultiPlayerGameCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView image;
 
     @FXML
@@ -78,13 +75,6 @@ public class MultiPlayerGameCtrl {
     @Inject
     public MultiPlayerGameCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
-    }
-
-    /**
-     * This method is supposed to go to the help page. At the moment it goes to menu because there is no help page
-     */
-    public void help() {
-        mainCtrl.goTo("help");
     }
 
     public void exit() {

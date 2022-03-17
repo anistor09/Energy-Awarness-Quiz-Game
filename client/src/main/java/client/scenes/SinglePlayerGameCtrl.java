@@ -13,9 +13,6 @@ public class SinglePlayerGameCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView icon1;
 
     @FXML
@@ -59,10 +56,6 @@ public class SinglePlayerGameCtrl {
     @Inject
     public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
-    }
-
-    public void help() {
-        mainCtrl.goTo("help");
     }
 
     public void exit() {
