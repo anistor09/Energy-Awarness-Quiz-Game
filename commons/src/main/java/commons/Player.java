@@ -22,6 +22,7 @@ public class Player {
     private Long id;
     private String username;
     private int currentScore;
+    transient int timeLeft = 20;
     @Transient
     private List<JokerCard> jokerCards;//each player is assigned with a set of available jokers
 
@@ -105,5 +106,13 @@ public class Player {
 
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
     }
 }

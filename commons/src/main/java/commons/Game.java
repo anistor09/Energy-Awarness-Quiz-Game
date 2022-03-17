@@ -16,6 +16,7 @@ public abstract class Game {
         currentQuestionNumber=0;
     }
 
+
     public ArrayList<Question> getQuestions() {
         return questions;
     }
@@ -46,6 +47,7 @@ public abstract class Game {
         return Objects.hash(getQuestions(), getJokerCards());
     }
 
+
     @Override
     public String toString() {
         return "Game{" +
@@ -53,4 +55,5 @@ public abstract class Game {
                 ", jokerCards=" + jokerCards +
                 '}';
     }
+
 }
