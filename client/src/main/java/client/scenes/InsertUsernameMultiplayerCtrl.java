@@ -40,4 +40,7 @@ public class InsertUsernameMultiplayerCtrl {
         System.out.println(insertedUsername);
         mainCtrl.goTo("multiLobby");
     }
+    public void returnToMenu() {
+        mainCtrl.goTo("menu");
+    }
 }
