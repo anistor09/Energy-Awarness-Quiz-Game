@@ -187,10 +187,10 @@ public class MainCtrl {
                     goTo("SingleplayerOpenQuestion");
                     game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
                     break;
-//              case "InsteadOfQuestion":
-        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-//                    break;
-//                 this case will be implemented when we will have a InsteadOfScene
+              case "InsteadOfQuestion":
+                    goTo("SingleplayerInsteadOfQuestion");
+                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                    break;
                 default:
                     break;
             }
@@ -321,6 +321,12 @@ public class MainCtrl {
                 break;
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
+                break;
+            case "SingleplayerInsteadOfQuestion" :
+                primaryStage.setScene(singleplayerInsteadOfQuestion);
+                break;
+            case "MultiplayerInsteadOfQuestion" :
+                primaryStage.setScene(multiplayerInsteadOfQuestion);
                 break;
             default: primaryStage.setScene(menu);
         }
