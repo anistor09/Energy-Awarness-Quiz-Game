@@ -59,7 +59,7 @@
                      </rowConstraints>
                      <children>
                         <Label fx:id="usernameLabel" alignment="CENTER" prefHeight="94.0" prefWidth="482.0" text="Enter your nickname:" GridPane.rowIndex="1" />
-                        <TextField fx:id="username" alignment="CENTER" prefHeight="60.0" prefWidth="460.0" promptText="ex. Som13" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="username" alignment="CENTER" prefHeight="60.0" prefWidth="460.0" promptText="e.g. Som13" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets right="20.0" />
                            </GridPane.margin>
