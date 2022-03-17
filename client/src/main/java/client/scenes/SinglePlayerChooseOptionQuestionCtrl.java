@@ -2,12 +2,15 @@ package client.scenes;
 
 import com.google.inject.Inject;
 import commons.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SinglePlayerChooseOptionQuestionCtrl {
 
@@ -59,7 +62,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
-     *
+     * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseMostEnergyQuestion(){
         Game currentGame = mainCtrl.getGame();
@@ -89,7 +92,21 @@ public class SinglePlayerChooseOptionQuestionCtrl {
                 }
             }
         }
+        // go to the intermediate screen after X seconds
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    mainCtrl.goTo("intermediateScreen");
+                    System.out.println("I went to the intermediate screen");
+                });
+            }
+        }, (int)q.getAllowedTime()*100); // change this to 1000 when deploying
     }
+
+
+    // some method to automatically go to the next question
 
 
     @FXML

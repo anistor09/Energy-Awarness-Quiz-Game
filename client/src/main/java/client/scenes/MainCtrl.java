@@ -64,8 +64,12 @@ public class MainCtrl {
 
     private HelpCtrl helpCtrl;
     private Scene help;
+
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+    private Scene intermediateScreen;
 
     private Game game;
 
@@ -101,7 +105,8 @@ public class MainCtrl {
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
-                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
+                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
+                           Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -132,6 +137,8 @@ public class MainCtrl {
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
+        this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
+        this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
 
 
 
@@ -172,6 +179,10 @@ public class MainCtrl {
                     singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
                     goTo("SingleplayerOpenQuestion");
                     game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                    break;
+                case "intermediateScreen":
+                    intermediateScreenCtrl.initialiseScene();
+                    goTo("intermediateScreen");
                     break;
 //              case "InsteadOfQuestion":
         //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
@@ -248,7 +259,7 @@ public class MainCtrl {
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
                 player,q1);
-        JokerCard j2 = new QuestionChangeJoker("QuestionChanegJoker","Description",false);
+        JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker","Description",false);
         JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
                 false,(MultipleChoiceQuestion) q1);
 
@@ -306,6 +317,10 @@ public class MainCtrl {
                 break;
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
+                break;
+            case "intermediateScreen":
+                intermediateScreenCtrl.initialiseScene();
+                primaryStage.setScene(intermediateScreen);
                 break;
             default: primaryStage.setScene(menu);
         }

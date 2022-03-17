@@ -88,6 +88,9 @@ public class Main extends Application {
                 FXML.load(InsertUsernameSinglePlayerCtrl.class,
                         "client", "scenes", "InsertUsernameSingleplayer.fxml");
 
+        Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair =
+                FXML.load(IntermediateScreenCtrl.class, "client", "scenes", "IntermediateScreen.fxml");
+
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
                 multiLobby, credits, singleGame, multiGame,
@@ -96,7 +99,8 @@ public class Main extends Application {
                 multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
                 insertInfoMultiplayer,
-                helpCtrlParentPair,  insertInfoSingleplayer);
+                helpCtrlParentPair,  insertInfoSingleplayer,
+                intermediateScreenCtrlParentPair);
 
 
     }
