@@ -58,6 +58,7 @@
                                         <Image url="@../../../../../../docs/pictures/single_player.png" />
                                     </image>
                                 </ImageView>
+                        <Button fx:id="help" mnemonicParsing="false" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Help" textFill="#fb8500" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
                     </children>

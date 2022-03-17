@@ -58,6 +58,9 @@ public class MainCtrl {
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
     private Scene  multiplayerInsertInfo;
 
+    private HelpCtrl helpCtrl;
+    private Scene help;
+
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
      * menu
@@ -87,7 +90,8 @@ public class MainCtrl {
                            Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
                            Pair<SinglePlayerOpenQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
-                                   Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer) {
+                                   Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
+                           Pair<HelpCtrl, Parent> helpCtrlParentPair) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -114,6 +118,8 @@ public class MainCtrl {
         this.singlePlayerOpenQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
         this.multiplayerInsertInfoCtrl =insertInfoMultiplayer.getKey();
         this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());
+        this.helpCtrl = helpCtrlParentPair.getKey();
+        this.help = new Scene(helpCtrlParentPair.getValue());
 
 
 
@@ -153,6 +159,9 @@ public class MainCtrl {
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
+                break;
+            case "help":
+                primaryStage.setScene(help);
                 break;
             default: primaryStage.setScene(menu);
         }
