@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 
 public class MultiPlayerGame extends Game{
-    private static ArrayList<Player> players;
+    private ArrayList<Player> players;
     private HashMap<Player, Integer> leaderboard;   // live leaderboard
 
     /**
@@ -77,7 +77,7 @@ public class MultiPlayerGame extends Game{
             public void run() {
                 for(int i = 0; i < players.size(); i++){
                     boolean timeUp = true;
-                    if(!(players.get(i).getTimeLeft() < 0)){
+                    if(players.get(i).getTimeLeft() > 0){
                         players.get(i).setTimeLeft(players.get(i).getTimeLeft() - 1);
                         timeUp = false;
                     }
