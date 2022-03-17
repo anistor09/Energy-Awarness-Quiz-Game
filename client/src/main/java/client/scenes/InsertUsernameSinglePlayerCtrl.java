@@ -7,13 +7,12 @@ import javafx.scene.control.TextField;
 
 import javax.inject.Inject;
 
-public class InsertUsernameMultiplayerCtrl {
-
+public class InsertUsernameSinglePlayerCtrl {
     private final MainCtrl mainCtrl;
 
 
     @Inject
-    public InsertUsernameMultiplayerCtrl(MainCtrl main) {
+    public InsertUsernameSinglePlayerCtrl(MainCtrl main) {
         this.mainCtrl=main;
     }
 
@@ -21,26 +20,23 @@ public class InsertUsernameMultiplayerCtrl {
     private Label usernameLabel;
     @FXML
     private TextField username;
-    @FXML
-    private TextField url;
+
     @FXML
     private Button submitButton;
 
 
     /**
-     * This method sends the username and url in order to connect to the server and add the player to the right lobby
+     * This method sends the username in order to connect to the server and add the player to the game
      * but it is not fully implemented yet.
      */
     public void submit() {
-//                myLabel.setText("signed up");
+//
 
         String insertedUsername = username.getText();
-        String insertedUrl = url.getText();
-        System.out.println(insertedUrl);
-        System.out.println(insertedUsername);
-        mainCtrl.goTo("multiLobby");
+        mainCtrl.playSinglePLayerGame(insertedUsername);
+
     }
-    public void returnToMenu() {
-        mainCtrl.goTo("menu");
+    public void returnToLobby(){
+        mainCtrl.goTo("singleLobby");
     }
 }

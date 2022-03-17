@@ -36,6 +36,10 @@ public abstract class JokerCard {
         return onlyMultiplayer == jokerCard.onlyMultiplayer && description.equals(jokerCard.description);
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(description, onlyMultiplayer);

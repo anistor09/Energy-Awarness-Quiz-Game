@@ -8,10 +8,12 @@ public abstract class Game {
     private ArrayList<Question> questions;  // this is the list of questions that players will be able to view
     // throughout the game
     private ArrayList<JokerCard> jokerCards;    // the list of all jokers that are available
+    private int currentQuestionNumber; //int representing the index of the current question that is displayed
 
     public Game(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards) {
         this.questions = questions;
         this.jokerCards = jokerCards;
+        currentQuestionNumber=0;
     }
 
     public ArrayList<Question> getQuestions() {
@@ -20,6 +22,14 @@ public abstract class Game {
 
     public ArrayList<JokerCard> getJokerCards() {
         return jokerCards;
+    }
+
+    public void setCurrentQuestionNumber(int currentQuestionNumber) {
+        this.currentQuestionNumber = currentQuestionNumber;
+    }
+
+    public int getCurrentQuestionNumber() {
+        return currentQuestionNumber;
     }
 
     @Override

@@ -536,3 +536,21 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/home/rafael
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 61 more
+2022-03-15 19:26:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-15 19:27:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-15 19:29:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-15 19:31:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-15 19:56:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-16 18:48:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
