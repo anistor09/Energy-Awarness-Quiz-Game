@@ -21,18 +21,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-import client.scenes.CreditsCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.MultiPlayerGameCtrl;
-import client.scenes.MenuCtrl;
-import client.scenes.MultiPlayerLobbyCtrl;
-import client.scenes.SinglePlayerChooseOptionQuestionCtrl;
-import client.scenes.SinglePlayerOpenQuestionCtrl;
-import client.scenes.MultiPlayerOpenQuestionCtrl;
-import client.scenes.MultiPlayerChooseOptionQuestionCtrl;
-import client.scenes.SinglePlayerLobbyCtrl;
-import client.scenes.SinglePlayerGameCtrl;
-import client.scenes.InsertUsernameMultiplayerCtrl;
+import client.scenes.*;
 
 import com.google.inject.Injector;
 import javafx.application.Application;
@@ -92,12 +81,16 @@ public class Main extends Application {
                         "SingleplayerOpenQuestion.fxml");
         Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
                 FXML.load(InsertUsernameMultiplayerCtrl.class, 
-                "client", "scenes", "InsertUsernameMultiplayer.fxml");        
+                "client", "scenes", "InsertUsernameMultiplayer.fxml");
+        Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer =
+                FXML.load(InsertUsernameSinglePlayerCtrl.class,
+                        "client", "scenes", "InsertUsernameSingleplayer.fxml");
+
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby, multiLobby, credits, singleGame, multiGame,
                 multiPlayerChooseOptionQuestionControllerParentPair,
                 singlePlayerChooseOptionQuestionControllerParentPair, multiPlayerOpenQuestionControllerParentPair,
-                singlePlayerOpenQuestionControllerParentPair,insertInfoMultiplayer);
+                singlePlayerOpenQuestionControllerParentPair,insertInfoMultiplayer,insertInfoSingleplayer);
 
 
     }

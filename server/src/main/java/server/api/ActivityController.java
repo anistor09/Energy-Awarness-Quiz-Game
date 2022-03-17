@@ -57,4 +57,12 @@ public class ActivityController {
     public void deleteActivity(@PathVariable("activityId") String activityId) {
         activityService.deleteActivity(activityId);
     }
+
+    /**
+     * This method will pick a random activity from the database
+     * @return the activity
+     */
+    public Activity getRandomActivity() {
+        return activityService.getRandomActivity();
+    }
 }

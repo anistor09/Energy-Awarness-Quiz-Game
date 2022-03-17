@@ -2,7 +2,6 @@ package commons;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import java.util.Objects;
 
 @Entity
