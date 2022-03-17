@@ -312,6 +312,7 @@ public class MainCtrl {
                 break;
             case "help":
                 primaryStage.setScene(help);
+                break;
             case "singleplayerGame":
                 primaryStage.setScene(singlePlayerGame);
                 break;
