@@ -52,7 +52,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button fx:id="singlePlayer" mnemonicParsing="false" onMouseClicked="#goToSinglePlayerLobby" prefHeight="76.0" prefWidth="207.0" text="Single Player" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Button fx:id="singlePlayer" mnemonicParsing="false" onMouseClicked="#goToSinglePlayerEntryScreen" prefHeight="76.0" prefWidth="207.0" text="Single Player" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <ImageView fx:id="singleIcon" fitHeight="191.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                                     <image>
                                         <Image url="@../../../../../../docs/pictures/single_player.png" />

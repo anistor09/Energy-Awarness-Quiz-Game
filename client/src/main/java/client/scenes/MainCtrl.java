@@ -58,6 +58,9 @@ public class MainCtrl {
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
     private Scene  multiplayerInsertInfo;
 
+    private InsertUsernameSingleplayerCtrl singleplayerInsertInfoCtrl;
+    private Scene singleplayerInsertInfo;
+
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
      * menu
@@ -74,6 +77,9 @@ public class MainCtrl {
      * @param singlePlayerChooseOptionQuestionControllerParentPair
      * @param multiPlayerOpenQuestionControllerParentPair
      * @param singlePlayerOpenQuestionControllerParentPair
+     * @param insertInfoMultiplayer
+     * @param insertInfoSingleplayer the pair containing the singlePlayer username controller and its fxml file
+     *                               "Parent"
      */
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
@@ -87,7 +93,8 @@ public class MainCtrl {
                            Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
                            Pair<SinglePlayerOpenQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
-                                   Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer) {
+                                   Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
+                           Pair<InsertUsernameSingleplayerCtrl, Parent> insertInfoSingleplayer) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -114,6 +121,8 @@ public class MainCtrl {
         this.singlePlayerOpenQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
         this.multiplayerInsertInfoCtrl =insertInfoMultiplayer.getKey();
         this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());
+        this.singleplayerInsertInfoCtrl = insertInfoSingleplayer.getKey();
+        this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
 
 
 
@@ -154,7 +163,11 @@ public class MainCtrl {
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
                 break;
+            case "insertInfoSinglePlayer":
+                primaryStage.setScene(singleplayerInsertInfo);
+                break;
             default: primaryStage.setScene(menu);
+
         }
     }
 }

@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 
 import static com.google.inject.Guice.createInjector;
@@ -62,5 +64,10 @@ public class MenuCtrl {
     @FXML
     protected void goToSinglePlayerLobby() throws IOException {
         mainCtrl.goTo("singleLobby");
+    }
+
+    @FXML
+    protected void goToSinglePlayerEntryScreen(MouseEvent mouseEvent) {
+        mainCtrl.goTo("insertInfoSinglePlayer");
     }
 }

@@ -54,7 +54,7 @@ public class SinglePlayerLobbyCtrl {
 
     @FXML
     protected void returnScreen(){
-        mainCtrl.goTo("menu");
+        mainCtrl.goTo("insertInfoSinglePlayer");
     }
 
     @FXML
