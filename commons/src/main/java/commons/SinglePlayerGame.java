@@ -59,6 +59,7 @@ public class SinglePlayerGame extends Game{
             public void run() {
                 if(player.getTimeLeft() < 0){
                     timer.cancel();
+                    player.setTimeLeft(20); // Resetting the time left for player.
                     //
                     // Method that goes to intermediate screen
                     //

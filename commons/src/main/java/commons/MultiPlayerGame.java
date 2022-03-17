@@ -83,12 +83,15 @@ public class MultiPlayerGame extends Game{
                     }
                     else{
                         players.get(i).setTimeLeft(0);
-                        //
+                        // Method that 
                         // Method that disables the players options
                         //
                     }
                     if(timeUp){
                         timer1.cancel();
+                        for (int j = 0; j < players.size(); j++){
+                            players.get(i).setTimeLeft(20);     // resetting the timeLeft for each player
+                        }
                         //
                         // Method that goes to the intermediate screen
                         //
