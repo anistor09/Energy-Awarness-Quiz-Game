@@ -95,9 +95,8 @@ public class Main extends Application {
                 singlePlayerChooseOptionQuestionControllerParentPair,
                 multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
-                insertInfoMultiplayer, helpCtrlParentPair);
-                singlePlayerChooseOptionQuestionControllerParentPair, multiPlayerOpenQuestionControllerParentPair,
-                singlePlayerOpenQuestionControllerParentPair,insertInfoMultiplayer,insertInfoSingleplayer);
+                insertInfoMultiplayer,
+                helpCtrlParentPair,  insertInfoSingleplayer);
 
 
     }

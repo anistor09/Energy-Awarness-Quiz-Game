@@ -100,8 +100,7 @@ public class MainCtrl {
                            Pair<SinglePlayerOpenQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
-                           Pair<HelpCtrl, Parent> helpCtrlParentPair) {
-=======
+                           Pair<HelpCtrl, Parent> helpCtrlParentPair,
                            Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
 
         this.primaryStage = primaryStage;
@@ -297,10 +296,8 @@ public class MainCtrl {
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
                 break;
-<<<<<<< client/src/main/java/client/scenes/MainCtrl.java
             case "help":
                 primaryStage.setScene(help);
-=======
             case "singleplayerGame":
                 primaryStage.setScene(singlePlayerGame);
                 break;
@@ -309,9 +306,9 @@ public class MainCtrl {
                 break;
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
->>>>>>> client/src/main/java/client/scenes/MainCtrl.java
                 break;
             default: primaryStage.setScene(menu);
         }
     }
 }
+
