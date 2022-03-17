@@ -83,7 +83,7 @@ public class MultiPlayerGame extends Game{
                     }
                     else{
                         players.get(i).setTimeLeft(0);
-                        // Method that 
+                        // 
                         // Method that disables the players options
                         //
                     }
