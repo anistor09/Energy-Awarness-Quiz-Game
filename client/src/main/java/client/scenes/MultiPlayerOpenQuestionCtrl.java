@@ -30,9 +30,6 @@ public class MultiPlayerOpenQuestionCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView image;
 
     @FXML
@@ -83,9 +80,5 @@ public class MultiPlayerOpenQuestionCtrl {
         mainCtrl.goTo("menu");
     }
 
-    @FXML
-    void help(ActionEvent event) {
-
-    }
 
 }

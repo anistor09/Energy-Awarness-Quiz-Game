@@ -62,6 +62,8 @@ public class MainCtrl {
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
     private Scene  multiplayerInsertInfo;
 
+    private HelpCtrl helpCtrl;
+    private Scene help;
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
@@ -98,6 +100,7 @@ public class MainCtrl {
                            Pair<SinglePlayerOpenQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
+                           Pair<HelpCtrl, Parent> helpCtrlParentPair,
                            Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
 
         this.primaryStage = primaryStage;
@@ -125,6 +128,8 @@ public class MainCtrl {
         this.singlePlayerOpenQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
         this.multiplayerInsertInfoCtrl =insertInfoMultiplayer.getKey();
         this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());
+        this.helpCtrl = helpCtrlParentPair.getKey();
+        this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
 
@@ -291,6 +296,8 @@ public class MainCtrl {
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
                 break;
+            case "help":
+                primaryStage.setScene(help);
             case "singleplayerGame":
                 primaryStage.setScene(singlePlayerGame);
                 break;
@@ -304,3 +311,4 @@ public class MainCtrl {
         }
     }
 }
+

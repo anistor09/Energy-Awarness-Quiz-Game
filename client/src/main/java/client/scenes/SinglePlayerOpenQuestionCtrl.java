@@ -17,9 +17,6 @@ public class SinglePlayerOpenQuestionCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView image;
 
     @FXML
@@ -57,10 +54,6 @@ public class SinglePlayerOpenQuestionCtrl {
         mainCtrl.goTo("menu");
     }
 
-    @FXML
-    void help(ActionEvent event) {
-
-    }
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.

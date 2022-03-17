@@ -15,9 +15,6 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private Button joker1;
 
     @FXML
@@ -99,10 +96,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     void exit(ActionEvent event) {
         mainCtrl.goTo("menu");
     }
-    @FXML
-    void help(ActionEvent event) {
 
-    }
 
 }
 

@@ -12,80 +12,58 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0"
-      prefWidth="950.0" style="-fx-background-color: #126782;" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLobbyCtrl">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #126782;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLobbyCtrl">
     <children>
-        <Button layoutX="425.0" layoutY="413.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="3.0"
-                scaleY="3.0" style="-fx-background-color: #FFB703; " text="Start Game"/>
-        <Label fx:id="tmpLabel1" layoutX="422.0" layoutY="468.0" text="Start the game?"/>
-        <Button layoutX="60.0" layoutY="630.0" mnemonicParsing="false" onAction="#returnScreen" prefHeight="25.0"
-                prefWidth="62.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #023047;" text="Return"
-                textFill="#fb8500"/>
-        <Button layoutX="860.0" layoutY="630.0" mnemonicParsing="false" onAction="#goToHelpScreen" scaleX="2.0"
-                scaleY="2.0" scaleZ="2.0" style="-fx-background-color: #8ECAE6;" text="Help" textFill="#fb8500"/>
-        <Label fx:id="helpLabel" layoutX="863.0" layoutY="600.0" text="Need Help?"/>
-        <Label fx:id="jokerInfoLabel" layoutX="247.0" layoutY="195.0" text="Joker Info was not pressed"/>
-        <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#8ecae6" height="238.0" layoutX="719.0" layoutY="225.0"
-                   scaleX="1.5" scaleY="1.5" scaleZ="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
-                   width="140.0"/>
-        <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#8ecae6" height="272.0" layoutX="87.0" layoutY="209.0"
-                   scaleX="1.5" scaleY="1.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="128.0"/>
+        <Button layoutX="425.0" layoutY="413.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="3.0" scaleY="3.0" style="-fx-background-color: #FFB703; " text="Start Game" />
+        <Label fx:id="tmpLabel1" layoutX="422.0" layoutY="468.0" text="Start the game?" />
+        <Button layoutX="60.0" layoutY="630.0" mnemonicParsing="false" onAction="#returnScreen" prefHeight="25.0" prefWidth="62.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #023047;" text="Return" textFill="#fb8500" />
+        <Label fx:id="jokerInfoLabel" layoutX="247.0" layoutY="195.0" text="Joker Info was not pressed" />
+        <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#8ecae6" height="238.0" layoutX="719.0" layoutY="225.0" scaleX="1.5" scaleY="1.5" scaleZ="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0" />
+        <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#8ecae6" height="272.0" layoutX="87.0" layoutY="209.0" scaleX="1.5" scaleY="1.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="128.0" />
         <Text layoutX="736.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty">
             <font>
-                <Font size="27.0"/>
+                <Font size="27.0" />
             </font>
         </Text>
-        <Text layoutX="92.0" layoutY="184.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Joker Cards">
+        <Text layoutX="92.0" layoutY="184.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Joker Cards">
             <font>
-                <Font size="19.0"/>
+                <Font size="19.0" />
             </font>
         </Text>
-        <CheckBox fx:id="timeTwister" layoutX="90.0" layoutY="215.0" mnemonicParsing="false" onAction="#addTimeTwister"
-                  scaleX="1.5" scaleY="1.5" text="Time Twister"/>
-        <CheckBox fx:id="pointBoost" layoutX="89.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPointBoost"
-                  scaleX="1.5" scaleY="1.5" text="Point Boost"/>
-        <CheckBox fx:id="detective" layoutX="86.0" layoutY="255.0" mnemonicParsing="false" onAction="#addDetective"
-                  scaleX="1.5" scaleY="1.5" text="Detective"/>
-        <CheckBox fx:id="questionChange" layoutX="96.0" layoutY="335.0" mnemonicParsing="false"
-                  onAction="#addQuestionChange" scaleX="1.5" scaleY="1.5" text="Question Change"/>
-        <CheckBox fx:id="skipQuestion" layoutX="91.0" layoutY="375.0" mnemonicParsing="false"
-                  onAction="#addSkipQuestion" scaleX="1.5" scaleY="1.5" text="Skip Question"/>
-        <CheckBox fx:id="flash" layoutX="79.0" layoutY="415.0" mnemonicParsing="false" onAction="#addFlash" scaleX="1.5"
-                  scaleY="1.5" text="Flash"/>
-        <CheckBox fx:id="emergencyCall" layoutX="77.0" layoutY="455.0" mnemonicParsing="false"
-                  onAction="#addEmergencyCall" scaleX="1.5" scaleY="1.5" text="112"/>
-        <Label layoutX="248.0" layoutY="177.0" text="Number of slected jokers: "/>
-        <Label fx:id="jokerNumber" layoutX="385.0" layoutY="178.0" prefHeight="17.0" prefWidth="22.0" text="0"/>
-        <Rectangle fill="#8ecae6" height="70.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE"
-                   strokeWidth="0.0" width="956.0"/>
+        <CheckBox fx:id="timeTwister" layoutX="90.0" layoutY="215.0" mnemonicParsing="false" onAction="#addTimeTwister" scaleX="1.5" scaleY="1.5" text="Time Twister" />
+        <CheckBox fx:id="pointBoost" layoutX="89.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPointBoost" scaleX="1.5" scaleY="1.5" text="Point Boost" />
+        <CheckBox fx:id="detective" layoutX="86.0" layoutY="255.0" mnemonicParsing="false" onAction="#addDetective" scaleX="1.5" scaleY="1.5" text="Detective" />
+        <CheckBox fx:id="questionChange" layoutX="96.0" layoutY="335.0" mnemonicParsing="false" onAction="#addQuestionChange" scaleX="1.5" scaleY="1.5" text="Question Change" />
+        <CheckBox fx:id="skipQuestion" layoutX="91.0" layoutY="375.0" mnemonicParsing="false" onAction="#addSkipQuestion" scaleX="1.5" scaleY="1.5" text="Skip Question" />
+        <CheckBox fx:id="flash" layoutX="79.0" layoutY="415.0" mnemonicParsing="false" onAction="#addFlash" scaleX="1.5" scaleY="1.5" text="Flash" />
+        <CheckBox fx:id="emergencyCall" layoutX="77.0" layoutY="455.0" mnemonicParsing="false" onAction="#addEmergencyCall" scaleX="1.5" scaleY="1.5" text="112" />
+        <Label layoutX="248.0" layoutY="177.0" text="Number of slected jokers: " />
+        <Label fx:id="jokerNumber" layoutX="385.0" layoutY="178.0" prefHeight="17.0" prefWidth="22.0" text="0" />
+        <Rectangle fill="#8ecae6" height="70.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="956.0" />
         <Text layoutX="421.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lobby" textAlignment="CENTER">
             <font>
-                <Font size="40.0"/>
+                <Font size="40.0" />
             </font>
         </Text>
-        <ImageView fitHeight="11.0" fitWidth="13.0" layoutX="220.0" layoutY="173.0" pickOnBounds="true"
-                   preserveRatio="true" scaleX="2.0" scaleY="2.0">
+        <ImageView fitHeight="11.0" fitWidth="13.0" layoutX="220.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
             <image>
-                <Image url="@../../../../../../docs/pictures/info_icon.png"/>
+                <Image url="@../../../../../../docs/pictures/info_icon.png" />
             </image>
         </ImageView>
-        <Region layoutX="220.0" layoutY="174.0" onMouseEntered="#displayJokerInfo" onMouseExited="#stopJokerInfo"
-                prefHeight="8.0" prefWidth="7.0" scaleX="2.0" scaleY="2.0"/>
+        <Region layoutX="220.0" layoutY="174.0" onMouseEntered="#displayJokerInfo" onMouseExited="#stopJokerInfo" prefHeight="8.0" prefWidth="7.0" scaleX="2.0" scaleY="2.0" />
         <RadioButton layoutX="721.0" layoutY="225.0" mnemonicParsing="false" text="Easy">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </RadioButton>
         <RadioButton layoutX="721.0" layoutY="325.0" mnemonicParsing="false" text="Medium">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </RadioButton>
         <RadioButton layoutX="721.0" layoutY="425.0" mnemonicParsing="false" text="Hard">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </RadioButton>
     </children>
