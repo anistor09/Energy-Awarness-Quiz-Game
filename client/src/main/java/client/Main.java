@@ -87,6 +87,12 @@ public class Main extends Application {
         Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer =
                 FXML.load(InsertUsernameSinglePlayerCtrl.class,
                         "client", "scenes", "InsertUsernameSingleplayer.fxml");
+        Pair<SingleplayerInsteadOfQuestionCtrl, Parent> singleplayerInsteadOfQuestionCtrlParentPair =
+                FXML.load(SingleplayerInsteadOfQuestionCtrl.class,
+                        "client", "scenes", "SingleplayerInsteadOfQuestion.fxml");
+        Pair<MultiplayerInsteadOfQuestionCtrl, Parent> multiplayerInsteadOfQuestionCtrlParentPair =
+                FXML.load(MultiplayerInsteadOfQuestionCtrl.class,
+                        "client", "scenes", "MultiplayerInsteadOfQuestion.fxml");
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
@@ -96,7 +102,9 @@ public class Main extends Application {
                 multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
                 insertInfoMultiplayer,
-                helpCtrlParentPair,  insertInfoSingleplayer);
+                helpCtrlParentPair,  insertInfoSingleplayer,
+                singleplayerInsteadOfQuestionCtrlParentPair,
+                multiplayerInsteadOfQuestionCtrlParentPair);
 
 
     }

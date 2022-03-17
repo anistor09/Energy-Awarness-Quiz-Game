@@ -67,6 +67,12 @@ public class MainCtrl {
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
+    private SingleplayerInsteadOfQuestionCtrl singleplayerInsteadOfQuestionCtrl;
+    private Scene singleplayerInsteadOfQuestion;
+
+    private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
+    private Scene multiplayerInsteadOfQuestion;
+
     private Game game;
 
 
@@ -101,7 +107,11 @@ public class MainCtrl {
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
-                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
+                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
+                           Pair<SingleplayerInsteadOfQuestionCtrl, Parent>
+                                   singleplayerInsteadOfQuestionCtrlParentPair,
+                           Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
+                                   multiPlayerInsteadOfQuestionCtrlParentPair) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -132,6 +142,10 @@ public class MainCtrl {
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
+        this.singleplayerInsteadOfQuestionCtrl = singleplayerInsteadOfQuestionCtrlParentPair.getKey();
+        this.singleplayerInsteadOfQuestion = new Scene(singleplayerInsteadOfQuestionCtrlParentPair.getValue());
+        this.multiplayerInsteadOfQuestionCtrl = multiPlayerInsteadOfQuestionCtrlParentPair.getKey();
+        this.multiplayerInsteadOfQuestion = new Scene(multiPlayerInsteadOfQuestionCtrlParentPair.getValue());
 
 
 
