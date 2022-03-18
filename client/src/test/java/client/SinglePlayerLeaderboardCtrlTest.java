@@ -13,7 +13,7 @@ class SinglePlayerLeaderboardCtrlTest {
     @Test
     void initialiseLeaderboard() {
         SinglePlayerLeaderboardCtrl s = new SinglePlayerLeaderboardCtrl(new MainCtrl(), new ServerUtils());
-        s.goToMenu(new ActionEvent());
+        //s.goToMenu(new ActionEvent());
         s.initialiseLeaderboard();
     }
 }
