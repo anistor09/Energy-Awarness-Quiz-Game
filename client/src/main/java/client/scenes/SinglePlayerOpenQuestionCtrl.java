@@ -85,4 +85,8 @@ public class SinglePlayerOpenQuestionCtrl {
         }
 
     }
+
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
 }

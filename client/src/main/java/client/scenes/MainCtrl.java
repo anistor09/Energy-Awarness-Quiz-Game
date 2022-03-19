@@ -23,6 +23,8 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainCtrl {
@@ -150,37 +152,48 @@ public class MainCtrl {
      */
     public void playSinglePLayerGame(String username){
 
-        game = initialiseSinglePlayerGame(username);
-        Question q = game.getQuestions().get(0);
+        SinglePlayerGame singlePlayerGame = (SinglePlayerGame) game;
+        singlePlayerGame = (SinglePlayerGame) initialiseSinglePlayerGame(username);
        // for(Question q : game.getQuestions())
        // {
         // the for statement will be implemented after we decide more details about the timer feature
+        for(int i = 0; i<21; i++) {
+            Question q = singlePlayerGame.getQuestions().get(i);
             String className = getClassName(q.getClass().getName());
 
-            switch(className){
+            switch (className) {
                 case "MultipleChoiceQuestion":
                     singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
                     goTo("singleplayerGame");
-                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                    singlePlayerGame.setCurrentQuestionNumber(singlePlayerGame.getCurrentQuestionNumber() + 1);
+
                     break;
                 case "MostEnergyQuestion":
                     singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
                     goTo("SingleplayerChooseOptionQuestionScreen");
-                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                    singlePlayerGame.setCurrentQuestionNumber(singlePlayerGame.getCurrentQuestionNumber() + 1);
                     break;
                 case "GuessQuestion":
                     singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
                     goTo("SingleplayerOpenQuestion");
-                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                    singlePlayerGame.setCurrentQuestionNumber(singlePlayerGame.getCurrentQuestionNumber() + 1);
                     break;
 //              case "InsteadOfQuestion":
-        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
 //                    break;
 //                 this case will be implemented when we will have a InsteadOfScene
                 default:
                     break;
             }
+            SinglePlayerGame.singleplayerInGameTimer();
 
+            Timer delayTimer = new Timer();
+            delayTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                }
+            }, 20000);
+        }
     }
 
     /**
