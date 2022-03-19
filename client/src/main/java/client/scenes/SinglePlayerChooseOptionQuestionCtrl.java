@@ -121,7 +121,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      */
     public void option2Handler() {
         if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 1) {
-
+            handleCorrect();
         } else {
             handleWrong();
         }
@@ -133,7 +133,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      */
     public void option3Handler() {
         if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 2) {
-
+            handleCorrect();
         } else {
             handleWrong();
         }
