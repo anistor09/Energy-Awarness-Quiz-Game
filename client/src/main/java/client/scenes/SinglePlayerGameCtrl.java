@@ -104,6 +104,11 @@ public class SinglePlayerGameCtrl {
             }
         }
     }
+
+    /**
+     * This method initialises the Image view with the corresponding image of the activity
+     * @param act Instance of Activity
+     */
     private void initialiseActivityImage(Activity act) {
         String  server = "http://localhost:8080/";
 

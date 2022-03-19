@@ -103,7 +103,10 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         }
     }
 
-    @FXML
+    /**
+     * This method initialises the Image views with the corresponding image of the activities
+     * @param activityList List of instances of the Activity Class
+     */
 
     private void initialiseActivityImages(List<Activity> activityList) {
        String  server = "http://localhost:8080/";
