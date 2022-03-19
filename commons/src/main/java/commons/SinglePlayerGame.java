@@ -17,7 +17,6 @@ public class SinglePlayerGame extends Game{
     public SinglePlayerGame(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards, Player player) {
         super(questions, jokerCards);
         this.player = player;
-        player.setJokerCards(jokerCards);;
     }
 
     public Player getPlayer() {
