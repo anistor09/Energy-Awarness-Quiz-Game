@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class SinglePlayerOpenQuestionCtrl {
 
     @FXML
     private Label score;
+    @FXML
+    private Text questionText;
 
     @FXML
     private Label time;
@@ -65,7 +69,10 @@ public class SinglePlayerOpenQuestionCtrl {
         Player player = ((SinglePlayerGame)currentGame).getPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
-        question.setText(String.valueOf(act.getTitle()));
+        question.setText("How much energy does it take?");
+        questionText.setText(act.getTitle());
+
+        initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
         if(jokerList.size()>=1)
@@ -84,5 +91,11 @@ public class SinglePlayerOpenQuestionCtrl {
             }
         }
 
+    }
+    private void initialiseActivityImage(Activity act) {
+        String  server = "http://localhost:8080/";
+        Image img = new Image(server + act.getImage_path());
+
+        image.setImage(img);
     }
 }

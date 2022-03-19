@@ -4,6 +4,7 @@ import commons.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.inject.Inject;
@@ -84,6 +85,8 @@ public class SinglePlayerGameCtrl {
         option2.setText(String.valueOf(options.get(1)));
         option3.setText(String.valueOf(options.get(2)));
 
+        initialiseActivityImage(act);
+
         List<JokerCard> jokerList = player.getJokerCards();
         if(jokerList.size()>=1)
         {
@@ -100,6 +103,11 @@ public class SinglePlayerGameCtrl {
 
             }
         }
+    }
+    private void initialiseActivityImage(Activity act) {
+        String  server = "http://localhost:8080/";
+
+        image.setImage(new Image(server + act.getImage_path()));
     }
 
     public void exit() {
