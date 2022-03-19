@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class SinglePlayerLeaderboardCtrl {
