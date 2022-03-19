@@ -28,7 +28,7 @@
             <Font size="26.0" />
          </font>
       </Text>
-      <Label fx:id="time" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="789.0" layoutY="269.0" prefHeight="46.0" prefWidth="147.0" style="-fx-background-color: #8ECAE6; -fx-background-radius: 40;" text="Time Left: " textAlignment="JUSTIFY">
+      <Label fx:id="time" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="789.0" layoutY="566.0" prefHeight="46.0" prefWidth="147.0" style="-fx-background-color: #219EBC; -fx-background-radius: 40;" text="Time Left: " textAlignment="JUSTIFY">
          <padding>
             <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
          </padding>
@@ -36,7 +36,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="score" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="789.0" layoutY="325.0" prefHeight="46.0" prefWidth="147.0" style="-fx-background-color: #8ECAE6; -fx-background-radius: 40;" text="Your Score: " textAlignment="JUSTIFY">
+      <Label fx:id="score" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="789.0" layoutY="622.0" prefHeight="46.0" prefWidth="147.0" style="-fx-background-color: #219EBC; -fx-background-radius: 40;" text="Your Score: " textAlignment="JUSTIFY">
          <padding>
             <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
          </padding>
@@ -53,7 +53,7 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="option1" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" style="-fx-background-color: #023047;" text="Option 1" textFill="#fb8500">
+                  <Button fx:id="option1" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" style="-fx-background-color: #8ECAE6; -fx-background-radius: 20;" text="Option 1" textFill="#fb8500">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -63,7 +63,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="option2" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" style="-fx-background-color: #023047;" text="Option 2" textFill="#fb8500">
+                  <Button fx:id="option2" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" style="-fx-background-color: #8ECAE6; -fx-background-radius: 20;" text="Option 2" textFill="#fb8500">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -73,7 +73,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="option3" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" style="-fx-background-color: #023047;" text="Option 3" textFill="#fb8500">
+                  <Button fx:id="option3" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" style="-fx-background-color: #8ECAE6; -fx-background-radius: 20;" text="Option 3" textFill="#fb8500">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -155,17 +155,17 @@
       </HBox>
       <HBox layoutX="161.0" layoutY="513.0" prefHeight="70.0" prefWidth="603.0">
          <children>
-            <Button fx:id="joker1" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #219EBC; -fx-background-radius: 30;" text="Joker1" textFill="#fd9e02">
+            <Button fx:id="joker1" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #023047; -fx-background-radius: 30;" text="Joker1" textFill="#fd9e02">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="joker2" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #219EBC; -fx-background-radius: 30;" text="Joker2" textFill="#fd9e02">
+            <Button fx:id="joker2" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #023047; -fx-background-radius: 30;" text="Joker2" textFill="#fd9e02">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="joker3" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #219EBC; -fx-background-radius: 30;" text="Joker3" textFill="#fd9e02">
+            <Button fx:id="joker3" mnemonicParsing="false" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #023047; -fx-background-radius: 30;" text="Joker3" textFill="#fd9e02">
                <font>
                   <Font size="24.0" />
                </font>
