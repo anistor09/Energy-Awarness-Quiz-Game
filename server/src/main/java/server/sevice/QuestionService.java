@@ -85,18 +85,17 @@ public class QuestionService {
      * @return the MostEnergyQuestion
      */
     public Question getRandomMostEnergyQuestion() {
-        Activity activity = activityController.getRandomActivity();
+        Activity activity = null;
         ArrayList<Activity> options = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             Activity option = activityController.getRandomActivity();
-            if (options.contains(option) || option.equals(activity)) {
+            if (options.contains(option)) {
                 i--;
                 continue;
             } else {
                 options.add(option);
             }
         }
-        MostEnergyQuestion mostEnergyQuestion = new MostEnergyQuestion(activity, 100, 30, options);
-        return mostEnergyQuestion;
+        return new MostEnergyQuestion(activity, 100, 30, options);
     }
 }

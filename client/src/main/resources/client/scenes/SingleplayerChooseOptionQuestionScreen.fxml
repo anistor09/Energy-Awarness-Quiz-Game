@@ -29,19 +29,19 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="option1" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" text="Option 1" />
+                        <Button fx:id="option1" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#option1Handler" prefHeight="300.0" prefWidth="190.0" text="Option 1" />
                         <ImageView fx:id="option1Image" fitHeight="150.0" fitWidth="180.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="option2" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" text="Option 2" />
+                        <Button fx:id="option2" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#option2Handler" prefHeight="300.0" prefWidth="190.0" text="Option 2" />
                         <ImageView fx:id="option2Image" fitHeight="150.0" fitWidth="180.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="option3" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" text="Option 3" />
+                        <Button fx:id="option3" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#option3Handler" prefHeight="300.0" prefWidth="190.0" text="Option 3" />
                         <ImageView fx:id="option3Image" fitHeight="150.0" fitWidth="180.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </Pane>
