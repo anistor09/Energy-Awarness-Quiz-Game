@@ -31,7 +31,7 @@ public class IntermediateScreenCtrl {
 
         Timer timerLabel = new Timer();
         timerLabel.scheduleAtFixedRate(new TimerTask() {
-            int i = 9;
+            int i = 5;
             @Override
             public void run() {
                 Platform.runLater(
@@ -52,6 +52,6 @@ public class IntermediateScreenCtrl {
                     mainCtrl.goTo("menu");
                 });
             }
-        }, 8000); // change this to 6000 when deploying
+        }, 4000);
     }
 }
