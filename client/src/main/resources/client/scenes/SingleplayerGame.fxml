@@ -25,7 +25,7 @@
     <center>
         <VBox maxWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="option1" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 1" VBox.vgrow="ALWAYS">
+                <Button fx:id="option1" mnemonicParsing="false" onAction="#option1Handler" prefHeight="36.0" prefWidth="400.0" text="Option 1" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="120.0" />
                     </VBox.margin>
@@ -33,7 +33,7 @@
                         <Insets bottom="10.0" left="1.0" top="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="option2" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
+                <Button fx:id="option2" mnemonicParsing="false" onAction="#option2Handler" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="40.0" />
                     </VBox.margin>
@@ -41,7 +41,7 @@
                         <Insets bottom="10.0" top="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 3" VBox.vgrow="ALWAYS">
+                <Button fx:id="option3" mnemonicParsing="false" onAction="#option3Handler" prefHeight="36.0" prefWidth="400.0" text="Option 3" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="40.0" />
                     </VBox.margin>

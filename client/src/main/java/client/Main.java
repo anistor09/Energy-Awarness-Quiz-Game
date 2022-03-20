@@ -94,6 +94,10 @@ public class Main extends Application {
                 FXML.load(MultiplayerInsteadOfQuestionCtrl.class,
                         "client", "scenes", "MultiplayerInsteadOfQuestion.fxml");
 
+        Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair =
+                FXML.load(SinglePlayerLeaderboardCtrl.class, "client", "scenes",
+                        "SinglePlayerLeaderboard.fxml");
+
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
                 multiLobby, credits, singleGame, multiGame,
@@ -101,8 +105,8 @@ public class Main extends Application {
                 singlePlayerChooseOptionQuestionControllerParentPair,
                 multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
-                insertInfoMultiplayer,
-                helpCtrlParentPair,  insertInfoSingleplayer,
+                insertInfoMultiplayer,helpCtrlParentPair, insertInfoSingleplayer,
+                singlePlayerLeaderboardCtrlParentPair,
                 singleplayerInsteadOfQuestionCtrlParentPair,
                 multiplayerInsteadOfQuestionCtrlParentPair);
 

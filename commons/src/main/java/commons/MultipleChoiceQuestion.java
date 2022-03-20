@@ -6,6 +6,7 @@ import java.util.Objects;
 public class MultipleChoiceQuestion extends Question{
 
     private ArrayList<Double> options;
+    private double correctAnswer;
 
 
     /**
@@ -39,7 +40,7 @@ public class MultipleChoiceQuestion extends Question{
 
 
         options.add(correctAnswer);
-
+        this.correctAnswer = (long) correctAnswer;
         this.options = options;
     }
 
@@ -111,6 +112,10 @@ public class MultipleChoiceQuestion extends Question{
     @Override
     public int hashCode() {
         return Objects.hash(options);
+    }
+
+    public double getCorrectAnswer() {
+        return correctAnswer;
     }
 }
 

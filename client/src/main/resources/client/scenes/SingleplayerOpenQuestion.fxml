@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerOpenQuestionCtrl">
     <top>
@@ -26,7 +27,7 @@
     <center>
         <VBox BorderPane.alignment="CENTER">
             <children>
-            <TextField fx:id="userAnswer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="210.0" promptText="Your Answer">
+            <TextField fx:id="userAnswer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#changeGuess" prefHeight="40.0" prefWidth="210.0" promptText="Your Answer">
                <VBox.margin>
                   <Insets left="60.0" top="150.0" />
                </VBox.margin>
@@ -64,9 +65,14 @@
             <children>
                 <ImageView fx:id="image" fitHeight="282.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets left="30.0" top="70.0" />
+                        <Insets left="30.0" top="30.0" />
                     </VBox.margin>
                 </ImageView>
+            <Text fx:id="questionText" boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="questionText" textOrigin="CENTER" wrappingWidth="278.15625">
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+            </Text>
                 <Button fx:id="joker1" mnemonicParsing="false" prefHeight="44.0" prefWidth="285.0" text="Joker 1">
                     <VBox.margin>
                         <Insets left="10.0" top="50.0" />
