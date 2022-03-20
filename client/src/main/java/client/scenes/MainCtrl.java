@@ -24,6 +24,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -70,7 +71,12 @@ public class MainCtrl{
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
-    private Game game;
+    private SinglePlayerLeaderboardCtrl singlePlayerLeaderboardCtrl;
+    private Scene singlePlayerLeaderboard;
+
+    private Game game; // An instance of Game class representing the ongoing game
+    private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
+                                            // that the player chose to use
 
 
     /**
@@ -104,7 +110,8 @@ public class MainCtrl{
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
-                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
+                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
+                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -135,7 +142,8 @@ public class MainCtrl{
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
-
+        this.singlePlayerLeaderboardCtrl = singlePlayerLeaderboardCtrlParentPair.getKey();
+        this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
 
 
 
@@ -149,13 +157,14 @@ public class MainCtrl{
      * a player attribute with the given username. In this method we will iterate through all the questions,
      * by selecting the current question from the game attribute currentQuestionNumber in the game
      * and set the correct scene for each of them
-     * @param username String representing the username inserted by the user
+     * @param player Sinstance of Player representing the username inserted by the user
      */
-    public void playSinglePLayerGame(String username) {
-        game = initialiseSinglePlayerGame(username);
+    public void playSinglePLayerGame(Player player){
+        game = initialiseSinglePlayerGame(player);
         goToNextQuestion();
     }
 
+        
     /**
      * This is a timer that works in the background and switches to the next question
      */
@@ -255,10 +264,10 @@ public class MainCtrl{
 
     /**
      * This method was creating for testing purposes until we will retrieve a game from the server automatically
-     * @param username String representing the username of the Player
+     * @param player Instance of Player representing the username of the Player
      * @return A Game instance created for testing purposes
      */
-    public Game initialiseSinglePlayerGame(String username){
+    public Game initialiseSinglePlayerGame(Player player){
        Activity act1 = new Activity("00-shower",
                 "00/shower.png",
                 "Question 1",
@@ -301,15 +310,12 @@ public class MainCtrl{
         questionArray.add(q5);
         questionArray.add(q1);
         questionArray.add(q2);
-        questionArray.add(q3);
         questionArray.add(q4);
         questionArray.add(q1);
         questionArray.add(q2);
-        questionArray.add(q3);
         questionArray.add(q4);
         questionArray.add(q1);
         questionArray.add(q2);
-        questionArray.add(q3);
         questionArray.add(q4);
 
         Player player = new Player(username,0);
@@ -374,8 +380,53 @@ public class MainCtrl{
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
                 break;
+            case "SinglePlayerLeaderboard":
+                System.out.println("hello");
+                singlePlayerLeaderboardCtrl.initialiseLeaderboard();
+                primaryStage.setScene(singlePlayerLeaderboard);
+                break;
             default: primaryStage.setScene(menu);
         }
+    }
+
+    public void setStringJokers(List<String> checkedStringJokers) {
+        this.jokersStringList = checkedStringJokers;
+    }
+    public List<String> getStringJokers() {
+        return this.jokersStringList;
+    }
+
+    /**
+     * This method creates a player instance with the given username. It also instantiates each joker
+     * transforming them from a String to an JokerCard instance
+     * @param insertedUsername String representing the username inserted by the user
+     * @param stringJokers List of Strings representing the names of the jokers that have to be instantiated.
+     * @return An instance of the Player Class
+     */
+    public Player createPlayer(String insertedUsername, List<String> stringJokers) {
+        Player p = new Player(insertedUsername,0);
+        List<JokerCard> jokerList = new ArrayList<>();
+        for (String s : stringJokers) {
+            switch (s){
+                case "AdditionalPointsJoker":
+                    jokerList.add(new AdditionalPointsJoker(p));
+                    break;
+                case "EliminateOptionJoker":
+                    jokerList.add(new EliminateOptionJoker(null));
+                    break;
+                case "QuestionChangeJoker":
+                    jokerList.add(new QuestionChangeJoker());
+                    break;
+                case "ShortenTimeJoker":
+                    jokerList.add(new ShortenTimeJoker(1000,null));
+                    break;
+                default:
+                    break;
+            }
+        }
+        p.setJokerCards(jokerList);
+
+        return p;
     }
 }
 

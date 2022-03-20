@@ -30,13 +30,13 @@
                 <Font size="19.0" />
             </font>
         </Text>
-        <CheckBox fx:id="timeTwister" layoutX="90.0" layoutY="215.0" mnemonicParsing="false" onAction="#addTimeTwister" scaleX="1.5" scaleY="1.5" text="Time Twister" />
+<!--        <CheckBox fx:id="timeTwister" layoutX="90.0" layoutY="215.0" mnemonicParsing="false" onAction="#addTimeTwister" scaleX="1.5" scaleY="1.5" text="Time Twister" />-->
         <CheckBox fx:id="pointBoost" layoutX="89.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPointBoost" scaleX="1.5" scaleY="1.5" text="Point Boost" />
         <CheckBox fx:id="detective" layoutX="86.0" layoutY="255.0" mnemonicParsing="false" onAction="#addDetective" scaleX="1.5" scaleY="1.5" text="Detective" />
         <CheckBox fx:id="questionChange" layoutX="96.0" layoutY="335.0" mnemonicParsing="false" onAction="#addQuestionChange" scaleX="1.5" scaleY="1.5" text="Question Change" />
-        <CheckBox fx:id="skipQuestion" layoutX="91.0" layoutY="375.0" mnemonicParsing="false" onAction="#addSkipQuestion" scaleX="1.5" scaleY="1.5" text="Skip Question" />
-        <CheckBox fx:id="flash" layoutX="79.0" layoutY="415.0" mnemonicParsing="false" onAction="#addFlash" scaleX="1.5" scaleY="1.5" text="Flash" />
-        <CheckBox fx:id="emergencyCall" layoutX="77.0" layoutY="455.0" mnemonicParsing="false" onAction="#addEmergencyCall" scaleX="1.5" scaleY="1.5" text="112" />
+<!--        <CheckBox fx:id="skipQuestion" layoutX="91.0" layoutY="375.0" mnemonicParsing="false" onAction="#addSkipQuestion" scaleX="1.5" scaleY="1.5" text="Skip Question" />-->
+<!--        <CheckBox fx:id="flash" layoutX="79.0" layoutY="415.0" mnemonicParsing="false" onAction="#addFlash" scaleX="1.5" scaleY="1.5" text="Flash" />-->
+<!--        <CheckBox fx:id="emergencyCall" layoutX="77.0" layoutY="455.0" mnemonicParsing="false" onAction="#addEmergencyCall" scaleX="1.5" scaleY="1.5" text="112" />-->
         <Label layoutX="248.0" layoutY="177.0" text="Number of slected jokers: " />
         <Label fx:id="jokerNumber" layoutX="385.0" layoutY="178.0" prefHeight="17.0" prefWidth="22.0" text="0" />
         <Rectangle fill="#8ecae6" height="70.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="956.0" />

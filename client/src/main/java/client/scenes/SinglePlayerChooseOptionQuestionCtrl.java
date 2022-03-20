@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.util.List;
 
@@ -14,6 +16,13 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
     @FXML
     private Button exit;
+
+    @FXML
+    private Text question1Text;
+    @FXML
+    private Text question2Text;
+    @FXML
+    private Text question3Text;
 
     @FXML
     private Button joker1;
@@ -72,25 +81,21 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         score.setText(String.valueOf(player.getCurrentScore()));
         List<Activity> actList = q.getOtherActivities();
         actList.add(q.getActivity());
-        option1.setText(actList.get(0).getTitle());
-        option2.setText(actList.get(1).getTitle());
-        option3.setText(actList.get(2).getTitle());
+        question1Text.setText(actList.get(0).getTitle());
+        question2Text.setText(actList.get(1).getTitle());
+        question3Text.setText(actList.get(2).getTitle());
+//
         question.setText("What requires more energy?");
 
         List<JokerCard> jokerList = player.getJokerCards();
 
-        if (jokerList.size() >= 1) {
-            joker1.setText(jokerList.get(0).getName());
-            if (jokerList.size() >= 2) {
-                joker2.setText(jokerList.get(1).getName());
-                if (jokerList.size() >= 3) {
-                    joker3.setText(jokerList.get(2).getName());
-
-                }
-            }
-        }
+       setJokers(jokerList);
     }
 
+    /**
+     * This method initialises the Image views with the corresponding image of the activities
+     * @param activityList List of instances of the Activity Class
+     */
     /**
      * This method will switch the buttons on or off according to the boolean passed. True means off
      * @param onOff the boolean for which to set the setDisable property
@@ -103,6 +108,15 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
     }
+
+    private void initialiseActivityImages(List<Activity> activityList) {
+       String  server = "http://localhost:8080/";
+
+        option1Image.setImage(new Image(server + activityList.get(0).getImage_path()));
+        option2Image.setImage(new Image(server + activityList.get(1).getImage_path()));
+        option3Image.setImage(new Image(server + activityList.get(2).getImage_path()));
+    }
+
 
     /**
      * Handles the clicks on button with option 1
@@ -149,6 +163,23 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         time.setText(String.valueOf(i));
     }
 
+    /**
+     * This method maps the player's jokers to their corresponding buttons
+     * @param jokerList List of JokerCard instances representing the player's jokers
+     */
+    public void setJokers(List<JokerCard> jokerList){
+        Button[] buttonArray ={ joker1,joker2,joker3};
+        for(int i=0;i<buttonArray.length;i++){
+            Button current = buttonArray[i];
+            if(i<=jokerList.size()-1){
+                current.setText(jokerList.get(i).getName());
+            }
+            else{
+                current.setText("Unavailable Joker");
+                current.setDisable(true);
+            }
+        }
+    }
     /**
      * This method will handle when the user click the correct option. For the moment it is increasing the points of the
      * player and printing out correct
