@@ -82,17 +82,29 @@ public class SingleplayerInsteadOfQuestionCtrl {
         option3.setText(String.valueOf(options.get(2)));
 
         List<JokerCard> jokerCards = player.getJokerCards();
-        if (jokerCards.size() >= 1) {
-            joker1.setText(jokerCards.get(0).getName());
-            if (jokerCards.size() >= 2) {
-                joker2.setText(jokerCards.get(1).getName());
-                if (jokerCards.size() >= 3) {
-                    joker3.setText(jokerCards.get(2).getName());
-                }
+        setJokers(jokerCards);
+
+
+    }
+    /**
+     * This method maps the player's jokers to their corresponding buttons
+     * @param jokerList List of JokerCard instances representing the player's jokers
+     */
+    public void setJokers(List<JokerCard> jokerList){
+        Button[] buttonArray ={ joker1,joker2,joker3};
+
+        for(int i=0;i<buttonArray.length;i++){
+            Button current = buttonArray[i];
+            if(i<=jokerList.size()-1){
+
+                current.setText(jokerList.get(i).getName());
             }
+            else{
+                current.setText("Unavailable Joker");
+                current.setDisable(true);
+            }
+
         }
-
-
     }
 
     @FXML
