@@ -244,7 +244,7 @@ public class MainCtrl {
         ));
         Question q4 = new GuessQuestion(act1,1000,"EASY",40);
 
-        ArrayList<Question> questionArray = new ArrayList<Question>(Arrays.asList(q4));
+        ArrayList<Question> questionArray = new ArrayList<Question>(Arrays.asList(q2));
 
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
