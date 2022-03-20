@@ -10,8 +10,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerChooseOptionQuestionController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerChooseOptionQuestionCtrl">
    <top>
       <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="737.0" text="Question" BorderPane.alignment="BOTTOM_CENTER">
          <BorderPane.margin>
@@ -29,20 +30,23 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="option1" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" text="Option 1" />
+                        <Button fx:id="option1" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#option1Handler" prefHeight="300.0" prefWidth="190.0" text="Option 1" />
                         <ImageView fx:id="option1Image" fitHeight="150.0" fitWidth="180.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="question1Text" boundsType="LOGICAL_VERTICAL_CENTER" layoutX="18.0" layoutY="41.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Question1" textOrigin="CENTER" wrappingWidth="154.13671875" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="option2" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" text="Option 2" />
+                        <Button fx:id="option2" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#option2Handler" prefHeight="300.0" prefWidth="190.0" text="Option 2" />
                         <ImageView fx:id="option2Image" fitHeight="150.0" fitWidth="180.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="question2Text" boundsType="LOGICAL_VERTICAL_CENTER" layoutX="18.0" layoutY="42.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Question2" textOrigin="CENTER" wrappingWidth="154.13671875" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="option3" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="300.0" prefWidth="190.0" text="Option 3" />
+                        <Button fx:id="option3" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#option3Handler" prefHeight="300.0" prefWidth="190.0" text="Option 3" />
                         <ImageView fx:id="option3Image" fitHeight="150.0" fitWidth="180.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="question3Text" boundsType="LOGICAL_VERTICAL_CENTER" layoutX="23.0" layoutY="46.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Question3" textOrigin="CENTER" wrappingWidth="154.13671875" />
                      </children>
                   </Pane>
                </children>
@@ -109,14 +113,6 @@
                </HBox.margin>
             </Button>
             <Region prefHeight="100.0" prefWidth="660.0" />
-            <Button fx:id="help" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#help" prefHeight="36.0" prefWidth="139.0" text="Help">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets top="50.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
    </bottom>

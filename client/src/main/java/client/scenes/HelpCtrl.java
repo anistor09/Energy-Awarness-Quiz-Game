@@ -5,17 +5,16 @@ import javafx.fxml.FXML;
 import javax.inject.Inject;
 
 
-public class CreditsController {
+public class HelpCtrl{
     private final MainCtrl mainCtrl;
 
     @Inject
-    public CreditsController(MainCtrl mainCtrl) {
+    public HelpCtrl(MainCtrl mainCtrl){
         this.mainCtrl = mainCtrl;
     }
 
     @FXML
-    protected void returnMenu(){
+    protected void goToMenu(){
         mainCtrl.goTo("menu");
     }
-
 }

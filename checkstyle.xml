@@ -14,7 +14,6 @@
             <property name="allowMissingPropertyJavadoc" value="true" />
         </module>
         <module name="OneStatementPerLine" />
-        <module name="AvoidStarImport" />
         <module name="RedundantImport" />
         <module name="MethodLength">
             <property name="max" value="70" />

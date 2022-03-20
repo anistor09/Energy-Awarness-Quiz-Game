@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0"
       prefWidth="950.0" style="-fx-background-color: #219EBC;" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CreditsController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CreditsCtrl">
     <children>
         <Rectangle fill="#126782" height="70.0" layoutX="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
                    width="956.0"/>

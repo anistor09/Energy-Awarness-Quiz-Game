@@ -2,9 +2,11 @@ package commons;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SinglePlayerGame extends Game{
-    private Player player;
+    private static Player player;
 
     /**
      * Creates an instance of a single-player game.
@@ -44,5 +46,30 @@ public class SinglePlayerGame extends Game{
         return "SinglePlayerGame{" +
                 "player=" + player +
                 '}';
+    }
+
+    /**
+     * This method starts the timer for the questions. It also displays the time left for the player. Once the timer is
+     * over this method will go to the intermediate screen
+     */
+    public static void singleplayerInGameTimer(){
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if(player.getTimeLeft() < 0){
+                    timer.cancel();
+                    player.setTimeLeft(3);// Resetting the time left for player. #### CHANGE TO 20 IN FINAL VERSION
+                    //
+                    // Method that checks if the answer of the user is right
+                    //
+                    // Method that goes to intermediate screen
+                    //
+                }
+                else
+                    player.setTimeLeft(player.getTimeLeft() - 1);
+
+            }
+        }, 0, 1000);
     }
 }

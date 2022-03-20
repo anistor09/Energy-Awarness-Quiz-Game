@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 
-public class MultiPlayerChooseOptionQuestionController {
+public class MultiPlayerChooseOptionQuestionCtrl {
 
     @FXML
     private Label ReactionName;
@@ -27,9 +27,6 @@ public class MultiPlayerChooseOptionQuestionController {
 
     @FXML
     private Button exit;
-
-    @FXML
-    private Button help;
 
     @FXML
     private ImageView inLove;
@@ -81,7 +78,7 @@ public class MultiPlayerChooseOptionQuestionController {
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerChooseOptionQuestionController(MainCtrl mainCtrl) {
+    public MultiPlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
@@ -90,11 +87,9 @@ public class MultiPlayerChooseOptionQuestionController {
         mainCtrl.goTo("menu");
     }
 
-    @FXML
-    void help(ActionEvent event) {
-
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
     }
-
 }
 
 

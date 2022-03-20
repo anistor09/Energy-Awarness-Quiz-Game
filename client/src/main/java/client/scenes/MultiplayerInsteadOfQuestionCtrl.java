@@ -1,19 +1,18 @@
 package client.scenes;
 
-import com.google.inject.Inject;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 
-public class SinglePlayerChooseOptionQuestionController {
+import javax.inject.Inject;
+
+public class MultiplayerInsteadOfQuestionCtrl {
 
     @FXML
     private Button exit;
-
-    @FXML
-    private Button help;
 
     @FXML
     private Button joker1;
@@ -51,21 +50,42 @@ public class SinglePlayerChooseOptionQuestionController {
     @FXML
     private Label time;
 
+    @FXML
+    private Label ReactionName;
+
+    @FXML
+    private ImageView anger;
+
+    @FXML
+    private ImageView crying;
+
+    @FXML
+    private ImageView devil;
+
+    @FXML
+    private ImageView inLove;
+
+    @FXML
+    private ImageView smiling;
+
+    @FXML
+    private ImageView thinking;
+
+    @FXML
+    private Separator bar;
+
+    @FXML
+    private ImageView reaction;
+
     private final MainCtrl mainCtrl;
 
     @Inject
-    public SinglePlayerChooseOptionQuestionController(MainCtrl mainCtrl) {
+    public MultiplayerInsteadOfQuestionCtrl(MainCtrl mainCtrl){
         this.mainCtrl = mainCtrl;
     }
+
     @FXML
-    void exit(ActionEvent event) {
+    protected void goToMenu(){
         mainCtrl.goTo("menu");
     }
-
-    @FXML
-    void help(ActionEvent event) {
-
-    }
-
 }
-

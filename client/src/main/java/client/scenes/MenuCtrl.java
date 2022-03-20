@@ -63,4 +63,13 @@ public class MenuCtrl {
     protected void goToSinglePlayerLobby() throws IOException {
         mainCtrl.goTo("singleLobby");
     }
+
+    @FXML
+    protected void goToHelp(){
+        mainCtrl.goTo("help");
+    }
+
+    public void goToLeaderboard(ActionEvent actionEvent) {
+        mainCtrl.goTo("SinglePlayerLeaderboard");
+    }
 }

@@ -29,9 +29,6 @@ public class MultiPlayerGameCtrl {
     private Button exit;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView image;
 
     @FXML
@@ -80,15 +77,12 @@ public class MultiPlayerGameCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    /**
-     * This method is supposed to go to the help page. At the moment it goes to menu because there is no help page
-     */
-    public void help() {
-        mainCtrl.goTo("help");
-    }
-
     public void exit() {
         mainCtrl.goTo("menu");
+    }
+
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
     }
 
 }

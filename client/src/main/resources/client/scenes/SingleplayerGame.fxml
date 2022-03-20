@@ -25,7 +25,7 @@
     <center>
         <VBox maxWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="option1" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 1" VBox.vgrow="ALWAYS">
+                <Button fx:id="option1" mnemonicParsing="false" onAction="#option1Handler" prefHeight="36.0" prefWidth="400.0" text="Option 1" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="120.0" />
                     </VBox.margin>
@@ -33,7 +33,7 @@
                         <Insets bottom="10.0" left="1.0" top="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="option2" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
+                <Button fx:id="option2" mnemonicParsing="false" onAction="#option2Handler" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="40.0" />
                     </VBox.margin>
@@ -41,7 +41,7 @@
                         <Insets bottom="10.0" top="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 3" VBox.vgrow="ALWAYS">
+                <Button fx:id="option3" mnemonicParsing="false" onAction="#option3Handler" prefHeight="36.0" prefWidth="400.0" text="Option 3" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="40.0" />
                     </VBox.margin>
@@ -136,14 +136,6 @@
                     </HBox.margin>
                 </Button>
                 <Region prefHeight="100.0" prefWidth="660.0" />
-                <Button fx:id="help" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#help" prefHeight="36.0" prefWidth="139.0" text="Help">
-                    <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets top="50.0" />
-                    </HBox.margin>
-                </Button>
             </children>
         </HBox>
     </bottom>

@@ -14,6 +14,11 @@ public class ShortenTimeJoker extends JokerCard{
         this.additionalTime = additionalTime;
         this.question = question;
     }
+    public ShortenTimeJoker( int additionalTime, Question question) {
+        super("ShortenTimeJoker", "...", onlyMultiplayer);
+        this.additionalTime = additionalTime;
+        this.question = question;
+    }
 
     /**
      * This card is meant for solely multiplayer Games.

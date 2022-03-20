@@ -1,12 +1,8 @@
 package commons;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +22,10 @@ public class Player {
     private Long id;
     private String username;
     private int currentScore;
+    @Transient
+    private int timeLeft = 3; // #### CHANGE IN FINAL VERSION ####
+    @Transient
+    private List<JokerCard> jokerCards;//each player is assigned with a set of available jokers
 
     /**
      * Constructor for a player without ID parameter
@@ -35,6 +35,14 @@ public class Player {
     public Player(String username, int currentScore) {
         this.username = username;
         this.currentScore = currentScore;
+    }
+
+    public List<JokerCard> getJokerCards() {
+        return jokerCards;
+    }
+
+    public void setJokerCards(List<JokerCard> jokerCards) {
+        this.jokerCards = jokerCards;
     }
 
     /**
@@ -99,5 +107,13 @@ public class Player {
 
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
     }
 }
