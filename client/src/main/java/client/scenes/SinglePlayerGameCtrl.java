@@ -1,7 +1,6 @@
 package client.scenes;
 
 import commons.*;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class SinglePlayerGameCtrl {
@@ -94,38 +91,27 @@ public class SinglePlayerGameCtrl {
         initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
-        setJokers(jokerList);
+        this.setJokers(jokerList);
     }
 
     /**
      * This method maps the player's jokers to their corresponding buttons
      * @param jokerList List of JokerCard instances representing the player's jokers
      */
-    public void setJokers(List<JokerCard> jokerList){
-        Button[] buttonArray ={ joker1,joker2,joker3};
+    public void setJokers(List<JokerCard> jokerList) {
+        Button[] buttonArray = {joker1, joker2, joker3};
 
-        for(int i=0;i<buttonArray.length;i++){
+        for (int i = 0; i < buttonArray.length; i++) {
             Button current = buttonArray[i];
-            if(i<=jokerList.size()-1){
+            if (i <= jokerList.size() - 1) {
 
                 current.setText(jokerList.get(i).getName());
-            }
-            else{
+            } else {
                 current.setText("Unavailable Joker");
                 current.setDisable(true);
             }
 
         }
-        // go to the intermediate screen after X seconds
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    mainCtrl.goTo("intermediateScreen");
-                });
-            }
-        }, (int)q.getAllowedTime()*100);// change this to 1000 when deploying
     }
 
     /**

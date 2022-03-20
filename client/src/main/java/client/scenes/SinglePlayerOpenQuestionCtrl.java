@@ -2,7 +2,6 @@ package client.scenes;
 
 import com.google.inject.Inject;
 import commons.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,10 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class SinglePlayerOpenQuestionCtrl {
 
@@ -83,7 +79,7 @@ public class SinglePlayerOpenQuestionCtrl {
         initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
-        setJokers(jokerList);
+        this.setJokers(jokerList);
 
     }
 
