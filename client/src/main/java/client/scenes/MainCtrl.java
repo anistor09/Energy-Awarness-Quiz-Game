@@ -315,6 +315,7 @@ public class MainCtrl {
                 primaryStage.setScene(singlePlayerOpenQuestion);
                 break;
             case "SinglePlayerLeaderboard":
+                System.out.println("hello");
                 singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 primaryStage.setScene(singlePlayerLeaderboard);
                 break;
