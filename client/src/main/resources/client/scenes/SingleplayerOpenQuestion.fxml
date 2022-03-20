@@ -27,7 +27,7 @@
     <center>
         <VBox BorderPane.alignment="CENTER">
             <children>
-            <TextField fx:id="userAnswer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="210.0" promptText="Your Answer">
+            <TextField fx:id="userAnswer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#changeGuess" prefHeight="40.0" prefWidth="210.0" promptText="Your Answer">
                <VBox.margin>
                   <Insets left="60.0" top="150.0" />
                </VBox.margin>

@@ -61,6 +61,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Label time;
 
     private final MainCtrl mainCtrl;
+    private MostEnergyQuestion questionObject; //the object that is being displayed
 
     @Inject
     public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
@@ -69,14 +70,14 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
-     *
      */
-    @FXML
-    public void initialiseMostEnergyQuestion(){
+    public void initialiseMostEnergyQuestion() {
+        switchButtons(false);
         Game currentGame = mainCtrl.getGame();
-        MostEnergyQuestion q = (MostEnergyQuestion)currentGame.getQuestions().
+        MostEnergyQuestion q = (MostEnergyQuestion) currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
-        Player player = ((SinglePlayerGame)currentGame).getPlayer();
+        questionObject = q;
+        Player player = ((SinglePlayerGame) currentGame).getPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
         List<Activity> actList = q.getOtherActivities();
         actList.add(q.getActivity());
@@ -91,11 +92,9 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         if(jokerList.size()>=1)
         {
             joker1.setText(jokerList.get(0).getName());
-            if(jokerList.size()>=2)
-            {
+            if (jokerList.size() >= 2) {
                 joker2.setText(jokerList.get(1).getName());
-                if(jokerList.size()>=3)
-                {
+                if (jokerList.size() >= 3) {
                     joker3.setText(jokerList.get(2).getName());
 
                 }
@@ -107,6 +106,18 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * This method initialises the Image views with the corresponding image of the activities
      * @param activityList List of instances of the Activity Class
      */
+    /**
+     * This method will switch the buttons on or off according to the boolean passed. True means off
+     * @param onOff the boolean for which to set the setDisable property
+     */
+    void switchButtons(boolean onOff) {
+        option1.setDisable(onOff);
+        option2.setDisable(onOff);
+        option3.setDisable(onOff);
+        joker1.setDisable(onOff);
+        joker2.setDisable(onOff);
+        joker3.setDisable(onOff);
+    }
 
     private void initialiseActivityImages(List<Activity> activityList) {
        String  server = "http://localhost:8080/";
@@ -117,9 +128,63 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     }
 
 
+    /**
+     * Handles the clicks on button with option 1
+     */
+    public void option1Handler() {
+        if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 0) {
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
+
+    /**
+     * Handles the clicks on button with option 2
+     */
+    public void option2Handler() {
+        if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 1) {
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
+
+    /**
+     * Handles the clicks on button with option 3
+     */
+    public void option3Handler() {
+        if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 2) {
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
+
     @FXML
     void exit(ActionEvent event) {
         mainCtrl.goTo("menu");
+    }
+
+    /**
+     * This method will handle when the user click the correct option. For the moment it is increasing the points of the
+     * player and printing out correct
+     */
+    void handleCorrect() {
+        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+        System.out.println("correct");
+    }
+
+    /**
+     * This method will handle when the user clicks the wrong option. For the moment it is only printing wrong on the
+     * console
+     */
+    void handleWrong() {
+        System.out.println("wrong");
     }
 
 

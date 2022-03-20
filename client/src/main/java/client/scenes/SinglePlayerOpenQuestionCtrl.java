@@ -48,6 +48,8 @@ public class SinglePlayerOpenQuestionCtrl {
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
+    private GuessQuestion questionObject;
+
     @Inject
     public SinglePlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -63,9 +65,11 @@ public class SinglePlayerOpenQuestionCtrl {
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
      */
     public void initialiseSinglePlayerOpenQuestion() {
+        switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
+        questionObject = q;
         Player player = ((SinglePlayerGame)currentGame).getPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
@@ -101,5 +105,36 @@ public class SinglePlayerOpenQuestionCtrl {
         Image img = new Image(server + act.getImage_path());
 
         image.setImage(img);
+    }
+
+    /**
+     * This is the onAction method for the Label. When the user hits enter this will be called. It will either
+     * calculate the number of points in case it is an integer or clear the field in case an exception is thrown.
+     * All the buttons are disabled after the call
+     */
+    public void changeGuess() {
+        try {
+            long guess = Long.parseLong(userAnswer.getCharacters().toString());
+            switchButtons(true);
+            int points = questionObject.calculatePoints(guess);
+            Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            p.setCurrentScore(p.getCurrentScore() + points);
+            System.out.println(guess);
+            System.out.println(points);
+        } catch (Exception e) {
+            userAnswer.clear();
+            System.out.println("Not a number");
+        }
+    }
+
+    /**
+     * This method will switch the buttons on or off according to the boolean passed. True means off
+     * @param onOff the boolean for which to set the setDisable property
+     */
+    void switchButtons(boolean onOff) {
+        userAnswer.setDisable(onOff);
+        joker1.setDisable(onOff);
+        joker2.setDisable(onOff);
+        joker3.setDisable(onOff);
     }
 }
