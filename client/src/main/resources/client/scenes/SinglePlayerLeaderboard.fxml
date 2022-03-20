@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/menu_stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/menu_stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLeaderboardCtrl">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#219ebc" height="117.0" stroke="#219ebc" strokeType="INSIDE" width="950.0" />
       <Text layoutX="408.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" />

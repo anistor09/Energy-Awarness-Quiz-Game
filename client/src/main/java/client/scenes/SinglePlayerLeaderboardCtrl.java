@@ -95,7 +95,6 @@ public class SinglePlayerLeaderboardCtrl {
 
         int numOfPlayers = players.size();
 
-        System.out.println(numOfPlayers);
 
         // if there are fewer than 10 players, we only want to set the first N rows in the leaderboard
         int min = Math.min(10, numOfPlayers);
@@ -106,7 +105,6 @@ public class SinglePlayerLeaderboardCtrl {
         players.sort((o1, o2) -> o2.getCurrentScore() - o1.getCurrentScore());
 
         // truncate list to only get the first 10
-
         players = players.subList(0, min);
 
         name1.setText(players.get(0).getUsername());
@@ -120,12 +118,9 @@ public class SinglePlayerLeaderboardCtrl {
             scores[i].setText(String.valueOf(players.get(i).getCurrentScore()));
         }
 
-        for (Label name : names) {
-            System.out.println(name.getAccessibleText());
-        }
 
-        playerName.setText("TEST NAME");
-        playerScore.setText("Test Score");
+        playerName.setText("Current Player");
+        playerScore.setText("Current Score");
 
     }
 }
