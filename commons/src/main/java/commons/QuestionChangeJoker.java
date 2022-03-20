@@ -7,6 +7,12 @@ public class QuestionChangeJoker extends JokerCard{
     public QuestionChangeJoker(String name, String description, boolean onlyMultiplayer) {
         super(name, description, onlyMultiplayer);
     }
+    public QuestionChangeJoker() {
+        super("asdas", "....", false);
+    }
+
+
+
 
     /**
      * This method changes the question for the player that uses this card.

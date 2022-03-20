@@ -23,6 +23,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class MainCtrl {
@@ -67,7 +68,9 @@ public class MainCtrl {
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
-    private Game game;
+    private Game game; // An instance of Game class representing the ongoing game
+    private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
+                                            // that the player chose to use
 
 
     /**
@@ -146,11 +149,11 @@ public class MainCtrl {
      * a player attribute with the given username. In this method we will iterate through all the questions,
      * by selecting the current question from the game attribute currentQuestionNumber in the game
      * and set the correct scene for each of them
-     * @param username String representing the username inserted by the user
+     * @param player Sinstance of Player representing the username inserted by the user
      */
-    public void playSinglePLayerGame(String username){
+    public void playSinglePLayerGame(Player player){
 
-        game = initialiseSinglePlayerGame(username);
+        game = initialiseSinglePlayerGame(player);
         Question q = game.getQuestions().get(0);
        // for(Question q : game.getQuestions())
        // {
@@ -198,10 +201,10 @@ public class MainCtrl {
 
     /**
      * This method was creating for testing purposes until we will retrieve a game from the server automatically
-     * @param username String representing the username of the Player
+     * @param player Instance of Player representing the username of the Player
      * @return A Game instance created for testing purposes
      */
-    public Game initialiseSinglePlayerGame(String username){
+    public Game initialiseSinglePlayerGame(Player player){
        Activity act1 = new Activity("00-shower",
                 "00/shower.png",
                 "Taking a hot shower for 6 minutes",
@@ -243,7 +246,6 @@ public class MainCtrl {
 
         ArrayList<Question> questionArray = new ArrayList<Question>(Arrays.asList(q2));
 
-        Player player = new Player(username,0);
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
@@ -252,7 +254,7 @@ public class MainCtrl {
         JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
                 false,(MultipleChoiceQuestion) q1);
 
-        ArrayList<JokerCard> jokerCards =new ArrayList<JokerCard>(Arrays.asList(j1,j2,j3));
+        ArrayList<JokerCard> jokerCards =new ArrayList<JokerCard>(Arrays.asList(j1,j2));
 
         SinglePlayerGame initialisedGame = new SinglePlayerGame(questionArray,jokerCards,player);
 
@@ -309,6 +311,46 @@ public class MainCtrl {
                 break;
             default: primaryStage.setScene(menu);
         }
+    }
+
+    public void setStringJokers(List<String> checkedStringJokers) {
+        this.jokersStringList = checkedStringJokers;
+    }
+    public List<String> getStringJokers() {
+        return this.jokersStringList;
+    }
+
+    /**
+     * This method creates a player instance with the given username. It also instantiates each joker
+     * transforming them from a String to an JokerCard instance
+     * @param insertedUsername String representing the username inserted by the user
+     * @param stringJokers List of Strings representing the names of the jokers that have to be instantiated.
+     * @return An instance of the Player Class
+     */
+    public Player createPlayer(String insertedUsername, List<String> stringJokers) {
+        Player p = new Player(insertedUsername,0);
+        List<JokerCard> jokerList = new ArrayList<>();
+        for (String s : stringJokers) {
+            switch (s){
+                case "AdditionalPointsJoker":
+                    jokerList.add(new AdditionalPointsJoker(p));
+                    break;
+                case "EliminateOptionJoker":
+                    jokerList.add(new EliminateOptionJoker(null));
+                    break;
+                case "QuestionChangeJoker":
+                    jokerList.add(new QuestionChangeJoker());
+                    break;
+                case "ShortenTimeJoker":
+                    jokerList.add(new ShortenTimeJoker(1000,null));
+                    break;
+                default:
+                    break;
+            }
+        }
+        p.setJokerCards(jokerList);
+
+        return p;
     }
 }
 
