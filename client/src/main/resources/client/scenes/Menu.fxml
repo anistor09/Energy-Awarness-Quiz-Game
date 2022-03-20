@@ -43,8 +43,8 @@
                         <GridPane prefHeight="579.0" prefWidth="466.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="206.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="104.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="166.77337646484375" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.507080078125" minWidth="10.0" prefWidth="173.22662353515625" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -62,6 +62,7 @@
                            <GridPane.margin>
                               <Insets left="10.0" top="15.0" />
                            </GridPane.margin></Button>
+                        <Button fx:id="leaderboardButton" mnemonicParsing="false" onAction="#goToLeaderboard" text="Leaderboard" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
                     </children>

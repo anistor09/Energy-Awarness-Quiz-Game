@@ -60,6 +60,11 @@ public class SinglePlayerLeaderboardCtrl {
     @FXML
     private Label score10;
 
+    @FXML
+    private Label playerName;
+    @FXML
+    private Label playerScore;
+
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
 
@@ -78,6 +83,7 @@ public class SinglePlayerLeaderboardCtrl {
     public void goToSPLobby(ActionEvent actionEvent) {
         mainCtrl.goTo("singleLobby");
     }
+
 
     /**
      * Retrieves all players as a List from the repository and sorts the list in descending order of currentScore.
@@ -117,6 +123,9 @@ public class SinglePlayerLeaderboardCtrl {
         for (Label name : names) {
             System.out.println(name.getAccessibleText());
         }
+
+        playerName.setText("TEST NAME");
+        playerScore.setText("Test Score");
 
     }
 }

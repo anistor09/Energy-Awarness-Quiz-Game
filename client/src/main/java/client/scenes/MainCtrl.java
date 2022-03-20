@@ -67,6 +67,9 @@ public class MainCtrl {
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
+    private SinglePlayerLeaderboardCtrl singlePlayerLeaderboardCtrl;
+    private Scene singlePlayerLeaderboard;
+
     private Game game;
 
 
@@ -101,7 +104,8 @@ public class MainCtrl {
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
-                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
+                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
+                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -132,7 +136,8 @@ public class MainCtrl {
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
-
+        this.singlePlayerLeaderboardCtrl = singlePlayerLeaderboardCtrlParentPair.getKey();
+        this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
 
 
         primaryStage.setTitle("Quizzz");
@@ -306,6 +311,9 @@ public class MainCtrl {
                 break;
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
+                break;
+            case "SinglePlayerLeaderboard":
+                primaryStage.setScene(singlePlayerLeaderboard);
                 break;
             default: primaryStage.setScene(menu);
         }
