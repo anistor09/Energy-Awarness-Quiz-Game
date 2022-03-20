@@ -16,6 +16,7 @@
 package client.scenes;
 
 import commons.*;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,9 +24,12 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
-public class MainCtrl {
+public class MainCtrl{
 
     private Stage primaryStage;
 
@@ -68,10 +72,21 @@ public class MainCtrl {
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
+    private SinglePlayerLeaderboardCtrl singlePlayerLeaderboardCtrl;
+    private Scene singlePlayerLeaderboard;
+    private SingleplayerInsteadOfQuestionCtrl singleplayerInsteadOfQuestionCtrl;
+    private Scene singleplayerInsteadOfQuestion;
     private IntermediateScreenCtrl intermediateScreenCtrl;
     private Scene intermediateScreen;
 
-    private Game game;
+
+    private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
+    private Scene multiplayerInsteadOfQuestion;
+
+
+    private Game game; // An instance of Game class representing the ongoing game
+    private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
+                                            // that the player chose to use
 
 
     /**
@@ -106,7 +121,14 @@ public class MainCtrl {
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
                            Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
-                           Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair) {
+                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair,
+                           Pair<SingleplayerInsteadOfQuestionCtrl, Parent>
+                                   singleplayerInsteadOfQuestionCtrlParentPair,
+                           Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
+                                   multiPlayerInsteadOfQuestionCtrlParentPair,
+                                   Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair) 
+                            {
+                           
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -137,6 +159,12 @@ public class MainCtrl {
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
+        this.singleplayerInsteadOfQuestionCtrl = singleplayerInsteadOfQuestionCtrlParentPair.getKey();
+        this.singleplayerInsteadOfQuestion = new Scene(singleplayerInsteadOfQuestionCtrlParentPair.getValue());
+        this.multiplayerInsteadOfQuestionCtrl = multiPlayerInsteadOfQuestionCtrlParentPair.getKey();
+        this.multiplayerInsteadOfQuestion = new Scene(multiPlayerInsteadOfQuestionCtrlParentPair.getValue());
+        this.singlePlayerLeaderboardCtrl = singlePlayerLeaderboardCtrlParentPair.getKey();
+        this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
         this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
 
@@ -145,7 +173,6 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
-
     }
 
     /**
@@ -153,45 +180,95 @@ public class MainCtrl {
      * a player attribute with the given username. In this method we will iterate through all the questions,
      * by selecting the current question from the game attribute currentQuestionNumber in the game
      * and set the correct scene for each of them
-     * @param username String representing the username inserted by the user
+     * @param player Sinstance of Player representing the username inserted by the user
      */
-    public void playSinglePLayerGame(String username){
+    public void playSinglePLayerGame(Player player){
+        game = initialiseSinglePlayerGame(player);
+        goToNextQuestion();
+    }
 
-        game = initialiseSinglePlayerGame(username);
-        Question q = game.getQuestions().get(0);
-       // for(Question q : game.getQuestions())
-       // {
-        // the for statement will be implemented after we decide more details about the timer feature
+        
+    /**
+     * This is a timer that works in the background and switches to the next question
+     */
+    public void singleplayerInGameTimer(){
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int i = 1;                              // SET TO 20 FOR FINAL VERSION
+            @Override
+            public void run() {
+                if(i <= 0){
+                    timer.cancel();
+                    checkGameStatus();
+                    // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
+                    //
+                    // Method that checks if the answer of the user is right
+                    //
+                    // Method that goes to intermediate screen
+                    //
+                }
+                else
+                    i--;
+            }
+        }, 0, 1000);
+    }
+
+    private void checkGameStatus() {
+        if(game.getCurrentQuestionNumber() < game.getQuestions().size()){
+            game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
+        }
+        else{
+            game.setGameOver(true);
+        }
+        goToNextQuestion();
+    }
+
+    private void goToNextQuestion() {
+        if(!game.isGameOver()) {
+            singleplayerInGameTimer();
+            int currentQuestionNumber;
+
+            currentQuestionNumber = game.getCurrentQuestionNumber();
+            Question q = game.getQuestions().get(currentQuestionNumber);
             String className = getClassName(q.getClass().getName());
 
-            switch(className){
-                case "MultipleChoiceQuestion":
-                    singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                    goTo("singleplayerGame");
-                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-                    break;
-                case "MostEnergyQuestion":
-                    singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
-                    goTo("SingleplayerChooseOptionQuestionScreen");
-                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-                    break;
-                case "GuessQuestion":
-                    singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
-                    goTo("SingleplayerOpenQuestion");
-                    game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-                    break;
-                case "intermediateScreen":
-                    intermediateScreenCtrl.initialiseScene();
-                    goTo("intermediateScreen");
-                    break;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    switch (className) {
+                        case "MultipleChoiceQuestion":
+                            singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                            goTo("singleplayerGame");
+                            break;
+
+                        case "MostEnergyQuestion":
+                            singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+                            goTo("SingleplayerChooseOptionQuestionScreen");
+                            break;
+
+                        case "GuessQuestion":
+                            singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
+                            goTo("SingleplayerOpenQuestion");
+                            break;
+
 //              case "InsteadOfQuestion":
-        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+                        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
 //                    break;
 //                 this case will be implemented when we will have a InsteadOfScene
-                default:
-                    break;
-            }
-
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+        else{
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    goTo("menu");
+                }
+            });
+        }
     }
 
     /**
@@ -207,35 +284,36 @@ public class MainCtrl {
     }
 
 
+
     /**
      * This method was creating for testing purposes until we will retrieve a game from the server automatically
-     * @param username String representing the username of the Player
+     * @param player Instance of Player representing the username of the Player
      * @return A Game instance created for testing purposes
      */
-    public Game initialiseSinglePlayerGame(String username){
+    public Game initialiseSinglePlayerGame(Player player){
        Activity act1 = new Activity("00-shower",
                 "00/shower.png",
-                "Taking a hot shower for 6 minutes",
-                4000,
+                "Question 1",
+                100,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
        Activity act2 =new Activity("00-shower",
                 "00/shower.png",
-                "Taking a hot shower for 6 minutes",
-                4000,
+                "Question 2",
+                500,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
        Activity act3 = new Activity("00-smartphone",
                 "00/smartphone.png",
-                "Charging your smartphone at night",
+                "Question 3",
                 10,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
         Activity act4 = new Activity("00-shower",
                 "00/shower.png",
-                "Taking 2 hot shower for 6 minutes",
+                "Question 4",
                 4000,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act5 =new Activity("00-shower",
                 "00/shower.png",
-                "Taking a hot shower for 6 minutes",
+                "Extra Question",
                 4000,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act6 = new Activity("00-smartphone",
@@ -245,16 +323,24 @@ public class MainCtrl {
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
-        Question q2 = new MostEnergyQuestion(act1, 2000, "EASY",40, new ArrayList<Activity>(
-                Arrays.asList(act2, act3)));
-        Question q3 = new InsteadOfQuestion(act4, 2000,"EASY",40, new ArrayList<Activity>(
-                Arrays.asList(act6, act5)
-        ));
-        Question q4 = new GuessQuestion(act1,1000,"EASY",40);
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
 
-        ArrayList<Question> questionArray = new ArrayList<Question>(Arrays.asList(q4));
 
-        Player player = new Player(username,0);
+        ArrayList<Question> questionArray = new ArrayList<Question>();
+        questionArray.add(q5);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q4);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q4);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q4);
+
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
@@ -263,13 +349,11 @@ public class MainCtrl {
         JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
                 false,(MultipleChoiceQuestion) q1);
 
-        ArrayList<JokerCard> jokerCards =new ArrayList<JokerCard>(Arrays.asList(j1,j2,j3));
+        ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
 
         SinglePlayerGame initialisedGame = new SinglePlayerGame(questionArray,jokerCards,player);
 
-
         return initialisedGame;
-
     }
 
     public Game getGame() {
@@ -309,6 +393,7 @@ public class MainCtrl {
                 break;
             case "help":
                 primaryStage.setScene(help);
+                break;
             case "singleplayerGame":
                 primaryStage.setScene(singlePlayerGame);
                 break;
@@ -318,6 +403,16 @@ public class MainCtrl {
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
                 break;
+            case "SingleplayerInsteadOfQuestion" :
+                primaryStage.setScene(singleplayerInsteadOfQuestion);
+                break;
+            case "MultiplayerInsteadOfQuestion" :
+                primaryStage.setScene(multiplayerInsteadOfQuestion);
+                break;
+            case "SinglePlayerLeaderboard":
+                singlePlayerLeaderboardCtrl.initialiseLeaderboard();
+                primaryStage.setScene(singlePlayerLeaderboard);
+                break;
             case "intermediateScreen":
                 intermediateScreenCtrl.initialiseScene();
                 primaryStage.setScene(intermediateScreen);
@@ -325,5 +420,46 @@ public class MainCtrl {
             default: primaryStage.setScene(menu);
         }
     }
+
+    public void setStringJokers(List<String> checkedStringJokers) {
+        this.jokersStringList = checkedStringJokers;
+    }
+    public List<String> getStringJokers() {
+        return this.jokersStringList;
+    }
+
+    /**
+     * This method creates a player instance with the given username. It also instantiates each joker
+     * transforming them from a String to an JokerCard instance
+     * @param insertedUsername String representing the username inserted by the user
+     * @param stringJokers List of Strings representing the names of the jokers that have to be instantiated.
+     * @return An instance of the Player Class
+     */
+    public Player createPlayer(String insertedUsername, List<String> stringJokers) {
+        Player p = new Player(insertedUsername,0);
+        List<JokerCard> jokerList = new ArrayList<>();
+        for (String s : stringJokers) {
+            switch (s){
+                case "AdditionalPointsJoker":
+                    jokerList.add(new AdditionalPointsJoker(p));
+                    break;
+                case "EliminateOptionJoker":
+                    jokerList.add(new EliminateOptionJoker(null));
+                    break;
+                case "QuestionChangeJoker":
+                    jokerList.add(new QuestionChangeJoker());
+                    break;
+                case "ShortenTimeJoker":
+                    jokerList.add(new ShortenTimeJoker(1000,null));
+                    break;
+                default:
+                    break;
+            }
+        }
+        p.setJokerCards(jokerList);
+
+        return p;
+    }
 }
+
 

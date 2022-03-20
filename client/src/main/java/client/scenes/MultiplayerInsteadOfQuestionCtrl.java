@@ -1,35 +1,18 @@
 package client.scenes;
 
-import com.google.inject.Inject;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 
-public class MultiPlayerChooseOptionQuestionCtrl {
+import javax.inject.Inject;
 
-    @FXML
-    private Label ReactionName;
-
-    @FXML
-    private ImageView anger;
-
-    @FXML
-    private Separator bar;
-
-    @FXML
-    private ImageView crying;
-
-    @FXML
-    private ImageView devil;
+public class MultiplayerInsteadOfQuestionCtrl {
 
     @FXML
     private Button exit;
-
-    @FXML
-    private ImageView inLove;
 
     @FXML
     private Button joker1;
@@ -62,10 +45,25 @@ public class MultiPlayerChooseOptionQuestionCtrl {
     private Label question;
 
     @FXML
-    private ImageView reaction;
+    private Label score;
 
     @FXML
-    private Label score;
+    private Label time;
+
+    @FXML
+    private Label ReactionName;
+
+    @FXML
+    private ImageView anger;
+
+    @FXML
+    private ImageView crying;
+
+    @FXML
+    private ImageView devil;
+
+    @FXML
+    private ImageView inLove;
 
     @FXML
     private ImageView smiling;
@@ -74,22 +72,20 @@ public class MultiPlayerChooseOptionQuestionCtrl {
     private ImageView thinking;
 
     @FXML
-    private Label time;
+    private Separator bar;
+
+    @FXML
+    private ImageView reaction;
+
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
+    public MultiplayerInsteadOfQuestionCtrl(MainCtrl mainCtrl){
         this.mainCtrl = mainCtrl;
     }
 
     @FXML
-    void exit(ActionEvent event) {
+    protected void goToMenu(){
         mainCtrl.goTo("menu");
     }
-
-    public void setTime(int i) {
-        time.setText(String.valueOf(i));
-    }
 }
-
-

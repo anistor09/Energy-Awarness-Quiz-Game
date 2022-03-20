@@ -68,4 +68,8 @@ public class MenuCtrl {
     protected void goToHelp(){
         mainCtrl.goTo("help");
     }
+
+    public void goToLeaderboard(ActionEvent actionEvent) {
+        mainCtrl.goTo("SinglePlayerLeaderboard");
+    }
 }

@@ -4,16 +4,18 @@ package commons;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
 public abstract class Game {
     private ArrayList<Question> questions;  // this is the list of questions that players will be able to view
     // throughout the game
     private ArrayList<JokerCard> jokerCards;    // the list of all jokers that are available
     private int currentQuestionNumber; //int representing the index of the current question that is displayed
+    private boolean gameOver = false;
 
     public Game(ArrayList<Question> questions, ArrayList<JokerCard> jokerCards) {
         this.questions = questions;
         this.jokerCards = jokerCards;
-        currentQuestionNumber=0;
+        currentQuestionNumber = 1;
     }
 
 
@@ -56,4 +58,11 @@ public abstract class Game {
                 '}';
     }
 
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
 }

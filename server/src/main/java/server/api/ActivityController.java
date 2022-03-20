@@ -58,6 +58,8 @@ public class ActivityController {
         activityService.deleteActivity(activityId);
     }
 
+
+
     /**
      * This method will pick a random activity from the database
      * @return the activity
