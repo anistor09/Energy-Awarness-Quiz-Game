@@ -156,6 +156,9 @@ public class MainCtrl{
         goToNextQuestion();
     }
 
+    /**
+     * This is a timer that works in the background and switches to the next question
+     */
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -165,7 +168,6 @@ public class MainCtrl{
                 if(i <= 0){
                     timer.cancel();
                     checkGameStatus();
-                    // RESET THE TIME HERE
                     // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
                     //
                     // Method that checks if the answer of the user is right
@@ -297,14 +299,6 @@ public class MainCtrl{
 
         ArrayList<Question> questionArray = new ArrayList<Question>();
         questionArray.add(q5);
-        questionArray.add(q1);
-        questionArray.add(q2);
-        questionArray.add(q3);
-        questionArray.add(q4);
-        questionArray.add(q1);
-        questionArray.add(q2);
-        questionArray.add(q3);
-        questionArray.add(q4);
         questionArray.add(q1);
         questionArray.add(q2);
         questionArray.add(q3);
