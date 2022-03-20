@@ -100,10 +100,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
                 current.setText("Unavailable Joker");
                 current.setDisable(true);
             }
-
         }
     }
-
-
 }
 
