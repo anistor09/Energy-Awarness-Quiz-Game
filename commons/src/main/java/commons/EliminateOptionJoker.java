@@ -11,6 +11,10 @@ public class EliminateOptionJoker extends JokerCard{
         super(name, description, onlyMultiplayer);
         this.question = question;
     }
+    public EliminateOptionJoker( MultipleChoiceQuestion question) {
+        super("EliminateOptionJoker", "....", false);
+        this.question = question;
+    }
 
     /**
      * This method deletes one of the wrong answers in the MultipleChoiceQuestion.

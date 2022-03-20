@@ -88,18 +88,8 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         question.setText("What requires more energy?");
 
         List<JokerCard> jokerList = player.getJokerCards();
-        initialiseActivityImages(actList);
-        if(jokerList.size()>=1)
-        {
-            joker1.setText(jokerList.get(0).getName());
-            if (jokerList.size() >= 2) {
-                joker2.setText(jokerList.get(1).getName());
-                if (jokerList.size() >= 3) {
-                    joker3.setText(jokerList.get(2).getName());
 
-                }
-            }
-        }
+       setJokers(jokerList);
     }
 
     /**
@@ -169,6 +159,23 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         mainCtrl.goTo("menu");
     }
 
+    /**
+     * This method maps the player's jokers to their corresponding buttons
+     * @param jokerList List of JokerCard instances representing the player's jokers
+     */
+    public void setJokers(List<JokerCard> jokerList){
+        Button[] buttonArray ={ joker1,joker2,joker3};
+        for(int i=0;i<buttonArray.length;i++){
+            Button current = buttonArray[i];
+            if(i<=jokerList.size()-1){
+                current.setText(jokerList.get(i).getName());
+            }
+            else{
+                current.setText("Unavailable Joker");
+                current.setDisable(true);
+            }
+        }
+    }
     /**
      * This method will handle when the user click the correct option. For the moment it is increasing the points of the
      * player and printing out correct
