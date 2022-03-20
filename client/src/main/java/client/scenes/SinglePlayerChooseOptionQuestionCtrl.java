@@ -91,7 +91,6 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      */
     public void setJokers(List<JokerCard> jokerList){
         Button[] buttonArray ={ joker1,joker2,joker3};
-
         for(int i=0;i<buttonArray.length;i++){
             Button current = buttonArray[i];
             if(i<=jokerList.size()-1){
