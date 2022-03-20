@@ -117,12 +117,12 @@ public class MainCtrl{
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
                            Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
+                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair,
                            Pair<SingleplayerInsteadOfQuestionCtrl, Parent>
                                    singleplayerInsteadOfQuestionCtrlParentPair,
                            Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
-                                   multiPlayerInsteadOfQuestionCtrlParentPair) {
-                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
-                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair) {
+                                   multiPlayerInsteadOfQuestionCtrlParentPair
+                           ) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -449,4 +449,5 @@ public class MainCtrl{
         return p;
     }
 }
+
 
