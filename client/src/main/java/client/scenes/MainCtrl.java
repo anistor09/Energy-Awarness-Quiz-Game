@@ -68,6 +68,7 @@ public class MainCtrl{
 
     private HelpCtrl helpCtrl;
     private Scene help;
+
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
     private Scene  singleplayerInsertInfo;
 
@@ -75,6 +76,9 @@ public class MainCtrl{
     private Scene singlePlayerLeaderboard;
     private SingleplayerInsteadOfQuestionCtrl singleplayerInsteadOfQuestionCtrl;
     private Scene singleplayerInsteadOfQuestion;
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+    private Scene intermediateScreen;
+
 
     private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
     private Scene multiplayerInsteadOfQuestion;
@@ -121,8 +125,10 @@ public class MainCtrl{
                            Pair<SingleplayerInsteadOfQuestionCtrl, Parent>
                                    singleplayerInsteadOfQuestionCtrlParentPair,
                            Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
-                                   multiPlayerInsteadOfQuestionCtrlParentPair
-                           ) {
+                                   multiPlayerInsteadOfQuestionCtrlParentPair,
+                                   Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair) 
+                            {
+                           
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -159,6 +165,8 @@ public class MainCtrl{
         this.multiplayerInsteadOfQuestion = new Scene(multiPlayerInsteadOfQuestionCtrlParentPair.getValue());
         this.singlePlayerLeaderboardCtrl = singlePlayerLeaderboardCtrlParentPair.getKey();
         this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
+        this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
+        this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
 
 
 
@@ -404,6 +412,10 @@ public class MainCtrl{
             case "SinglePlayerLeaderboard":
                 singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 primaryStage.setScene(singlePlayerLeaderboard);
+                break;
+            case "intermediateScreen":
+                intermediateScreenCtrl.initialiseScene();
+                primaryStage.setScene(intermediateScreen);
                 break;
             default: primaryStage.setScene(menu);
         }

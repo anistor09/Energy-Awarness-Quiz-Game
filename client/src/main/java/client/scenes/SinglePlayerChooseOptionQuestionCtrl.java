@@ -70,6 +70,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
+     * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseMostEnergyQuestion() {
         switchButtons(false);

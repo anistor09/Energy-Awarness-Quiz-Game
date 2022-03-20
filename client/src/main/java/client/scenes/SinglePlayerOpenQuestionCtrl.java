@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-
 import java.util.List;
 
 public class SinglePlayerOpenQuestionCtrl {
@@ -63,6 +62,7 @@ public class SinglePlayerOpenQuestionCtrl {
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
+     * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerOpenQuestion() {
         switchButtons(false);
@@ -79,7 +79,7 @@ public class SinglePlayerOpenQuestionCtrl {
         initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
-        setJokers(jokerList);
+        this.setJokers(jokerList);
 
     }
 

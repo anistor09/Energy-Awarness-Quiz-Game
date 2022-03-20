@@ -71,6 +71,7 @@ public class SinglePlayerGameCtrl {
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
+     * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion(){
         Game currentGame = mainCtrl.getGame();
@@ -90,23 +91,22 @@ public class SinglePlayerGameCtrl {
         initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
-        setJokers(jokerList);
+        this.setJokers(jokerList);
     }
 
     /**
      * This method maps the player's jokers to their corresponding buttons
      * @param jokerList List of JokerCard instances representing the player's jokers
      */
-    public void setJokers(List<JokerCard> jokerList){
-        Button[] buttonArray ={ joker1,joker2,joker3};
+    public void setJokers(List<JokerCard> jokerList) {
+        Button[] buttonArray = {joker1, joker2, joker3};
 
-        for(int i=0;i<buttonArray.length;i++){
+        for (int i = 0; i < buttonArray.length; i++) {
             Button current = buttonArray[i];
-            if(i<=jokerList.size()-1){
+            if (i <= jokerList.size() - 1) {
 
                 current.setText(jokerList.get(i).getName());
-            }
-            else{
+            } else {
                 current.setText("Unavailable Joker");
                 current.setDisable(true);
             }
