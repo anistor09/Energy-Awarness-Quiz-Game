@@ -94,7 +94,6 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         for(int i=0;i<buttonArray.length;i++){
             Button current = buttonArray[i];
             if(i<=jokerList.size()-1){
-
                 current.setText(jokerList.get(i).getName());
             }
             else{
