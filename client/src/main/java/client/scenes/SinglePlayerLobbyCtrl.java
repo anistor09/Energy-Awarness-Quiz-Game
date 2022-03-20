@@ -42,7 +42,7 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void startGameButtonClick(){
         tmpLabel1.setText("Started the game!");
-        mainCtrl.playSinglePLayerGame("Test"); // USERNAME FOR TESTING PURPOSES
+        mainCtrl.goTo("singleGame");
     }
 
     @FXML

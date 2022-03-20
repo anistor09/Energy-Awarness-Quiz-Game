@@ -30,12 +30,10 @@ public class InsertUsernameSinglePlayerCtrl {
      * but it is not fully implemented yet.
      */
     public void submit() {
-//
-
         String insertedUsername = username.getText();
         mainCtrl.playSinglePLayerGame(insertedUsername);
-
     }
+
     public void returnToLobby(){
         mainCtrl.goTo("singleLobby");
     }

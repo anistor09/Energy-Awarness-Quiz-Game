@@ -60,7 +60,7 @@ public class SinglePlayerGame extends Game{
             public void run() {
                 if(player.getTimeLeft() < 0){
                     timer.cancel();
-                    player.setTimeLeft(20);// Resetting the time left for player.
+                    player.setTimeLeft(3);// Resetting the time left for player. #### CHANGE TO 20 IN FINAL VERSION
                     //
                     // Method that checks if the answer of the user is right
                     //
@@ -72,7 +72,5 @@ public class SinglePlayerGame extends Game{
 
             }
         }, 0, 1000);
-
     }
-
 }

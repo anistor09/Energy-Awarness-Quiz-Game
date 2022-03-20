@@ -16,6 +16,7 @@
 package client.scenes;
 
 import commons.*;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,7 +28,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MainCtrl {
+public class MainCtrl{
 
     private Stage primaryStage;
 
@@ -137,10 +138,10 @@ public class MainCtrl {
 
 
 
+
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
-
     }
 
     /**
@@ -150,49 +151,89 @@ public class MainCtrl {
      * and set the correct scene for each of them
      * @param username String representing the username inserted by the user
      */
-    public void playSinglePLayerGame(String username){
+    public void playSinglePLayerGame(String username) {
+        game = initialiseSinglePlayerGame(username);
+        goToNextQuestion();
+    }
 
-        SinglePlayerGame singlePlayerGame = (SinglePlayerGame) game;
-        singlePlayerGame = (SinglePlayerGame) initialiseSinglePlayerGame(username);
-       // for(Question q : game.getQuestions())
-       // {
-        // the for statement will be implemented after we decide more details about the timer feature
-        for(int i = 0; i<21; i++) {
-            Question q = singlePlayerGame.getQuestions().get(i);
+    public void singleplayerInGameTimer(){
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int i = 1;                              // SET TO 20 FOR FINAL VERSION
+            @Override
+            public void run() {
+                if(i <= 0){
+                    timer.cancel();
+                    checkGameStatus();
+                    // RESET THE TIME HERE
+                    // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
+                    //
+                    // Method that checks if the answer of the user is right
+                    //
+                    // Method that goes to intermediate screen
+                    //
+                }
+                else
+                    i--;
+            }
+        }, 0, 1000);
+    }
+
+    private void checkGameStatus() {
+        if(game.getCurrentQuestionNumber() < game.getQuestions().size()){
+            game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
+        }
+        else{
+            game.setGameOver(true);
+        }
+        goToNextQuestion();
+    }
+
+    private void goToNextQuestion() {
+        if(!game.isGameOver()) {
+            singleplayerInGameTimer();
+            int currentQuestionNumber;
+
+            currentQuestionNumber = game.getCurrentQuestionNumber();
+            Question q = game.getQuestions().get(currentQuestionNumber);
             String className = getClassName(q.getClass().getName());
 
-            switch (className) {
-                case "MultipleChoiceQuestion":
-                    singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                    goTo("singleplayerGame");
-                    singlePlayerGame.setCurrentQuestionNumber(singlePlayerGame.getCurrentQuestionNumber() + 1);
-
-                    break;
-                case "MostEnergyQuestion":
-                    singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
-                    goTo("SingleplayerChooseOptionQuestionScreen");
-                    singlePlayerGame.setCurrentQuestionNumber(singlePlayerGame.getCurrentQuestionNumber() + 1);
-                    break;
-                case "GuessQuestion":
-                    singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
-                    goTo("SingleplayerOpenQuestion");
-                    singlePlayerGame.setCurrentQuestionNumber(singlePlayerGame.getCurrentQuestionNumber() + 1);
-                    break;
-//              case "InsteadOfQuestion":
-                //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-//                    break;
-//                 this case will be implemented when we will have a InsteadOfScene
-                default:
-                    break;
-            }
-            SinglePlayerGame.singleplayerInGameTimer();
-
-            Timer delayTimer = new Timer();
-            delayTimer.schedule(new TimerTask() {
+            Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    switch (className) {
+                        case "MultipleChoiceQuestion":
+                            singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                            goTo("singleplayerGame");
+                            break;
+
+                        case "MostEnergyQuestion":
+                            singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+                            goTo("SingleplayerChooseOptionQuestionScreen");
+                            break;
+
+                        case "GuessQuestion":
+                            singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
+                            goTo("SingleplayerOpenQuestion");
+                            break;
+
+//              case "InsteadOfQuestion":
+                        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+//                    break;
+//                 this case will be implemented when we will have a InsteadOfScene
+                        default:
+                            break;
+                    }
                 }
-            }, 20000);
+            });
+        }
+        else{
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    goTo("menu");
+                }
+            });
         }
     }
 
@@ -209,6 +250,7 @@ public class MainCtrl {
     }
 
 
+
     /**
      * This method was creating for testing purposes until we will retrieve a game from the server automatically
      * @param username String representing the username of the Player
@@ -217,27 +259,27 @@ public class MainCtrl {
     public Game initialiseSinglePlayerGame(String username){
        Activity act1 = new Activity("00-shower",
                 "00/shower.png",
-                "Taking a hot shower for 6 minutes",
-                4000,
+                "Question 1",
+                100,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
        Activity act2 =new Activity("00-shower",
                 "00/shower.png",
-                "Taking a hot shower for 6 minutes",
-                4000,
+                "Question 2",
+                500,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
        Activity act3 = new Activity("00-smartphone",
                 "00/smartphone.png",
-                "Charging your smartphone at night",
+                "Question 3",
                 10,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
         Activity act4 = new Activity("00-shower",
                 "00/shower.png",
-                "Taking 2 hot shower for 6 minutes",
+                "Question 4",
                 4000,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act5 =new Activity("00-shower",
                 "00/shower.png",
-                "Taking a hot shower for 6 minutes",
+                "Extra Question",
                 4000,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act6 = new Activity("00-smartphone",
@@ -247,31 +289,49 @@ public class MainCtrl {
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
-        Question q2 = new MostEnergyQuestion(act1, 2000, "EASY",40, new ArrayList<Activity>(
-                Arrays.asList(act2, act3)));
-        Question q3 = new InsteadOfQuestion(act4, 2000,"EASY",40, new ArrayList<Activity>(
-                Arrays.asList(act6, act5)
-        ));
-        Question q4 = new GuessQuestion(act1,1000,"EASY",40);
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
 
-        ArrayList<Question> questionArray = new ArrayList<Question>(Arrays.asList(q4));
+
+        ArrayList<Question> questionArray = new ArrayList<Question>();
+        questionArray.add(q5);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q3);
+        questionArray.add(q4);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q3);
+        questionArray.add(q4);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q3);
+        questionArray.add(q4);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q3);
+        questionArray.add(q4);
+        questionArray.add(q1);
+        questionArray.add(q2);
+        questionArray.add(q3);
+        questionArray.add(q4);
 
         Player player = new Player(username,0);
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
                 player,q1);
-        JokerCard j2 = new QuestionChangeJoker("QuestionChanegJoker","Description",false);
+        JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker","Description",false);
         JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
                 false,(MultipleChoiceQuestion) q1);
 
-        ArrayList<JokerCard> jokerCards =new ArrayList<JokerCard>(Arrays.asList(j1,j2,j3));
+        ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
 
         SinglePlayerGame initialisedGame = new SinglePlayerGame(questionArray,jokerCards,player);
 
-
         return initialisedGame;
-
     }
 
     public Game getGame() {
