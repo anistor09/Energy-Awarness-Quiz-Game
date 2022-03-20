@@ -114,6 +114,9 @@ public class SinglePlayerOpenQuestionCtrl {
         image.setImage(img);
     }
 
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
     /**
      * This is the onAction method for the Label. When the user hits enter this will be called. It will either
      * calculate the number of points in case it is an integer or clear the field in case an exception is thrown.

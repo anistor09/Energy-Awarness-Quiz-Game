@@ -195,4 +195,8 @@ public class SinglePlayerGameCtrl {
     public void exit() {
         mainCtrl.goTo("menu");
     }
+
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
 }

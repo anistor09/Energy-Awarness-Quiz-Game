@@ -31,13 +31,12 @@ public class InsertUsernameSinglePlayerCtrl {
      * Player instance that will be passed to the playSinglePLayerGame
      */
     public void submit() {
-//
-
         String insertedUsername = username.getText();
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
         mainCtrl.playSinglePLayerGame(player);
 
     }
+
     public void returnToLobby(){
         mainCtrl.goTo("singleLobby");
     }

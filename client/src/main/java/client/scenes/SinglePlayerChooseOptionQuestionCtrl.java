@@ -159,6 +159,10 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         mainCtrl.goTo("menu");
     }
 
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
+
     /**
      * This method maps the player's jokers to their corresponding buttons
      * @param jokerList List of JokerCard instances representing the player's jokers
@@ -193,7 +197,5 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     void handleWrong() {
         System.out.println("wrong");
     }
-
-
 }
 

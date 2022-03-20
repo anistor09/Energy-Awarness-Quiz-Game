@@ -22,7 +22,7 @@ public class Player {
     private Long id;
     private String username;
     private int currentScore;
-    transient int timeLeft = 20;
+    transient int timeLeft = 3; // #### CHANGE IN FINAL VERSION ####
     @Transient
     private List<JokerCard> jokerCards;//each player is assigned with a set of available jokers
 
