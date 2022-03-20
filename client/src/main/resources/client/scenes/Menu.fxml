@@ -62,7 +62,7 @@
                            <GridPane.margin>
                               <Insets left="10.0" top="15.0" />
                            </GridPane.margin></Button>
-                        <Button fx:id="leaderboardButton" mnemonicParsing="false" onAction="#goToLeaderboard" text="Leaderboard" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Button fx:id="leaderboardButton" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="57.0" prefWidth="171.0" style="-fx-background-color: #023047 #023047;" text="Leaderboard" textFill="#fb8500" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
                     </children>
