@@ -87,6 +87,12 @@ public class Main extends Application {
         Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer =
                 FXML.load(InsertUsernameSinglePlayerCtrl.class,
                         "client", "scenes", "InsertUsernameSingleplayer.fxml");
+        Pair<SingleplayerInsteadOfQuestionCtrl, Parent> singleplayerInsteadOfQuestionCtrlParentPair =
+                FXML.load(SingleplayerInsteadOfQuestionCtrl.class,
+                        "client", "scenes", "SingleplayerInsteadOfQuestion.fxml");
+        Pair<MultiplayerInsteadOfQuestionCtrl, Parent> multiplayerInsteadOfQuestionCtrlParentPair =
+                FXML.load(MultiplayerInsteadOfQuestionCtrl.class,
+                        "client", "scenes", "MultiplayerInsteadOfQuestion.fxml");
 
         Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair =
                 FXML.load(SinglePlayerLeaderboardCtrl.class, "client", "scenes",
@@ -99,8 +105,10 @@ public class Main extends Application {
                 singlePlayerChooseOptionQuestionControllerParentPair,
                 multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
-                insertInfoMultiplayer,
-                helpCtrlParentPair,  insertInfoSingleplayer, singlePlayerLeaderboardCtrlParentPair);
+                insertInfoMultiplayer,helpCtrlParentPair, insertInfoSingleplayer,
+                singlePlayerLeaderboardCtrlParentPair,
+                singleplayerInsteadOfQuestionCtrlParentPair,
+                multiplayerInsteadOfQuestionCtrlParentPair);
 
 
     }

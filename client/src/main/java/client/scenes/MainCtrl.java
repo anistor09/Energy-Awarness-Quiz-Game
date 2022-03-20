@@ -73,6 +73,12 @@ public class MainCtrl{
 
     private SinglePlayerLeaderboardCtrl singlePlayerLeaderboardCtrl;
     private Scene singlePlayerLeaderboard;
+    private SingleplayerInsteadOfQuestionCtrl singleplayerInsteadOfQuestionCtrl;
+    private Scene singleplayerInsteadOfQuestion;
+
+    private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
+    private Scene multiplayerInsteadOfQuestion;
+
 
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
@@ -111,7 +117,12 @@ public class MainCtrl{
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
                            Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
-                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair) {
+                           Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair,
+                           Pair<SingleplayerInsteadOfQuestionCtrl, Parent>
+                                   singleplayerInsteadOfQuestionCtrlParentPair,
+                           Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
+                                   multiPlayerInsteadOfQuestionCtrlParentPair
+                           ) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -142,6 +153,10 @@ public class MainCtrl{
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
+        this.singleplayerInsteadOfQuestionCtrl = singleplayerInsteadOfQuestionCtrlParentPair.getKey();
+        this.singleplayerInsteadOfQuestion = new Scene(singleplayerInsteadOfQuestionCtrlParentPair.getValue());
+        this.multiplayerInsteadOfQuestionCtrl = multiPlayerInsteadOfQuestionCtrlParentPair.getKey();
+        this.multiplayerInsteadOfQuestion = new Scene(multiPlayerInsteadOfQuestionCtrlParentPair.getValue());
         this.singlePlayerLeaderboardCtrl = singlePlayerLeaderboardCtrlParentPair.getKey();
         this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
 
@@ -370,6 +385,7 @@ public class MainCtrl{
                 break;
             case "help":
                 primaryStage.setScene(help);
+                break;
             case "singleplayerGame":
                 primaryStage.setScene(singlePlayerGame);
                 break;
@@ -379,8 +395,13 @@ public class MainCtrl{
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
                 break;
+            case "SingleplayerInsteadOfQuestion" :
+                primaryStage.setScene(singleplayerInsteadOfQuestion);
+                break;
+            case "MultiplayerInsteadOfQuestion" :
+                primaryStage.setScene(multiplayerInsteadOfQuestion);
+                break;
             case "SinglePlayerLeaderboard":
-                System.out.println("hello");
                 singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 primaryStage.setScene(singlePlayerLeaderboard);
                 break;
@@ -428,4 +449,5 @@ public class MainCtrl{
         return p;
     }
 }
+
 
