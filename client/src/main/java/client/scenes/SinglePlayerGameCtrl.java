@@ -198,6 +198,5 @@ public class SinglePlayerGameCtrl {
     }
 
     public void setTime(int i) {
-        time.setText(String.valueOf(i));
-    }
-}
+        time.setText("Time Left: " + String.valueOf(i));
+    }}
