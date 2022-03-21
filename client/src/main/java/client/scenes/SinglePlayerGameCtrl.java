@@ -74,6 +74,7 @@ public class SinglePlayerGameCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion(){
+        switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         MultipleChoiceQuestion q = (MultipleChoiceQuestion)currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());

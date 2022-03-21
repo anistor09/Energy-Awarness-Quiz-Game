@@ -194,7 +194,7 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 1;                              // SET TO 20 FOR FINAL VERSION
+            int i = 5;                              // SET TO 20 FOR FINAL VERSION
             @Override
             public void run() {
                 if(i <= 0){
@@ -333,12 +333,11 @@ public class MainCtrl{
         questionArray.add(q5);
         questionArray.add(q1);
         questionArray.add(q2);
+        questionArray.add(q3);
         questionArray.add(q4);
         questionArray.add(q1);
         questionArray.add(q2);
-        questionArray.add(q4);
-        questionArray.add(q1);
-        questionArray.add(q2);
+        questionArray.add(q3);
         questionArray.add(q4);
 
 
