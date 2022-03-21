@@ -90,7 +90,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
         List<JokerCard> jokerList = player.getJokerCards();
 
-       setJokers(jokerList);
+       this.setJokers(jokerList);
     }
 
     /**

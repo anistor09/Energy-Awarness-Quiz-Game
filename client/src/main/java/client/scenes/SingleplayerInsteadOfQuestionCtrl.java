@@ -82,7 +82,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
         option3.setText(String.valueOf(options.get(2)));
 
         List<JokerCard> jokerCards = player.getJokerCards();
-        setJokers(jokerCards);
+        this.setJokers(jokerCards);
 
 
     }
