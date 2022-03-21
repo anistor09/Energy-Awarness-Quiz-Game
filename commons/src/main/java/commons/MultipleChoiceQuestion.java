@@ -62,6 +62,10 @@ public class MultipleChoiceQuestion extends Question{
         this.options = options;
     }
 
+    public MultipleChoiceQuestion() {
+
+    }
+
     /**
      * Private utility method used by the constructor.
      *

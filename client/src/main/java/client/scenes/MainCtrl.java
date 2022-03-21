@@ -208,7 +208,8 @@ public class MainCtrl{
      * @param player Sinstance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
-        game = initialiseSinglePlayerGame(player);
+//        game = initialiseSinglePlayerGame(player);
+        game =serverUtils.createSinglePlayerGame(player);
         goToNextQuestion();
     }
 

@@ -24,6 +24,10 @@ public class MostEnergyQuestion extends Question{
         correctAnswer = getExpensiveActivity();
     }
 
+    public MostEnergyQuestion() {
+
+    }
+
     /**
      * This method will find which Activity is the one which has the most energyConsumption
      * @return the activity with the highest consumption

@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.SinglePlayerGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +26,8 @@ class GameControllerTest {
 
     @Test
     void createGame() {
-        underTest.createGame();
+        SinglePlayerGame g = underTest.createGame();
+        System.out.println(g.getQuestions());
         verify(gameService).createGame();
     }
 }
