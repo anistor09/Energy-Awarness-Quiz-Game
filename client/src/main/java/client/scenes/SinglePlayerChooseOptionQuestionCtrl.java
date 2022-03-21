@@ -157,11 +157,12 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
     @FXML
     void exit(ActionEvent event) {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
-        time.setText(String.valueOf(i));
+        time.setText("Time Left: " + String.valueOf(i));
     }
 
     /**
