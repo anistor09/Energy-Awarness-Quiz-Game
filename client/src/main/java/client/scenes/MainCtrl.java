@@ -133,6 +133,9 @@ public class MainCtrl{
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
+
+        this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+
         this.singlePlayerLobbyCtrl = singlePlayerLobbyControllerParentPair.getKey();
         this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
         this.multiPlayerLobbyCtrl = multiPlayerLobbyControllerParentPair.getKey();
@@ -194,7 +197,7 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 5;                              // SET TO 20 FOR FINAL VERSION
+            int i = 1;                              // SET TO 20 FOR FINAL VERSION
             @Override
             public void run() {
                 if(i <= 0){
@@ -214,7 +217,7 @@ public class MainCtrl{
     }
 
     private void checkGameStatus() {
-        if(game.getCurrentQuestionNumber() < game.getQuestions().size()){
+        if(game.getCurrentQuestionNumber() + 1< game.getQuestions().size()){
             game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
         }
         else{
@@ -251,10 +254,11 @@ public class MainCtrl{
                             goTo("SingleplayerOpenQuestion");
                             break;
 
-//              case "InsteadOfQuestion":
-                        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-//                    break;
-//                 this case will be implemented when we will have a InsteadOfScene
+                        case "InsteadOfQuestion":
+                            singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                            goTo("SingleplayerInsteadOfQuestion");
+                            break;
+
                         default:
                             break;
                     }
@@ -265,7 +269,7 @@ public class MainCtrl{
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    goTo("menu");
+                    goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
                 }
             });
         }
@@ -322,14 +326,20 @@ public class MainCtrl{
                 10,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
-       Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
+        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
+
+        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
         Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
         Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
         Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
         Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
+        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 40, options);
 
 
         ArrayList<Question> questionArray = new ArrayList<Question>();
+        questionArray.add(q6);
+        questionArray.add(q6);
+        questionArray.add(q6);
         questionArray.add(q5);
         questionArray.add(q1);
         questionArray.add(q2);
@@ -339,6 +349,7 @@ public class MainCtrl{
         questionArray.add(q2);
         questionArray.add(q3);
         questionArray.add(q4);
+
 
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
@@ -410,8 +421,8 @@ public class MainCtrl{
                 primaryStage.setScene(multiplayerInsteadOfQuestion);
                 break;
             case "SinglePlayerLeaderboard":
-                singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 primaryStage.setScene(singlePlayerLeaderboard);
+                singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 break;
             case "intermediateScreen":
                 intermediateScreenCtrl.initialiseScene();
