@@ -197,12 +197,17 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 1;                              // SET TO 20 FOR FINAL VERSION
+            int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
             @Override
             public void run() {
-                if(i <= 0){
+                if (i <= 0) {
                     timer.cancel();
-                    checkGameStatus();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            goTo("intermediateScreen");
+                        }
+                    });
                     // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
                     //
                     // Method that checks if the answer of the user is right
@@ -210,14 +215,43 @@ public class MainCtrl{
                     // Method that goes to intermediate screen
                     //
                 }
-                else
+                else {
+                    int currentQuestionNumber = game.getCurrentQuestionNumber();
+                    Question q = game.getQuestions().get(currentQuestionNumber);
+                    String className = getClassName(q.getClass().getName());
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch (className) {
+                                case "MultipleChoiceQuestion":
+                                    singlePlayerGameCtrl.setTime(i + 1);
+                                    break;
+
+                                case "MostEnergyQuestion":
+                                    singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
+                                    break;
+
+                                case "GuessQuestion":
+                                    singlePlayerOpenQuestionCtrl.setTime(i + 1);
+                                    break;
+
+//              case "InsteadOfQuestion":
+                                //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
+//                    break;
+//                 this case will be implemented when we will have a InsteadOfScene
+                                default:
+                                    break;
+                            }
+                        }
+                    });
                     i--;
+                }
             }
         }, 0, 1000);
     }
 
-    private void checkGameStatus() {
-        if(game.getCurrentQuestionNumber() + 1< game.getQuestions().size()){
+    public void checkGameStatus() {
+        if(game.getCurrentQuestionNumber() + 1 < game.getQuestions().size()){
             game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
         }
         else{
@@ -325,11 +359,11 @@ public class MainCtrl{
                 10,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
-       Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
+       Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",10);
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",10);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",10);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",10);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",10);
 
 
         ArrayList<Question> questionArray = new ArrayList<Question>();

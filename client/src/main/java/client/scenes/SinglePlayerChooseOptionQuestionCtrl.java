@@ -161,7 +161,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     }
 
     public void setTime(int i) {
-        time.setText(String.valueOf(i));
+        time.setText("Time Left: " + String.valueOf(i));
     }
 
     /**
