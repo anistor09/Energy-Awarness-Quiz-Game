@@ -382,6 +382,7 @@ public class MainCtrl{
                 primaryStage.setScene(credits);
                 break;
             case "singleLobby":
+                singlePlayerLobbyCtrl.resetJokers();
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
@@ -437,6 +438,7 @@ public class MainCtrl{
     public Player createPlayer(String insertedUsername, List<String> stringJokers) {
         Player p = new Player(insertedUsername,0);
         List<JokerCard> jokerList = new ArrayList<>();
+        System.out.println(stringJokers);
         for (String s : stringJokers) {
             switch (s){
                 case "AdditionalPointsJoker":
@@ -455,6 +457,10 @@ public class MainCtrl{
                     break;
             }
         }
+        for(int i=0;i<jokerList.size();i++){
+            System.out.println(jokerList.get(i));
+        }
+        System.out.println("---------");
         p.setJokerCards(jokerList);
 
         return p;

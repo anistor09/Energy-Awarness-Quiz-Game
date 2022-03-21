@@ -105,7 +105,7 @@ public class SinglePlayerGameCtrl {
         for (int i = 0; i < buttonArray.length; i++) {
             Button current = buttonArray[i];
             if (i <= jokerList.size() - 1) {
-
+                System.out.println(jokerList.get(i).getName());
                 current.setText(jokerList.get(i).getName());
             } else {
                 current.setText("Unavailable Joker");
