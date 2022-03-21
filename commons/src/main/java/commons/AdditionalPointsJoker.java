@@ -17,7 +17,7 @@ public class AdditionalPointsJoker extends JokerCard{
         this.question = question;
     }
     public AdditionalPointsJoker(Player player) {
-        super("AdditionalPointsJoker", "....", false);
+        super("Additional Points Joker", "....", false);
         this.player = player;
     }
 

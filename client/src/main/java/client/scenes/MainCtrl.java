@@ -288,10 +288,11 @@ public class MainCtrl{
                             goTo("SingleplayerOpenQuestion");
                             break;
 
-//              case "InsteadOfQuestion":
-                        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-//                    break;
-//                 this case will be implemented when we will have a InsteadOfScene
+                        case "InsteadOfQuestion":
+                            singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                            goTo("SingleplayerInsteadOfQuestion");
+                            break;
+
                         default:
                             break;
                     }
@@ -359,14 +360,20 @@ public class MainCtrl{
                 10,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
-       Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",10);
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",10);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",10);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",10);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",10);
+        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
+
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
+        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 40, options);
+        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
 
 
         ArrayList<Question> questionArray = new ArrayList<Question>();
+        questionArray.add(q6);
+        questionArray.add(q6);
+        questionArray.add(q6);
         questionArray.add(q5);
         questionArray.add(q1);
         questionArray.add(q2);
@@ -420,6 +427,7 @@ public class MainCtrl{
                 primaryStage.setScene(credits);
                 break;
             case "singleLobby":
+                singlePlayerLobbyCtrl.resetJokers();
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
@@ -475,6 +483,7 @@ public class MainCtrl{
     public Player createPlayer(String insertedUsername, List<String> stringJokers) {
         Player p = new Player(insertedUsername,0);
         List<JokerCard> jokerList = new ArrayList<>();
+        System.out.println(stringJokers);
         for (String s : stringJokers) {
             switch (s){
                 case "AdditionalPointsJoker":
@@ -493,6 +502,10 @@ public class MainCtrl{
                     break;
             }
         }
+        for(int i=0;i<jokerList.size();i++){
+            System.out.println(jokerList.get(i));
+        }
+        System.out.println("---------");
         p.setJokerCards(jokerList);
 
         return p;

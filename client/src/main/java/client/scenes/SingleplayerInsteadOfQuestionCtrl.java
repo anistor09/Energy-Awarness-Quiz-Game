@@ -4,10 +4,13 @@ import commons.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +18,15 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
     @FXML
     private Button exit;
+
+    @FXML
+    private Text question1Text;
+
+    @FXML
+    private Text question2Text;
+
+    @FXML
+    private Text question3Text;
 
     @FXML
     private Button joker1;
@@ -26,22 +38,22 @@ public class SingleplayerInsteadOfQuestionCtrl {
     private Button joker3;
 
     @FXML
-    private ImageView icon1;
-
-    @FXML
-    private ImageView icon2;
-
-    @FXML
-    private ImageView icon3;
-
-    @FXML
     private Button option1;
+
+    @FXML
+    private ImageView option1Image;
 
     @FXML
     private Button option2;
 
     @FXML
+    private ImageView option2Image;
+
+    @FXML
     private Button option3;
+
+    @FXML
+    private ImageView option3Image;
 
     @FXML
     private Label question;
@@ -65,7 +77,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
      *      This method initialises all the JFX fields with
      *      attributes of the Question and Player Classes.
      */
-    public void initializeSinglePlayerInsteadOfQuestion() {
+    public void initialiseSinglePlayerInsteadOfQuestion() {
         Game currentGame = mainCtrl.getGame();
         InsteadOfQuestion q =
                 (InsteadOfQuestion) currentGame.
@@ -74,15 +86,16 @@ public class SingleplayerInsteadOfQuestionCtrl {
         Player player = ((SinglePlayerGame) currentGame).getPlayer();
         score.setText(String.valueOf((player.getCurrentScore())));
         Activity activity = q.getActivity();
-        question.setText(String.valueOf((activity.getTitle())));
-        List options = q.getOptions();
+        question.setText("Instead of " + activity.getTitle());
+        ArrayList<Activity> options = q.getOptions();
         Collections.shuffle(options);
-        option1.setText(String.valueOf(options.get(0)));
-        option2.setText(String.valueOf(options.get(1)));
-        option3.setText(String.valueOf(options.get(2)));
+        question1Text.setText(String.valueOf(options.get(0).getTitle()));
+        question2Text.setText(String.valueOf(options.get(1).getTitle()));
+        question3Text.setText(String.valueOf(options.get(2).getTitle()));
 
         List<JokerCard> jokerCards = player.getJokerCards();
-        this.setJokers(jokerCards);
+        initialiseActivityImages(options);
+        setJokers(jokerCards);
 
 
     }
@@ -105,6 +118,14 @@ public class SingleplayerInsteadOfQuestionCtrl {
             }
 
         }
+    }
+
+    private void initialiseActivityImages(List<Activity> activityList) {
+        String  server = "http://localhost:8080/";
+
+        option1Image.setImage(new Image(server + activityList.get(0).getImage_path()));
+        option2Image.setImage(new Image(server + activityList.get(1).getImage_path()));
+        option3Image.setImage(new Image(server + activityList.get(2).getImage_path()));
     }
 
     @FXML
