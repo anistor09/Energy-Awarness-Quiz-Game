@@ -339,18 +339,14 @@ public class MainCtrl{
         ArrayList<Question> questionArray = new ArrayList<Question>();
         questionArray.add(q6);
         questionArray.add(q6);
-        questionArray.add(q6);
         questionArray.add(q5);
         questionArray.add(q1);
         questionArray.add(q2);
         questionArray.add(q3);
         questionArray.add(q4);
-        questionArray.add(q1);
         questionArray.add(q2);
         questionArray.add(q3);
         questionArray.add(q4);
-
-
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
