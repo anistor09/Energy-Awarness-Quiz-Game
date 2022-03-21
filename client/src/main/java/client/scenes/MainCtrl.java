@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.ServerUtils;
 import commons.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -22,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +32,9 @@ import java.util.TimerTask;
 
 
 public class MainCtrl{
+
+
+    private ServerUtils serverUtils;
 
     private Stage primaryStage;
 
@@ -89,6 +94,10 @@ public class MainCtrl{
                                             // that the player chose to use
 
     boolean exitedGame;
+    @Inject
+    public MainCtrl(ServerUtils serverUtils) {
+        this.serverUtils = serverUtils;
+    }
 
 
     /**
@@ -319,6 +328,8 @@ public class MainCtrl{
             });
         }
         else{
+            SinglePlayerGame spg = (SinglePlayerGame)this.game;
+            serverUtils.addPlayer(spg.getPlayer());
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
