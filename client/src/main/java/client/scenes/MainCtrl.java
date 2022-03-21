@@ -197,7 +197,7 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 5;                              // SET TO 20 FOR FINAL VERSION
+            int i = 1;                              // SET TO 20 FOR FINAL VERSION
             @Override
             public void run() {
                 if(i <= 0){
@@ -217,7 +217,7 @@ public class MainCtrl{
     }
 
     private void checkGameStatus() {
-        if(game.getCurrentQuestionNumber() < game.getQuestions().size()){
+        if(game.getCurrentQuestionNumber() + 1< game.getQuestions().size()){
             game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
         }
         else{
@@ -268,7 +268,7 @@ public class MainCtrl{
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    goTo("menu");
+                    goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
                 }
             });
         }
@@ -344,6 +344,7 @@ public class MainCtrl{
         questionArray.add(q4);
 
 
+
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
                 player,q1);
@@ -412,8 +413,8 @@ public class MainCtrl{
                 primaryStage.setScene(multiplayerInsteadOfQuestion);
                 break;
             case "SinglePlayerLeaderboard":
-                singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 primaryStage.setScene(singlePlayerLeaderboard);
+                singlePlayerLeaderboardCtrl.initialiseLeaderboard();
                 break;
             case "intermediateScreen":
                 intermediateScreenCtrl.initialiseScene();
