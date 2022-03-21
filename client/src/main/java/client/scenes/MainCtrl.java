@@ -64,8 +64,15 @@ public class MainCtrl {
 
     private HelpCtrl helpCtrl;
     private Scene help;
+
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
-    private Scene  singleplayerInsertInfo;
+    private Scene singleplayerInsertInfo;
+
+    private AdminPanelCtrl adminPanelCtrl;
+    private Scene admin;
+
+    private EditActivityCtrl editActivityCtrl;
+    private Scene editActivity;
 
     private Game game;
 
@@ -101,7 +108,8 @@ public class MainCtrl {
                                    singlePlayerOpenQuestionControllerParentPair,
                                    Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
-                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer) {
+                           Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer,
+                           Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity) {
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -132,6 +140,10 @@ public class MainCtrl {
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
+        this.adminPanelCtrl = adminPanel.getKey();
+        this.admin = new Scene(adminPanel.getValue());
+        this.editActivityCtrl = editActivity.getKey();
+        this.editActivity = new Scene(editActivity.getValue());
 
 
 
@@ -307,8 +319,17 @@ public class MainCtrl {
             case "SingleplayerOpenQuestion":
                 primaryStage.setScene(singlePlayerOpenQuestion);
                 break;
+            case "admin":
+                primaryStage.setScene(admin);
+                adminPanelCtrl.instantiateActivities(true, true);
+                break;
             default: primaryStage.setScene(menu);
         }
+    }
+
+    public void goToEditActivity(Activity activity) {
+        primaryStage.setScene(editActivity);
+        editActivityCtrl.initialize(activity);
     }
 }
 

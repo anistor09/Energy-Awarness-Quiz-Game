@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ActivityService {
@@ -48,6 +49,15 @@ public class ActivityService {
         }
 
         activityRepository.deleteById(activityId);
+    }
+
+    public Activity getActivityById(String id) {
+        Optional<Activity> activity = activityRepository.findById(id);
+        if(activity.isPresent()) {
+            return activity.get();
+        } else {
+            throw new IllegalStateException("activity with ID " + id + " does not exist.");
+        }
     }
 
     /**

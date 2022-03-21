@@ -58,6 +58,11 @@ public class ActivityController {
         activityService.deleteActivity(activityId);
     }
 
+    @GetMapping(path = "{activityId}")
+    public Activity getActivityById(@PathVariable("activityId") String activityId) {
+        return activityService.getActivityById(activityId);
+    }
+
     /**
      * This method will pick a random activity from the database
      * @return the activity

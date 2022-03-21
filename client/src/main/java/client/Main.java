@@ -87,6 +87,11 @@ public class Main extends Application {
         Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer =
                 FXML.load(InsertUsernameSinglePlayerCtrl.class,
                         "client", "scenes", "InsertUsernameSingleplayer.fxml");
+        Pair<AdminPanelCtrl, Parent> adminPanel =
+                FXML.load(AdminPanelCtrl.class, "client", "scenes", "AdminPanel.fxml");
+
+        Pair<EditActivityCtrl, Parent> editActivity =
+                FXML.load(EditActivityCtrl.class, "client", "scenes", "EditActivity.fxml");
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
@@ -96,7 +101,10 @@ public class Main extends Application {
                 multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
                 insertInfoMultiplayer,
-                helpCtrlParentPair,  insertInfoSingleplayer);
+                helpCtrlParentPair,
+                insertInfoSingleplayer,
+                adminPanel,
+                editActivity);
 
 
     }

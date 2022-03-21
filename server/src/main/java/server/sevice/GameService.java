@@ -1,5 +1,6 @@
 package server.sevice;
 
+import commons.Player;
 import commons.Question;
 import commons.SinglePlayerGame;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class GameService {
                 questions.add(q);
             }
         }
-        SinglePlayerGame toReturn = new SinglePlayerGame(questions, new ArrayList<>(), null);
+        SinglePlayerGame toReturn = new SinglePlayerGame(questions, new ArrayList<>(), new Player());
         return toReturn;
     }
 }

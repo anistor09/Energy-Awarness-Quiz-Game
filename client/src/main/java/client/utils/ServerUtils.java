@@ -15,13 +15,12 @@
  */
 package client.utils;
 
-import commons.Game;
-import commons.Player;
-import commons.Quote;
-import commons.SinglePlayerGame;
+import commons.*;
+import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import org.checkerframework.checker.units.qual.A;
 import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
@@ -64,6 +63,24 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
+    }
+
+    public List<Activity> getActivities() {
+        List<Activity> list = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+        return list;
+    }
+
+    public Activity getActivityById(String id) {
+        Activity activity = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+        return activity;
     }
 
     /**
