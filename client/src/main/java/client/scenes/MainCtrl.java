@@ -250,6 +250,9 @@ public class MainCtrl{
         }, 0, 1000);
     }
 
+    /**
+     * This method checks if the game is over. It is called after every question.
+     */
     public void checkGameStatus() {
         if(game.getCurrentQuestionNumber() + 1 < game.getQuestions().size()){
             game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
