@@ -87,6 +87,7 @@ public class ServerUtils {
      */
 
     public Player addPlayer(Player player) {
+
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("api/player")
                 .request(APPLICATION_JSON)

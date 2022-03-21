@@ -31,7 +31,7 @@ public class IntermediateScreenCtrl {
 
         Timer timerLabel = new Timer();
         timerLabel.scheduleAtFixedRate(new TimerTask() {
-            int i = 5;
+            int i = 0;
             @Override
             public void run() {
                 Platform.runLater(
@@ -52,6 +52,6 @@ public class IntermediateScreenCtrl {
                     mainCtrl.checkGameStatus();
                 });
             }
-        }, 4000);
+        }, 1000);
     }
 }
