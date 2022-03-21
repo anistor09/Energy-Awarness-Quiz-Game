@@ -362,12 +362,12 @@ public class MainCtrl{
 
         ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
 
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
-        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 40, options);
-        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",10);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",10);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",10);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",10);
+        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 10, options);
+        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",10);
 
 
         ArrayList<Question> questionArray = new ArrayList<Question>();
