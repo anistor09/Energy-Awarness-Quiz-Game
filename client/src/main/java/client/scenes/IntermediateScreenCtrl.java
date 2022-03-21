@@ -36,22 +36,15 @@ public class IntermediateScreenCtrl {
             public void run() {
                 Platform.runLater(
                         () -> {
-                            timeLeftLabel.setText(String.valueOf(i));
+                            timeLeftLabel.setText(String.valueOf(i + 1));
                         }
                 );
                 i--;
+                if(i < 0 ){
+                    timerLabel.cancel();
+                    mainCtrl.checkGameStatus();
+                }
             }
         }, 0,1000);
-
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    mainCtrl.checkGameStatus();
-                });
-            }
-        }, 1000);
     }
 }
