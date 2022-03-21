@@ -194,6 +194,7 @@ public class SinglePlayerGameCtrl {
     }
 
     public void exit() {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 

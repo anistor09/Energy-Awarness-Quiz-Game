@@ -56,6 +56,7 @@ public class SinglePlayerOpenQuestionCtrl {
 
     @FXML
     void exit(ActionEvent event) {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 

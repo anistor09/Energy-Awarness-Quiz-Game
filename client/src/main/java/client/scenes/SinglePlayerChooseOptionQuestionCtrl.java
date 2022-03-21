@@ -157,6 +157,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 
     @FXML
     void exit(ActionEvent event) {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 

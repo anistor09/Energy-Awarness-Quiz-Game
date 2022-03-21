@@ -88,6 +88,8 @@ public class MainCtrl{
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
                                             // that the player chose to use
 
+    boolean exitedGame;
+
 
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
@@ -171,6 +173,7 @@ public class MainCtrl{
         this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
 
+        this.exitedGame = false;
 
 
         primaryStage.setTitle("Quizzz");
@@ -215,6 +218,10 @@ public class MainCtrl{
                     // Method that goes to intermediate screen
                     //
                 }
+                if(exitedGame){
+                    timer.cancel();
+                    setExitedGame(false);
+                }
                 else {
                     int currentQuestionNumber = game.getCurrentQuestionNumber();
                     Question q = game.getQuestions().get(currentQuestionNumber);
@@ -235,10 +242,9 @@ public class MainCtrl{
                                     singlePlayerOpenQuestionCtrl.setTime(i + 1);
                                     break;
 
-//              case "InsteadOfQuestion":
-                                //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-//                    break;
-//                 this case will be implemented when we will have a InsteadOfScene
+                                case "InsteadOfQuestion":
+                                    singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
+                                    break;
                                 default:
                                     break;
                             }
@@ -508,6 +514,10 @@ public class MainCtrl{
         p.setJokerCards(jokerList);
 
         return p;
+    }
+
+    public void setExitedGame(boolean exitedGame) {
+        this.exitedGame = exitedGame;
     }
 }
 

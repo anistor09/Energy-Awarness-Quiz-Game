@@ -132,4 +132,11 @@ public class SingleplayerInsteadOfQuestionCtrl {
     protected void goToMenu() {
         mainCtrl.goTo("menu");
     }
+
+
+    @FXML
+    public void setTime(int i) {
+        time.setText("Time Left: " + String.valueOf(i));
+    }
+
 }
