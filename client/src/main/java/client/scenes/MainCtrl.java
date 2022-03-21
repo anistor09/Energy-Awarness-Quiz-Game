@@ -136,8 +136,6 @@ public class MainCtrl{
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
 
-        this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-
         this.singlePlayerLobbyCtrl = singlePlayerLobbyControllerParentPair.getKey();
         this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
         this.multiPlayerLobbyCtrl = multiPlayerLobbyControllerParentPair.getKey();
@@ -174,6 +172,18 @@ public class MainCtrl{
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
+
+        this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+
+        this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerOpenQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerChooseOptionQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");

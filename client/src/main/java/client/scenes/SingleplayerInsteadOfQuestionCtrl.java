@@ -130,6 +130,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
     @FXML
     protected void goToMenu() {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
