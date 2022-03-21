@@ -31,7 +31,7 @@ public class IntermediateScreenCtrl {
 
         Timer timerLabel = new Timer();
         timerLabel.scheduleAtFixedRate(new TimerTask() {
-            int i = 0;
+            int i = 5;
             @Override
             public void run() {
                 Platform.runLater(

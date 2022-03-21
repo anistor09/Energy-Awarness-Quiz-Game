@@ -456,6 +456,7 @@ public class MainCtrl{
                 break;
             case "singleLobby":
                 singlePlayerLobbyCtrl.resetJokers();
+                jokersStringList = new ArrayList<>();
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
