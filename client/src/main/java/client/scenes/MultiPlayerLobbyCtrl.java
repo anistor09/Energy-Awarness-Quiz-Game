@@ -1,5 +1,6 @@
 package client.scenes;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -41,12 +42,22 @@ public class MultiPlayerLobbyCtrl {
             int i = 5;
             public void run() {
                 gameStatusTextArea.setText("Game Starts in\n" + i + " seconds");
-                i--;
 
-                if (i < 0) {
-                    timer1.cancel();
+                if (i == 0) {
                     gameStatusTextArea.setText("Game Starting!");
                 }
+
+                if(i < 0){
+                    timer1.cancel();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run(){
+                            mainCtrl.goTo("multiGame");
+                        }
+                    });
+                }
+
+                i--;
             }
         }, 0, 1000);
     }

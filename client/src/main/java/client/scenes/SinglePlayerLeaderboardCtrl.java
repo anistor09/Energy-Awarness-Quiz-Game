@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.Player;
+import commons.SinglePlayerGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -118,9 +119,10 @@ public class SinglePlayerLeaderboardCtrl {
             scores[i].setText(String.valueOf(players.get(i).getCurrentScore()));
         }
 
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
 
-        playerName.setText("Current Player");
-        playerScore.setText("Current Score");
+        playerName.setText(spg.getPlayer().getUsername());
+        playerScore.setText(String.valueOf(spg.getPlayer().getCurrentScore()));
 
     }
 }
