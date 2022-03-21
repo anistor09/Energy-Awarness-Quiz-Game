@@ -15,12 +15,14 @@
  */
 package client.utils;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import commons.Game;
 import commons.Player;
 import commons.Quote;
 import commons.SinglePlayerGame;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
 
@@ -87,6 +89,7 @@ public class ServerUtils {
      */
 
     public Player addPlayer(Player player) {
+        
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("api/player")
                 .request(APPLICATION_JSON)

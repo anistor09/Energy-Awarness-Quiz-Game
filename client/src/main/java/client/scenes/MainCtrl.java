@@ -19,6 +19,8 @@ import commons.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -74,11 +76,12 @@ public class MainCtrl{
 
     private SinglePlayerLeaderboardCtrl singlePlayerLeaderboardCtrl;
     private Scene singlePlayerLeaderboard;
+
     private SingleplayerInsteadOfQuestionCtrl singleplayerInsteadOfQuestionCtrl;
     private Scene singleplayerInsteadOfQuestion;
+
     private IntermediateScreenCtrl intermediateScreenCtrl;
     private Scene intermediateScreen;
-
 
     private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
     private Scene multiplayerInsteadOfQuestion;
