@@ -133,6 +133,9 @@ public class MainCtrl{
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
+
+        this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+
         this.singlePlayerLobbyCtrl = singlePlayerLobbyControllerParentPair.getKey();
         this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
         this.multiPlayerLobbyCtrl = multiPlayerLobbyControllerParentPair.getKey();
