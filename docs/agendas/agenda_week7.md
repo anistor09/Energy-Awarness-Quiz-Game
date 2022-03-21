@@ -8,16 +8,6 @@
 - Note Taker: Rafael Borges
 
 
-Date:           22/03/2022
-* Main focus:     
-    * Show final single player game
-    * Discuss issues for multiplayer
-
-* Chair:          Maksym Ziemlewski
-* Note taker:     Rafael Borges
-
-
-
 # Opening
 - Check if everyone is present.
 - Did anyone have any trouble with last week's activities?
