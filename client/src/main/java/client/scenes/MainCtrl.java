@@ -341,6 +341,7 @@ public class MainCtrl{
         questionArray.add(q4);
 
 
+
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
                 player,q1);
