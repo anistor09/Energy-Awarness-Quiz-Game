@@ -36,7 +36,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLeftLabel" alignment="CENTER" prefHeight="100.0" prefWidth="42.0">
+                  <Label fx:id="timeLeftLabel" alignment="CENTER" prefHeight="100.0" prefWidth="140.0">
                      <font>
                         <Font size="20.0" />
                      </font>
