@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.IntermediateScreenCtrl">
+<AnchorPane prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.IntermediateScreenCtrl">
    <children>
       <VBox layoutX="7.0" prefHeight="680.0" prefWidth="942.0" stylesheets="@../../stylesheets/intermediate_screen.css">
          <children>

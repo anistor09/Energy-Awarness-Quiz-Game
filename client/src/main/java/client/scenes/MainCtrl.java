@@ -175,8 +175,8 @@ public class MainCtrl{
 
         this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
-        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+//        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+//        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
