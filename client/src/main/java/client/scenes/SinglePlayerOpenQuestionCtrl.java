@@ -56,6 +56,7 @@ public class SinglePlayerOpenQuestionCtrl {
 
     @FXML
     void exit(ActionEvent event) {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
@@ -115,8 +116,9 @@ public class SinglePlayerOpenQuestionCtrl {
     }
 
     public void setTime(int i) {
-        time.setText(String.valueOf(i));
+        time.setText("Time Left: " + String.valueOf(i));
     }
+
     /**
      * This is the onAction method for the Label. When the user hits enter this will be called. It will either
      * calculate the number of points in case it is an integer or clear the field in case an exception is thrown.

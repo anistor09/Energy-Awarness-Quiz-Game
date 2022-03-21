@@ -49,7 +49,7 @@ public class IntermediateScreenCtrl {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    mainCtrl.goTo("menu");
+                    mainCtrl.checkGameStatus();
                 });
             }
         }, 4000);

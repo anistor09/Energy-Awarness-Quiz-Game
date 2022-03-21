@@ -93,10 +93,12 @@ public class MainCtrl{
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
                                             // that the player chose to use
 
+    boolean exitedGame;
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
     }
+
 
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
@@ -142,6 +144,7 @@ public class MainCtrl{
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
         this.menu = new Scene(menuPair.getValue());
+
         this.singlePlayerLobbyCtrl = singlePlayerLobbyControllerParentPair.getKey();
         this.singlePlayerLobby = new Scene(singlePlayerLobbyControllerParentPair.getValue());
         this.multiPlayerLobbyCtrl = multiPlayerLobbyControllerParentPair.getKey();
@@ -177,6 +180,19 @@ public class MainCtrl{
         this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
 
+        this.exitedGame = false;
+
+        this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+
+        this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerOpenQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerChooseOptionQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");
@@ -203,12 +219,17 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 1;                              // SET TO 20 FOR FINAL VERSION
+            int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
             @Override
             public void run() {
-                if(i <= 0){
+                if (i <= 0) {
                     timer.cancel();
-                    checkGameStatus();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            goTo("intermediateScreen");
+                        }
+                    });
                     // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
                     //
                     // Method that checks if the answer of the user is right
@@ -216,14 +237,49 @@ public class MainCtrl{
                     // Method that goes to intermediate screen
                     //
                 }
-                else
+                if(exitedGame){
+                    timer.cancel();
+                    setExitedGame(false);
+                }
+                else {
+                    int currentQuestionNumber = game.getCurrentQuestionNumber();
+                    Question q = game.getQuestions().get(currentQuestionNumber);
+                    String className = getClassName(q.getClass().getName());
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch (className) {
+                                case "MultipleChoiceQuestion":
+                                    singlePlayerGameCtrl.setTime(i + 1);
+                                    break;
+
+                                case "MostEnergyQuestion":
+                                    singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
+                                    break;
+
+                                case "GuessQuestion":
+                                    singlePlayerOpenQuestionCtrl.setTime(i + 1);
+                                    break;
+
+                                case "InsteadOfQuestion":
+                                    singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
                     i--;
+                }
             }
         }, 0, 1000);
     }
 
-    private void checkGameStatus() {
-        if(game.getCurrentQuestionNumber() + 1< game.getQuestions().size()){
+    /**
+     * This method checks if the game is over. It is called after every question.
+     */
+    public void checkGameStatus() {
+        if(game.getCurrentQuestionNumber() + 1 < game.getQuestions().size()){
             game.setCurrentQuestionNumber(game.getCurrentQuestionNumber() + 1);
         }
         else{
@@ -260,10 +316,11 @@ public class MainCtrl{
                             goTo("SingleplayerOpenQuestion");
                             break;
 
-//              case "InsteadOfQuestion":
-                        //        game.setCurrentQuestionNumber(game.getCurrentQuestionNumber()+1);
-//                    break;
-//                 this case will be implemented when we will have a InsteadOfScene
+                        case "InsteadOfQuestion":
+                            singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                            goTo("SingleplayerInsteadOfQuestion");
+                            break;
+
                         default:
                             break;
                     }
@@ -333,25 +390,27 @@ public class MainCtrl{
                 10,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
-       Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",40);
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",40);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",40);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",40);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",40);
+        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
+
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",10);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",10);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",10);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",10);
+        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 10, options);
+        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",10);
 
 
         ArrayList<Question> questionArray = new ArrayList<Question>();
+        questionArray.add(q6);
+        questionArray.add(q6);
         questionArray.add(q5);
         questionArray.add(q1);
         questionArray.add(q2);
         questionArray.add(q3);
         questionArray.add(q4);
-        questionArray.add(q1);
         questionArray.add(q2);
         questionArray.add(q3);
         questionArray.add(q4);
-
-
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
@@ -394,6 +453,7 @@ public class MainCtrl{
                 primaryStage.setScene(credits);
                 break;
             case "singleLobby":
+                singlePlayerLobbyCtrl.resetJokers();
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
@@ -449,6 +509,7 @@ public class MainCtrl{
     public Player createPlayer(String insertedUsername, List<String> stringJokers) {
         Player p = new Player(insertedUsername,0);
         List<JokerCard> jokerList = new ArrayList<>();
+        System.out.println(stringJokers);
         for (String s : stringJokers) {
             switch (s){
                 case "AdditionalPointsJoker":
@@ -467,9 +528,17 @@ public class MainCtrl{
                     break;
             }
         }
+        for(int i=0;i<jokerList.size();i++){
+            System.out.println(jokerList.get(i));
+        }
+        System.out.println("---------");
         p.setJokerCards(jokerList);
 
         return p;
+    }
+
+    public void setExitedGame(boolean exitedGame) {
+        this.exitedGame = exitedGame;
     }
 }
 

@@ -807,7 +807,7 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/AA Univer
 	... 61 more
 2022-03-17 19:56:11 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "Som" not found; SQL statement:
-INSERT INTO PLAYER (ID, CURRENT_SCORE, USERNAME)
+INSERT INTO PLAYER (ID, CURRENT_SCORE, USERNAME)
 VALUES (1, 54, "Som") [42122-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
@@ -866,7 +866,7 @@ VALUES (1, 54, "Som") [42122-200]
 	at java.base/java.lang.Thread.run(Thread.java:831)
 2022-03-17 19:56:25 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column count does not match; SQL statement:
-INSERT INTO PLAYER (ID, CURRENT_SCORE, USERNAME)
+INSERT INTO PLAYER (ID, CURRENT_SCORE, USERNAME)
 VALUES (54, "Som") [21002-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
@@ -924,7 +924,7 @@ VALUES (54, "Som") [21002-200]
 	at java.base/java.lang.Thread.run(Thread.java:831)
 2022-03-17 19:56:44 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "Som" not found; SQL statement:
-INSERT INTO PLAYER (ID, CURRENT_SCORE, USERNAME)
+INSERT INTO PLAYER (ID, CURRENT_SCORE, USERNAME)
 VALUES (5, 43, "Som") [42122-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
@@ -1587,18 +1587,24 @@ select activity0_.id as id1_0_, activity0_.consumption_in_wh as consumpt2_0_, ac
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
 	at server.Main.main(Main.java:27)
-2022-03-21 14:45:41 jdbc[3]: exception
+2022-03-21 14:43:34 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
-select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
-2022-03-21 14:47:14 jdbc[3]: exception
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-21 14:44:50 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
-select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
-2022-03-21 14:49:17 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
-select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
-2022-03-21 14:49:35 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
-select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
-2022-03-21 15:05:53 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "38-hairdryer"; SQL statement:
-select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
+2022-03-21 15:01:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "IMAGE_PATH" not found; SQL statement:
+select * from image_path [42102-200]
+2022-03-21 15:02:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "IMAGE_PATH" not found; SQL statement:
+select * from IMAGE_PATH [42102-200]
+2022-03-21 15:02:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CONSUMPTION_IN_WH" not found; SQL statement:
+select * from CONSUMPTION_IN_WH [42102-200]
+2022-03-21 15:02:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CONSUMPTION_IN_WH" not found; SQL statement:
+select * from CONSUMPTION_IN_WH [42102-200]
+2022-03-21 15:02:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CORRECT_ANSWER" not found; SQL statement:
+select * from CORRECT_ANSWER [42102-200]
