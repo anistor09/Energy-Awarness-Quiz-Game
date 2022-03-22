@@ -201,10 +201,6 @@ public class MainCtrl{
         this.singlePlayerChooseOptionQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-        this.adminPanelCtrl = adminPanel.getKey();
-        this.admin = new Scene(adminPanel.getValue());
-        this.editActivityCtrl = editActivity.getKey();
-        this.editActivity = new Scene(editActivity.getValue());
 
 
         primaryStage.setTitle("Quizzz");
@@ -564,6 +560,15 @@ public class MainCtrl{
     public void setExitedGame(boolean exitedGame) {
         this.exitedGame = exitedGame;
 
+    }
+
+    /**
+     * This method will call serverUtils to update the activity provided in the repository
+     * @param activity to update
+     * @return the updated activity
+     */
+    public Activity editActivity(Activity activity) {
+        return serverUtils.editActivity(activity);
     }
 }
 

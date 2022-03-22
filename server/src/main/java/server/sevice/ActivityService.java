@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,11 @@ public class ActivityService {
         activityRepository.deleteById(activityId);
     }
 
+    /**
+     * This method will get an activity by Id
+     * @param id to retrieve for
+     * @return the Activity with such id
+     */
     public Activity getActivityById(String id) {
         Optional<Activity> activity = activityRepository.findById(id);
         if(activity.isPresent()) {
@@ -70,5 +76,26 @@ public class ActivityService {
         if(list.size() == 0) return null;
         int random = (int) (Math.random() * list.size());
         return list.get(random);
+    }
+
+    /**
+     * This method will update all the fields of the activity with Id = as the id present in the activity passed in as
+     * an argument
+     * @param activity to update for
+     * @return the updated Activity
+     */
+    @Transactional
+    public Activity updateActivity(Activity activity) {
+        Optional<Activity> toUpdateOptional = activityRepository.findById(activity.getId());
+        if(!toUpdateOptional.isPresent()) {
+            throw new IllegalStateException("activity with ID " + activity.getId() + " does not exist.");
+        }
+        else {
+            Activity toUpdate = toUpdateOptional.get();
+            toUpdate.setConsumption_in_wh(activity.getConsumption_in_wh());
+            toUpdate.setTitle(activity.getTitle());
+            toUpdate.setSource(activity.getSource());
+            return toUpdate;
+        }
     }
 }

@@ -2,15 +2,7 @@ package server.api;
 
 import commons.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-
+import org.springframework.web.bind.annotation.*;
 import server.sevice.ActivityService;
 
 import java.util.List;
@@ -42,6 +34,17 @@ public class ActivityController {
     }
 
     /**
+     * This method will update an Activity with the same Id as the argument to the corresponding fields present in the
+     * argument
+     * @param activity to update
+     * @return the updated Activity
+     */
+    @PutMapping
+    public Activity updateActivity(@RequestBody Activity activity) {
+        return activityService.updateActivity(activity);
+    }
+
+    /**
      *  API layer method for the POST request
      * @param activity An instance of the utility class that links the API Layer to the Repository Layer
      */
@@ -58,6 +61,11 @@ public class ActivityController {
         activityService.deleteActivity(activityId);
     }
 
+    /**
+     * This method will get an Activity by Id
+     * @param activityId to retrieve for
+     * @return the Activity with such id
+     */
     @GetMapping(path = "{activityId}")
     public Activity getActivityById(@PathVariable("activityId") String activityId) {
         return activityService.getActivityById(activityId);

@@ -5,13 +5,11 @@ import client.MyModule;
 import client.utils.ServerUtils;
 import com.google.inject.Injector;
 import commons.Activity;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javax.inject.Inject;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +19,7 @@ public class AdminPanelCtrl {
 
     private final MainCtrl mainCtrl;
     private final ServerUtils server;
-    private List<Activity> listOfActivities;
+    public List<Activity> listOfActivities;
     private int currentIndex = 0;
 
     private static final Injector INJECTOR = createInjector(new MyModule());
@@ -89,6 +87,12 @@ public class AdminPanelCtrl {
         mainCtrl.goToEditActivity(this.server.getActivityById(id));
     }
 
+    /**
+     * This method will get the set of Activities to display, and it will map their id to the corresponding label in
+     * the scene
+     * @param direction which the user requested, it is either the following activities or the previous activities
+     * @param firstTime regarding if it is the firstTime this admin panel will be instantiating activities
+     */
     public void instantiateActivities(boolean direction, boolean firstTime) {
         activateLabels();
 
@@ -117,6 +121,10 @@ public class AdminPanelCtrl {
         }
     }
 
+    /**
+     * This method will map activity ids to their corresponding label
+     * @param smallList
+     */
     public void mapActivities(List<String> smallList) {
         activity1.setText(smallList.get(0));
         activity2.setText(smallList.get(1));
@@ -130,6 +138,10 @@ public class AdminPanelCtrl {
         activity10.setText(smallList.get(9));
     }
 
+    /**
+     * This method will set an eventHandler to every label, making sure that if the user clicks them it will be
+     * redirected to the edit Activity page to edit the Activity with Id as the label displayed
+     */
     public void activateLabels() {
         activity1.setOnMouseClicked(e -> editActivity(((Label) e.getSource()).getText()));
         activity2.setOnMouseClicked(e -> editActivity(((Label) e.getSource()).getText()));
