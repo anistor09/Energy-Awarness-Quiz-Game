@@ -65,6 +65,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
     private Label time;
 
     private final MainCtrl mainCtrl;
+    private InsteadOfQuestion questionObject;
 
 
     @Inject
@@ -78,11 +79,13 @@ public class SingleplayerInsteadOfQuestionCtrl {
      *      attributes of the Question and Player Classes.
      */
     public void initialiseSinglePlayerInsteadOfQuestion() {
+        switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         InsteadOfQuestion q =
                 (InsteadOfQuestion) currentGame.
                         getQuestions().
                         get(currentGame.getCurrentQuestionNumber());
+        questionObject = q;
         Player player = ((SinglePlayerGame) currentGame).getPlayer();
         score.setText(String.valueOf((player.getCurrentScore())));
         Activity activity = q.getActivity();
@@ -96,9 +99,76 @@ public class SingleplayerInsteadOfQuestionCtrl {
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
         setJokers(jokerCards);
-
-
     }
+
+    /**
+     * This method will switch the buttons on or off according to the boolean passed. True means off
+     * @param onOff the boolean for which to set the setDisable property
+     */
+    void switchButtons(boolean onOff) {
+        option1.setDisable(onOff);
+        option2.setDisable(onOff);
+        option3.setDisable(onOff);
+        joker1.setDisable(onOff);
+        joker2.setDisable(onOff);
+        joker3.setDisable(onOff);
+    }
+
+    /**
+     * Handles the clicks on button with option 1
+     */
+//    public void option1Handler() {
+//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 0) {
+//            handleCorrect();
+//        } else {
+//            handleWrong();
+//        }
+//        switchButtons(true);
+//    }
+
+    /**
+     * Handles the clicks on button with option 2
+     */
+//    public void option2Handler() {
+//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 1) {
+// TODO this is the condition that produces true/false based on the answer, this might have to be changed
+// //           handleCorrect();
+//        } else {
+//            handleWrong();
+//        }
+//        switchButtons(true);
+//    }
+
+    /**
+     * Handles the clicks on button with option 3
+     */
+//    public void option3Handler() {
+//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 2) {
+//            handleCorrect();
+//        } else {
+//            handleWrong();
+//        }
+//        switchButtons(true);
+//    }
+
+    /**
+     * This method will handle when the user click the correct option. For the moment it is increasing the points of the
+     * player and printing out correct
+     */
+    void handleCorrect() {
+        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+        System.out.println("correct");
+    }
+
+    /**
+     * This method will handle when the user clicks the wrong option. For the moment it is only printing wrong on the
+     * console
+     */
+    void handleWrong() {
+        System.out.println("wrong");
+    }
+
     /**
      * This method maps the player's jokers to their corresponding buttons
      * @param jokerList List of JokerCard instances representing the player's jokers

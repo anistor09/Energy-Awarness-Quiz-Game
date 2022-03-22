@@ -142,7 +142,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
+        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
             handleCorrect();
         } else {
             handleWrong();
@@ -154,7 +154,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
+        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
             handleCorrect();
         } else {
             handleWrong();
@@ -166,7 +166,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2) {
+        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
             handleCorrect();
         } else {
             handleWrong();
