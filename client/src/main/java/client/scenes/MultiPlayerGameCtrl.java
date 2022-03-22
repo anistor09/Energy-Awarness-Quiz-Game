@@ -81,4 +81,8 @@ public class MultiPlayerGameCtrl {
         mainCtrl.goTo("menu");
     }
 
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
+
 }

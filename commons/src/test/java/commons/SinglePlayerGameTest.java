@@ -88,7 +88,7 @@ class SinglePlayerGameTest {
                 player1);
 
         spg3 = new SinglePlayerGame(
-                new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
+                new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6)),
                 new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
                 player2);
     }

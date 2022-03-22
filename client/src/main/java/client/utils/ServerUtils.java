@@ -16,17 +16,17 @@
 package client.utils;
 
 import commons.*;
-import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
-import org.checkerframework.checker.units.qual.A;
 import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -119,12 +119,62 @@ public class ServerUtils {
      */
 
     public Game createSinglePlayerGame(Player player) {
-        SinglePlayerGame game = ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("api/game/singleGame")
+        ArrayList<Question> questions = new ArrayList<>();
+        questions.addAll(getListMostEnergy());
+        questions.addAll(getListInsteadOf());
+        questions.addAll(getListMultipleChoice());
+        questions.addAll(getListGuessQuestion());
+        Collections.shuffle(questions);
+        SinglePlayerGame game = new SinglePlayerGame(questions, new ArrayList<JokerCard>(), player);
+        return game;
+    }
+
+
+    /**
+     * This method will make a request for list of MostEnergyQuestions
+     * @return a list of random MostEnergyQuestions from the server
+     */
+    public List<MostEnergyQuestion> getListMostEnergy() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/singleGame/mostEnergy")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {});
-        game.setPlayer(player);
-        return game;
+    }
+
+    /**
+     * This method will make a request for list of InsteadOf questions
+     * @return a list of random InsteafOfQuestion from the server
+     */
+    public List<InsteadOfQuestion> getListInsteadOf() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/singleGame/insteadOf")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+    }
+
+    /**
+     * This method will make a request for list of MultipleChoiceQuestion
+     * @return a list of random MultipleChoiceQuestion from the server
+     */
+    public List<MultipleChoiceQuestion> getListMultipleChoice() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/singleGame/multipleChoice")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+    }
+
+    /**
+     * This method will make a request for list of GuessQuestion
+     * @return a list of random GuessQuestion from the server
+     */
+    public List<GuessQuestion> getListGuessQuestion() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/singleGame/guess")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
     }
 }

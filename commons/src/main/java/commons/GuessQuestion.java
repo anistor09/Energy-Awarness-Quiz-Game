@@ -26,13 +26,17 @@ public class GuessQuestion extends Question{
         this.setDifficulty("EASY");
     }
 
+    public GuessQuestion() {
+
+    }
+
     /**
      * Returns the closeness of guess to the actual energy consumption of the activity as a value between 0 and 1. If
      * the returned value is 1, the guess is exactly equal to the correct answer.
      * @param guess Number guessed by the player.
      * @return Closeness of the guess to the correct answer.
      */
-    public double calculateCloseness(int guess) {
+    public double calculateCloseness(long guess) {
         long correctAnswer = this.getActivity().getConsumption_in_wh();
         // Formula: if the guess is 100% away from the actual answer, the closeness should be 0. Else, it is 1-error
 
@@ -40,6 +44,11 @@ public class GuessQuestion extends Question{
             return 0;
         }
         return 1-(Math.abs((double)(guess-correctAnswer))/correctAnswer);
+    }
+
+    public int calculatePoints(long guess) {
+        double closeness = calculateCloseness(guess);
+        return((int) (closeness * getAvailablePoints()));
     }
 
 

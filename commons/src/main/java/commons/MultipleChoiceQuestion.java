@@ -6,6 +6,7 @@ import java.util.Objects;
 public class MultipleChoiceQuestion extends Question{
 
     private ArrayList<Double> options;
+    private double correctAnswer;
 
 
     /**
@@ -39,7 +40,7 @@ public class MultipleChoiceQuestion extends Question{
 
 
         options.add(correctAnswer);
-
+        this.correctAnswer = (long) correctAnswer;
         this.options = options;
     }
 
@@ -61,6 +62,10 @@ public class MultipleChoiceQuestion extends Question{
         this.options = options;
     }
 
+    public MultipleChoiceQuestion() {
+
+    }
+
     /**
      * Private utility method used by the constructor.
      *
@@ -74,10 +79,10 @@ public class MultipleChoiceQuestion extends Question{
         double optionTwo;
 
         // generate 2 unique numbers within these bounds
-        optionOne = ((Math.random() * range) + lowerBound);
+        optionOne = (long)((Math.random() * range) + lowerBound);
         optionTwo = optionOne;
         while (optionOne == optionTwo) {
-            optionTwo = (int)((Math.random() * range) + lowerBound);
+            optionTwo = (long)((Math.random() * range) + lowerBound);
         }
 
         ArrayList<Double> returnable = new ArrayList<>();
@@ -111,6 +116,10 @@ public class MultipleChoiceQuestion extends Question{
     @Override
     public int hashCode() {
         return Objects.hash(options);
+    }
+
+    public double getCorrectAnswer() {
+        return correctAnswer;
     }
 }
 

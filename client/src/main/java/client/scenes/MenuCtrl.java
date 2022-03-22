@@ -7,8 +7,8 @@ import com.google.inject.Injector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
 import javafx.scene.image.ImageView;
+
 import java.io.IOException;
 
 import static com.google.inject.Guice.createInjector;
@@ -24,6 +24,7 @@ public class MenuCtrl {
     @Inject
     public MenuCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
+        System.out.println(this.singleIcon == null);
     }
 
     @FXML
@@ -40,6 +41,10 @@ public class MenuCtrl {
 
     @FXML
     private Button multiPlayer;
+
+    public void setSingleIcon(ImageView image) {
+        this.singleIcon = image;
+    }
 
     @FXML
     private ImageView singleIcon;
@@ -72,8 +77,14 @@ public class MenuCtrl {
         mainCtrl.goTo("help");
     }
 
+
     @FXML
     public void goToAdmin() {
         mainCtrl.goTo("admin");
+    }
+
+    public void goToLeaderboard(ActionEvent actionEvent) {
+        mainCtrl.goTo("SinglePlayerLeaderboard");
+
     }
 }

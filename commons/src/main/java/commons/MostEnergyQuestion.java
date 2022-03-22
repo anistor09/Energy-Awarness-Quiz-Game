@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MostEnergyQuestion extends Question{
+
     private ArrayList<Activity> otherActivities;
 
     /**
@@ -20,6 +21,26 @@ public class MostEnergyQuestion extends Question{
         super(activity, availablePoints, difficulty, allowedTime);
         this.otherActivities = otherActivities;
     }
+
+    public MostEnergyQuestion() {
+
+    }
+
+    /**
+     * This method will find which Activity is the one which has the most energyConsumption
+     * @return the activity with the highest consumption
+     */
+//    public Activity getExpensiveActivity() {
+//        ArrayList<Activity> list = new ArrayList<>(otherActivities);
+//        list.add(this.getActivity());
+//        Activity correct = list.get(0);
+//        for(Activity a : list) {
+//            if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
+//                correct = a;
+//            }
+//        }
+//        return correct;
+//    }
 
     /**
      * Creates a new MostEnergyQuestion instance if no difficulty is provided. By default, the difficulty is "EASY".
@@ -75,4 +96,8 @@ public class MostEnergyQuestion extends Question{
                 "otherActivities=" + otherActivities +
                 '}';
     }
+
+//    private Activity getCorrectAnswer() {
+//        return getExpensiveActivity();
+//    }
 }

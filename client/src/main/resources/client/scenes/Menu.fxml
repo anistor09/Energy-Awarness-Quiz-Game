@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/menu_stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MenuCtrl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MenuCtrl">
     <top>
         <HBox BorderPane.alignment="CENTER">
             <children>
@@ -43,8 +43,8 @@
                         <GridPane prefHeight="579.0" prefWidth="466.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="206.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="104.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="166.77337646484375" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.507080078125" minWidth="10.0" prefWidth="173.22662353515625" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -62,11 +62,10 @@
                            <GridPane.margin>
                               <Insets left="10.0" top="15.0" />
                            </GridPane.margin></Button>
-                        <Button fx:id="admin" layoutX="20.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToAdmin" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Admin" textFill="#fb8500" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Button fx:id="leaderboardButton" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="57.0" prefWidth="184.0" style="-fx-background-color: #023047 #023047;" text="Leaderboard" textFill="#fb8500" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" top="15.0" />
-                           </GridPane.margin>
-                        </Button>
+                           </GridPane.margin></Button>
                             </children>
                         </GridPane>
                     </children>
@@ -75,8 +74,8 @@
                     <children>
                         <GridPane prefHeight="579.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="102.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="208.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="134.957763671875" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="195.542236328125" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
