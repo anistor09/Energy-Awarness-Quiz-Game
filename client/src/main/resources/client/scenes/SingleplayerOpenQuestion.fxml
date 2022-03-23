@@ -58,10 +58,13 @@
                         <Insets left="30.0" top="30.0" />
                     </VBox.margin>
                 </ImageView>
-            <Text fx:id="questionText" boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="questionText" textOrigin="CENTER" wrappingWidth="278.15625">
+            <Text fx:id="questionText" boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="questionText" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="278.15625">
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
                </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
             </Text>
                 <Button fx:id="joker1" mnemonicParsing="false" prefHeight="44.0" prefWidth="285.0" text="Joker 1">
                     <VBox.margin>
