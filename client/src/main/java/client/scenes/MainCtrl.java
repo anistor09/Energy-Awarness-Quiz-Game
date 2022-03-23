@@ -85,6 +85,9 @@ public class MainCtrl{
     private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
     private Scene multiplayerInsteadOfQuestion;
 
+    private SingleplayerStartCountdownScreenCtrl singleplayerStartCountdownScreenCtrl;
+    private Scene singlePlayerStartCountdownScreen;
+
 
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
@@ -134,7 +137,9 @@ public class MainCtrl{
                                    singleplayerInsteadOfQuestionCtrlParentPair,
                            Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
                                    multiPlayerInsteadOfQuestionCtrlParentPair,
-                                   Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair) 
+                                   Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
+                           Pair<SingleplayerStartCountdownScreenCtrl,
+                                   Parent> singleplayerStartCountdownScreenCtrlParentPair)
                             {
                            
 
@@ -176,6 +181,8 @@ public class MainCtrl{
         this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
         this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
+        this.singleplayerStartCountdownScreenCtrl = singleplayerStartCountdownScreenCtrlParentPair.getKey();
+        this.singlePlayerStartCountdownScreen = new Scene(singleplayerStartCountdownScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
 
@@ -184,12 +191,15 @@ public class MainCtrl{
 //        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 //        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
+
+
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerOpenQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerChooseOptionQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singlePlayerStartCountdownScreen.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");
@@ -492,6 +502,11 @@ public class MainCtrl{
                 break;
             default: primaryStage.setScene(menu);
         }
+    }
+
+    public void startSinglePlayerGameCountdown(Player player){
+        primaryStage.setScene(singlePlayerStartCountdownScreen);
+        singleplayerStartCountdownScreenCtrl.startCountdown(player);
     }
 
     public void setStringJokers(List<String> checkedStringJokers) {

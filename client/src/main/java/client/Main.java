@@ -101,6 +101,10 @@ public class Main extends Application {
         Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair =
                 FXML.load(IntermediateScreenCtrl.class, "client", "scenes", "IntermediateScreen.fxml");
 
+        Pair<SingleplayerStartCountdownScreenCtrl, Parent> singleplayerStartCountdownScreenCtrlParentPair =
+                FXML.load(SingleplayerStartCountdownScreenCtrl.class, "client", "scenes",
+                        "SingleplayerStartCountdownScreen.fxml");
+
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
                 multiLobby, credits, singleGame, multiGame,
@@ -112,7 +116,8 @@ public class Main extends Application {
                 singlePlayerLeaderboardCtrlParentPair,
                 singleplayerInsteadOfQuestionCtrlParentPair,
                 multiplayerInsteadOfQuestionCtrlParentPair, 
-                intermediateScreenCtrlParentPair);
+                intermediateScreenCtrlParentPair,
+                singleplayerStartCountdownScreenCtrlParentPair);
 
 
     }
