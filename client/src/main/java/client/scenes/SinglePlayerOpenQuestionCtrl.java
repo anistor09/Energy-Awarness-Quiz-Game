@@ -69,6 +69,7 @@ public class SinglePlayerOpenQuestionCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerOpenQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
@@ -88,6 +89,10 @@ public class SinglePlayerOpenQuestionCtrl {
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
 
+    }
+
+    public void resetScreen(){
+        userAnswer.setText("");
     }
 
     /**

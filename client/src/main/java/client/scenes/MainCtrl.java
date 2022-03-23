@@ -301,10 +301,16 @@ public class MainCtrl{
         if(!game.isGameOver()) {
             singleplayerInGameTimer();
             int currentQuestionNumber;
+            int lastQuestionNumber;
 
             currentQuestionNumber = game.getCurrentQuestionNumber();
+            lastQuestionNumber = currentQuestionNumber - 1;
+
             Question q = game.getQuestions().get(currentQuestionNumber);
+            Question qLast = game.getQuestions().get(lastQuestionNumber);
+
             String className = getClassName(q.getClass().getName());
+            String lastQuestionClassName = getClassName(qLast.getClass().getName());
 
             Platform.runLater(new Runnable() {
                 @Override
