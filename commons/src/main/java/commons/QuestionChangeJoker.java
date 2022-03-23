@@ -8,7 +8,7 @@ public class QuestionChangeJoker extends JokerCard{
         super(name, description, onlyMultiplayer);
     }
     public QuestionChangeJoker() {
-        super("asdas", "....", false);
+        super("Question Change Joker", "....", false);
     }
 
 

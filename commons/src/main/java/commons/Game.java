@@ -18,6 +18,12 @@ public abstract class Game {
         currentQuestionNumber = 1;
     }
 
+    public Game() {
+
+    }
+
+
+
 
     public ArrayList<Question> getQuestions() {
         return questions;

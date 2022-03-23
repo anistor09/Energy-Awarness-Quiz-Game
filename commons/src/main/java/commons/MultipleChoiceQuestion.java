@@ -62,6 +62,10 @@ public class MultipleChoiceQuestion extends Question{
         this.options = options;
     }
 
+    public MultipleChoiceQuestion() {
+
+    }
+
     /**
      * Private utility method used by the constructor.
      *
@@ -75,10 +79,10 @@ public class MultipleChoiceQuestion extends Question{
         double optionTwo;
 
         // generate 2 unique numbers within these bounds
-        optionOne = ((Math.random() * range) + lowerBound);
+        optionOne = (long)((Math.random() * range) + lowerBound);
         optionTwo = optionOne;
         while (optionOne == optionTwo) {
-            optionTwo = (int)((Math.random() * range) + lowerBound);
+            optionTwo = (long)((Math.random() * range) + lowerBound);
         }
 
         ArrayList<Double> returnable = new ArrayList<>();

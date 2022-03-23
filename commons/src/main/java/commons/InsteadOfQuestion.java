@@ -36,6 +36,10 @@ public class InsteadOfQuestion extends Question{
         this.options = options;
     }
 
+    public InsteadOfQuestion() {
+
+    }
+
     /**
      * Compares this activity with another activity.
      * @param other Activity to be compared with.

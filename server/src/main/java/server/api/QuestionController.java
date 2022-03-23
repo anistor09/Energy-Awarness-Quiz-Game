@@ -10,8 +10,8 @@ import server.sevice.QuestionService;
 @RequestMapping("api/question")
 public class QuestionController {
 
-
     private final QuestionService questionService;
+
 
     @Autowired
     public QuestionController(QuestionService questionService) {
@@ -19,11 +19,21 @@ public class QuestionController {
     }
 
     /**
-     * This method will get a random question from the QuestionService
-     * @return the random question
+     * This method will retrieve a random question based on the provided type of Question
+     * @param type the type of question to retrieve
+     * @return the question
      */
-    public Question getRandomQuestion() {
-        return questionService.getRandomQuestion();
+    public Question getRandomQuestion(String type) {
+        switch (type) {
+            case "guess":
+                return questionService.getRandomGuessQuestion();
+            case "multipleChoice":
+                return questionService.getRandomMultipleChoiceQuestion();
+            case "insteadOf":
+                return questionService.getRandomInsteadOfQuestion();
+            default:
+                return questionService.getRandomMostEnergyQuestion();
+        }
     }
 
 

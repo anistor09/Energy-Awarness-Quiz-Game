@@ -75,23 +75,26 @@ public class SinglePlayerLobbyCtrl {
 //        addJokerCard(timeTwister);
 //        addJokerCard("ShortenTimeJoker");
 //    }
+    public void resetJokers(){
+        this.checkedStringJokers = new ArrayList<>();
+    }
 
     @FXML
     protected void addPointBoost(){
         addJokerCard(pointBoost);
-        addJokerCard("AdditionalPointsJoker");
+        addStringJokerCard("AdditionalPointsJoker");
     }
 
     @FXML
     protected void addDetective(){
         addJokerCard(detective);
-        addJokerCard("EliminateOptionJoker");
+        addStringJokerCard("EliminateOptionJoker");
     }
 
     @FXML
     protected void addQuestionChange(){
         addJokerCard(questionChange);
-        addJokerCard("QuestionChangeJoker");
+        addStringJokerCard("QuestionChangeJoker");
     }
 
 //    @FXML
@@ -125,12 +128,12 @@ public class SinglePlayerLobbyCtrl {
      * This method adds the String corresponding to the selected joker cards to the ArrayList of Strings
      * @param e String representing the selected joker card
      */
-    protected void addJokerCard(String e){
+    protected void addStringJokerCard(String e){
         if(checkedStringJokers.size() < 3){
             checkedStringJokers.add(e);
             jokerNumber.setText(Integer.toString(checkedStringJokers.size()));
         }
-        if(checkedStringJokers.size() == 3){
+        else if (checkedStringJokers.size() == 3){
             checkedStringJokers.remove(0);
             checkedStringJokers.add(e);
         }

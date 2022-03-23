@@ -74,6 +74,7 @@ public class SinglePlayerGameCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion(){
+        switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         MultipleChoiceQuestion q = (MultipleChoiceQuestion)currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
@@ -104,7 +105,7 @@ public class SinglePlayerGameCtrl {
         for (int i = 0; i < buttonArray.length; i++) {
             Button current = buttonArray[i];
             if (i <= jokerList.size() - 1) {
-
+                System.out.println(jokerList.get(i).getName());
                 current.setText(jokerList.get(i).getName());
             } else {
                 current.setText("Unavailable Joker");
@@ -141,7 +142,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
+        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
             handleCorrect();
         } else {
             handleWrong();
@@ -153,7 +154,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
+        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
             handleCorrect();
         } else {
             handleWrong();
@@ -165,7 +166,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2) {
+        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
             handleCorrect();
         } else {
             handleWrong();
@@ -193,10 +194,10 @@ public class SinglePlayerGameCtrl {
     }
 
     public void exit() {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
-        time.setText(String.valueOf(i));
-    }
-}
+        time.setText("Time Left: " + String.valueOf(i));
+    }}

@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SinglePlayerChooseOptionQuestionCtrl {
@@ -87,10 +88,10 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         question3Text.setText(actList.get(2).getTitle());
 //
         question.setText("What requires more energy?");
-
+        initialiseActivityImages(actList);
         List<JokerCard> jokerList = player.getJokerCards();
 
-       setJokers(jokerList);
+       this.setJokers(jokerList);
     }
 
     /**
@@ -123,7 +124,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 0) {
+        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 0) {
             handleCorrect();
         } else {
             handleWrong();
@@ -135,7 +136,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * Handles the clicks on button with option 2
      */
     public void option2Handler() {
-        if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 1) {
+        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 1) {
             handleCorrect();
         } else {
             handleWrong();
@@ -147,7 +148,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * Handles the clicks on button with option 3
      */
     public void option3Handler() {
-        if(questionObject.getOtherActivities().indexOf(questionObject.getCorrectAnswer()) == 2) {
+        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 2) {
             handleCorrect();
         } else {
             handleWrong();
@@ -155,13 +156,31 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         switchButtons(true);
     }
 
+
+    /**
+     * This method will return the most expensive activity object from the questionObject stored in this class
+     * @return the Activity that is the correct answer of this question
+     */
+    public Activity getExpensiveActivity() {
+        ArrayList<Activity> list = new ArrayList<>(questionObject.getOtherActivities());
+        list.add(questionObject.getActivity());
+        Activity correct = list.get(0);
+        for(Activity a : list) {
+            if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
+                correct = a;
+            }
+        }
+        return correct;
+    }
+
     @FXML
     void exit(ActionEvent event) {
+        mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
-        time.setText(String.valueOf(i));
+        time.setText("Time Left: " + String.valueOf(i));
     }
 
     /**
@@ -181,6 +200,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
             }
         }
     }
+
     /**
      * This method will handle when the user click the correct option. For the moment it is increasing the points of the
      * player and printing out correct
