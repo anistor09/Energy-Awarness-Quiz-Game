@@ -50,6 +50,9 @@ public class SinglePlayerLobbyCtrl {
         mainCtrl.setStringJokers(checkedStringJokers);
     }
 
+    /**
+     * Resets the checkedboxes once the game starts
+     */
     private void resetScreen() {
         for(int i = 0; i < checkedStringJokers.size(); i++){
             switch (checkedStringJokers.get(i)){
