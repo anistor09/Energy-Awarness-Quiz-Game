@@ -26,7 +26,7 @@
 
 }
 
-#time, #score {
+#time, #score, #questionNumber {
     -fx-background-color: #C4C4C4;
     -fx-background-radius: 15;
     -fx-text-fill: black;

@@ -54,6 +54,9 @@ public class SinglePlayerGameCtrl {
     private Label score;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private Label time;
 
     private final MainCtrl mainCtrl;
@@ -90,6 +93,8 @@ public class SinglePlayerGameCtrl {
         option3.setText(String.valueOf(options.get(2)));
 
         initialiseActivityImage(act);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" + (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -200,4 +205,9 @@ public class SinglePlayerGameCtrl {
 
     public void setTime(int i) {
         time.setText("Time Left: " + String.valueOf(i));
-    }}
+    }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+}

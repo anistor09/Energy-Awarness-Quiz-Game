@@ -64,6 +64,9 @@ public class SingleplayerInsteadOfQuestionCtrl {
     @FXML
     private Label time;
 
+    @FXML
+    private Label questionNumber;
+
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
 
@@ -95,6 +98,8 @@ public class SingleplayerInsteadOfQuestionCtrl {
         question1Text.setText(String.valueOf(options.get(0).getTitle()));
         question2Text.setText(String.valueOf(options.get(1).getTitle()));
         question3Text.setText(String.valueOf(options.get(2).getTitle()));
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" + (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
@@ -208,6 +213,10 @@ public class SingleplayerInsteadOfQuestionCtrl {
     @FXML
     public void setTime(int i) {
         time.setText("Time Left: " + String.valueOf(i));
+    }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
     }
 
 }

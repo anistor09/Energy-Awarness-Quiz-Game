@@ -44,6 +44,9 @@ public class SinglePlayerOpenQuestionCtrl {
     private Label time;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
@@ -78,6 +81,8 @@ public class SinglePlayerOpenQuestionCtrl {
         questionText.setText(act.getTitle());
 
         initialiseActivityImage(act);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" + (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -149,4 +154,9 @@ public class SinglePlayerOpenQuestionCtrl {
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
     }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
 }
