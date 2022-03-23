@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 import javax.inject.Inject;
 import java.util.Timer;
@@ -16,8 +15,6 @@ public class MultiPlayerLobbyCtrl {
 
     @FXML
     private Label numberOfPlayersLabel;
-    @FXML
-    private TextField userNameTextField;
     @FXML
     private TextArea userNames;
     @FXML
@@ -65,16 +62,6 @@ public class MultiPlayerLobbyCtrl {
     @FXML
     protected void returnScreen(){
         mainCtrl.goTo("insertInfoMultiPlayer");
-    }
-
-    /**
-     * This method will take care of registering user's names. It currently has no validation and/or sanity checks
-     */
-    @FXML
-    protected void enterUsersName(){
-        currentUsernames.add(userNameTextField.getText());
-        numberOfPlayersLabel.setText(currentUsernames.size() + " Players");
-        userNames.setText(MakeList(currentUsernames));
     }
 
     /**

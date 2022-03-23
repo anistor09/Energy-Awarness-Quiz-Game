@@ -93,7 +93,8 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" + (currentGame.getQuestions().size() - 1));
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);

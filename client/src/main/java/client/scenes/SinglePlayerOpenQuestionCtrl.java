@@ -82,7 +82,8 @@ public class SinglePlayerOpenQuestionCtrl {
 
         initialiseActivityImage(act);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" + (currentGame.getQuestions().size() - 1));
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);

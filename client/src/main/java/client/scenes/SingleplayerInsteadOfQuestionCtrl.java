@@ -99,7 +99,8 @@ public class SingleplayerInsteadOfQuestionCtrl {
         question2Text.setText(String.valueOf(options.get(1).getTitle()));
         question3Text.setText(String.valueOf(options.get(2).getTitle()));
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" + (currentGame.getQuestions().size() - 1));
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);

@@ -21,6 +21,10 @@ public class SingleplayerStartCountdownScreenCtrl {
         this.mainCtrl=main;
     }
 
+    /**
+     * This methods starts the timer for the pregame countdown
+     * @param player This is the object player that is playing the singleplayer game
+     */
     public void startCountdown(Player player){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
