@@ -97,7 +97,7 @@ public class MainCtrl{
     }
 
     //test
-    List<Player> test = new ArrayList<>();
+//    List<Player> test = new ArrayList<>();
 
 
     /**
@@ -200,10 +200,10 @@ public class MainCtrl{
         primaryStage.show();
 
         //test
-        this.serverUtils.registerForNewPlayers("/topic/updateLobby", q -> {
-            test.add(q);
-            System.out.println(q.getUsername());
-        });
+//        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
+//            test.add(p);
+//            System.out.println(p.getUsername());
+//        });
     }
 
     /**
@@ -219,7 +219,7 @@ public class MainCtrl{
         goToNextQuestion();
 
         //test
-        this.serverUtils.sendPlayer(new Player("test", 400));
+//        this.serverUtils.sendPlayer(new Player("test", 400));
     }
 
         
