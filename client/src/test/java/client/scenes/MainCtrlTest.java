@@ -17,6 +17,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class MainCtrlTest {
@@ -29,6 +30,7 @@ public class MainCtrlTest {
     }
 
     @Test
+    @Disabled
     public void writeSomeTests() {
         // TODO create replacement objects and write some tests
         // sut.initialize(null, null, null);
