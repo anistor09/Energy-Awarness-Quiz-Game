@@ -240,12 +240,9 @@ public class ServerUtils {
     /**
      * This method will retrieve the current MultiGame that has an active lobby, with all the players that are currently
      * in the lobby.
-     * @param player to include in the request so the server can propagate to all existing players that a new player
-     *               joined the game
      * @return the MultiPlayerGame Object
      */
-    public MultiPlayerGame getCurrentMultiplayerGame(Player player) {
-        sendPlayer(player);
+    public MultiPlayerGame getCurrentMultiplayerGame() {
         ArrayList<Question> questions = new ArrayList<>();
         questions.addAll(getCurrentMultiGameGuess());
         questions.addAll(getCurrentMultiGameInsteadOf());
@@ -260,6 +257,14 @@ public class ServerUtils {
      */
     public void sendPlayer(Player player) {
         this.send("/app/updateLobby", player);
+    }
+
+    /**
+     * This method will send the player to remove from the currentMultiGame through the websocket
+     * @param player to delete
+     */
+    public void deletePlayer(Player player) {
+        this.send("/app/deletePlayer", player);
     }
 
     /**
@@ -331,6 +336,28 @@ public class ServerUtils {
             }
         });
     }
+
+    /**
+     * This method will listen for a topic in the websocket session with path as the one in the destination. It is
+     * expecting Objects of type player.
+     * @param dest the topic of the websocket to listen to
+     * @param consumer the Consumer that represents the action that this method is supposed to execute when on trigger
+     *                 of the topic. This is to be passed as a lambda function
+     */
+    public void registerForDeletedPlayers(String dest, Consumer<Player> consumer) {
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return Player.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((Player) payload);
+            }
+        });
+    }
+
 
     /**
      * This method will send ,to the websocket destination provided, the object o

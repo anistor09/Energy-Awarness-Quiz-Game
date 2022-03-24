@@ -39,7 +39,7 @@ class ServerUtilsTest {
     @Disabled
     void testSocket() {
             ServerUtils sut = new ServerUtils();
-        MultiPlayerGame game = sut.getCurrentMultiplayerGame(new Player("test", 39));
+        MultiPlayerGame game = sut.getCurrentMultiplayerGame();
         assertNotNull(game);
         sut.registerForNewPlayers("/topic/updateLobby", System.out::println);
     }

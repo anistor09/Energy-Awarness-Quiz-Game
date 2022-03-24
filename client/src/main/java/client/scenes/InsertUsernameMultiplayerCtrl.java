@@ -1,20 +1,30 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
+import commons.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class InsertUsernameMultiplayerCtrl {
 
     private final MainCtrl mainCtrl;
+    private final ServerUtils server;
+    private final MultiPlayerLobbyCtrl lobby;
+    List<String> listOfPlayer;
 
 
     @Inject
-    public InsertUsernameMultiplayerCtrl(MainCtrl main) {
+    public InsertUsernameMultiplayerCtrl(MainCtrl main, ServerUtils server, MultiPlayerLobbyCtrl lobby) {
         this.mainCtrl=main;
+        this.server = server;
+        this.lobby = lobby;
     }
 
     @FXML
@@ -25,6 +35,8 @@ public class InsertUsernameMultiplayerCtrl {
     private TextField url;
     @FXML
     private Button submitButton;
+    @FXML
+    private Label alert;
 
 
     /**
@@ -32,9 +44,20 @@ public class InsertUsernameMultiplayerCtrl {
      * but it is not fully implemented yet.
      */
     public void submit() {
-//                myLabel.setText("signed up");
-
         String insertedUsername = username.getText();
+        if(insertedUsername.length() > 13) {
+            alert.setText("Username too long!");
+            return;
+        }
+        listOfPlayer = server.getCurrentMultiGamePlayers().stream().
+                    map(Player::getUsername).collect(Collectors.toList());
+        if(listOfPlayer.contains(insertedUsername)) {
+            alert.setText("Username already exists!");
+            return;
+        }
+        Player thisPlayer = new Player(insertedUsername, 0);
+        server.sendPlayer(thisPlayer);
+        lobby.setThisPlayer(thisPlayer);
         String insertedUrl = url.getText();
         System.out.println(insertedUrl);
         System.out.println(insertedUsername);
