@@ -66,6 +66,47 @@ public class ServerUtils {
     }
 
     /**
+     * This method will get the list of all the activities that exist in the repository
+     * @return the list of all activities
+     */
+    public List<Activity> getActivities() {
+        List<Activity> list = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+        return list;
+    }
+
+    /**
+     * This method will make a put request to the server to update the activity with Id as the id in the provided
+     * to match the other fields of the provided activity
+     * @param activity with the fields to update
+     * @return the updated Activity
+     */
+    public Activity editActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(activity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
+     * This method will retrieve an activity from the server based on the id provided
+     * @param id to retrieve the activity
+     * @return the retrieved activity
+     */
+    public Activity getActivityById(String id) {
+        Activity activity = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+        return activity;
+    }
+
+    /**
      * This method will make a simple request for the leaderboard to the server
      * @return the List of players representing the leaderboard
      */

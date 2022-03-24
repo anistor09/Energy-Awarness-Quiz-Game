@@ -1,5 +1,6 @@
 package server.sevice;
 
+import commons.Question;
 import commons.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
