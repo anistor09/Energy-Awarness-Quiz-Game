@@ -58,9 +58,14 @@
                <children>
                   <VBox prefHeight="220.0" prefWidth="762.0">
                      <children>
-                        <Button fx:id="joker1" mnemonicParsing="false" prefHeight="45.0" prefWidth="285.0" text="Joker 1" />
-                        <Button fx:id="joker2" mnemonicParsing="false" prefHeight="45.0" prefWidth="285.0" text="Joker 2" />
-                        <Button fx:id="joker3" mnemonicParsing="false" prefHeight="45.0" prefWidth="285.0" text="Joker 3" />
+                        <Button fx:id="joker1" mnemonicParsing="false" onAction="#handleJokerButton1" prefHeight="45.0" prefWidth="285.0" text="Joker 1" />
+                        <Button fx:id="joker2" mnemonicParsing="false" onAction="#handleJokerButton2" prefHeight="45.0" prefWidth="285.0" text="Joker 2" />
+                        <Button fx:id="joker3" mnemonicParsing="false" onAction="#handleJokerButton3" prefHeight="45.0" prefWidth="285.0" text="Joker 3" />
+                        <Label fx:id="jokerMessage" prefHeight="18.0" prefWidth="301.0" text="Label" textFill="#fc0101">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
                      </children>
                      <HBox.margin>
                         <Insets left="15.0" />
