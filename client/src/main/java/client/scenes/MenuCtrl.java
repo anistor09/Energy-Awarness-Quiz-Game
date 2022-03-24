@@ -31,6 +31,9 @@ public class MenuCtrl {
     private Button credits;
 
     @FXML
+    private Button admin;
+
+    @FXML
     private Button exit;
 
     @FXML
@@ -74,7 +77,14 @@ public class MenuCtrl {
         mainCtrl.goTo("help");
     }
 
+
+    @FXML
+    public void goToAdmin() {
+        mainCtrl.goTo("admin");
+    }
+
     public void goToLeaderboard(ActionEvent actionEvent) {
         mainCtrl.goTo("SinglePlayerLeaderboard");
+
     }
 }

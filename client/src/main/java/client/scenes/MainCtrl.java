@@ -71,7 +71,13 @@ public class MainCtrl{
     private Scene help;
 
     private InsertUsernameSinglePlayerCtrl singleplayerInsertInfoCtrl;
-    private Scene  singleplayerInsertInfo;
+    private Scene singleplayerInsertInfo;
+
+    private AdminPanelCtrl adminPanelCtrl;
+    private Scene admin;
+
+    private EditActivityCtrl editActivityCtrl;
+    private Scene editActivity;
 
     private SinglePlayerLeaderboardCtrl singlePlayerLeaderboardCtrl;
     private Scene singlePlayerLeaderboard;
@@ -96,6 +102,9 @@ public class MainCtrl{
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
     }
+
+    //test
+//    List<Player> test = new ArrayList<>();
 
 
     /**
@@ -135,9 +144,10 @@ public class MainCtrl{
                                    singleplayerInsteadOfQuestionCtrlParentPair,
                            Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
                                    multiPlayerInsteadOfQuestionCtrlParentPair,
-                                   Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair) 
+                                   Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
+                           Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity)
                             {
-                           
+
 
         this.primaryStage = primaryStage;
         this.menuCtrl = menuPair.getKey();
@@ -169,6 +179,10 @@ public class MainCtrl{
         this.help = new Scene(helpCtrlParentPair.getValue());
         this.singleplayerInsertInfoCtrl =insertInfoSingleplayer.getKey();
         this.singleplayerInsertInfo = new Scene(insertInfoSingleplayer.getValue());
+        this.adminPanelCtrl = adminPanel.getKey();
+        this.admin = new Scene(adminPanel.getValue());
+        this.editActivityCtrl = editActivity.getKey();
+        this.editActivity = new Scene(editActivity.getValue());
         this.singleplayerInsteadOfQuestionCtrl = singleplayerInsteadOfQuestionCtrlParentPair.getKey();
         this.singleplayerInsteadOfQuestion = new Scene(singleplayerInsteadOfQuestionCtrlParentPair.getValue());
         this.multiplayerInsteadOfQuestionCtrl = multiPlayerInsteadOfQuestionCtrlParentPair.getKey();
@@ -196,6 +210,12 @@ public class MainCtrl{
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+
+        //test
+//        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
+//            test.add(p);
+//            System.out.println(p.getUsername());
+//        });
     }
 
     /**
@@ -209,6 +229,9 @@ public class MainCtrl{
           //game = initialiseSinglePlayerGame(player);
         game =serverUtils.createSinglePlayerGame(player);
         goToNextQuestion();
+
+        //test
+//        this.serverUtils.sendPlayer(new Player("test", 400));
     }
 
         
@@ -479,9 +502,17 @@ public class MainCtrl{
             case "intermediateScreen":
                 intermediateScreenCtrl.initialiseScene();
                 primaryStage.setScene(intermediateScreen);
+            case "admin":
+                primaryStage.setScene(admin);
+                adminPanelCtrl.instantiateActivities(true, true);
                 break;
             default: primaryStage.setScene(menu);
         }
+    }
+
+    public void goToEditActivity(Activity activity) {
+        primaryStage.setScene(editActivity);
+        editActivityCtrl.initialize(activity);
     }
 
     /**
@@ -635,6 +666,16 @@ public class MainCtrl{
 
     public void setExitedGame(boolean exitedGame) {
         this.exitedGame = exitedGame;
+
+    }
+
+    /**
+     * This method will call serverUtils to update the activity provided in the repository
+     * @param activity to update
+     * @return the updated activity
+     */
+    public Activity editActivity(Activity activity) {
+        return serverUtils.editActivity(activity);
     }
 }
 
