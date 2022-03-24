@@ -32,6 +32,7 @@ public class EliminateOptionJoker extends JokerCard{
         options.remove(optionToDelete);
     }
 
+
     public MultipleChoiceQuestion getQuestion() {
         return question;
     }

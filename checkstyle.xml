@@ -16,7 +16,7 @@
         <module name="OneStatementPerLine" />
         <module name="RedundantImport" />
         <module name="MethodLength">
-            <property name="max" value="70" />
+            <property name="max" value="80" />
         </module>
     </module>
 </module>

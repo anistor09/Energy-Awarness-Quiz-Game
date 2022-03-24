@@ -16,6 +16,8 @@ public class SinglePlayerOpenQuestionCtrl {
 
     @FXML
     private Button exit;
+    @FXML
+    private Label jokerMessage;
 
     @FXML
     private ImageView image;
@@ -76,7 +78,7 @@ public class SinglePlayerOpenQuestionCtrl {
         Activity act = q.getActivity();
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
-
+        jokerMessage.setText("");
         initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
@@ -143,10 +145,49 @@ public class SinglePlayerOpenQuestionCtrl {
      * This method will switch the buttons on or off according to the boolean passed. True means off
      * @param onOff the boolean for which to set the setDisable property
      */
+
     void switchButtons(boolean onOff) {
         userAnswer.setDisable(onOff);
         joker1.setDisable(onOff);
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
+    }
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        jokerMessage.setText("");
+        if (canUseJoker(joker3.getText())) {
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
+        return true;
     }
 }

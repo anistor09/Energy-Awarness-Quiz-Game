@@ -18,6 +18,9 @@ public class SinglePlayerGameCtrl {
     private Button exit;
 
     @FXML
+    private Label jokerMessage;
+
+    @FXML
     private ImageView icon1;
 
     @FXML
@@ -59,8 +62,8 @@ public class SinglePlayerGameCtrl {
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
 
+
     /**
-     *
      * @param mainCtrl
      */
     @Inject
@@ -73,12 +76,12 @@ public class SinglePlayerGameCtrl {
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
-    public void initialiseSinglePlayerQuestion(){
+    public void initialiseSinglePlayerQuestion() {
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
-        MultipleChoiceQuestion q = (MultipleChoiceQuestion)currentGame.getQuestions().
+        MultipleChoiceQuestion q = (MultipleChoiceQuestion) currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
-        Player player = ((SinglePlayerGame)currentGame).getPlayer();
+        Player player = ((SinglePlayerGame) currentGame).getPlayer();
         questionObject = q;
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
@@ -87,16 +90,22 @@ public class SinglePlayerGameCtrl {
         Collections.shuffle(options);
         option1.setText(String.valueOf(options.get(0)));
         option2.setText(String.valueOf(options.get(1)));
-        option3.setText(String.valueOf(options.get(2)));
+        if (options.size() == 3) {
+            option3.setText(String.valueOf(options.get(2)));
+        } else {
+            option3.setText("Wrong Option");
+        }
 
         initialiseActivityImage(act);
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
+        jokerMessage.setText("");
     }
 
     /**
      * This method maps the player's jokers to their corresponding buttons
+     *
      * @param jokerList List of JokerCard instances representing the player's jokers
      */
     public void setJokers(List<JokerCard> jokerList) {
@@ -117,16 +126,18 @@ public class SinglePlayerGameCtrl {
 
     /**
      * This method initialises the Image view with the corresponding image of the activity
+     *
      * @param act Instance of Activity
      */
     private void initialiseActivityImage(Activity act) {
-        String  server = "http://localhost:8080/";
+        String server = "http://localhost:8080/";
 
         image.setImage(new Image(server + act.getImage_path()));
     }
 
     /**
      * This method will switch the buttons on or off according to the boolean passed. True means off
+     *
      * @param onOff the boolean for which to set the setDisable property
      */
     void switchButtons(boolean onOff) {
@@ -142,7 +153,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
+        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
             handleCorrect();
         } else {
             handleWrong();
@@ -154,7 +165,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
+        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
             handleCorrect();
         } else {
             handleWrong();
@@ -166,7 +177,7 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if(questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
+        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
             handleCorrect();
         } else {
             handleWrong();
@@ -193,11 +204,49 @@ public class SinglePlayerGameCtrl {
         System.out.println("wrong");
     }
 
-    public void exit() {
-        mainCtrl.setExitedGame(true);
-        mainCtrl.goTo("menu");
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        if (canUseJoker(joker3.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    public boolean canUseJoker(String name){
+        return true;
     }
 
     public void setTime(int i) {
         time.setText("Time Left: " + String.valueOf(i));
-    }}
+    }
+    @FXML
+    public void exit() {
+        mainCtrl.setExitedGame(true);
+        mainCtrl.goTo("menu");
+    }
+}

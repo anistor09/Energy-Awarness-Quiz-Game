@@ -73,6 +73,6 @@ public class SinglePlayerGame extends Game{
                     player.setTimeLeft(player.getTimeLeft() - 1);
 
             }
-        }, 0, 1000);
+        }, 0, 5000);
     }
 }

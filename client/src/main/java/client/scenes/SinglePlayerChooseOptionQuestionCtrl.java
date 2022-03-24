@@ -19,6 +19,8 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Button exit;
 
     @FXML
+    private Label jokerMessage;
+    @FXML
     private Text question1Text;
     @FXML
     private Text question2Text;
@@ -90,7 +92,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
         List<JokerCard> jokerList = player.getJokerCards();
-
+        jokerMessage.setText("");
        this.setJokers(jokerList);
     }
 
@@ -218,5 +220,44 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     void handleWrong() {
         System.out.println("wrong");
     }
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        if (canUseJoker(joker3.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else {
+             jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
+        return true;
+    }
+
 }
 
