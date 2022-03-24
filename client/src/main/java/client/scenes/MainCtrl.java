@@ -102,6 +102,9 @@ public class MainCtrl{
         this.serverUtils = serverUtils;
     }
 
+    //test
+//    List<Player> test = new ArrayList<>();
+
 
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
@@ -206,6 +209,12 @@ public class MainCtrl{
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+
+        //test
+//        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
+//            test.add(p);
+//            System.out.println(p.getUsername());
+//        });
     }
 
     /**
@@ -219,6 +228,9 @@ public class MainCtrl{
 //        game = initialiseSinglePlayerGame(player);
         game =serverUtils.createSinglePlayerGame(player);
         goToNextQuestion();
+
+        //test
+//        this.serverUtils.sendPlayer(new Player("test", 400));
     }
 
         
