@@ -1,7 +1,6 @@
 package server.sevice;
 
-import commons.Question;
-import commons.SinglePlayerGame;
+import commons.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.api.QuestionController;
@@ -19,24 +18,74 @@ public class GameService {
     }
 
     /**
-     * This is the method that will create the game for the player. It sends requests to questionController to get all
-     * the needed activities. It initializes the game with all the questions but with Player as null and jokers as an
-     * empty array
-     *
-     * @return the SinglePlayerGame
+     * This method will create a list of mostEnergyQuestions to return to the player
+     * @return the list of MostEnergyQuestion
      */
-    public SinglePlayerGame createGame() {
-        ArrayList<Question> questions = new ArrayList<>();
-        for(int i = 0; i < 21; i++) {
-            Question q = questionController.getRandomQuestion();
+    public ArrayList<MostEnergyQuestion> getListMostEnergy() {
+        ArrayList<MostEnergyQuestion> questions = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            Question q = questionController.getRandomQuestion("mostEnergy");
             if(questions.contains(q)) {
                 i--;
                 continue;
             } else {
-                questions.add(q);
+                questions.add((MostEnergyQuestion) q);
             }
         }
-        SinglePlayerGame toReturn = new SinglePlayerGame(questions, new ArrayList<>(), null);
-        return toReturn;
+        return questions;
+    }
+
+    /**
+     * This method will create a list of GuessQuestion to return to the player
+     * @return the list of GuessQuestion
+     */
+    public ArrayList<GuessQuestion> getListGuessQuestion() {
+        ArrayList<GuessQuestion> questions = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            Question q = questionController.getRandomQuestion("guess");
+            if(questions.contains(q)) {
+                i--;
+                continue;
+            } else {
+                questions.add((GuessQuestion) q);
+            }
+        }
+        return questions;
+    }
+
+    /**
+     * This method will create a list of multipleChoiceQuestion to return to the player
+     * @return the list of multipleChoiceQuestion
+     */
+    public ArrayList<MultipleChoiceQuestion> getListMultipleChoice() {
+        ArrayList<MultipleChoiceQuestion> questions = new ArrayList<>();
+        for(int i = 0; i < 6; i++) {
+            Question q = questionController.getRandomQuestion("multipleChoice");
+            if(questions.contains(q)) {
+                i--;
+                continue;
+            } else {
+                questions.add((MultipleChoiceQuestion) q);
+            }
+        }
+        return questions;
+    }
+
+    /**
+     * This method will create a list of insteadOfQuestion to return to the player
+     * @return the list of insteadOfQuestion
+     */
+    public ArrayList<InsteadOfQuestion> getListInsteadOf() {
+        ArrayList<InsteadOfQuestion> questions = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            Question q = questionController.getRandomQuestion("insteadOf");
+            if(questions.contains(q)) {
+                i--;
+                continue;
+            } else {
+                questions.add((InsteadOfQuestion) q);
+            }
+        }
+        return questions;
     }
 }

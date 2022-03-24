@@ -22,6 +22,9 @@ public abstract class Question {
         this.allowedTime = allowedTime;
     }
 
+    public Question () {
+    }
+
     public Activity getActivity() {
         return activity;
     }

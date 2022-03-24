@@ -6,7 +6,6 @@ import java.util.Objects;
 public class MostEnergyQuestion extends Question{
 
     private ArrayList<Activity> otherActivities;
-    private Activity correctAnswer;
 
     /**
      * Creates an instance of MostEnergyQuestion.
@@ -21,24 +20,27 @@ public class MostEnergyQuestion extends Question{
                               ArrayList<Activity> otherActivities) {
         super(activity, availablePoints, difficulty, allowedTime);
         this.otherActivities = otherActivities;
-        correctAnswer = getExpensiveActivity();
+    }
+
+    public MostEnergyQuestion() {
+
     }
 
     /**
      * This method will find which Activity is the one which has the most energyConsumption
      * @return the activity with the highest consumption
      */
-    private Activity getExpensiveActivity() {
-        ArrayList<Activity> list = new ArrayList<>(otherActivities);
-        list.add(this.getActivity());
-        Activity correct = list.get(0);
-        for(Activity a : list) {
-            if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
-                correct = a;
-            }
-        }
-        return correct;
-    }
+//    public Activity getExpensiveActivity() {
+//        ArrayList<Activity> list = new ArrayList<>(otherActivities);
+//        list.add(this.getActivity());
+//        Activity correct = list.get(0);
+//        for(Activity a : list) {
+//            if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
+//                correct = a;
+//            }
+//        }
+//        return correct;
+//    }
 
     /**
      * Creates a new MostEnergyQuestion instance if no difficulty is provided. By default, the difficulty is "EASY".
@@ -95,7 +97,7 @@ public class MostEnergyQuestion extends Question{
                 '}';
     }
 
-    public Activity getCorrectAnswer() {
-        return correctAnswer;
-    }
+//    private Activity getCorrectAnswer() {
+//        return getExpensiveActivity();
+//    }
 }

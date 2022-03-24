@@ -17,23 +17,6 @@ public class QuestionService {
         this.activityController = activityController;
     }
 
-    /**
-     * This method will prepare a random question for the game. It will first make a randomization of question types.
-     * @return the random question
-     */
-    public Question getRandomQuestion() {
-        int questionType = (int) (Math.random() * 3);
-        switch (questionType) {
-            case 0:
-                return getRandomMultipleChoiceQuestion();
-            case 1:
-                return getRandomGuessQuestion();
-            case 2:
-                return getRandomInsteadOfQuestion();
-            default:
-                return getRandomMostEnergyQuestion();
-        }
-    }
 
     /**
      * This method will get a random MultipleChoiceQuestion. It will request a random activity from the database through
@@ -85,11 +68,11 @@ public class QuestionService {
      * @return the MostEnergyQuestion
      */
     public Question getRandomMostEnergyQuestion() {
-        Activity activity = null;
+        Activity activity = activityController.getRandomActivity();
         ArrayList<Activity> options = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             Activity option = activityController.getRandomActivity();
-            if (options.contains(option)) {
+            if (options.contains(option) || options.contains(activity)) {
                 i--;
                 continue;
             } else {

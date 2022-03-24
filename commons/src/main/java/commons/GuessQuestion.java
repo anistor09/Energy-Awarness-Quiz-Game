@@ -26,6 +26,10 @@ public class GuessQuestion extends Question{
         this.setDifficulty("EASY");
     }
 
+    public GuessQuestion() {
+
+    }
+
     /**
      * Returns the closeness of guess to the actual energy consumption of the activity as a value between 0 and 1. If
      * the returned value is 1, the guess is exactly equal to the correct answer.

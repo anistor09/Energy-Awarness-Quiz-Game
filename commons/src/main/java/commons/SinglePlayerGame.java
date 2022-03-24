@@ -19,6 +19,8 @@ public class SinglePlayerGame extends Game{
         this.player = player;
     }
 
+    public SinglePlayerGame() {}
+
     public Player getPlayer() {
         return player;
     }
