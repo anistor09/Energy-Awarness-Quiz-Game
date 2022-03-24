@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +37,7 @@ public class InsertUsernameMultiplayerCtrl {
 
         String insertedUsername = username.getText();
         String insertedUrl = url.getText();
+        ServerUtils.setSERVER(insertedUrl);
         System.out.println(insertedUrl);
         System.out.println(insertedUsername);
         mainCtrl.goTo("multiLobby");
