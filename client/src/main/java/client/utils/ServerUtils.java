@@ -15,7 +15,6 @@
  */
 package client.utils;
 
-import client.scenes.InsertUsernameSinglePlayerCtrl;
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
