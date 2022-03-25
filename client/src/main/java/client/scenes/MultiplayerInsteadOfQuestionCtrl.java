@@ -88,4 +88,8 @@ public class MultiplayerInsteadOfQuestionCtrl {
     protected void goToMenu(){
         mainCtrl.goTo("menu");
     }
+
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
 }

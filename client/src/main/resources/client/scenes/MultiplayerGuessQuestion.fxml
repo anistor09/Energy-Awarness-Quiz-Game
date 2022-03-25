@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerOpenQuestionCtrl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerGuessQuestionCtrl">
     <top>
         <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="737.0" text="Question" BorderPane.alignment="BOTTOM_CENTER">
             <BorderPane.margin>

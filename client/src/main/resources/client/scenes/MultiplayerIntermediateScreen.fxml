@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/menu_stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiplayerIntermediateScreenCtrl">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#219ebc" height="117.0" stroke="#219ebc" strokeType="INSIDE" width="950.0" />
-      <Text layoutX="325.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Continues in # Seconds" textAlignment="CENTER" />
+      <Text fx:id="countdown" layoutX="325.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Continues in # Seconds" textAlignment="CENTER" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#219ebc" height="415.0" layoutX="239.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
       <VBox layoutX="239.0" layoutY="140.0" prefHeight="416.0" prefWidth="501.0">
          <children>

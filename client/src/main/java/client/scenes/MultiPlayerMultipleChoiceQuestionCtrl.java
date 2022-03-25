@@ -1,15 +1,14 @@
 package client.scenes;
 
-import com.google.inject.Inject;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class MultiPlayerOpenQuestionCtrl {
+import javax.inject.Inject;
+
+public class MultiPlayerMultipleChoiceQuestionCtrl {
 
     @FXML
     private Label ReactionName;
@@ -48,6 +47,12 @@ public class MultiPlayerOpenQuestionCtrl {
     private Button joker3;
 
     @FXML
+    private Button option1;
+
+    @FXML
+    private Button option3;
+
+    @FXML
     private Label question;
 
     @FXML
@@ -65,22 +70,19 @@ public class MultiPlayerOpenQuestionCtrl {
     @FXML
     private Label time;
 
-    @FXML
-    private TextField userAnswer;
-
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
+    public MultiPlayerMultipleChoiceQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
-    @FXML
-    void exit(ActionEvent event) {
+    public void exit() {
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
         time.setText(String.valueOf(i));
     }
+
 }

@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import java.util.List;
 
-public class SinglePlayerOpenQuestionCtrl {
+public class SinglePlayerGuessQuestionCtrl {
 
     @FXML
     private Button exit;
@@ -55,7 +55,7 @@ public class SinglePlayerOpenQuestionCtrl {
     private GuessQuestion questionObject;
 
     @Inject
-    public SinglePlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
+    public SinglePlayerGuessQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 

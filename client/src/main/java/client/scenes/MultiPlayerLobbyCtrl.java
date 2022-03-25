@@ -1,5 +1,6 @@
 package client.scenes;
 
+import commons.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -22,7 +23,7 @@ public class MultiPlayerLobbyCtrl {
 
     private final MainCtrl mainCtrl;
 
-    ArrayList<String> currentUsernames = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<>();
 
     @Inject
     public MultiPlayerLobbyCtrl(MainCtrl mainCtrl){
@@ -49,7 +50,7 @@ public class MultiPlayerLobbyCtrl {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run(){
-                            mainCtrl.goTo("multiGame");
+                            mainCtrl.playMultiPLayerGame();
                         }
                     });
                 }
@@ -71,8 +72,8 @@ public class MultiPlayerLobbyCtrl {
      */
     private String MakeList(ArrayList<String> currentUsernames) {
         String currentUsers = "";
-        for(int i = 0; i < currentUsernames.size(); i++){
-            currentUsers = currentUsers + currentUsernames.get(i) + "\n";
+        for(int i = 0; i < players.size(); i++){
+            currentUsers = currentUsers + players.get(i).getUsername() + "\n";
         }
         return currentUsers;
     }
