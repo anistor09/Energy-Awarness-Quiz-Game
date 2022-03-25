@@ -23,9 +23,9 @@ public class MultiPlayerGame extends Game{
         this.players = players;
         // generate leaderboard
 
-        for (Player player : players) {
-            this.leaderboard.put(player, player.getCurrentScore());
-        }
+//        for (Player player : players) {
+//            this.leaderboard.put(player, player.getCurrentScore());
+//        }
     }
 
     public ArrayList<Player> getPlayers() {

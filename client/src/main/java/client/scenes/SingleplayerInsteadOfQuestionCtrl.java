@@ -18,7 +18,8 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
     @FXML
     private Button exit;
-
+    @FXML
+    private Label jokerMessage;
     @FXML
     private Text question1Text;
 
@@ -105,6 +106,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
         setJokers(jokerCards);
+        jokerMessage.setText("");
     }
 
     /**
@@ -194,6 +196,46 @@ public class SingleplayerInsteadOfQuestionCtrl {
             }
 
         }
+    }
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+        }
+
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        if (canUseJoker(joker3.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+        }
+
+    public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
+        return true;
     }
 
     private void initialiseActivityImages(List<Activity> activityList) {

@@ -116,4 +116,8 @@ public class Player {
     public int getTimeLeft() {
         return timeLeft;
     }
+
+    public void deleteJoker(JokerCard joker) {
+        jokerCards.remove(joker);
+    }
 }
