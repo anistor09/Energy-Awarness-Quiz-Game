@@ -108,8 +108,8 @@ public class Main extends Application {
                 insertInfoMultiplayer,helpCtrlParentPair, insertInfoSingleplayer,
                 singlePlayerLeaderboardCtrlParentPair,
                 singleplayerInsteadOfQuestionCtrlParentPair,
-                multiplayerInsteadOfQuestionCtrlParentPair, 
-                intermediateScreenCtrlParentPair, adminPanel, editActivity,
+                multiplayerInsteadOfQuestionCtrlParentPair,
+                adminPanel, editActivity, intermediateScreenCtrlParentPair,
                 singleplayerStartCountdownScreenCtrlParentPair);
     }
 }

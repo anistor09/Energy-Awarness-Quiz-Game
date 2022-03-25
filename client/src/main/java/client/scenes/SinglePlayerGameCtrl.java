@@ -255,11 +255,6 @@ public class SinglePlayerGameCtrl {
         mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
-}
-
-    public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
-    }
 
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);

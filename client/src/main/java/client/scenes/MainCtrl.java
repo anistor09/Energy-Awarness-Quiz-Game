@@ -147,7 +147,7 @@ public class MainCtrl{
                                    singleplayerInsteadOfQuestionCtrlParentPair,
                            Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
                                    multiPlayerInsteadOfQuestionCtrlParentPair,
-                           Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity
+                           Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity,
                                    Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
                            Pair<SingleplayerStartCountdownScreenCtrl,
                                    Parent> singleplayerStartCountdownScreenCtrlParentPair)
@@ -251,7 +251,7 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 3;
+            int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
             @Override
             public void run() {
                 if (i <= 0) {
@@ -282,7 +282,7 @@ public class MainCtrl{
                         public void run() {
                             switch (className) {
                                 case "MultipleChoiceQuestion":
-                                    singlePlayerGameCtrl.setTime(i + 1);
+                                    singlePlayerGameCtrl.setTime(1 + i);
                                     break;
 
                                 case "MostEnergyQuestion":
@@ -518,6 +518,7 @@ public class MainCtrl{
             case "intermediateScreen":
                 intermediateScreenCtrl.initialiseScene();
                 primaryStage.setScene(intermediateScreen);
+                break;
             case "admin":
                 primaryStage.setScene(admin);
                 adminPanelCtrl.instantiateActivities(true, true);
