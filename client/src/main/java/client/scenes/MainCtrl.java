@@ -227,7 +227,6 @@ public class MainCtrl{
     public void singleplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-//            int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
             int i = 3;
             @Override
             public void run() {
