@@ -95,6 +95,8 @@ public class MainCtrl{
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
                                             // that the player chose to use
+    private Player thisPlayer; //this field is an intermediate field that serves for the InsertUsernameController to
+    //pass information to the MultiPlayerLobby
 
     private String usedJoker;
     boolean exitedGame;
@@ -210,6 +212,10 @@ public class MainCtrl{
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(e -> {
+            multiPlayerLobbyCtrl.tearDown();
+        }); // this is to delete the player from the game in case he was in one
 
         //test
 //        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
@@ -472,7 +478,9 @@ public class MainCtrl{
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
+                multiPlayerLobbyCtrl.setThisPlayer(thisPlayer);
                 primaryStage.setScene(multiPlayerLobby);
+                multiPlayerLobbyCtrl.prepare();
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
@@ -676,6 +684,11 @@ public class MainCtrl{
      */
     public Activity editActivity(Activity activity) {
         return serverUtils.editActivity(activity);
+    }
+
+
+    public void setThisPlayer(Player thisPlayer) {
+        this.thisPlayer = thisPlayer;
     }
 }
 

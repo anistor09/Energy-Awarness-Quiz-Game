@@ -260,14 +260,6 @@ public class ServerUtils {
     }
 
     /**
-     * This method will send the player to remove from the currentMultiGame through the websocket
-     * @param player to delete
-     */
-    public void deletePlayer(Player player) {
-        this.send("/app/deletePlayer", player);
-    }
-
-    /**
      * This method will get the list of MostEnergyQuestions that are in the MultiPlayerGame that is being retrieved
      * @return the list of MostEnergyQuestion
      */
@@ -338,22 +330,21 @@ public class ServerUtils {
     }
 
     /**
-     * This method will listen for a topic in the websocket session with path as the one in the destination. It is
-     * expecting Objects of type player.
-     * @param dest the topic of the websocket to listen to
-     * @param consumer the Consumer that represents the action that this method is supposed to execute when on trigger
-     *                 of the topic. This is to be passed as a lambda function
+     * This method will listen for messages regarding the start of the game. Whenever the server propagates the
+     * startGame message on the server it wil
+     * @param dest
+     * @param consumer
      */
-    public void registerForDeletedPlayers(String dest, Consumer<Player> consumer) {
+    public void registerForGameStart(String dest, Consumer<Boolean> consumer) {
         session.subscribe(dest, new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) {
-                return Player.class;
+                return Boolean.class;
             }
 
             @Override
             public void handleFrame(StompHeaders headers, Object payload) {
-                consumer.accept((Player) payload);
+                consumer.accept((Boolean) payload);
             }
         });
     }

@@ -68,7 +68,7 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return currentScore == player.currentScore && id.equals(player.id) && username.equals(player.username);
+        return currentScore == player.currentScore && username.equals(player.username);
     }
 
     @Override

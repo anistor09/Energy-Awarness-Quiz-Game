@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +48,10 @@ public class InsertUsernameMultiplayerCtrl {
             alert.setText("Username too long!");
             return;
         }
+        if (insertedUsername.length() == 0|| insertedUsername.contains(" ")) {
+            alert.setText("Invalid username");
+            return;
+        }
         listOfPlayer = server.getCurrentMultiGamePlayers().stream().
                     map(Player::getUsername).collect(Collectors.toList());
         if(listOfPlayer.contains(insertedUsername)) {
@@ -57,12 +60,16 @@ public class InsertUsernameMultiplayerCtrl {
         }
         Player thisPlayer = new Player(insertedUsername, 0);
         server.sendPlayer(thisPlayer);
-        lobby.setThisPlayer(thisPlayer);
+        mainCtrl.setThisPlayer(thisPlayer);
         String insertedUrl = url.getText();
         System.out.println(insertedUrl);
         System.out.println(insertedUsername);
         mainCtrl.goTo("multiLobby");
     }
+
+    /**
+     * This method server to return to the menu
+     */
     public void returnToMenu() {
         mainCtrl.goTo("menu");
     }
