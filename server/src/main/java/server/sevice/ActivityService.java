@@ -36,7 +36,8 @@ public class ActivityService {
      * Service layer method for adding an activity to the repository.
      * @param activity An instance of the Activity Class  that will be added to the repository;
      */
-    public void addActivity(Activity activity) {activityRepository.save(activity);
+    public void addActivity(Activity activity) {
+        activityRepository.save(activity);
     }
 
     /**

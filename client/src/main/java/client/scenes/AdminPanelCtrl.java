@@ -32,6 +32,9 @@ public class AdminPanelCtrl {
     }
 
     @FXML
+    private Button create;
+
+    @FXML
     private Label activity1;
 
     @FXML
@@ -153,6 +156,10 @@ public class AdminPanelCtrl {
         activity8.setOnMouseClicked(e -> editActivity(((Label) e.getSource()).getText()));
         activity9.setOnMouseClicked(e -> editActivity(((Label) e.getSource()).getText()));
         activity10.setOnMouseClicked(e -> editActivity(((Label) e.getSource()).getText()));
+    }
+
+    public void createActivity() {
+        this.mainCtrl.goToEditActivity(null);
     }
 
 

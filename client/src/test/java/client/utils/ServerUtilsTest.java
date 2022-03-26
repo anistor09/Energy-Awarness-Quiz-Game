@@ -3,7 +3,12 @@ package client.utils;
 import commons.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,5 +47,15 @@ class ServerUtilsTest {
         MultiPlayerGame game = sut.getCurrentMultiplayerGame(new Player("test", 39));
         assertNotNull(game);
         sut.registerForNewPlayers("/topic/updateLobby", System.out::println);
+    }
+
+    @Test
+    void testFileUpload() throws IOException {
+        ServerUtils sut = new ServerUtils();
+        File image = new File("/home/rafael/TUDelft/cse/year1/q3/oopp/quizzz/docs/pictures/multiplayer.jpeg");
+        MockMultipartFile file = new MockMultipartFile("test",
+                "originalTest", "jpeg",
+                Files.readAllBytes(Paths.get(image.getAbsolutePath())));
+        sut.uploadImage(file);
     }
 }

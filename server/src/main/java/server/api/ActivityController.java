@@ -2,9 +2,14 @@ package server.api;
 
 import commons.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import server.sevice.ActivityService;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -77,5 +82,22 @@ public class ActivityController {
      */
     public Activity getRandomActivity() {
         return activityService.getRandomActivity();
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity<String> uploadImage(@RequestParam("file")MultipartFile file) throws IOException {
+        if (file == null) {
+            throw new RuntimeException("The fine is null");
+        }
+
+        InputStream inputStream = file.getInputStream();
+        String originalName = file.getOriginalFilename();
+        String name = file.getName();
+        String contentType = file.getContentType();
+        long size = file.getSize();
+
+        System.out.println(originalName + name + contentType + size);
+
+        return new ResponseEntity<>(originalName, HttpStatus.OK);
     }
 }

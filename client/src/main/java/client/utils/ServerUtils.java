@@ -19,12 +19,16 @@ import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
@@ -78,6 +82,14 @@ public class ServerUtils {
                 .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
     }
 
+    public Activity addActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(activity, APPLICATION_JSON), Activity.class);
+    }
+
     /**
      * This method will get the list of all the activities that exist in the repository
      * @return the list of all activities
@@ -117,6 +129,24 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {});
         return activity;
+    }
+
+    /**
+     * This method will delete the activity from the repository of activities
+     * @param activity to delete
+     * @return HTTP Response
+     */
+    public Response deleteActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/" + activity.getId())
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete();
+    }
+
+    public void uploadImage(MultipartFile file) {
+         HttpHeaders headers = new HttpHeaders();
+         headers.setContent
     }
 
     /**
