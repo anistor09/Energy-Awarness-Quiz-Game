@@ -65,6 +65,8 @@ public class SinglePlayerGameCtrl {
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
 
+    private static int pointsGained; // this is the points gained from this question.
+
 
     /**
      * @param mainCtrl
@@ -200,6 +202,7 @@ public class SinglePlayerGameCtrl {
         p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
         System.out.println("correct");
         System.out.println(p.getCurrentScore());
+        this.setPointsGained(questionObject.getAvailablePoints());
     }
 
     /**
@@ -208,6 +211,7 @@ public class SinglePlayerGameCtrl {
      */
     void handleWrong() {
         System.out.println("wrong");
+        this.setPointsGained(0);
     }
 
     @FXML
@@ -259,4 +263,14 @@ public class SinglePlayerGameCtrl {
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
     }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
+
 }
+

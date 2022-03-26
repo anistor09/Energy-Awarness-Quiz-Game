@@ -238,7 +238,7 @@ public class MainCtrl{
      * a player attribute with the given username. In this method we will iterate through all the questions,
      * by selecting the current question from the game attribute currentQuestionNumber in the game
      * and set the correct scene for each of them
-     * @param player Sinstance of Player representing the username inserted by the user
+     * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
           //game = initialiseSinglePlayerGame(player);
@@ -264,15 +264,34 @@ public class MainCtrl{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            int currentQuestionNumber = game.getCurrentQuestionNumber();
+                            Question q = game.getQuestions().get(currentQuestionNumber);
+                            String className = getClassName(q.getClass().getName());
+                            Object ctrl;
+                            switch (className) {
+                                case "MultipleChoiceQuestion":
+                                    ctrl = new SinglePlayerGameCtrl(new MainCtrl(new ServerUtils()));
+                                    break;
+
+                                case "MostEnergyQuestion":
+                                    ctrl = new SinglePlayerChooseOptionQuestionCtrl(new MainCtrl(new ServerUtils()));
+                                    break;
+
+                                case "GuessQuestion":
+                                    ctrl = new SinglePlayerOpenQuestionCtrl(new MainCtrl(new ServerUtils()));
+                                    break;
+
+                                case "InsteadOfQuestion":
+                                    ctrl = new SingleplayerInsteadOfQuestionCtrl(new MainCtrl(new ServerUtils()));
+                                    break;
+                                default:
+                                    throw new NullPointerException();   // change
+                            }
+
+                            intermediateScreenCtrl.setPointsLabel(ctrl);
                             goTo("intermediateScreen");
                         }
                     });
-                    // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
-                    //
-                    // Method that checks if the answer of the user is right
-                    //
-                    // Method that goes to intermediate screen
-                    //
                 }
                 if(exitedGame){
                     timer.cancel();

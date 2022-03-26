@@ -80,6 +80,10 @@ public class SingleplayerInsteadOfQuestionCtrl {
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
 
+    private static int pointsGained;   //
+
+    //TODO : set pointsGained to questionObject.getAvailablePoints() when answer validation is done.
+
 
     @Inject
     public SingleplayerInsteadOfQuestionCtrl(MainCtrl mainCtrl) {
@@ -179,6 +183,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
     void handleCorrect() {
         Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
         p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+        this.setPointsGained(questionObject.getAvailablePoints());
         System.out.println("correct");
     }
 
@@ -187,6 +192,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
      * console
      */
     void handleWrong() {
+        this.setPointsGained(0);
         System.out.println("wrong");
     }
 
@@ -271,6 +277,13 @@ public class SingleplayerInsteadOfQuestionCtrl {
         time.setText("Time Left: " + String.valueOf(i));
     }
 
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
     }
