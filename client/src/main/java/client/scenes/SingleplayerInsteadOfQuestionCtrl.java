@@ -30,6 +30,15 @@ public class SingleplayerInsteadOfQuestionCtrl {
     private Text question3Text;
 
     @FXML
+    private Text activity1ratio;
+
+    @FXML
+    private Text activity2ratio;
+
+    @FXML
+    private Text activity3ratio;
+
+    @FXML
     private Button joker1;
 
     @FXML
@@ -102,6 +111,10 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
                 (currentGame.getQuestions().size() - 1));
+
+        activity1ratio.setText(String.valueOf(q.compareActivities(options.get(0))) + " times");
+        activity2ratio.setText(String.valueOf(q.compareActivities(options.get(1))) + " times");
+        activity3ratio.setText(String.valueOf(q.compareActivities(options.get(2))) + " times");
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
