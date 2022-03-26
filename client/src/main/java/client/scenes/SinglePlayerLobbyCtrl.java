@@ -46,7 +46,27 @@ public class SinglePlayerLobbyCtrl {
     protected void startGameButtonClick(){
         tmpLabel1.setText("Started the game!");
         mainCtrl.goTo("singleGame");
+        resetScreen();
         mainCtrl.setStringJokers(checkedStringJokers);
+    }
+
+    /**
+     * Resets the checkedboxes once the game starts
+     */
+    private void resetScreen() {
+        for(int i = 0; i < checkedStringJokers.size(); i++){
+            switch (checkedStringJokers.get(i)){
+                case "AdditionalPointsJoker":
+                    pointBoost.setSelected(false);
+                    break;
+                case "EliminateOptionJoker":
+                    detective.setSelected(false);
+                    break;
+                case "QuestionChangeJoker":
+                    questionChange.setSelected(false);
+                    break;
+            }
+        }
     }
 
     @FXML

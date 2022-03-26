@@ -33,7 +33,7 @@ public class InsertUsernameSinglePlayerCtrl {
     public void submit() {
         String insertedUsername = username.getText();
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
-        mainCtrl.playSinglePLayerGame(player);
+        mainCtrl.startSinglePlayerGameCountdown(player);
 
     }
 
