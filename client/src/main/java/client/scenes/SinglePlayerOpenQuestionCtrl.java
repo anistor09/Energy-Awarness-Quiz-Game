@@ -46,6 +46,9 @@ public class SinglePlayerOpenQuestionCtrl {
     private Label time;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
@@ -68,6 +71,7 @@ public class SinglePlayerOpenQuestionCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerOpenQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
@@ -81,9 +85,16 @@ public class SinglePlayerOpenQuestionCtrl {
         jokerMessage.setText("");
         initialiseActivityImage(act);
 
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
+
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
 
+    }
+
+    public void resetScreen(){
+        userAnswer.setText("");
     }
 
     /**
@@ -190,4 +201,9 @@ public class SinglePlayerOpenQuestionCtrl {
             return false;
         return true;
     }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
 }
