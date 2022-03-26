@@ -222,6 +222,10 @@ public class MainCtrl{
         goTo("menu");
         primaryStage.show();
 
+        primaryStage.setOnCloseRequest(e -> {
+            multiPlayerLobbyCtrl.tearDown();
+        }); // this is to delete the player from the game in case he was in one
+
         //test
 //        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
 //            test.add(p);
@@ -489,7 +493,9 @@ public class MainCtrl{
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
+                multiPlayerLobbyCtrl.setThisPlayer(localPlayer);
                 primaryStage.setScene(multiPlayerLobby);
+                multiPlayerLobbyCtrl.prepare();
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
@@ -716,6 +722,10 @@ public class MainCtrl{
 
     public Player getLocalPlayer() {
         return localPlayer;
+    }
+
+    public void setLocalPlayer(Player player) {
+        this.localPlayer = player;
     }
 
     /**

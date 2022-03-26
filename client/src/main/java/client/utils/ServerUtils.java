@@ -245,12 +245,9 @@ public class ServerUtils {
     /**
      * This method will retrieve the current MultiGame that has an active lobby, with all the players that are currently
      * in the lobby.
-     * @param player to include in the request so the server can propagate to all existing players that a new player
-     *               joined the game
      * @return the MultiPlayerGame Object
      */
-    public MultiPlayerGame getCurrentMultiplayerGame(Player player) {
-        sendPlayer(player);
+    public MultiPlayerGame getCurrentMultiplayerGame() {
         ArrayList<Question> questions = new ArrayList<>();
         questions.addAll(getCurrentMultiGameGuess());
         questions.addAll(getCurrentMultiGameInsteadOf());
@@ -359,6 +356,27 @@ public class ServerUtils {
         });
 
     }
+
+    /**
+     * This method will listen for messages regarding the start of the game. Whenever the server propagates the
+     * startGame message on the server it wil
+     * @param dest
+     * @param consumer
+     */
+    public void registerForGameStart(String dest, Consumer<Boolean> consumer) {
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return Boolean.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((Boolean) payload);
+            }
+        });
+    }
+
 
     /**
      * This method will send ,to the websocket destination provided, the object o
