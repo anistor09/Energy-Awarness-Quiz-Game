@@ -25,7 +25,7 @@ public class QuestionService {
      */
     public Question getRandomMultipleChoiceQuestion() {
         Activity activity = activityController.getRandomActivity();
-        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion(activity, 100, 10);
+        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion(activity, 100, 5);
         return multipleChoiceQuestion;
     }
 
@@ -36,7 +36,7 @@ public class QuestionService {
      */
     public Question getRandomGuessQuestion() {
         Activity activity = activityController.getRandomActivity();
-        GuessQuestion guessQuestion = new GuessQuestion(activity, 100, 10);
+        GuessQuestion guessQuestion = new GuessQuestion(activity, 100, 5);
         return guessQuestion;
     }
 
@@ -58,7 +58,7 @@ public class QuestionService {
                 options.add(option);
             }
         }
-        InsteadOfQuestion insteadOfQuestion = new InsteadOfQuestion(activity, 100, 10, options);
+        InsteadOfQuestion insteadOfQuestion = new InsteadOfQuestion(activity, 100, 5, options);
         return insteadOfQuestion;
     }
 
@@ -79,6 +79,6 @@ public class QuestionService {
                 options.add(option);
             }
         }
-        return new MostEnergyQuestion(activity, 100, 10, options);
+        return new MostEnergyQuestion(activity, 100, 5, options);
     }
 }

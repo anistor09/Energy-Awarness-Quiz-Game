@@ -80,6 +80,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
 
+    private IntermediateScreenCtrl intermediateScreenCtrl;
     private static int pointsGained;   //
 
     //TODO : set pointsGained to questionObject.getAvailablePoints() when answer validation is done.
@@ -183,7 +184,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
     void handleCorrect() {
         Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
         p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
-        this.setPointsGained(questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained(questionObject.getAvailablePoints());
         System.out.println("correct");
     }
 
@@ -192,7 +193,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
      * console
      */
     void handleWrong() {
-        this.setPointsGained(0);
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
 

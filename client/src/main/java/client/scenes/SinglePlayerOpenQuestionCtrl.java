@@ -56,6 +56,8 @@ public class SinglePlayerOpenQuestionCtrl {
 
     private static int pointsGained = 0;
 
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+
     @Inject
     public SinglePlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -148,7 +150,7 @@ public class SinglePlayerOpenQuestionCtrl {
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
             System.out.println("You earned " + points);
-            this.setPointsGained(points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();
             System.out.println("Not a number");

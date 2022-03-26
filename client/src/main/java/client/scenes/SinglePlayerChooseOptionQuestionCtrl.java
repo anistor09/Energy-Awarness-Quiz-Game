@@ -217,7 +217,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        this.setPointsGained(questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained(questionObject.getAvailablePoints());
         Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
         p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
         System.out.println("correct");
@@ -228,7 +228,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * console
      */
     void handleWrong() {
-        this.setPointsGained(0);
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
     @FXML

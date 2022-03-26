@@ -67,6 +67,8 @@ public class SinglePlayerGameCtrl {
 
     private static int pointsGained; // this is the points gained from this question.
 
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+
 
     /**
      * @param mainCtrl
@@ -202,7 +204,7 @@ public class SinglePlayerGameCtrl {
         p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
         System.out.println("correct");
         System.out.println(p.getCurrentScore());
-        this.setPointsGained(questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained(questionObject.getAvailablePoints());
     }
 
     /**
@@ -211,7 +213,7 @@ public class SinglePlayerGameCtrl {
      */
     void handleWrong() {
         System.out.println("wrong");
-        this.setPointsGained(0);
+        IntermediateScreenCtrl.setPointsGained(0);
     }
 
     @FXML

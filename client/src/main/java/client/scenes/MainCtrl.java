@@ -267,28 +267,7 @@ public class MainCtrl{
                             int currentQuestionNumber = game.getCurrentQuestionNumber();
                             Question q = game.getQuestions().get(currentQuestionNumber);
                             String className = getClassName(q.getClass().getName());
-                            Object ctrl;
-                            switch (className) {
-                                case "MultipleChoiceQuestion":
-                                    ctrl = new SinglePlayerGameCtrl(new MainCtrl(new ServerUtils()));
-                                    break;
-
-                                case "MostEnergyQuestion":
-                                    ctrl = new SinglePlayerChooseOptionQuestionCtrl(new MainCtrl(new ServerUtils()));
-                                    break;
-
-                                case "GuessQuestion":
-                                    ctrl = new SinglePlayerOpenQuestionCtrl(new MainCtrl(new ServerUtils()));
-                                    break;
-
-                                case "InsteadOfQuestion":
-                                    ctrl = new SingleplayerInsteadOfQuestionCtrl(new MainCtrl(new ServerUtils()));
-                                    break;
-                                default:
-                                    throw new NullPointerException();   // change
-                            }
-
-                            intermediateScreenCtrl.setPointsLabel(ctrl);
+                            intermediateScreenCtrl.setPointsLabel();
                             goTo("intermediateScreen");
                         }
                     });
