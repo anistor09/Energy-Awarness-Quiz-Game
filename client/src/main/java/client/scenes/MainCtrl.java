@@ -91,6 +91,9 @@ public class MainCtrl{
     private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
     private Scene multiplayerInsteadOfQuestion;
 
+    private SingleplayerStartCountdownScreenCtrl singleplayerStartCountdownScreenCtrl;
+    private Scene singlePlayerStartCountdownScreen;
+
 
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
@@ -98,6 +101,7 @@ public class MainCtrl{
 
     private String usedJoker;
     boolean exitedGame;
+    private Player localPlayer;
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
@@ -144,8 +148,10 @@ public class MainCtrl{
                                    singleplayerInsteadOfQuestionCtrlParentPair,
                            Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
                                    multiPlayerInsteadOfQuestionCtrlParentPair,
+                           Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity,
                                    Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
-                           Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity)
+                           Pair<SingleplayerStartCountdownScreenCtrl,
+                                   Parent> singleplayerStartCountdownScreenCtrlParentPair)
                             {
 
 
@@ -191,6 +197,8 @@ public class MainCtrl{
         this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
         this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
+        this.singleplayerStartCountdownScreenCtrl = singleplayerStartCountdownScreenCtrlParentPair.getKey();
+        this.singlePlayerStartCountdownScreen = new Scene(singleplayerStartCountdownScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
 
@@ -199,12 +207,15 @@ public class MainCtrl{
 //        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 //        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
+
+
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerOpenQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerChooseOptionQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singlePlayerStartCountdownScreen.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");
@@ -272,7 +283,7 @@ public class MainCtrl{
                         public void run() {
                             switch (className) {
                                 case "MultipleChoiceQuestion":
-                                    singlePlayerGameCtrl.setTime(i + 1);
+                                    singlePlayerGameCtrl.setTime(1 + i);
                                     break;
 
                                 case "MostEnergyQuestion":
@@ -315,10 +326,16 @@ public class MainCtrl{
         if(!game.isGameOver()) {
             singleplayerInGameTimer();
             int currentQuestionNumber;
+            int lastQuestionNumber;
 
             currentQuestionNumber = game.getCurrentQuestionNumber();
+            lastQuestionNumber = currentQuestionNumber - 1;
+
             Question q = game.getQuestions().get(currentQuestionNumber);
+            Question qLast = game.getQuestions().get(lastQuestionNumber);
+
             String className = getClassName(q.getClass().getName());
+            String lastQuestionClassName = getClassName(qLast.getClass().getName());
 
             Platform.runLater(new Runnable() {
                 @Override
@@ -495,6 +512,15 @@ public class MainCtrl{
             case "MultiplayerInsteadOfQuestion" :
                 primaryStage.setScene(multiplayerInsteadOfQuestion);
                 break;
+            case "MultiPlayerGameCtrl" :
+                primaryStage.setScene(multiPlayerGame);
+                break;
+            case "MultiPlayerOpenQuestionCtrl" :
+                primaryStage.setScene(multiPlayerOpenQuestion);
+                break;
+            case "MultiPlayerChooseOptionQuestion" :
+                primaryStage.setScene(multiPlayerChooseOptionQuestion);
+                break;
             case "SinglePlayerLeaderboard":
                 primaryStage.setScene(singlePlayerLeaderboard);
                 singlePlayerLeaderboardCtrl.initialiseLeaderboard();
@@ -502,6 +528,7 @@ public class MainCtrl{
             case "intermediateScreen":
                 intermediateScreenCtrl.initialiseScene();
                 primaryStage.setScene(intermediateScreen);
+                break;
             case "admin":
                 primaryStage.setScene(admin);
                 adminPanelCtrl.instantiateActivities(true, true);
@@ -526,6 +553,11 @@ public class MainCtrl{
         this.switchQuestionScreen(className);
     }
 
+
+    public void startSinglePlayerGameCountdown(Player player){
+        primaryStage.setScene(singlePlayerStartCountdownScreen);
+        singleplayerStartCountdownScreenCtrl.startCountdown(player);
+    }
 
     public void setStringJokers(List<String> checkedStringJokers) {
         this.jokersStringList = checkedStringJokers;
@@ -663,11 +695,14 @@ public class MainCtrl{
 
 
 
-
     public void setExitedGame(boolean exitedGame) {
         this.exitedGame = exitedGame;
 
     }
+    public ServerUtils getServer(){
+        return  serverUtils;
+    }
+
 
     /**
      * This method will call serverUtils to update the activity provided in the repository
@@ -677,6 +712,97 @@ public class MainCtrl{
     public Activity editActivity(Activity activity) {
         return serverUtils.editActivity(activity);
     }
+
+
+    public Player getLocalPlayer() {
+        return localPlayer;
+    }
+
+    /**
+     * This method starts the websocket connection for Emoji instances when the game is started, the method will be
+     * called from the Lobby Screen , when the start button is pressed. It also initialises the emojis that are
+     * retrieved from other clients.
+     */
+    public void startScanningEmojis(){
+        serverUtils.registerForEmoji("/topic/emojis",e->{
+//            String currentQuestionScreen = getClassName(game.getQuestions().
+//                    get(game.getCurrentQuestionNumber())
+//                    .getClass().toString());
+            String currentQuestionScreen = getClassName(this.getQuestion()
+                  .getClass().toString());
+            switch (currentQuestionScreen) {
+                case "MultipleChoiceQuestion":
+                    Platform.runLater(()->{multiPlayerGameCtrl.initialiseEmoji(e);});
+                    break;
+
+                case "MostEnergyQuestion":
+                    Platform.runLater(()->{multiPlayerChooseOptionQuestionCtrl.initialiseEmoji(e);});
+                    break;
+
+                case "GuessQuestion":
+                    Platform.runLater(()->{multiPlayerOpenQuestionCtrl.initialiseEmoji(e);});
+                    break;
+
+                case "InsteadOfQuestion":
+                    Platform.runLater(()->{multiplayerInsteadOfQuestionCtrl.initialiseEmoji(e);});
+                    break;
+
+                default:
+                    break;
+        }
+    });
+    }
+
+    /**
+     * This method creates a mock question
+     * @return An instance of anstract class Question
+     */
+    private Question getQuestion() {
+        Activity act1 = new Activity("00-shower",
+                "00/shower.png",
+                "Question 1",
+                100,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+
+        Activity act3 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "Question 3",
+                10,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
+        Activity act4 = new Activity("00-shower",
+                "00/shower.png",
+                "Question 4",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Activity act5 =new Activity("00-shower",
+                "00/shower.png",
+                "Extra Question",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Activity act6 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "Charging your smartphone at night",
+                10,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
+        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",1);
+        //Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
+
+       // Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
+        //Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
+        return q4;
+
+    }
+
+    /**
+     * The method includes the logic of the multiplayer game but it is not fully implemented.
+     */
+    public void startMultiPlayerGame(){
+        startScanningEmojis();
+        localPlayer = new Player("usernameee",1000);
+        goTo("MultiPlayerGameCtrl");
+    }
+
 }
 
 

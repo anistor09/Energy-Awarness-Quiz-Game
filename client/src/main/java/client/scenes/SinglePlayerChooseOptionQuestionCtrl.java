@@ -61,6 +61,9 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Label score;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private Label time;
 
     private final MainCtrl mainCtrl;
@@ -91,6 +94,10 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 //
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
+
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
        this.setJokers(jokerList);
@@ -259,5 +266,9 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         return true;
     }
 
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
 }
 

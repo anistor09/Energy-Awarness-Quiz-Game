@@ -57,6 +57,9 @@ public class SinglePlayerGameCtrl {
     private Label score;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private Label time;
 
     private final MainCtrl mainCtrl;
@@ -97,6 +100,9 @@ public class SinglePlayerGameCtrl {
         }
 
         initialiseActivityImage(act);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -248,5 +254,9 @@ public class SinglePlayerGameCtrl {
     public void exit() {
         mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
+    }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
     }
 }

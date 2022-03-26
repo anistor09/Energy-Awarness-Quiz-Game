@@ -39,7 +39,8 @@ public class InsertUsernameSinglePlayerCtrl {
         String serverURL = url.getText();
         ServerUtils.setSERVER(serverURL);
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
-        mainCtrl.playSinglePLayerGame(player);
+        mainCtrl.startSinglePlayerGameCountdown(player);
+
     }
 
 

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -21,8 +20,6 @@
                 <Font size="40.0" />
             </font>
         </Text>
-        <TextField fx:id="userNameTextField" layoutX="359.0" layoutY="200.0" prefHeight="25.0" prefWidth="120.0" promptText="Your Name" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #8ecae6;" />
-        <Button layoutX="555.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#enterUsersName" prefHeight="24.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: FFB703;" text="OK" />
         <TextArea fx:id="userNames" layoutX="89.0" layoutY="230.0" prefHeight="234.0" prefWidth="124.0" scaleX="1.5" scaleY="1.5" style="-fx-background-color: #8ECAE6;" />
         <Label fx:id="numberOfPlayersLabel" layoutX="114.0" layoutY="144.0" text="0 Players">
             <font>
@@ -36,7 +33,7 @@
                 <Insets />
             </opaqueInsets>
         </TextArea>
-        <Button layoutX="425.0" layoutY="413.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="3.0" scaleY="3.0" style="-fx-background-color: FFB703; " text="Start Game">
+        <Button layoutX="433.0" layoutY="328.0" mnemonicParsing="false" onAction="#startGameButtonClick" scaleX="3.0" scaleY="3.0" style="-fx-background-color: FFB703; " text="Start Game">
             <opaqueInsets>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
             </opaqueInsets></Button>
