@@ -50,6 +50,7 @@ public class ServerUtils {
 
     public static void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
+        SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     }
 
     /**
