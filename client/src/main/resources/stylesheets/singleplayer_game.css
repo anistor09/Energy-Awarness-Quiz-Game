@@ -13,6 +13,12 @@
     -fx-background-radius: 15;
 }
 
+#questionText{
+    -fx-fill: #FB8500;
+    -fx-background-color: #023047;
+    -fx-background-radius: 15;
+}
+
 #option1, #option2, #option3, #help {
     -fx-background-color: #8ECAE6;
     -fx-text-fill: #FB8500;
@@ -26,7 +32,7 @@
 
 }
 
-#time, #score {
+#time, #score, #questionNumber {
     -fx-background-color: #C4C4C4;
     -fx-background-radius: 15;
     -fx-text-fill: black;

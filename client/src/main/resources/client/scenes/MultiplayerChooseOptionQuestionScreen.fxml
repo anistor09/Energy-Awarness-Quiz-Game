@@ -111,7 +111,7 @@
             </Button>
             <HBox prefHeight="100.0" prefWidth="656.0">
                <children>
-                  <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                      </HBox.margin>
@@ -119,7 +119,7 @@
                         <Image url="@../../../../../../docs/pictures/smilingTeeth.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                      </HBox.margin>
@@ -127,7 +127,7 @@
                         <Image url="@../../../../../../docs/pictures/crying.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="25.0" top="25.0" />
                      </HBox.margin>
@@ -135,7 +135,7 @@
                         <Image url="@../../../../../../docs/pictures/devil.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                      </HBox.margin>
@@ -143,7 +143,7 @@
                         <Image url="@../../../../../../docs/pictures/in-love.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                      </HBox.margin>
@@ -151,7 +151,7 @@
                         <Image url="@../../../../../../docs/pictures/anger.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                      </HBox.margin>

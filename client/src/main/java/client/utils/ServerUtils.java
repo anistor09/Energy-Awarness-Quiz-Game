@@ -43,10 +43,15 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
-    private static final String SERVER = "http://localhost:8080/";
+    private static String SERVER = "http://localhost:8080/";
     private static final String WEBSOCKETSERVER =
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
+
+    public static void setSERVER(String SERVER) {
+        ServerUtils.SERVER = SERVER;
+        SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+    }
 
     /**
      * This method gets the quotes from the url
@@ -319,6 +324,8 @@ public class ServerUtils {
      *                 of the topic. This is to be passed as a lambda function
      */
     public void registerForNewPlayers(String dest, Consumer<Player> consumer) {
+        if(session.isConnected())
+            connect("");
         session.subscribe(dest, new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) {
@@ -330,6 +337,27 @@ public class ServerUtils {
                 consumer.accept((Player) payload);
             }
         });
+    }
+    /**
+     * This method will listen for a topic in the websocket session with path as the one in the destination. It is
+     * expecting Objects of type Emoji.
+     * @param dest the topic of the websocket to listen to
+     * @param consumer the Consumer that represents the action that this method is supposed to execute when on trigger
+     *                 of the topic. This is to be passed as a lambda function
+     */
+    public void registerForEmoji(String dest,Consumer<Emoji> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return Emoji.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((Emoji) payload);
+            }
+        });
+
     }
 
     /**
