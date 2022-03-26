@@ -43,10 +43,15 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
-    private static final String SERVER = "http://localhost:8080/";
+    private static String SERVER = "http://localhost:8080/";
     private static final String WEBSOCKETSERVER =
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
+
+    public static void setSERVER(String SERVER) {
+        ServerUtils.SERVER = SERVER;
+        SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+    }
 
     /**
      * This method gets the quotes from the url

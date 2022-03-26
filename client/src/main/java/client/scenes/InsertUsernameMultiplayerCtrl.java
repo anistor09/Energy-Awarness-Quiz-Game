@@ -62,6 +62,7 @@ public class InsertUsernameMultiplayerCtrl {
         server.sendPlayer(thisPlayer);
         mainCtrl.setLocalPlayer(thisPlayer);
         String insertedUrl = url.getText();
+        ServerUtils.setSERVER(insertedUrl);
         System.out.println(insertedUrl);
         System.out.println(insertedUsername);
         mainCtrl.goTo("multiLobby");
