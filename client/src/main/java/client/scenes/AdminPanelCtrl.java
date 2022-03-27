@@ -108,8 +108,8 @@ public class AdminPanelCtrl {
      * @param firstTime regarding if it is the firstTime this admin panel will be instantiating activities
      */
     public void instantiateActivities(boolean direction, boolean firstTime) {
-        List<Activity> filteredList = listOfActivities.stream().filter(a -> a.getId().contains(searchBox.getCharacters())).
-                collect(Collectors.toList());
+        List<Activity> filteredList = listOfActivities.stream().filter(a -> a.getId().contains(searchBox.
+                        getCharacters())).collect(Collectors.toList());
         List<String> list;
         if(direction) {
             if(!firstTime) currentIndex += 10;
