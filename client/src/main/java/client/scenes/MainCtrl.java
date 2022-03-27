@@ -242,7 +242,7 @@ public class MainCtrl{
      */
     public void playSinglePLayerGame(Player player){
           //game = initialiseSinglePlayerGame(player);
-
+        localPlayer = player;
         game =serverUtils.createSinglePlayerGame(player);
         goToNextQuestion();
 

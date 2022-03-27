@@ -132,7 +132,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
                         get(currentGame.getCurrentQuestionNumber());
         questionObject = q;
         this.setEmojiBarVisible(currentGame);
-        Player player = ((SinglePlayerGame) currentGame).getPlayer();
+        Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf((player.getCurrentScore())));
         Activity activity = q.getActivity();
         question.setText("Instead of " + activity.getTitle());
@@ -285,11 +285,11 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     }
 
     private void initialiseActivityImages(List<Activity> activityList) {
-        String  server = "http://localhost:8080/";
+        String serverString = server.getServer();
 
-        option1Image.setImage(new Image(server + activityList.get(0).getImage_path()));
-        option2Image.setImage(new Image(server + activityList.get(1).getImage_path()));
-        option3Image.setImage(new Image(server + activityList.get(2).getImage_path()));
+        option1Image.setImage(new Image(serverString + activityList.get(0).getImage_path()));
+        option2Image.setImage(new Image(serverString + activityList.get(1).getImage_path()));
+        option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
     }
 
     @FXML

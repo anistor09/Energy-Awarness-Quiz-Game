@@ -66,6 +66,10 @@ public class ServerUtils {
             System.out.println(line);
         }
     }
+    public String getServer(){
+        return SERVER;
+    }
+
 
     public List<Quote> getQuotes() {
         return ClientBuilder.newClient(new ClientConfig()) //

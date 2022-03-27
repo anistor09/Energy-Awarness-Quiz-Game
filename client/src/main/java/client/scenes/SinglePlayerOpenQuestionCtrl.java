@@ -110,7 +110,7 @@ public class SinglePlayerOpenQuestionCtrl implements Initializable {
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
         questionObject = q;
-        Player player = ((SinglePlayerGame)currentGame).getPlayer();
+        Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
         question.setText("How much energy does it take?");

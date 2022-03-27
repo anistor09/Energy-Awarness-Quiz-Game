@@ -116,7 +116,7 @@ public class SinglePlayerGameCtrl implements Initializable {
         this.setEmojiBarVisible(currentGame);
         MultipleChoiceQuestion q = (MultipleChoiceQuestion) currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
-        Player player = ((SinglePlayerGame) currentGame).getPlayer();
+        Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
@@ -178,9 +178,9 @@ public class SinglePlayerGameCtrl implements Initializable {
      * @param act Instance of Activity
      */
     private void initialiseActivityImage(Activity act) {
-        String server = "http://localhost:8080/";
+        String serverString = server.getServer();
 
-        image.setImage(new Image(server + act.getImage_path()));
+        image.setImage(new Image(serverString + act.getImage_path()));
     }
 
     /**

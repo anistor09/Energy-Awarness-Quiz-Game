@@ -116,7 +116,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         MostEnergyQuestion q = (MostEnergyQuestion) currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
         questionObject = q;
-        Player player = ((SinglePlayerGame) currentGame).getPlayer();
+        Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
         List<Activity> actList = q.getOtherActivities();
         actList.add(q.getActivity());
@@ -153,11 +153,11 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     private void initialiseActivityImages(List<Activity> activityList) {
-       String  server = "http://localhost:8080/";
+       String  serverString = server.getServer();;
 
-        option1Image.setImage(new Image(server + activityList.get(0).getImage_path()));
-        option2Image.setImage(new Image(server + activityList.get(1).getImage_path()));
-        option3Image.setImage(new Image(server + activityList.get(2).getImage_path()));
+        option1Image.setImage(new Image(serverString + activityList.get(0).getImage_path()));
+        option2Image.setImage(new Image(serverString + activityList.get(1).getImage_path()));
+        option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
     }
 
 
