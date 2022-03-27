@@ -113,14 +113,20 @@ public class MainCtrl {
      * menu
      *
      * @param primaryStage                                         the stage on which the app will be displayed
-     * @param menuPair                                             the pair containing the menu controller and its fxml file "Parent"
-     * @param singlePlayerLobbyControllerParentPair                the pair containing the singlePlayerLobby controller and its fxml
+     * @param menuPair                                             the pair containing the menu controller and its fxml
      *                                                             file "Parent"
-     * @param multiPlayerLobbyControllerParentPair                 the pair containing the multiPlayerLobby controller and its fxml file
+     * @param singlePlayerLobbyControllerParentPair                the pair containing the singlePlayerLobby controller
+     *                                                             and its fxml
+     *                                                             file "Parent"
+     * @param multiPlayerLobbyControllerParentPair                 the pair containing the multiPlayerLobby controller
+     *                                                             and its fxml file
      *                                                             "Parent"
-     * @param creditsControllerParentPair                          the pair containing the credits controller and its fxml file "Parent"
-     * @param singlePlayerGamePair                                 the pair containing the singlePlayerGame controller and its fxml file "Parent"
-     * @param multiPlayerGamePair                                  the pair containing the multiPlayer controller and its fxml file "Parent"
+     * @param creditsControllerParentPair                          the pair containing the credits controller and its
+     *                                                             fxml file "Parent"
+     * @param singlePlayerGamePair                                 the pair containing the singlePlayerGame controller
+     *                                                             and its fxml file "Parent"
+     * @param multiPlayerGamePair                                  the pair containing the multiPlayer controller and
+     *                                                             its fxml file "Parent"
      * @param multiPlayerChooseOptionQuestionControllerParentPair
      * @param singlePlayerChooseOptionQuestionControllerParentPair
      * @param multiPlayerOpenQuestionControllerParentPair
@@ -506,6 +512,12 @@ public class MainCtrl {
         }
     }
 
+    /**
+     * This method will route the primaryStage to display the EditActivity scene. It will also do so taking into account
+     * whether to display it in Edit mode or Add mode. This will be decided based on whether the activity to display is
+     * null or not
+     * @param activity to display
+     */
     public void goToEditActivity(Activity activity) {
         if (activity != null) {
             primaryStage.setScene(editActivity);

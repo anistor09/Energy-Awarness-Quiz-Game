@@ -2,24 +2,17 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.Activity;
+import commons.ImagePacket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
 
 public class EditActivityCtrl {
 
@@ -72,47 +65,61 @@ public class EditActivityCtrl {
     @FXML
     void goToAdmin(ActionEvent event) throws IOException {
         if(id.visibleProperty().get()) {
-            String newActId = this.id.getText();
-            String activityTitle = title.getText();
-            long activityConsumption = getConsumption();
-            String activitySource = source.getText();
-            String path = image_path.getText();
-            if (newActId.equals("") || activityTitle.equals("") || activitySource.equals("") || path.equals("")) {
-                mainCtrl.goTo("admin");
-            }
-            Activity newAct = new Activity(newActId, "extra/" + newActId + "." + getExtension(this.image.getName()),
-                    activityTitle, activityConsumption, activitySource);
-            //send Image
-            MultipartFile toSend = new MockMultipartFile(newActId + "." + getExtension(this.image.getName()),
-                    image.getName(), "image/" + getExtension(image.getName()),
-                    Files.readAllBytes(Paths.get(image.getAbsolutePath())));
-//
-            server.addActivity(newAct);
-            mainCtrl.goTo("admin");
+            processAddActivity();
         } else {
-            String activityTitle = title.getText();
-            long activityConsumption = getConsumption();
-            String activitySource = source.getText();
-            if(activitySource.length() >= 255) activitySource = activitySource.substring(0, 255);
-            if (activityTitle.equals("") || activitySource.equals("")) {
-                mainCtrl.goTo("admin");
-            }
-            Activity newAct;
-            if (this.image == null) {
-                newAct = new Activity(this.activity.getId(), activity.getImage_path(), activityTitle,
-                        activityConsumption, activitySource);
-            } else {
-                String newImagePath = "extra/" + activity.getId().substring(3) + "." +
-                        getExtension(this.image.getName());
-                newAct = new Activity(this.activity.getId(), newImagePath, activityTitle, activityConsumption,
-                        activitySource);
-                //send image
-            }
-            server.editActivity(newAct);
-            mainCtrl.goTo("admin");
+            processEditActivity();
         }
         activity = null;
         image = null;
+    }
+
+    /**
+     * This method will process the adding of the new activity, including sending the new image
+     * @throws IOException
+     */
+    public void processAddActivity() throws IOException {
+        String newActId = this.id.getText();
+        String activityTitle = title.getText();
+        long activityConsumption = getConsumption();
+        String activitySource = source.getText();
+        String path = image_path.getText();
+        if (newActId.equals("") || activityTitle.equals("") || activitySource.equals("") || path.equals("")) {
+            mainCtrl.goTo("admin");
+        }
+        Activity newAct = new Activity(newActId, "extra/" + newActId + "." + getExtension(this.image.getName()),
+                activityTitle, activityConsumption, activitySource);
+        ImagePacket imagePacket = new ImagePacket(image, newActId + "." + getExtension(this.image.getName()));
+        server.uploadImage(imagePacket);
+        server.addActivity(newAct);
+        mainCtrl.goTo("admin");
+    }
+
+    /**
+     * This method will deal with editing of the activity, including the sending of a new image if desired
+     * @throws IOException
+     */
+    public void processEditActivity() throws IOException {
+        String activityTitle = title.getText();
+        long activityConsumption = getConsumption();
+        String activitySource = source.getText();
+        if(activitySource.length() >= 255) activitySource = activitySource.substring(0, 255);
+        if (activityTitle.equals("") || activitySource.equals("")) {
+            mainCtrl.goTo("admin");
+        }
+        Activity newAct;
+        if (this.image == null) {
+            newAct = new Activity(this.activity.getId(), activity.getImage_path(), activityTitle,
+                    activityConsumption, activitySource);
+        } else {
+            String newImagePath = "extra/" + activity.getId().substring(3) + "." +
+                    getExtension(this.image.getName());
+            newAct = new Activity(this.activity.getId(), newImagePath, activityTitle, activityConsumption,
+                    activitySource);
+            ImagePacket imagePacket = new ImagePacket(image, newAct.getId() + "." + getExtension(this.image.getName()));
+            server.uploadImage(imagePacket);
+        }
+        server.editActivity(newAct);
+        mainCtrl.goTo("admin");
     }
 
 
@@ -146,23 +153,10 @@ public class EditActivityCtrl {
         this.image_path.setText(activity.getImage_path());
     }
 
+    /**
+     * This method will prepare the UI fields for when the screen is used to add a new Activity
+     */
     public void prepareAddActivity() {
-        setForAdd();
-    }
-
-    public void deleteActivity() {
-        server.deleteActivity(activity);
-        mainCtrl.goTo("admin");
-    }
-
-    public void setForEdit() {
-        pathInfo.setText("");
-        this.id.setVisible(false);
-        this.addActivity.setVisible(false);
-        this.delete.setVisible(true);
-    }
-
-    public void setForAdd() {
         pathInfo.setText("");
         this.id.setVisible(true);
         this.addActivity.setVisible(true);
@@ -174,6 +168,29 @@ public class EditActivityCtrl {
         this.image_path.clear();
     }
 
+    /**
+     * This method will handle the request to delete an Activity
+     */
+    public void deleteActivity() {
+        server.deleteActivity(activity);
+        mainCtrl.goTo("admin");
+    }
+
+    /**
+     * This method will set the UI fields for when the screen is used to edit an Activity
+     */
+    public void setForEdit() {
+        pathInfo.setText("");
+        this.id.setVisible(false);
+        this.addActivity.setVisible(false);
+        this.delete.setVisible(true);
+    }
+
+
+    /**
+     * This method will process the user's input upon the prompt to choose a file. It will check for file size and for
+     * file type
+     */
     public void chooseFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open image");
@@ -197,6 +214,11 @@ public class EditActivityCtrl {
         }
     }
 
+    /**
+     * This method will extract the extension out of a file name (e.g png, jpeg)
+     * @param name the name from which to extract the entension
+     * @return the string with the extension
+     */
     public String getExtension(String name) {
         String[] arr = name.split("\\.");
         return arr[1];

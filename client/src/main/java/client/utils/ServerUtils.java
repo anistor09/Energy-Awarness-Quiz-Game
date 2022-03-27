@@ -19,16 +19,13 @@ import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
@@ -144,9 +141,17 @@ public class ServerUtils {
                 .delete();
     }
 
-    public void uploadImage(MultipartFile file) {
-         HttpHeaders headers = new HttpHeaders();
-         headers.setContent
+    /**
+     * This method will make a post request to the server with an ImagePacket which contains a string with the
+     * serialized image
+     * @param file the image packet to send
+     */
+    public void uploadImage(ImagePacket file) {
+        ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/image")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(file, APPLICATION_JSON), ImagePacket.class);
     }
 
     /**
