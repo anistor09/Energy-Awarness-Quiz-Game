@@ -182,9 +182,15 @@ public class SingleplayerInsteadOfQuestionCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
+        // get the time left
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        questionObject = (InsteadOfQuestion)spg.getQuestions().get(spg.getCurrentQuestionNumber());
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
         Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
-        IntermediateScreenCtrl.setPointsGained(questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore() + points);
+        IntermediateScreenCtrl.setPointsGained(points);
         System.out.println("correct");
     }
 

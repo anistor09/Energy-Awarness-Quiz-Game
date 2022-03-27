@@ -200,11 +200,20 @@ public class SinglePlayerGameCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        Player p = spg.getPlayer();
+
         System.out.println("correct");
-        System.out.println(p.getCurrentScore());
-        IntermediateScreenCtrl.setPointsGained(questionObject.getAvailablePoints());
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore() + points);
+        System.out.println("You answered after " + timeAfterQuestionStart + " seconds");
+        System.out.println("You earned " + points);
+        IntermediateScreenCtrl.setPointsGained(points);
+
+
     }
 
     /**
