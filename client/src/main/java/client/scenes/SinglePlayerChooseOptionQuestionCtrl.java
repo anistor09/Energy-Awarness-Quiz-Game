@@ -19,6 +19,8 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Button exit;
 
     @FXML
+    private Label jokerMessage;
+    @FXML
     private Text question1Text;
     @FXML
     private Text question2Text;
@@ -59,10 +61,15 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Label score;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private Label time;
 
     private final MainCtrl mainCtrl;
     private MostEnergyQuestion questionObject; //the object that is being displayed
+
+    private static int pointsGained;    // points gained from this question.
 
     @Inject
     public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
@@ -89,8 +96,12 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 //
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
-        List<JokerCard> jokerList = player.getJokerCards();
 
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
+
+        List<JokerCard> jokerList = player.getJokerCards();
+        jokerMessage.setText("");
        this.setJokers(jokerList);
     }
 
@@ -206,9 +217,13 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
-        System.out.println("correct");
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        Player p = spg.getPlayer();
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained(points);
+
     }
 
     /**
@@ -216,7 +231,59 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * console
      */
     void handleWrong() {
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
+    }
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        if (canUseJoker(joker3.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else {
+             jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
+        return true;
+    }
+
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
     }
 }
 

@@ -18,7 +18,8 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
     @FXML
     private Button exit;
-
+    @FXML
+    private Label jokerMessage;
     @FXML
     private Text question1Text;
 
@@ -27,6 +28,15 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
     @FXML
     private Text question3Text;
+
+    @FXML
+    private Text activity1ratio;
+
+    @FXML
+    private Text activity2ratio;
+
+    @FXML
+    private Text activity3ratio;
 
     @FXML
     private Button joker1;
@@ -64,8 +74,16 @@ public class SingleplayerInsteadOfQuestionCtrl {
     @FXML
     private Label time;
 
+    @FXML
+    private Label questionNumber;
+
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+    private static int pointsGained;   //
+
+    //TODO : set pointsGained to questionObject.getAvailablePoints() when answer validation is done.
 
 
     @Inject
@@ -96,9 +114,17 @@ public class SingleplayerInsteadOfQuestionCtrl {
         question2Text.setText(String.valueOf(options.get(1).getTitle()));
         question3Text.setText(String.valueOf(options.get(2).getTitle()));
 
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
+
+        activity1ratio.setText(String.valueOf(q.compareActivities(options.get(0))) + " times");
+        activity2ratio.setText(String.valueOf(q.compareActivities(options.get(1))) + " times");
+        activity3ratio.setText(String.valueOf(q.compareActivities(options.get(2))) + " times");
+
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
         setJokers(jokerCards);
+        jokerMessage.setText("");
     }
 
     /**
@@ -156,8 +182,15 @@ public class SingleplayerInsteadOfQuestionCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
+        // get the time left
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        questionObject = (InsteadOfQuestion)spg.getQuestions().get(spg.getCurrentQuestionNumber());
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
         Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore() + points);
+        IntermediateScreenCtrl.setPointsGained(points);
         System.out.println("correct");
     }
 
@@ -166,6 +199,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
      * console
      */
     void handleWrong() {
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
 
@@ -189,6 +223,46 @@ public class SingleplayerInsteadOfQuestionCtrl {
 
         }
     }
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+        }
+
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        if (canUseJoker(joker3.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+        }
+
+    public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
+        return true;
+    }
 
     private void initialiseActivityImages(List<Activity> activityList) {
         String  server = "http://localhost:8080/";
@@ -208,6 +282,17 @@ public class SingleplayerInsteadOfQuestionCtrl {
     @FXML
     public void setTime(int i) {
         time.setText("Time Left: " + String.valueOf(i));
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
     }
 
 }

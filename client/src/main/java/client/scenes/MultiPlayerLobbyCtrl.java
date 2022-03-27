@@ -1,60 +1,68 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
+import commons.MultiPlayerGame;
+import commons.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Timer;
-
-import java.util.ArrayList;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 public class MultiPlayerLobbyCtrl {
 
     @FXML
-    private Label numberOfPlayersLabel;
+    private Label alert;
     @FXML
-    private TextField userNameTextField;
+    private Label numberOfPlayersLabel;
     @FXML
     private TextArea userNames;
     @FXML
-    private TextArea gameStatusTextArea;
+    private Button startGame;
 
     private final MainCtrl mainCtrl;
+    private final ServerUtils server;
 
-    ArrayList<String> currentUsernames = new ArrayList<>();
+    List<String> playerUsernames;
+    private MultiPlayerGame game;
+    private Player thisPlayer;
+    private boolean starting = false;
 
     @Inject
-    public MultiPlayerLobbyCtrl(MainCtrl mainCtrl){
+    public MultiPlayerLobbyCtrl(MainCtrl mainCtrl, ServerUtils server){
         this.mainCtrl = mainCtrl;
+        this.server = server;
     }
 
     /**
-     * This method starts the timer for the game to start and also starts the game
+     * This method starts the timer for the game to start, sets the needed fields with some info for the user, sends the
+     * information that the game is about to start through he websocket so other users can also execute this method.
      */
     @FXML
-    protected void startGameButtonClick(){
+    protected void startGameButton(){
+        if(starting) return;
+        starting = true;
+        server.send("/app/startGame", true);
         Timer timer1 = new Timer();
         timer1.scheduleAtFixedRate(new TimerTask() {
-            int i = 5;
+            int i = 6;
             public void run() {
-                gameStatusTextArea.setText("Game Starts in\n" + i + " seconds");
-
-                if (i == 0) {
-                    gameStatusTextArea.setText("Game Starting!");
+                Platform.runLater(() -> {
+                    if(i >= 1) alert.setText("Game Starts in " + i + " seconds");
+                });
+                if (i == 1) {
+                    Platform.runLater(() -> alert.setText("Game Starting!"));
                 }
 
                 if(i < 0){
                     timer1.cancel();
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run(){
-                            mainCtrl.goTo("multiGame");
-                        }
-                    });
+                    Platform.runLater(() -> mainCtrl.goTo("multiGame")); //link with playMultiPlayer
                 }
 
                 i--;
@@ -62,19 +70,51 @@ public class MultiPlayerLobbyCtrl {
         }, 0, 1000);
     }
 
+    /**
+     * This method is for when the player clicks the return button. This will delete the player from the game (by
+     * sending it through the websocket with sendPlayer()
+     */
     @FXML
     protected void returnScreen(){
+        server.sendPlayer(thisPlayer);
+        thisPlayer = null;
         mainCtrl.goTo("insertInfoMultiPlayer");
     }
 
     /**
-     * This method will take care of registering user's names. It currently has no validation and/or sanity checks
+     * This method will prepare the Lobby for the user. It initializes the field game with the current ongoing
+     * MultiPlayerGame, it fetches the list of current players and refreshes the UI list. It also sets eventListeners
+     * for when a player is deleted/added to the MultiPlayerGame
      */
-    @FXML
-    protected void enterUsersName(){
-        currentUsernames.add(userNameTextField.getText());
-        numberOfPlayersLabel.setText(currentUsernames.size() + " Players");
-        userNames.setText(MakeList(currentUsernames));
+    public void prepare() {
+        game = server.getCurrentMultiplayerGame();
+        playerUsernames = game.getPlayers().stream().map(Player::getUsername).collect(Collectors.toList());
+        refresh();
+        server.registerForNewPlayers("/topic/updateLobby", p -> {
+            playerUsernames = server.getCurrentMultiGamePlayers().stream().map(Player::getUsername).
+                    collect(Collectors.toList());
+            Platform.runLater(() -> refresh());
+        });
+        server.registerForGameStart("/topic/startGame", b -> {
+            startGameButton();
+        });
+    }
+
+
+    /**
+     * This method server to refresh the list of players. It will also do some checking in order to disable/enable
+     * the readyButton
+     */
+    public void refresh() {
+        if(playerUsernames.size() < 2) {
+            startGame.setDisable(true);
+            alert.setText("There aren't enough players!");
+        } else {
+            startGame.setDisable(false);
+            alert.setText("");
+        }
+        numberOfPlayersLabel.setText(playerUsernames.size() + " Players");
+        userNames.setText(MakeList(playerUsernames));
     }
 
     /**
@@ -82,11 +122,28 @@ public class MultiPlayerLobbyCtrl {
      * @param currentUsernames the list of users
      * @return the string-form of the list
      */
-    private String MakeList(ArrayList<String> currentUsernames) {
+    private String MakeList(List<String> currentUsernames) {
         String currentUsers = "";
         for(int i = 0; i < currentUsernames.size(); i++){
             currentUsers = currentUsers + currentUsernames.get(i) + "\n";
         }
         return currentUsers;
+    }
+
+    /**
+     * This method server to set the value of the own player
+     * @param thisPlayer
+     */
+    public void setThisPlayer(Player thisPlayer) {
+        this.thisPlayer = thisPlayer;
+    }
+
+    /**
+     * This method is to be performed when the user clicks on the close button instead of return
+     */
+    public void tearDown() {
+        if(thisPlayer != null) {
+            server.sendPlayer(thisPlayer);
+        }
     }
 }

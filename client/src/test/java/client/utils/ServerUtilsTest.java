@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 class ServerUtilsTest {
 
     @Disabled
@@ -31,5 +33,14 @@ class ServerUtilsTest {
         p.setJokerCards(jokerCards);
         p.setJokerCards(null);
         su.addPlayer(p);
+    }
+
+    @Test
+    @Disabled
+    void testSocket() {
+            ServerUtils sut = new ServerUtils();
+        MultiPlayerGame game = sut.getCurrentMultiplayerGame();
+        assertNotNull(game);
+        sut.registerForNewPlayers("/topic/updateLobby", System.out::println);
     }
 }

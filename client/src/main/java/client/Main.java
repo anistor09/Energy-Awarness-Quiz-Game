@@ -48,34 +48,25 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
-
         Pair<SinglePlayerLobbyCtrl, Parent> singleLobby =
                 FXML.load(SinglePlayerLobbyCtrl.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
-
         Pair<MultiPlayerLobbyCtrl, Parent> multiLobby =
                 FXML.load(MultiPlayerLobbyCtrl.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
-
         Pair<SinglePlayerGameCtrl, Parent> singleGame =
                 FXML.load(SinglePlayerGameCtrl.class, "client", "scenes", "SingleplayerGame.fxml");
-
         Pair<MultiPlayerGameCtrl, Parent> multiGame =
                 FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
-
         Pair<CreditsCtrl, Parent> credits =
                 FXML.load(CreditsCtrl.class, "client", "scenes", "CreditsScreen.fxml");
-
         Pair<MultiPlayerChooseOptionQuestionCtrl, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
                 FXML.load(MultiPlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "MultiplayerChooseOptionQuestionScreen.fxml");
-
         Pair<SinglePlayerChooseOptionQuestionCtrl, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
                 FXML.load(SinglePlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "SingleplayerChooseOptionQuestionScreen.fxml");
-
         Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
                 FXML.load(MultiPlayerOpenQuestionCtrl.class, "client", "scenes",
                         "MultiplayerOpenQuestion.fxml");
-
         Pair<SinglePlayerOpenQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
                 FXML.load(SinglePlayerOpenQuestionCtrl.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
@@ -87,19 +78,25 @@ public class Main extends Application {
         Pair<InsertUsernameSinglePlayerCtrl, Parent> insertInfoSingleplayer =
                 FXML.load(InsertUsernameSinglePlayerCtrl.class,
                         "client", "scenes", "InsertUsernameSingleplayer.fxml");
+        Pair<AdminPanelCtrl, Parent> adminPanel =
+                FXML.load(AdminPanelCtrl.class, "client", "scenes", "AdminPanel.fxml");
+        Pair<EditActivityCtrl, Parent> editActivity =
+                FXML.load(EditActivityCtrl.class, "client", "scenes", "EditActivity.fxml");
         Pair<SingleplayerInsteadOfQuestionCtrl, Parent> singleplayerInsteadOfQuestionCtrlParentPair =
                 FXML.load(SingleplayerInsteadOfQuestionCtrl.class,
                         "client", "scenes", "SingleplayerInsteadOfQuestion.fxml");
         Pair<MultiplayerInsteadOfQuestionCtrl, Parent> multiplayerInsteadOfQuestionCtrlParentPair =
                 FXML.load(MultiplayerInsteadOfQuestionCtrl.class,
                         "client", "scenes", "MultiplayerInsteadOfQuestion.fxml");
-
         Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair =
                 FXML.load(SinglePlayerLeaderboardCtrl.class, "client", "scenes",
                         "SinglePlayerLeaderboard.fxml");
-
         Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair =
                 FXML.load(IntermediateScreenCtrl.class, "client", "scenes", "IntermediateScreen.fxml");
+
+        Pair<SingleplayerStartCountdownScreenCtrl, Parent> singleplayerStartCountdownScreenCtrlParentPair =
+                FXML.load(SingleplayerStartCountdownScreenCtrl.class, "client", "scenes",
+                        "SingleplayerStartCountdownScreen.fxml");
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
@@ -111,9 +108,8 @@ public class Main extends Application {
                 insertInfoMultiplayer,helpCtrlParentPair, insertInfoSingleplayer,
                 singlePlayerLeaderboardCtrlParentPair,
                 singleplayerInsteadOfQuestionCtrlParentPair,
-                multiplayerInsteadOfQuestionCtrlParentPair, 
-                intermediateScreenCtrlParentPair);
-
-
+                multiplayerInsteadOfQuestionCtrlParentPair,
+                adminPanel, editActivity, intermediateScreenCtrlParentPair,
+                singleplayerStartCountdownScreenCtrlParentPair);
     }
 }

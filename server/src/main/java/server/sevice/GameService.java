@@ -1,20 +1,43 @@
 package server.sevice;
 
+import commons.Question;
 import commons.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.api.QuestionController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GameService {
 
     private final QuestionController questionController;
 
+    private MultiPlayerGame currentMultiGame;
+    private List<MultiPlayerGame> activeMultiGames;
+
     @Autowired
     public GameService(QuestionController questionController) {
         this.questionController = questionController;
+        activeMultiGames = new ArrayList<>();
+        //this.currentMultiGame = instantiateMultiGame();
+    }
+
+    /**
+     * This method will create a new MultiPlayerGame object. This is supposed to be used when the game that currently
+     * has an active lobby is closed and started, so there is a need to open a new MultiPlayerGame to receive the next
+     * players
+     * @return the MultiPlayerGame
+     */
+    public MultiPlayerGame instantiateMultiGame() {
+        ArrayList<Player> listOfPlayers = new ArrayList<>();
+        ArrayList<Question> listOfQuestions = new ArrayList<>();
+        listOfQuestions.addAll(getListGuessQuestion());
+        listOfQuestions.addAll(getListInsteadOf());
+        listOfQuestions.addAll(getListMostEnergy());
+        listOfQuestions.addAll(getListMultipleChoice());
+        return new MultiPlayerGame(listOfQuestions, new ArrayList<>(), listOfPlayers);
     }
 
     /**
@@ -87,5 +110,24 @@ public class GameService {
             }
         }
         return questions;
+    }
+
+    /**
+     * This method will return the MutliPlayerGame that currently has an active lobby
+     * @return the MultiGame
+     */
+    public MultiPlayerGame getCurrentMultiGame() {
+        if(this.currentMultiGame == null) currentMultiGame = instantiateMultiGame();
+        return this.currentMultiGame;
+    }
+
+    /**
+     * This method will close the lobby of the game that currently has an open lobby. It will archive it into the list
+     * of active games, and it will create a new multiplayer game for the new lobby
+     */
+    public void archiveGame() {
+        activeMultiGames.add(new MultiPlayerGame(currentMultiGame.getQuestions(), new ArrayList<>(),
+            currentMultiGame.getPlayers()));
+        currentMultiGame = instantiateMultiGame();
     }
 }

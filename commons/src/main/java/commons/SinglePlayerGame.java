@@ -27,6 +27,7 @@ public class SinglePlayerGame extends Game{
 
     public void setPlayer(Player player) {
         this.player = player;
+        player.setJokerCards(getJokerCards());
     }
 
     @Override
@@ -72,6 +73,6 @@ public class SinglePlayerGame extends Game{
                     player.setTimeLeft(player.getTimeLeft() - 1);
 
             }
-        }, 0, 1000);
+        }, 0, 5000);
     }
 }

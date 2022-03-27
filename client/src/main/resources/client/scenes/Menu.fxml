@@ -66,6 +66,11 @@
                            <GridPane.margin>
                               <Insets left="10.0" top="15.0" />
                            </GridPane.margin></Button>
+                        <Button fx:id="admin" layoutX="20.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToAdmin" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Admin" textFill="#fb8500" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="10.0" top="15.0" />
+                           </GridPane.margin>
+                        </Button>
                             </children>
                         </GridPane>
                     </children>
@@ -89,7 +94,7 @@
                               <Insets />
                            </GridPane.margin></Button>
                                 <Button id="exit" fx:id="exit" mnemonicParsing="false" onAction="#exitButton" onMouseClicked="#exitButton" prefHeight="65.0" prefWidth="85.0" text="Exit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                                <Button id="button" fx:id="multiPlayer" mnemonicParsing="false" onMouseClicked="#goToMultiPlayerLobby" prefHeight="76.0" prefWidth="207.0" stylesheets="@../../stylesheets/menu_stylesheet.css" text="MultiPlayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                <Button id="button" fx:id="multiPlayer" mnemonicParsing="false" onMouseClicked="#goToMultiPlayerLobby" prefHeight="76.0" prefWidth="207.0" text="MultiPlayer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                 <ImageView fx:id="multiIcon" fitHeight="200.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <image>

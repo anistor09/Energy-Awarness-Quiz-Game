@@ -16,6 +16,8 @@ public class SinglePlayerOpenQuestionCtrl {
 
     @FXML
     private Button exit;
+    @FXML
+    private Label jokerMessage;
 
     @FXML
     private ImageView image;
@@ -44,10 +46,17 @@ public class SinglePlayerOpenQuestionCtrl {
     private Label time;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
     private GuessQuestion questionObject;
+
+    private static int pointsGained = 0;
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
 
     @Inject
     public SinglePlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
@@ -66,6 +75,7 @@ public class SinglePlayerOpenQuestionCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerOpenQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
@@ -76,12 +86,19 @@ public class SinglePlayerOpenQuestionCtrl {
         Activity act = q.getActivity();
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
-
+        jokerMessage.setText("");
         initialiseActivityImage(act);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
 
+    }
+
+    public void resetScreen(){
+        userAnswer.setText("");
     }
 
     /**
@@ -132,7 +149,8 @@ public class SinglePlayerOpenQuestionCtrl {
             Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
-            System.out.println(points);
+            System.out.println("You earned " + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();
             System.out.println("Not a number");
@@ -143,10 +161,62 @@ public class SinglePlayerOpenQuestionCtrl {
      * This method will switch the buttons on or off according to the boolean passed. True means off
      * @param onOff the boolean for which to set the setDisable property
      */
+
     void switchButtons(boolean onOff) {
         userAnswer.setDisable(onOff);
         joker1.setDisable(onOff);
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
     }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
+    @FXML
+    void handleJokerButton1() {
+        if(canUseJoker(joker1.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker1.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton2() {
+        if(canUseJoker(joker2.getText())) {
+            jokerMessage.setText("");
+            mainCtrl.setUsedJoker(joker2.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    @FXML
+    void handleJokerButton3() {
+        jokerMessage.setText("");
+        if (canUseJoker(joker3.getText())) {
+            mainCtrl.setUsedJoker(joker3.getText());
+            mainCtrl.handleJoker();
+        }
+        else{
+            jokerMessage.setText("This joker cannot be used in this type of question!");
+        }
+    }
+    public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
+        return true;
+    }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
 }
