@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.Main;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.application.Platform;
@@ -102,6 +103,8 @@ public class MainCtrl{
     private String usedJoker;
     boolean exitedGame;
     private Player localPlayer;
+
+    private static int timeLeft;
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
@@ -233,6 +236,14 @@ public class MainCtrl{
 //        });
     }
 
+    public static int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public static void setTimeLeft(int timeLeft) {
+        MainCtrl.timeLeft = timeLeft;
+    }
+
     /**
      * The method includes the logic of the game. We will retrieve a game object from the server that will contain
      * a player attribute with the given username. In this method we will iterate through all the questions,
@@ -304,6 +315,8 @@ public class MainCtrl{
                             }
                         }
                     });
+                    System.out.println(i);
+                    MainCtrl.setTimeLeft(i);
                     i--;
                 }
             }

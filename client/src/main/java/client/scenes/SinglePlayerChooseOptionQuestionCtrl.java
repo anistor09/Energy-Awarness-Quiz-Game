@@ -217,10 +217,13 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        IntermediateScreenCtrl.setPointsGained(questionObject.getAvailablePoints());
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
-        System.out.println("correct");
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        Player p = spg.getPlayer();
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained((int)points);
+
     }
 
     /**
