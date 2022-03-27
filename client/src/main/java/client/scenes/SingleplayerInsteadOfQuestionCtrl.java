@@ -111,6 +111,11 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
 
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+    private static int pointsGained;   //
+
+    //TODO : set pointsGained to questionObject.getAvailablePoints() when answer validation is done.
+
 
     @Inject
     public SingleplayerInsteadOfQuestionCtrl(MainCtrl mainCtrl) {
@@ -210,8 +215,15 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      * player and printing out correct
      */
     void handleCorrect() {
+        // get the time left
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        questionObject = (InsteadOfQuestion)spg.getQuestions().get(spg.getCurrentQuestionNumber());
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
         Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore() + points);
+        IntermediateScreenCtrl.setPointsGained(points);
         System.out.println("correct");
     }
 
@@ -220,6 +232,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      * console
      */
     void handleWrong() {
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
 
@@ -304,6 +317,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         time.setText("Time Left: " + String.valueOf(i));
     }
 
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
     }

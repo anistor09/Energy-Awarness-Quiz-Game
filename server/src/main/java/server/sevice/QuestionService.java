@@ -12,6 +12,8 @@ public class QuestionService {
 
     private final ActivityController activityController;
 
+    private int globalTimeAllowed = 20;
+
     @Autowired
     public QuestionService(ActivityController activityController) {
         this.activityController = activityController;
@@ -25,7 +27,7 @@ public class QuestionService {
      */
     public Question getRandomMultipleChoiceQuestion() {
         Activity activity = activityController.getRandomActivity();
-        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion(activity, 100, 30);
+        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion(activity, 100, globalTimeAllowed);
         return multipleChoiceQuestion;
     }
 
@@ -36,7 +38,7 @@ public class QuestionService {
      */
     public Question getRandomGuessQuestion() {
         Activity activity = activityController.getRandomActivity();
-        GuessQuestion guessQuestion = new GuessQuestion(activity, 100, 30);
+        GuessQuestion guessQuestion = new GuessQuestion(activity, 100, globalTimeAllowed);
         return guessQuestion;
     }
 
@@ -58,7 +60,7 @@ public class QuestionService {
                 options.add(option);
             }
         }
-        InsteadOfQuestion insteadOfQuestion = new InsteadOfQuestion(activity, 100, 30, options);
+        InsteadOfQuestion insteadOfQuestion = new InsteadOfQuestion(activity, 100, globalTimeAllowed, options);
         return insteadOfQuestion;
     }
 
@@ -79,6 +81,6 @@ public class QuestionService {
                 options.add(option);
             }
         }
-        return new MostEnergyQuestion(activity, 100, 30, options);
+        return new MostEnergyQuestion(activity, 100, globalTimeAllowed, options);
     }
 }

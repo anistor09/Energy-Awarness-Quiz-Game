@@ -99,6 +99,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     private MostEnergyQuestion questionObject; //the object that is being displayed
 
+    private static int pointsGained;    // points gained from this question.
+
     @Inject
     public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -247,9 +249,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * player and printing out correct
      */
     void handleCorrect() {
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
-        System.out.println("correct");
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        Player p = spg.getPlayer();
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained(points);
+
     }
 
     /**
@@ -257,6 +263,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * console
      */
     void handleWrong() {
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
     @FXML
@@ -301,6 +308,14 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
     }
     /**
      * This method send the Emoji to the other clients through WebSockets.
