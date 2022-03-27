@@ -505,6 +505,9 @@ public class MainCtrl {
                 primaryStage.setScene(intermediateScreen);
             case "admin":
                 primaryStage.setScene(admin);
+                adminPanelCtrl.searchBox.clear();
+                adminPanelCtrl.setListOfActivities(serverUtils.getActivities());
+                adminPanelCtrl.activateLabels();
                 adminPanelCtrl.instantiateActivities(true, true);
                 break;
             default:
