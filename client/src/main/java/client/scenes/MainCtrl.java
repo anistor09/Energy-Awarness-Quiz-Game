@@ -102,6 +102,8 @@ public class MainCtrl{
     private String usedJoker;
     boolean exitedGame;
     private Player localPlayer;
+
+    private static int timeLeft;
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
@@ -233,12 +235,20 @@ public class MainCtrl{
 //        });
     }
 
+    public static int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public static void setTimeLeft(int timeLeft) {
+        MainCtrl.timeLeft = timeLeft;
+    }
+
     /**
      * The method includes the logic of the game. We will retrieve a game object from the server that will contain
      * a player attribute with the given username. In this method we will iterate through all the questions,
      * by selecting the current question from the game attribute currentQuestionNumber in the game
      * and set the correct scene for each of them
-     * @param player Sinstance of Player representing the username inserted by the user
+     * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
           //game = initialiseSinglePlayerGame(player);
@@ -264,15 +274,13 @@ public class MainCtrl{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            int currentQuestionNumber = game.getCurrentQuestionNumber();
+                            Question q = game.getQuestions().get(currentQuestionNumber);
+                            String className = getClassName(q.getClass().getName());
+                            intermediateScreenCtrl.setPointsLabel();
                             goTo("intermediateScreen");
                         }
                     });
-                    // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
-                    //
-                    // Method that checks if the answer of the user is right
-                    //
-                    // Method that goes to intermediate screen
-                    //
                 }
                 if(exitedGame){
                     timer.cancel();
@@ -306,6 +314,8 @@ public class MainCtrl{
                             }
                         }
                     });
+                    System.out.println(i);
+                    MainCtrl.setTimeLeft(i);
                     i--;
                 }
             }

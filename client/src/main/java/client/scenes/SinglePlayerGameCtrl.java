@@ -65,6 +65,10 @@ public class SinglePlayerGameCtrl {
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
 
+    private static int pointsGained; // this is the points gained from this question.
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+
 
     /**
      * @param mainCtrl
@@ -196,10 +200,18 @@ public class SinglePlayerGameCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        Player p = spg.getPlayer();
+
         System.out.println("correct");
-        System.out.println(p.getCurrentScore());
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore() + points);
+        IntermediateScreenCtrl.setPointsGained(points);
+
+
     }
 
     /**
@@ -208,6 +220,7 @@ public class SinglePlayerGameCtrl {
      */
     void handleWrong() {
         System.out.println("wrong");
+        IntermediateScreenCtrl.setPointsGained(0);
     }
 
     @FXML
@@ -259,4 +272,14 @@ public class SinglePlayerGameCtrl {
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
     }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
+
 }
+
