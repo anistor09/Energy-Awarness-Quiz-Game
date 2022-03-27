@@ -48,7 +48,7 @@ public class ServerUtils {
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
-    public static void setSERVER(String SERVER) {
+    public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     }
