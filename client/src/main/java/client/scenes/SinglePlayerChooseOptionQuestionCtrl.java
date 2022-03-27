@@ -222,7 +222,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
         double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
         int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        IntermediateScreenCtrl.setPointsGained((int)points);
+        IntermediateScreenCtrl.setPointsGained(points);
 
     }
 

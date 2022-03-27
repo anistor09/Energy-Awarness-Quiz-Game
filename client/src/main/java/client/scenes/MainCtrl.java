@@ -15,7 +15,6 @@
  */
 package client.scenes;
 
-import client.Main;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.application.Platform;

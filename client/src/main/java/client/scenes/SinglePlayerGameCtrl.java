@@ -209,8 +209,6 @@ public class SinglePlayerGameCtrl {
         double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
         int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
         p.setCurrentScore(p.getCurrentScore() + points);
-        System.out.println("You answered after " + timeAfterQuestionStart + " seconds");
-        System.out.println("You earned " + points);
         IntermediateScreenCtrl.setPointsGained(points);
 
 
