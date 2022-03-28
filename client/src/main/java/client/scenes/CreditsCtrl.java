@@ -1,5 +1,6 @@
 package client.scenes;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javax.inject.Inject;
@@ -18,4 +19,8 @@ public class CreditsCtrl {
         mainCtrl.goTo("menu");
     }
 
+    @FXML
+    protected void goToHelp(){
+        mainCtrl.goTo("help");
+    }
 }
