@@ -774,13 +774,14 @@ public class MainCtrl{
         startScanningEmojis();
     }
 
-
-
     public void playMultiPLayerGame(){
         game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
         goToNextMultiplayerQuestion();
     }
 
+    /**
+     * This method is responsible for the flow of the game itself
+     */
     public void goToNextMultiplayerQuestion(){
         if(!game.isGameOver()) {
             multiplayerInGameTimer();
