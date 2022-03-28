@@ -265,6 +265,14 @@ public class ServerUtils {
     }
 
     /**
+     * This method will send the updated player through the websocket
+     * @param player to send
+     */
+    public void updatePlayerScore(Player player){
+        this.send("/app/updateScores", player);
+    }
+
+    /**
      * This method will get the list of MostEnergyQuestions that are in the MultiPlayerGame that is being retrieved
      * @return the list of MostEnergyQuestion
      */
@@ -335,6 +343,28 @@ public class ServerUtils {
             }
         });
     }
+
+    /**
+     * This method will listen for a topic in the websocket session with path as the one in the destination. It is
+     * expecting Objects of type Player.
+     * @param dest the topic of the websocket to listen to
+     * @param consumer the Consumer that represents the action that this method is supposed to execute when on trigger
+     *                 of the topic. This is to be passed as a lambda function
+     */
+    public void registerForScoreUpdates(String dest, Consumer<Player> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return Player.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((Player) payload);
+            }
+        });
+    }
+
     /**
      * This method will listen for a topic in the websocket session with path as the one in the destination. It is
      * expecting Objects of type Emoji.

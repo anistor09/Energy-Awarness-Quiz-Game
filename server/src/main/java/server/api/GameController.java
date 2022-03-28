@@ -68,6 +68,17 @@ public class GameController {
         return player;
     }
 
+    @MessageMapping("/updateScores")
+    @SendTo("/topic/updateScores")
+    public Player propagateUpdatedScore(Player player){
+        for(int i = 0; i < gameService.getCurrentMultiGame().getPlayers().size(); i++){
+            if(gameService.getCurrentMultiGame().getPlayers().get(i).getUsername().equals(player.getUsername())){
+                gameService.getCurrentMultiGame().getPlayers().add(i, player);
+            }
+        }
+        return player;
+    }
+
     /**
      * This method is destined for messages related to the start of the game. Whenever a player clicks start it sends
      * a message that will stop here before being forwarded to everyone

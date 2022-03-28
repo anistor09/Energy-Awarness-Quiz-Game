@@ -257,7 +257,7 @@ public class MainCtrl{
      * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
-        game =serverUtils.createSinglePlayerGame(player);
+        game = serverUtils.createSinglePlayerGame(player);
         goToNextSingleplayerQuestion();
 
         //test
@@ -394,90 +394,7 @@ public class MainCtrl{
 
 
 
-    /**
-     * This method was creating for testing purposes until we will retrieve a game from the server automatically
-     * @param player Instance of Player representing the username of the Player
-     * @return A Game instance created for testing purposes
-     */
-    public Game initialiseSinglePlayerGame(Player player){
-       Activity act1 = new Activity("00-shower",
-                "00/shower.png",
-                "Question 1",
-                100,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-       Activity act2 =new Activity("00-shower",
-                "00/shower.png",
-                "Question 2",
-                500,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-       Activity act3 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Question 3",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-        Activity act4 = new Activity("00-shower",
-                "00/shower.png",
-                "Question 4",
-                4000,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act5 =new Activity("00-shower",
-                "00/shower.png",
-                "Extra Question",
-                4000,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act6 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Charging your smartphone at night",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
-        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
-
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",1);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",1);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",1);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",1);
-        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
-        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",1);
-        Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
-        Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
-
-        ArrayList<Question> questionArray = new ArrayList<Question>();
-
-
-
-
-
-        questionArray.add(q7);
-        questionArray.add(q5);
-        questionArray.add(q6);
-        questionArray.add(q8);
-        questionArray.add(q7);
-        questionArray.add(q5);
-        questionArray.add(q6);
-        questionArray.add(q8);
-        questionArray.add(q7);
-        questionArray.add(q5);
-        questionArray.add(q6);
-
-
-
-
-
-
-        JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
-                false,
-                player,q1);
-        JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker","Description",false);
-        JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
-                false,(MultipleChoiceQuestion) q1);
-
-        ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
-
-        SinglePlayerGame initialisedGame = new SinglePlayerGame(questionArray,jokerCards,player);
-
-        return initialisedGame;
-    }
 
     public Game getGame() {
         return game;
@@ -562,6 +479,7 @@ public class MainCtrl{
                 //TODO METHOD THAT INITIALIZES THE LEADERBOARD
                 //
                 primaryStage.setScene(multiPlayerIntermediateScreen);
+                multiplayerIntermediateScreenCtrl.startCountdown();
                 break;
             default: primaryStage.setScene(menu);
         }
@@ -697,29 +615,50 @@ public class MainCtrl{
      * @param className String representing the className ( the type of question that we have to display)
      */
     public void switchQuestionScreen(String className){
-        switch (className) {
-            case "MultipleChoiceQuestion":
-                singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                goTo("singleplayerGame");
-                break;
+        if(game instanceof SinglePlayerGame) {
+            switch (className) {
+                case "MultipleChoiceQuestion":
+                    singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                    goTo("singleplayerGame");
+                    break;
 
-            case "MostEnergyQuestion":
-                singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
-                goTo("SingleplayerChooseOptionQuestionScreen");
-                break;
+                case "MostEnergyQuestion":
+                    singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+                    goTo("SingleplayerChooseOptionQuestionScreen");
+                    break;
 
-            case "GuessQuestion":
-                singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
-                goTo("SingleplayerOpenQuestion");
-                break;
+                case "GuessQuestion":
+                    singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
+                    goTo("SingleplayerOpenQuestion");
+                    break;
 
-            case "InsteadOfQuestion":
-                singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
-                goTo("SingleplayerInsteadOfQuestion");
-                break;
+                case "InsteadOfQuestion":
+                    singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                    goTo("SingleplayerInsteadOfQuestion");
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+        }
+        if(game instanceof MultiPlayerGame){
+            switch (className){
+                case "MultipleChoiceQuestion":
+                    goTo("MultiPlayerGameCtrl");
+                    break;
+
+                case "MostEnergyQuestion":
+                    goTo("MultiPlayerChooseOptionQuestion");
+                    break;
+
+                case "GuessQuestion":
+                    goTo("MultiPlayerOpenQuestionCtrl");
+                    break;
+
+                case "InsteadOfQuestion":
+                    goTo("MultiplayerInsteadOfQuestion");
+                    break;
+            }
         }
     }
 
@@ -833,16 +772,12 @@ public class MainCtrl{
      */
     public void startMultiPlayerGame(){
         startScanningEmojis();
-        localPlayer = new Player("usernameee",1000);
     }
 
 
 
-
-
-
     public void playMultiPLayerGame(){
-//        game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
+        game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
         goToNextMultiplayerQuestion();
     }
 
@@ -864,13 +799,26 @@ public class MainCtrl{
                 @Override
                 public void run() {
                     switchQuestionScreen(className);
-                } //TODO NEED METHOD THAT INITIALZES MULTIPLAYER QUESTIONS
+                } //TODO NEED METHOD THAT INITIALIZES MULTIPLAYER QUESTIONS
             });
         }
         else{
-            goTo("menu");
-            //TODO METHOD THAT UPDATES THE SCORE
-            //TODO METHOD THAT INITIALIZES THE LEADERBOARD SCREEN
+            MultiPlayerGame mpg = (MultiPlayerGame)this.game;
+            ArrayList<Player> players = mpg.getPlayers();
+
+            for(int i = 0; i < players.size(); i++){
+                players.get(i).setJokerCards(null);
+            }
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    //TODO METHOD THAT UPDATES THE SCORE
+                    //TODO METHOD THAT INITIALIZES THE FINAL LEADERBOARD SCREEN
+                    goTo("menu"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
+                }
+            });
+
         }
     }
 
@@ -894,7 +842,26 @@ public class MainCtrl{
                 }
                 if(i <= 0) {
                     timer.cancel();
-                    //
+
+                    if(game instanceof MultiPlayerGame){
+                        ArrayList<Integer> scores = new ArrayList<>();
+                        for(int i = 0; i<((MultiPlayerGame) game).getPlayers().size(); i++){
+                            scores.add(((MultiPlayerGame) game).getPlayers().get(i).getCurrentScore());
+                        }
+                        System.out.println(scores.toString());
+                    }
+
+                    localPlayer.setCurrentScore(localPlayer.getCurrentScore() + 10);
+                    serverUtils.updatePlayerScore(localPlayer);
+
+                    if(game instanceof MultiPlayerGame){
+                        ArrayList<Integer> scores = new ArrayList<>();
+                        for(int i = 0; i<((MultiPlayerGame) game).getPlayers().size(); i++){
+                            scores.add(((MultiPlayerGame) game).getPlayers().get(i).getCurrentScore());
+                        }
+                        System.out.println(scores.toString());
+                    }
+
                     //TODO METHOD THAT UPDATES THE CURRENT SCORES OF ALL PLAYERS
                     //
                     Platform.runLater(new Runnable() {

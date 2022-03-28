@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
+import javax.inject.Inject;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -76,6 +77,12 @@ public class MultiplayerIntermediateScreenCtrl {
 
     @FXML
     private Text countdown;
+    private MainCtrl mainCtrl;
+
+    @Inject
+    public MultiplayerIntermediateScreenCtrl(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
 
     public void startCountdown() {
         Timer timer = new Timer();
@@ -85,7 +92,7 @@ public class MultiplayerIntermediateScreenCtrl {
             public void run() {
                 if(i <= 0){
                     timer.cancel();
-                    //TODO METHOD THAT GOES TO THE NEXT QUESTION
+                    mainCtrl.checkGameStatus();
                 }
                 countdown.setText("Game Continues in " + i + " Seconds");
                 i--;

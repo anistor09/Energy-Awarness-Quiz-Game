@@ -56,13 +56,14 @@ public class MultiPlayerLobbyCtrl {
                 Platform.runLater(() -> {
                     if(i >= 1) alert.setText("Game Starts in " + i + " seconds");
                 });
+
                 if (i == 1) {
                     Platform.runLater(() -> alert.setText("Game Starting!"));
                 }
 
                 if(i < 0){
                     timer1.cancel();
-                    Platform.runLater(() -> mainCtrl.goTo("multiGame")); //link with playMultiPlayer
+                    Platform.runLater(() -> mainCtrl.playMultiPLayerGame()); //link with playMultiPlayer
                 }
 
                 i--;
