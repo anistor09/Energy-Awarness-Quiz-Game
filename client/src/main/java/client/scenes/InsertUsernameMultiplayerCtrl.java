@@ -60,7 +60,7 @@ public class InsertUsernameMultiplayerCtrl {
         }
         Player thisPlayer = new Player(insertedUsername, 0);
         server.sendPlayer(thisPlayer);
-        mainCtrl.setThisPlayer(thisPlayer);
+        mainCtrl.setLocalPlayer(thisPlayer);
         String insertedUrl = url.getText();
         System.out.println(insertedUrl);
         System.out.println(insertedUsername);

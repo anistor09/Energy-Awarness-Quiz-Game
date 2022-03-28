@@ -134,7 +134,7 @@ public class MultiPlayerLobbyCtrl {
      * This method server to set the value of the own player
      * @param thisPlayer
      */
-    public void setThisPlayer(Player thisPlayer) {
+    public void setLocalPlayer(Player thisPlayer) {
         this.thisPlayer = thisPlayer;
     }
 
