@@ -10,9 +10,7 @@ import javafx.scene.text.Text;
 
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SingleplayerInsteadOfQuestionCtrl {
 
@@ -109,7 +107,21 @@ public class SingleplayerInsteadOfQuestionCtrl {
         Activity activity = q.getActivity();
         question.setText("Instead of " + activity.getTitle());
         ArrayList<Activity> options = q.getOptions();
+        Activity correctAnswer = q.getCorrectAnswer();
+
+        String option1ratio = q.getCorrectRatio(correctAnswer) + " times";
+        String option2ratio = q.getWrongRatio((options.get(1))) + " times";
+        String option3ratio = q.getWrongRatio((options.get(2))) + " times";
+
+        Map<String, String> optionsWithRatios = new HashMap<>();
+        optionsWithRatios.put(options.get(0).getTitle(), option1ratio);
+        optionsWithRatios.put(options.get(1).getTitle(), option2ratio);
+        optionsWithRatios.put(options.get(2).getTitle(), option3ratio);
+
+        String[] answers = new String[]{option1ratio, option2ratio, option3ratio};
         Collections.shuffle(options);
+        Collections.shuffle(List.of(answers));
+
         question1Text.setText(String.valueOf(options.get(0).getTitle()));
         question2Text.setText(String.valueOf(options.get(1).getTitle()));
         question3Text.setText(String.valueOf(options.get(2).getTitle()));
@@ -117,9 +129,10 @@ public class SingleplayerInsteadOfQuestionCtrl {
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
                 (currentGame.getQuestions().size() - 1));
 
-        activity1ratio.setText(String.valueOf(q.compareActivities(options.get(0))) + " times");
-        activity2ratio.setText(String.valueOf(q.compareActivities(options.get(1))) + " times");
-        activity3ratio.setText(String.valueOf(q.compareActivities(options.get(2))) + " times");
+        activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
+        activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
+        activity3ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
+
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
@@ -143,39 +156,38 @@ public class SingleplayerInsteadOfQuestionCtrl {
     /**
      * Handles the clicks on button with option 1
      */
-//    public void option1Handler() {
-//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 0) {
-//            handleCorrect();
-//        } else {
-//            handleWrong();
-//        }
-//        switchButtons(true);
-//    }
+    public void option1Handler() {
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
 
     /**
      * Handles the clicks on button with option 2
      */
-//    public void option2Handler() {
-//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 1) {
-// TODO this is the condition that produces true/false based on the answer, this might have to be changed
-// //           handleCorrect();
-//        } else {
-//            handleWrong();
-//        }
-//        switchButtons(true);
-//    }
+    public void option2Handler() {
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
 
     /**
      * Handles the clicks on button with option 3
      */
-//    public void option3Handler() {
-//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 2) {
-//            handleCorrect();
-//        } else {
-//            handleWrong();
-//        }
-//        switchButtons(true);
-//    }
+    public void option3Handler(){
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
 
     /**
      * This method will handle when the user click the correct option. For the moment it is increasing the points of the
@@ -202,6 +214,8 @@ public class SingleplayerInsteadOfQuestionCtrl {
         IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
+
+
 
     /**
      * This method maps the player's jokers to their corresponding buttons
