@@ -1,6 +1,5 @@
 package client.scenes;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javax.inject.Inject;
