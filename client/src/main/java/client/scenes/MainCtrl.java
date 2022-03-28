@@ -620,7 +620,7 @@ public class MainCtrl{
     /**
      *This method handles each type of Joker and calls their useCard methods.
      */
-    public  void handleJoker() {
+    public void handleJoker() {
         switch (usedJoker){
             case"Additional Points Joker":
                 AdditionalPointsJoker pointsJoker =
@@ -719,7 +719,7 @@ public class MainCtrl{
 
 
     public void playMultiPLayerGame(){
-        game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
+//        game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
         goToNextMultiplayerQuestion();
     }
 
@@ -741,7 +741,7 @@ public class MainCtrl{
                 @Override
                 public void run() {
                     switchQuestionScreen(className);
-                } //TODO NEED METHOD THAT INITIALSES MULTIPLAYER QUESTIONS
+                } //TODO NEED METHOD THAT INITIALZES MULTIPLAYER QUESTIONS
             });
         }
         else{
@@ -759,7 +759,7 @@ public class MainCtrl{
             @Override
             public void run() {
                 //
-                //TODO CHECK IF PLAYER LEFT GAME
+                //TODO CHECK IF A PLAYER LEFT GAME AND REMOVE THEM FROM THE PLAYER ARRAYLIST IN THE GAME OBJECT
                 //
                 if(game instanceof MultiPlayerGame){
                     MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
