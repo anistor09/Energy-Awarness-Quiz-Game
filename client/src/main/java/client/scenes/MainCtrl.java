@@ -834,7 +834,6 @@ public class MainCtrl{
     public void startMultiPlayerGame(){
         startScanningEmojis();
         localPlayer = new Player("usernameee",1000);
-        goTo("MultiPlayerGameCtrl");
     }
 
 

@@ -59,10 +59,7 @@ public class MenuCtrl {
 
     @FXML
     protected void goToMultiPlayerLobby(){
-//        mainCtrl.goTo("insertInfoMultiPlayer");
-        //Given that the logic of the game was nor implemented yet I have added a goTo method for the first Question
-        // directly from the Menu
-        mainCtrl.goTo("MultiPlayerChooseOptionQuestion");
+        mainCtrl.goTo("insertInfoMultiPlayer");
         mainCtrl.startMultiPlayerGame();
     }
 
