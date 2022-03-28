@@ -1,9 +1,7 @@
 package client.scenes;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.util.Pair;
 
 import javax.inject.Inject;
 
