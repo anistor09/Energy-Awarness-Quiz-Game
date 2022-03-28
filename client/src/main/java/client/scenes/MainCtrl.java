@@ -103,6 +103,9 @@ public class MainCtrl{
 
     private String usedJoker;
     boolean exitedGame;
+    private Player localPlayer;
+
+    private static int timeLeft;
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
@@ -227,6 +230,10 @@ public class MainCtrl{
         goTo("menu");
         primaryStage.show();
 
+        primaryStage.setOnCloseRequest(e -> {
+            multiPlayerLobbyCtrl.tearDown();
+        }); // this is to delete the player from the game in case he was in one
+
         //test
 //        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
 //            test.add(p);
@@ -234,12 +241,20 @@ public class MainCtrl{
 //        });
     }
 
+    public static int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public static void setTimeLeft(int timeLeft) {
+        MainCtrl.timeLeft = timeLeft;
+    }
+
     /**
      * The method includes the logic of the game. We will retrieve a game object from the server that will contain
      * a player attribute with the given username. In this method we will iterate through all the questions,
      * by selecting the current question from the game attribute currentQuestionNumber in the game
      * and set the correct scene for each of them
-     * @param player Sinstance of Player representing the username inserted by the user
+     * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
         game =serverUtils.createSinglePlayerGame(player);
@@ -268,15 +283,13 @@ public class MainCtrl{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                            int currentQuestionNumber = game.getCurrentQuestionNumber();
+                            Question q = game.getQuestions().get(currentQuestionNumber);
+                            String className = getClassName(q.getClass().getName());
+                            intermediateScreenCtrl.setPointsLabel();
                             goTo("intermediateScreen");
                         }
                     });
-                    // CHANGE THE VALUE FOR CURRENT QUESTION NUMBER
-                    //
-                    // Method that checks if the answer of the user is right
-                    //
-                    // Method that goes to intermediate screen
-                    //
                 }
                 else {
                     int currentQuestionNumber = game.getCurrentQuestionNumber();
@@ -306,6 +319,8 @@ public class MainCtrl{
                             }
                         }
                     });
+                    System.out.println(i);
+                    MainCtrl.setTimeLeft(i);
                     i--;
                 }
             }
@@ -496,7 +511,9 @@ public class MainCtrl{
                 primaryStage.setScene(singlePlayerLobby);
                 break;
             case "multiLobby":
+                multiPlayerLobbyCtrl.setThisPlayer(localPlayer);
                 primaryStage.setScene(multiPlayerLobby);
+                multiPlayerLobbyCtrl.prepare();
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
@@ -518,6 +535,15 @@ public class MainCtrl{
                 break;
             case "MultiplayerInsteadOfQuestion" :
                 primaryStage.setScene(multiplayerInsteadOfQuestion);
+                break;
+            case "MultiPlayerGameCtrl" :
+                primaryStage.setScene(multiPlayerGame);
+                break;
+            case "MultiPlayerOpenQuestionCtrl" :
+                primaryStage.setScene(multiPlayerOpenQuestion);
+                break;
+            case "MultiPlayerChooseOptionQuestion" :
+                primaryStage.setScene(multiPlayerChooseOptionQuestion);
                 break;
             case "SinglePlayerLeaderboard":
                 primaryStage.setScene(singlePlayerLeaderboard);
@@ -699,11 +725,14 @@ public class MainCtrl{
 
 
 
-
     public void setExitedGame(boolean exitedGame) {
         this.exitedGame = exitedGame;
 
     }
+    public ServerUtils getServer(){
+        return  serverUtils;
+    }
+
 
     /**
      * This method will call serverUtils to update the activity provided in the repository
@@ -713,6 +742,101 @@ public class MainCtrl{
     public Activity editActivity(Activity activity) {
         return serverUtils.editActivity(activity);
     }
+
+
+    public Player getLocalPlayer() {
+        return localPlayer;
+    }
+
+    public void setLocalPlayer(Player player) {
+        this.localPlayer = player;
+    }
+
+    /**
+     * This method starts the websocket connection for Emoji instances when the game is started, the method will be
+     * called from the Lobby Screen , when the start button is pressed. It also initialises the emojis that are
+     * retrieved from other clients.
+     */
+    public void startScanningEmojis(){
+        serverUtils.registerForEmoji("/topic/emojis",e->{
+//            String currentQuestionScreen = getClassName(game.getQuestions().
+//                    get(game.getCurrentQuestionNumber())
+//                    .getClass().toString());
+            String currentQuestionScreen = getClassName(this.getQuestion()
+                  .getClass().toString());
+            switch (currentQuestionScreen) {
+                case "MultipleChoiceQuestion":
+                    Platform.runLater(()->{multiPlayerGameCtrl.initialiseEmoji(e);});
+                    break;
+
+                case "MostEnergyQuestion":
+                    Platform.runLater(()->{multiPlayerChooseOptionQuestionCtrl.initialiseEmoji(e);});
+                    break;
+
+                case "GuessQuestion":
+                    Platform.runLater(()->{multiPlayerOpenQuestionCtrl.initialiseEmoji(e);});
+                    break;
+
+                case "InsteadOfQuestion":
+                    Platform.runLater(()->{multiplayerInsteadOfQuestionCtrl.initialiseEmoji(e);});
+                    break;
+
+                default:
+                    break;
+        }
+    });
+    }
+
+    /**
+     * This method creates a mock question
+     * @return An instance of anstract class Question
+     */
+    private Question getQuestion() {
+        Activity act1 = new Activity("00-shower",
+                "00/shower.png",
+                "Question 1",
+                100,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+
+        Activity act3 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "Question 3",
+                10,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
+        Activity act4 = new Activity("00-shower",
+                "00/shower.png",
+                "Question 4",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Activity act5 =new Activity("00-shower",
+                "00/shower.png",
+                "Extra Question",
+                4000,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Activity act6 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "Charging your smartphone at night",
+                10,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
+        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",1);
+        //Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
+
+       // Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
+        //Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
+        return q4;
+
+    }
+
+    /**
+     * The method includes the logic of the multiplayer game but it is not fully implemented.
+     */
+    public void startMultiPlayerGame(){
+        startScanningEmojis();
+        localPlayer = new Player("usernameee",1000);
+        goTo("MultiPlayerGameCtrl");
+    }
+
 
 
 

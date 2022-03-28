@@ -54,6 +54,10 @@ public class SinglePlayerGuessQuestionCtrl {
 
     private GuessQuestion questionObject;
 
+    private static int pointsGained = 0;
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
+
     @Inject
     public SinglePlayerGuessQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -145,7 +149,8 @@ public class SinglePlayerGuessQuestionCtrl {
             Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
-            System.out.println(points);
+            System.out.println("You earned " + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();
             System.out.println("Not a number");
@@ -162,6 +167,14 @@ public class SinglePlayerGuessQuestionCtrl {
         joker1.setDisable(onOff);
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
     }
     @FXML
     void handleJokerButton1() {
