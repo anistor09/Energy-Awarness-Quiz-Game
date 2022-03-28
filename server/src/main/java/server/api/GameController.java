@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import server.sevice.GameService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -60,10 +61,11 @@ public class GameController {
     @MessageMapping("/updateLobby")
     @SendTo("/topic/updateLobby")
     public Player propagateNewPlayer(Player player) {
-        if(gameService.getCurrentMultiGame().getPlayers().contains(player)) {
-            gameService.getCurrentMultiGame().getPlayers().remove(player);
+        List<Player> players = gameService.getCurrentMultiGame().getPlayers();
+        if(players.contains(player)) {
+            players.remove(player);
         } else {
-            gameService.getCurrentMultiGame().getPlayers().add(player);
+            players.add(player);
         }
         return player;
     }
