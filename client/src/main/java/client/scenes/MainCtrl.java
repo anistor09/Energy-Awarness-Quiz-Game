@@ -856,27 +856,6 @@ public class MainCtrl{
                 }
                 if(i <= 0) {
                     timer.cancel();
-
-                    if(game instanceof MultiPlayerGame){
-                        ArrayList<Integer> scores = new ArrayList<>();
-                        for(int i = 0; i<((MultiPlayerGame) game).getPlayers().size(); i++){
-                            scores.add(((MultiPlayerGame) game).getPlayers().get(i).getCurrentScore());
-                        }
-                        System.out.println(scores.toString());
-                    }
-
-                    localPlayer.setCurrentScore(localPlayer.getCurrentScore()+100);
-
-                    if(game instanceof MultiPlayerGame){
-                        ArrayList<Integer> scores = new ArrayList<>();
-                        for(int i = 0; i<((MultiPlayerGame) game).getPlayers().size(); i++){
-                            scores.add(((MultiPlayerGame) game).getPlayers().get(i).getCurrentScore());
-                        }
-                        System.out.println(scores.toString());
-                    }
-                    //
-                    //TODO METHOD THAT UPDATES THE CURRENT SCORES OF ALL PLAYERS
-                    //
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
