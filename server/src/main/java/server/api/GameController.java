@@ -60,8 +60,25 @@ public class GameController {
     @MessageMapping("/updateLobby")
     @SendTo("/topic/updateLobby")
     public Player propagateNewPlayer(Player player) {
-        gameService.getCurrentMultiGame().getPlayers().add(player);
+        if(gameService.getCurrentMultiGame().getPlayers().contains(player)) {
+            gameService.getCurrentMultiGame().getPlayers().remove(player);
+        } else {
+            gameService.getCurrentMultiGame().getPlayers().add(player);
+        }
         return player;
+    }
+
+    /**
+     * This method is destined for messages related to the start of the game. Whenever a player clicks start it sends
+     * a message that will stop here before being forwarded to everyone
+     * @param check
+     * @return
+     */
+    @MessageMapping("/startGame")
+    @SendTo("/topic/startGame")
+    public boolean startGame(boolean check) {
+        gameService.archiveGame();
+        return check;
     }
 
     /**

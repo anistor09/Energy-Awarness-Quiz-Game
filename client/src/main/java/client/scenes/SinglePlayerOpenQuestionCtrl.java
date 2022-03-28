@@ -46,10 +46,17 @@ public class SinglePlayerOpenQuestionCtrl {
     private Label time;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
     private GuessQuestion questionObject;
+
+    private static int pointsGained = 0;
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
 
     @Inject
     public SinglePlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
@@ -68,6 +75,7 @@ public class SinglePlayerOpenQuestionCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerOpenQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
@@ -81,9 +89,16 @@ public class SinglePlayerOpenQuestionCtrl {
         jokerMessage.setText("");
         initialiseActivityImage(act);
 
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
+
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
 
+    }
+
+    public void resetScreen(){
+        userAnswer.setText("");
     }
 
     /**
@@ -134,7 +149,8 @@ public class SinglePlayerOpenQuestionCtrl {
             Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
-            System.out.println(points);
+            System.out.println("You earned " + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();
             System.out.println("Not a number");
@@ -151,6 +167,14 @@ public class SinglePlayerOpenQuestionCtrl {
         joker1.setDisable(onOff);
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
     }
     @FXML
     void handleJokerButton1() {
@@ -190,4 +214,9 @@ public class SinglePlayerOpenQuestionCtrl {
             return false;
         return true;
     }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
 }

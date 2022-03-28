@@ -61,10 +61,15 @@ public class SinglePlayerChooseOptionQuestionCtrl {
     private Label score;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private Label time;
 
     private final MainCtrl mainCtrl;
     private MostEnergyQuestion questionObject; //the object that is being displayed
+
+    private static int pointsGained;    // points gained from this question.
 
     @Inject
     public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
@@ -91,6 +96,10 @@ public class SinglePlayerChooseOptionQuestionCtrl {
 //
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
+
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
        this.setJokers(jokerList);
@@ -208,9 +217,13 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
-        System.out.println("correct");
+        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        Player p = spg.getPlayer();
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        IntermediateScreenCtrl.setPointsGained(points);
+
     }
 
     /**
@@ -218,6 +231,7 @@ public class SinglePlayerChooseOptionQuestionCtrl {
      * console
      */
     void handleWrong() {
+        IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
     @FXML
@@ -259,5 +273,17 @@ public class SinglePlayerChooseOptionQuestionCtrl {
         return true;
     }
 
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
 }
 

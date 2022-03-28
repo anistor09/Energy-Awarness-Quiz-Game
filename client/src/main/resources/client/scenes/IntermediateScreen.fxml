@@ -8,9 +8,9 @@
 
 <AnchorPane prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.IntermediateScreenCtrl">
    <children>
-      <VBox layoutX="7.0" prefHeight="680.0" prefWidth="942.0" stylesheets="@../../stylesheets/intermediate_screen.css">
+      <VBox layoutX="7.0" prefHeight="680.0" prefWidth="942.0" >
          <children>
-            <Label alignment="CENTER" prefHeight="200.0" prefWidth="942.0" stylesheets="@../../stylesheets/intermediate_screen.css" text="You  earned ">
+            <Label alignment="CENTER" prefHeight="200.0" prefWidth="942.0"  text="You  earned ">
                <font>
                   <Font size="50.0" />
                </font>
