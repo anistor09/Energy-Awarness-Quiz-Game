@@ -20,6 +20,7 @@ import commons.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -94,6 +95,9 @@ public class MainCtrl{
     private SingleplayerStartCountdownScreenCtrl singleplayerStartCountdownScreenCtrl;
     private Scene singlePlayerStartCountdownScreen;
 
+    private ConfirmBoxCtrl confirmBoxCtrl;
+    private Scene confirmBox;
+
 
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
@@ -102,6 +106,8 @@ public class MainCtrl{
     private String usedJoker;
     boolean exitedGame;
     private Player localPlayer;
+
+    private Stage popUpStage;
 
     private static int timeLeft;
     @Inject
@@ -153,7 +159,8 @@ public class MainCtrl{
                            Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity,
                                    Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
                            Pair<SingleplayerStartCountdownScreenCtrl,
-                                   Parent> singleplayerStartCountdownScreenCtrlParentPair)
+                                   Parent> singleplayerStartCountdownScreenCtrlParentPair, Pair<ConfirmBoxCtrl, Parent>
+                                   confirmBox)
                             {
 
 
@@ -201,6 +208,8 @@ public class MainCtrl{
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
         this.singleplayerStartCountdownScreenCtrl = singleplayerStartCountdownScreenCtrlParentPair.getKey();
         this.singlePlayerStartCountdownScreen = new Scene(singleplayerStartCountdownScreenCtrlParentPair.getValue());
+        this.confirmBoxCtrl = confirmBox.getKey();
+        this.confirmBox = new Scene(confirmBox.getValue());
 
         this.exitedGame = false;
 
@@ -225,15 +234,11 @@ public class MainCtrl{
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(e -> {
-            multiPlayerLobbyCtrl.tearDown();
-        }); // this is to delete the player from the game in case he was in one
-
-        //test
-//        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
-//            test.add(p);
-//            System.out.println(p.getUsername());
-//        });
+            e.consume();
+            closeStage();
+        });
     }
+
 
     public static int getTimeLeft() {
         return timeLeft;
@@ -475,8 +480,30 @@ public class MainCtrl{
         return game;
     }
 
+    /**
+     * This is the method that handles when the user presses the exit button or the window close button
+     */
     public void closeStage() {
-        this.primaryStage.close();
+        popUpStage = new Stage();
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        popUpStage.setTitle("Confirm");
+        popUpStage.setMinWidth(250);
+        popUpStage.setScene(confirmBox);
+        popUpStage.show();
+    }
+
+    /**
+     * This method will receive a parameter that determines whether to close the game or to ignore exit request
+     * @param answer true - close, false - ignore
+     */
+    public void setAnswer(boolean answer) {
+        if(answer) {
+            popUpStage.close();
+            this.primaryStage.close();
+            multiPlayerLobbyCtrl.tearDown();
+        } else {
+            popUpStage.close();
+        }
     }
 
     /**
