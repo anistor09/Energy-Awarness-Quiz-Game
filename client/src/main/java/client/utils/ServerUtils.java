@@ -329,8 +329,6 @@ public class ServerUtils {
      *                 of the topic. This is to be passed as a lambda function
      */
     public void registerForNewPlayers(String dest, Consumer<Player> consumer) {
-        if(session.isConnected())
-            connect("");
         session.subscribe(dest, new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) {
