@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.sevice.GameService;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -68,14 +69,13 @@ public class GameController {
         return player;
     }
 
+    /**
+     * This method will take the local players
+     * @param player to propagate
+     */
     @MessageMapping("/updateScores")
     @SendTo("/topic/updateScores")
     public Player propagateUpdatedScore(Player player){
-        for(int i = 0; i < gameService.getCurrentMultiGame().getPlayers().size(); i++){
-            if(gameService.getCurrentMultiGame().getPlayers().get(i).getUsername().equals(player.getUsername())){
-                gameService.getCurrentMultiGame().getPlayers().add(i, player);
-            }
-        }
         return player;
     }
 

@@ -691,6 +691,18 @@ public class MainCtrl{
         this.localPlayer = player;
     }
 
+    public void startScanningScoreUpdates(){
+        serverUtils.registerForScoreUpdates("/topic/updateScore", p -> {
+            for(int i = 0; i < serverUtils.getCurrentMultiplayerGame().getPlayers().size();i++) {
+                if(serverUtils.getCurrentMultiplayerGame().getPlayers().get(i).getUsername()
+                        .equals(p.getUsername())){
+                    serverUtils.getCurrentMultiplayerGame().getPlayers().get(i)
+                            .setCurrentScore(p.getCurrentScore());
+                }
+            }
+        });
+    }
+
     /**
      * This method starts the websocket connection for Emoji instances when the game is started, the method will be
      * called from the Lobby Screen , when the start button is pressed. It also initialises the emojis that are
@@ -772,6 +784,8 @@ public class MainCtrl{
      */
     public void startMultiPlayerGame(){
         startScanningEmojis();
+        startScanningScoreUpdates();
+        localPlayer = serverUtils.getCurrentMultiplayerGame().getPlayers().get(3);
     }
 
     public void playMultiPLayerGame(){
@@ -814,7 +828,6 @@ public class MainCtrl{
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    //TODO METHOD THAT UPDATES THE SCORE
                     //TODO METHOD THAT INITIALIZES THE FINAL LEADERBOARD SCREEN
                     goTo("menu"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
                 }
@@ -827,7 +840,7 @@ public class MainCtrl{
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
-            
+            MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
             @Override
             public void run() {
                 //
@@ -852,8 +865,7 @@ public class MainCtrl{
                         System.out.println(scores.toString());
                     }
 
-                    localPlayer.setCurrentScore(localPlayer.getCurrentScore() + 10);
-                    serverUtils.updatePlayerScore(localPlayer);
+                    localPlayer.setCurrentScore(localPlayer.getCurrentScore()+100);
 
                     if(game instanceof MultiPlayerGame){
                         ArrayList<Integer> scores = new ArrayList<>();
@@ -862,7 +874,7 @@ public class MainCtrl{
                         }
                         System.out.println(scores.toString());
                     }
-
+                    //
                     //TODO METHOD THAT UPDATES THE CURRENT SCORES OF ALL PLAYERS
                     //
                     Platform.runLater(new Runnable() {
