@@ -34,7 +34,7 @@ class PlayerServiceTest {
         underTest.addPlayer(null);
         verify(playerRepository).save(null);
     }
-    
+
     @Test
     void deletePlayer() {
         when(playerRepository.existsById(1L)).thenReturn(true);
