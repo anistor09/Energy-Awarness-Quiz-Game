@@ -21,7 +21,6 @@ public class GameService {
     public GameService(QuestionController questionController) {
         this.questionController = questionController;
         activeMultiGames = new ArrayList<>();
-        //this.currentMultiGame = instantiateMultiGame();
     }
 
     /**

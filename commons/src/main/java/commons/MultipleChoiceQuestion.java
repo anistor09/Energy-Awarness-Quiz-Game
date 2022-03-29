@@ -97,6 +97,10 @@ public class MultipleChoiceQuestion extends Question{
         return options;
     }
 
+    public void setOptions(ArrayList<Double> options) {
+        this.options = options;
+    }
+
 
     /**
      * Equals method between two instances of the MultipleChoiceQuestion class, not including the ArrayList options
@@ -110,20 +114,11 @@ public class MultipleChoiceQuestion extends Question{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MultipleChoiceQuestion that = (MultipleChoiceQuestion) o;
-        return Objects.equals(options, that.options);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(options);
+        return (Objects.equals(options, that.options) && super.equals(o));
     }
 
     public double getCorrectAnswer() {
         return correctAnswer;
-    }
-
-    public void setOptions(ArrayList<Double> options) {
-        this.options = options;
     }
 
     public void setCorrectAnswer(double correctAnswer) {

@@ -19,6 +19,7 @@ import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
@@ -48,7 +49,7 @@ public class ServerUtils {
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
-    public static void setSERVER(String SERVER) {
+    public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     }
@@ -66,6 +67,10 @@ public class ServerUtils {
             System.out.println(line);
         }
     }
+    public String getServer(){
+        return SERVER;
+    }
+
 
     public List<Quote> getQuotes() {
         return ClientBuilder.newClient(new ClientConfig()) //
@@ -81,6 +86,14 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
+    }
+
+    public Activity addActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(activity, APPLICATION_JSON), Activity.class);
     }
 
     /**
@@ -122,6 +135,32 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {});
         return activity;
+    }
+
+    /**
+     * This method will delete the activity from the repository of activities
+     * @param activity to delete
+     * @return HTTP Response
+     */
+    public Response deleteActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/" + activity.getId())
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete();
+    }
+
+    /**
+     * This method will make a post request to the server with an ImagePacket which contains a string with the
+     * serialized image
+     * @param file the image packet to send
+     */
+    public void uploadImage(ImagePacket file) {
+        ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/image")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(file, APPLICATION_JSON), ImagePacket.class);
     }
 
     /**

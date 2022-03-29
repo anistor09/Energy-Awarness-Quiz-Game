@@ -11,11 +11,13 @@ import javax.inject.Inject;
 
 public class InsertUsernameSinglePlayerCtrl {
     private final MainCtrl mainCtrl;
+    private final ServerUtils server;
 
 
     @Inject
     public InsertUsernameSinglePlayerCtrl(MainCtrl main) {
         this.mainCtrl=main;
+        this.server = mainCtrl.getServer();
     }
 
     @FXML
@@ -37,7 +39,7 @@ public class InsertUsernameSinglePlayerCtrl {
     public void submit() {
         String insertedUsername = username.getText();
         String serverURL = url.getText();
-        ServerUtils.setSERVER(serverURL);
+        server.setSERVER(serverURL);
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
         mainCtrl.startSinglePlayerGameCountdown(player);
 
