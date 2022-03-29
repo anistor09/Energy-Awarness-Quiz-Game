@@ -44,11 +44,11 @@ public class MainCtrl {
     private MultiPlayerLobbyCtrl multiPlayerLobbyCtrl;
     private Scene multiPlayerLobby;
 
-    private SinglePlayerGameCtrl singlePlayerGameCtrl;
+    private SinglePlayerMultipleChoiceQuestionCtrl singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
-    private MultiPlayerGameCtrl multiPlayerGameCtrl;
-    private Scene multiPlayerGame;
+    private MultiPlayerMultipleChoiceQuestionCtrl multiPlayerMultipleChoiceQuestionCtrl;
+    private Scene multiPlayerMultipleChoiceQuestion;
 
     private CreditsCtrl creditsCtrl;
     private Scene credits;
@@ -59,11 +59,11 @@ public class MainCtrl {
     private SinglePlayerChooseOptionQuestionCtrl singlePlayerChooseOptionQuestionCtrl;
     private Scene singlePlayerChooseOptionQuestion;
 
-    private MultiPlayerOpenQuestionCtrl multiPlayerOpenQuestionCtrl;
-    private Scene multiPlayerOpenQuestion;
+    private MultiPlayerGuessQuestionCtrl multiPlayerGuessQuestionCtrl;
+    private Scene multiPlayerGuessQuestion;
 
-    private SinglePlayerOpenQuestionCtrl singlePlayerOpenQuestionCtrl;
-    private Scene singlePlayerOpenQuestion;
+    private SinglePlayerGuessQuestionCtrl singlePlayerGuessQuestionCtrl;
+    private Scene singlePlayerGuessQuestion;
 
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
     private Scene multiplayerInsertInfo;
@@ -99,6 +99,9 @@ public class MainCtrl {
     private Scene confirmBox;
     private MultiplayerIntermediateScreenCtrl multiplayerIntermediateScreenCtrl;
     private Scene multiPlayerIntermediateScreen;
+
+    private Scene errorScreen;
+    private ErrorScreenCtrl errorScreenCtrl;
 
 
     private Game game; // An instance of Game class representing the ongoing game
@@ -151,15 +154,15 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
-                           Pair<SinglePlayerGameCtrl,
-                                   Parent> singlePlayerGamePair, Pair<MultiPlayerGameCtrl,
+                           Pair<SinglePlayerMultipleChoiceQuestionCtrl,
+                                   Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
             Parent> multiPlayerGamePair,
                            Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
                                    multiPlayerChooseOptionQuestionControllerParentPair,
                            Pair<SinglePlayerChooseOptionQuestionCtrl, Parent>
                                    singlePlayerChooseOptionQuestionControllerParentPair,
-                           Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
-                           Pair<SinglePlayerOpenQuestionCtrl, Parent>
+                           Pair<MultiPlayerGuessQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
+                           Pair<SinglePlayerGuessQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                            Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,
@@ -174,7 +177,8 @@ public class MainCtrl {
                            Pair<SingleplayerStartCountdownScreenCtrl,
                                    Parent> singleplayerStartCountdownScreenCtrlParentPair, Pair<ConfirmBoxCtrl, Parent>
                                    confirmBox, 
-                           Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair)
+                           Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair,
+                           Pair<ErrorScreenCtrl, Parent> errorScreenCtrlParentPair)
                             {
 
 
@@ -188,8 +192,8 @@ public class MainCtrl {
         this.multiPlayerLobby = new Scene(multiPlayerLobbyControllerParentPair.getValue());
         this.singlePlayerGameCtrl = singlePlayerGamePair.getKey();
         this.singlePlayerGame = new Scene(singlePlayerGamePair.getValue());
-        this.multiPlayerGameCtrl = multiPlayerGamePair.getKey();
-        this.multiPlayerGame = new Scene(multiPlayerGamePair.getValue());
+        this.multiPlayerMultipleChoiceQuestionCtrl = multiPlayerGamePair.getKey();
+        this.multiPlayerMultipleChoiceQuestion = new Scene(multiPlayerGamePair.getValue());
         this.creditsCtrl = creditsControllerParentPair.getKey();
         this.credits = new Scene(creditsControllerParentPair.getValue());
         this.multiPlayerChooseOptionQuestionCtrl = multiPlayerChooseOptionQuestionControllerParentPair.getKey();
@@ -198,10 +202,10 @@ public class MainCtrl {
         this.singlePlayerChooseOptionQuestionCtrl = singlePlayerChooseOptionQuestionControllerParentPair.getKey();
         this.singlePlayerChooseOptionQuestion = new
                 Scene(singlePlayerChooseOptionQuestionControllerParentPair.getValue());
-        this.multiPlayerOpenQuestionCtrl = multiPlayerOpenQuestionControllerParentPair.getKey();
-        this.multiPlayerOpenQuestion = new Scene(multiPlayerOpenQuestionControllerParentPair.getValue());
-        this.singlePlayerOpenQuestionCtrl = singlePlayerOpenQuestionControllerParentPair.getKey();
-        this.singlePlayerOpenQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
+        this.multiPlayerGuessQuestionCtrl = multiPlayerOpenQuestionControllerParentPair.getKey();
+        this.multiPlayerGuessQuestion = new Scene(multiPlayerOpenQuestionControllerParentPair.getValue());
+        this.singlePlayerGuessQuestionCtrl = singlePlayerOpenQuestionControllerParentPair.getKey();
+        this.singlePlayerGuessQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
         this.multiplayerInsertInfoCtrl = insertInfoMultiplayer.getKey();
         this.multiplayerInsertInfo = new Scene(insertInfoMultiplayer.getValue());
         this.helpCtrl = helpCtrlParentPair.getKey();
@@ -226,6 +230,8 @@ public class MainCtrl {
         this.confirmBox = new Scene(confirmBox.getValue());
         this.multiplayerIntermediateScreenCtrl = multiplayerIntermediateScreenCtrlParentPair.getKey();
         this.multiPlayerIntermediateScreen = new Scene(multiplayerIntermediateScreenCtrlParentPair.getValue());
+        this.errorScreenCtrl = errorScreenCtrlParentPair.getKey();
+        this.errorScreen = new Scene(errorScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
 
@@ -236,7 +242,7 @@ public class MainCtrl {
 
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
-        this.singlePlayerOpenQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerGuessQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerChooseOptionQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
@@ -270,10 +276,10 @@ public class MainCtrl {
      * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
-          //game = initialiseSinglePlayerGame(player);
         localPlayer = player;
-        game =serverUtils.createSinglePlayerGame(player);
+        game = serverUtils.createSinglePlayerGame(player);
         goToNextSingleplayerQuestion();
+
 
         //test
 //        this.serverUtils.sendPlayer(new Player("test", 400));
@@ -327,7 +333,7 @@ public class MainCtrl {
                                     break;
 
                                 case "GuessQuestion":
-                                    singlePlayerOpenQuestionCtrl.setTime(i + 1);
+                                    singlePlayerGuessQuestionCtrl.setTime(i + 1);
                                     break;
 
                                 case "InsteadOfQuestion":
@@ -524,6 +530,7 @@ public class MainCtrl {
      *
      * @param screenName the name of the screen for which it is desired to switch
      */
+    @SuppressWarnings({"checkstyle:methodlength"})
     public void goTo(String screenName) {
         visitedScreens.push(screenName);
         switch (screenName) {
@@ -534,7 +541,7 @@ public class MainCtrl {
                 primaryStage.setScene(singleplayerInsertInfo);
                 break;
             case "multiGame":
-                primaryStage.setScene(multiPlayerGame);
+                primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
                 break;
             case "credits":
                 primaryStage.setScene(credits);
@@ -562,7 +569,7 @@ public class MainCtrl {
                 primaryStage.setScene(singlePlayerChooseOptionQuestion);
                 break;
             case "SingleplayerOpenQuestion":
-                primaryStage.setScene(singlePlayerOpenQuestion);
+                primaryStage.setScene(singlePlayerGuessQuestion);
                 break;
             case "SingleplayerInsteadOfQuestion":
                 primaryStage.setScene(singleplayerInsteadOfQuestion);
@@ -571,10 +578,10 @@ public class MainCtrl {
                 primaryStage.setScene(multiplayerInsteadOfQuestion);
                 break;
             case "MultiPlayerGameCtrl" :
-                primaryStage.setScene(multiPlayerGame);
+                primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
                 break;
             case "MultiPlayerOpenQuestionCtrl" :
-                primaryStage.setScene(multiPlayerOpenQuestion);
+                primaryStage.setScene(multiPlayerGuessQuestion);
                 break;
             case "MultiPlayerChooseOptionQuestion" :
                 primaryStage.setScene(multiPlayerChooseOptionQuestion);
@@ -600,6 +607,9 @@ public class MainCtrl {
                 //
                 primaryStage.setScene(multiPlayerIntermediateScreen);
                 multiplayerIntermediateScreenCtrl.startCountdown();
+                break;
+            case "error":
+                primaryStage.setScene(errorScreen);
                 break;
             default: primaryStage.setScene(menu);
         }
@@ -750,51 +760,30 @@ public class MainCtrl {
      *
      * @param className String representing the className ( the type of question that we have to display)
      */
-    public void switchQuestionScreen(String className){
-        if(game instanceof SinglePlayerGame) {
-            switch (className) {
-                case "MultipleChoiceQuestion":
-                    singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                    goTo("singleplayerGame");
-                    break;
+    public void switchQuestionScreen(String className) {
+        switch (className) {
+            case "MultipleChoiceQuestion":
+                singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                goTo("singleplayerGame");
+                break;
 
-                case "MostEnergyQuestion":
-                    singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
-                    goTo("SingleplayerChooseOptionQuestionScreen");
-                    break;
+            case "MostEnergyQuestion":
+                singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+                goTo("SingleplayerChooseOptionQuestionScreen");
+                break;
 
-                case "GuessQuestion":
-                    singlePlayerOpenQuestionCtrl.initialiseSinglePlayerOpenQuestion();
-                    goTo("SingleplayerOpenQuestion");
-                    break;
+            case "GuessQuestion":
+                singlePlayerGuessQuestionCtrl.initialiseSinglePlayerOpenQuestion();
+                goTo("SingleplayerOpenQuestion");
+                break;
 
-                case "InsteadOfQuestion":
-                    singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
-                    goTo("SingleplayerInsteadOfQuestion");
-                    break;
+            case "InsteadOfQuestion":
+                singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                goTo("SingleplayerInsteadOfQuestion");
+                break;
 
-                default:
-                    break;
-            }
-        }
-        if(game instanceof MultiPlayerGame){
-            switch (className){
-                case "MultipleChoiceQuestion":
-                    goTo("MultiPlayerGameCtrl");
-                    break;
-
-                case "MostEnergyQuestion":
-                    goTo("MultiPlayerChooseOptionQuestion");
-                    break;
-
-                case "GuessQuestion":
-                    goTo("MultiPlayerOpenQuestionCtrl");
-                    break;
-
-                case "InsteadOfQuestion":
-                    goTo("MultiplayerInsteadOfQuestion");
-                    break;
-            }
+            default:
+                break;
         }
     }
 
@@ -849,11 +838,11 @@ public class MainCtrl {
      */
     public void startScanningEmojis(){
         serverUtils.registerForEmoji("/topic/emojis",e->{
-//            String currentQuestionScreen = getClassName(game.getQuestions().
-//                    get(game.getCurrentQuestionNumber())
-//                    .getClass().toString());
-            String currentQuestionScreen = getClassName(this.getQuestion()
-                  .getClass().toString());
+            String currentQuestionScreen = getClassName(game.getQuestions().
+                    get(game.getCurrentQuestionNumber())
+                    .getClass().toString());
+//            String currentQuestionScreen = getClassName(this.getQuestion()
+//                  .getClass().toString());
             switch (currentQuestionScreen) {
                 case "MultipleChoiceQuestion":
                     Platform.runLater(()->{singlePlayerGameCtrl.initialiseEmoji(e);});
@@ -864,7 +853,8 @@ public class MainCtrl {
                     break;
 
                 case "GuessQuestion":
-                    Platform.runLater(()->{singlePlayerOpenQuestionCtrl.initialiseEmoji(e);});
+                    Platform.runLater(()->{
+                        singlePlayerGuessQuestionCtrl.initialiseEmoji(e);});
                     break;
 
                 case "InsteadOfQuestion":
@@ -924,13 +914,13 @@ public class MainCtrl {
     public void startMultiPlayerGame(){
         startScanningEmojis();
         startScanningScoreUpdates();
+        localPlayer.setJokerCards(new ArrayList<JokerCard>());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
     }
 
     public void playMultiPLayerGame(){
-        game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
         goToNextMultiplayerQuestion();
     }
 
@@ -1024,19 +1014,19 @@ public class MainCtrl {
                         public void run() {
                             switch (className) {
                                 case "MultipleChoiceQuestion":
-                                    multiPlayerGameCtrl.setTime(1 + localPlayer.getTimeLeft());
+                                    singlePlayerGameCtrl.setTime(1 + localPlayer.getTimeLeft());
                                     break;
 
                                 case "MostEnergyQuestion":
-                                    multiPlayerChooseOptionQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
+                                    singlePlayerChooseOptionQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
                                     break;
 
                                     case "GuessQuestion":
-                                    multiPlayerOpenQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
+                                    singlePlayerGuessQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
                                     break;
 
                                 case "InsteadOfQuestion":
-                                    multiplayerInsteadOfQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
+                                    singleplayerInsteadOfQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
                                     break;
                                 default:
                                     break;
@@ -1132,6 +1122,10 @@ public class MainCtrl {
         ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
         MultiPlayerGame initialisedGame = new MultiPlayerGame(questionArray,jokerCards,players);
         return initialisedGame;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
 

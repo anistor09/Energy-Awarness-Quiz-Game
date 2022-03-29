@@ -21,9 +21,9 @@ public class EliminateOptionJoker extends JokerCard{
      */
     @Override
     public void useCard() {
-        ArrayList<Double> options = this.question.getOptions();
-        double correctOption = (double) this.question.getActivity().getConsumption_in_wh();
-        double optionToDelete = options.get(0);
+        ArrayList<Long> options = this.question.getOptions();
+        long correctOption = this.question.getActivity().getConsumption_in_wh();
+        long optionToDelete = options.get(0);
         //first two elements in the list are always wrong according to Som's implementation
         //just in case, additional check:
         if(optionToDelete == correctOption){

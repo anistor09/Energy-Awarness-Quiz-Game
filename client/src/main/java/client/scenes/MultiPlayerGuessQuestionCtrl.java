@@ -17,7 +17,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MultiPlayerOpenQuestionCtrl implements Initializable {
+public class MultiPlayerGuessQuestionCtrl implements Initializable {
 
     private final ServerUtils server;
     @FXML
@@ -80,7 +80,7 @@ public class MultiPlayerOpenQuestionCtrl implements Initializable {
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
+    public MultiPlayerGuessQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = mainCtrl.getServer();
     }

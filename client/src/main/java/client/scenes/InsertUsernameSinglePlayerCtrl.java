@@ -39,7 +39,13 @@ public class InsertUsernameSinglePlayerCtrl {
     public void submit() {
         String insertedUsername = username.getText();
         String serverURL = url.getText();
-        server.setSERVER(serverURL);
+        if(server.testConnection(serverURL)){
+            server.setSERVER(serverURL);
+        }
+        else{
+            System.out.println("Provided server url is wrong!");
+            mainCtrl.goTo("error");
+        }
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
         mainCtrl.startSinglePlayerGameCountdown(player);
 

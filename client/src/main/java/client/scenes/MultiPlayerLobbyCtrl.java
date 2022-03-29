@@ -63,6 +63,7 @@ public class MultiPlayerLobbyCtrl {
 
                 if(i < 0){
                     timer1.cancel();
+                    mainCtrl.startMultiPlayerGame();
                     Platform.runLater(() -> mainCtrl.playMultiPLayerGame()); //link with playMultiPlayer
                 }
 
@@ -72,7 +73,7 @@ public class MultiPlayerLobbyCtrl {
     }
 
     /**
-     * This method is for when the player clicks the return button. This will delete the player from the game (by
+     * This method is for when the player clicks the return button. This will delete the player from the game by
      * sending it through the websocket with sendPlayer()
      */
     @FXML
@@ -99,6 +100,7 @@ public class MultiPlayerLobbyCtrl {
         server.registerForGameStart("/topic/startGame", b -> {
             startGameButton();
         });
+        mainCtrl.setGame(game);
     }
 
 
