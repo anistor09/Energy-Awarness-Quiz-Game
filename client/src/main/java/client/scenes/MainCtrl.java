@@ -750,51 +750,30 @@ public class MainCtrl {
      *
      * @param className String representing the className ( the type of question that we have to display)
      */
-    public void switchQuestionScreen(String className){
-        if(game instanceof SinglePlayerGame) {
-            switch (className) {
-                case "MultipleChoiceQuestion":
-                    singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                    goTo("singleplayerGame");
-                    break;
+    public void switchQuestionScreen(String className) {
+        switch (className) {
+            case "MultipleChoiceQuestion":
+                singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                goTo("singleplayerGame");
+                break;
 
-                case "MostEnergyQuestion":
-                    singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
-                    goTo("SingleplayerChooseOptionQuestionScreen");
-                    break;
+            case "MostEnergyQuestion":
+                singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+                goTo("SingleplayerChooseOptionQuestionScreen");
+                break;
 
-                case "GuessQuestion":
-                    singlePlayerGuessQuestionCtrl.initialiseSinglePlayerOpenQuestion();
-                    goTo("SingleplayerOpenQuestion");
-                    break;
+            case "GuessQuestion":
+                singlePlayerGuessQuestionCtrl.initialiseSinglePlayerOpenQuestion();
+                goTo("SingleplayerOpenQuestion");
+                break;
 
-                case "InsteadOfQuestion":
-                    singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
-                    goTo("SingleplayerInsteadOfQuestion");
-                    break;
+            case "InsteadOfQuestion":
+                singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                goTo("SingleplayerInsteadOfQuestion");
+                break;
 
-                default:
-                    break;
-            }
-        }
-        if(game instanceof MultiPlayerGame){
-            switch (className){
-                case "MultipleChoiceQuestion":
-                    goTo("MultiPlayerGameCtrl");
-                    break;
-
-                case "MostEnergyQuestion":
-                    goTo("MultiPlayerChooseOptionQuestion");
-                    break;
-
-                case "GuessQuestion":
-                    goTo("MultiPlayerOpenQuestionCtrl");
-                    break;
-
-                case "InsteadOfQuestion":
-                    goTo("MultiplayerInsteadOfQuestion");
-                    break;
-            }
+            default:
+                break;
         }
     }
 
@@ -931,7 +910,6 @@ public class MainCtrl {
     }
 
     public void playMultiPLayerGame(){
-        game = initialiseMultiPlayerGame(); //TODO REPLACE WITH PROPER MULTIPLAYER GAME INITIALIZER
         goToNextMultiplayerQuestion();
     }
 
@@ -1133,6 +1111,10 @@ public class MainCtrl {
         ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
         MultiPlayerGame initialisedGame = new MultiPlayerGame(questionArray,jokerCards,players);
         return initialisedGame;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
 
