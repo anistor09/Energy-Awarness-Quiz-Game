@@ -60,7 +60,6 @@ public class MenuCtrl {
     @FXML
     protected void goToMultiPlayerLobby(){
         mainCtrl.goTo("insertInfoMultiPlayer");
-        mainCtrl.startMultiPlayerGame();
     }
 
     @FXML

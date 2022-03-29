@@ -63,6 +63,7 @@ public class MultiPlayerLobbyCtrl {
 
                 if(i < 0){
                     timer1.cancel();
+                    mainCtrl.startMultiPlayerGame();
                     Platform.runLater(() -> mainCtrl.playMultiPLayerGame()); //link with playMultiPlayer
                 }
 
