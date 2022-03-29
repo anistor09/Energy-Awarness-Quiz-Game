@@ -254,6 +254,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
         double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
         int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore()+points);
         IntermediateScreenCtrl.setPointsGained(points);
 
     }
