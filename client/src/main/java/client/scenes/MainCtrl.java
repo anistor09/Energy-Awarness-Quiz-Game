@@ -110,6 +110,9 @@ public class MainCtrl {
     private Stage popUpStage;
 
     private static int timeLeft;
+
+    private static Stack<String> visitedScreens = new Stack<>();    // stores the screens visited in reverse order.
+
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
@@ -327,7 +330,6 @@ public class MainCtrl {
                             }
                         }
                     });
-                    System.out.println(i);
                     MainCtrl.setTimeLeft(i);
                     i--;
                 }
@@ -513,6 +515,7 @@ public class MainCtrl {
      * @param screenName the name of the screen for which it is desired to switch
      */
     public void goTo(String screenName) {
+        visitedScreens.push(screenName);
         switch (screenName) {
             case "menu":
                 primaryStage.setScene(menu);
@@ -873,6 +876,13 @@ public class MainCtrl {
         goTo("SingleplayerInsteadOfQuestion");
     }
 
+    public Stack<String> getVisitedScreens() {
+        return visitedScreens;
+    }
+
+    public static void setVisitedScreens(Stack<String> visitedScreens) {
+        MainCtrl.visitedScreens = visitedScreens;
+    }
 }
 
 

@@ -146,4 +146,9 @@ public class MultiPlayerLobbyCtrl {
             server.sendPlayer(thisPlayer);
         }
     }
+
+    @FXML
+    protected void goToHelp(){
+        mainCtrl.goTo("help");
+    }
 }
