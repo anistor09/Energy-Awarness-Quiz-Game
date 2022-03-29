@@ -270,10 +270,10 @@ public class MainCtrl {
      * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
-          //game = initialiseSinglePlayerGame(player);
         localPlayer = player;
-        game =serverUtils.createSinglePlayerGame(player);
+        game = serverUtils.createSinglePlayerGame(player);
         goToNextSingleplayerQuestion();
+
 
         //test
 //        this.serverUtils.sendPlayer(new Player("test", 400));
@@ -828,11 +828,11 @@ public class MainCtrl {
      */
     public void startScanningEmojis(){
         serverUtils.registerForEmoji("/topic/emojis",e->{
-//            String currentQuestionScreen = getClassName(game.getQuestions().
-//                    get(game.getCurrentQuestionNumber())
-//                    .getClass().toString());
-            String currentQuestionScreen = getClassName(this.getQuestion()
-                  .getClass().toString());
+            String currentQuestionScreen = getClassName(game.getQuestions().
+                    get(game.getCurrentQuestionNumber())
+                    .getClass().toString());
+//            String currentQuestionScreen = getClassName(this.getQuestion()
+//                  .getClass().toString());
             switch (currentQuestionScreen) {
                 case "MultipleChoiceQuestion":
                     Platform.runLater(()->{singlePlayerGameCtrl.initialiseEmoji(e);});
