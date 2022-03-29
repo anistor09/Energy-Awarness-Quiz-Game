@@ -71,12 +71,17 @@ class InsteadOfQuestionTest {
 
     @Test
     void compareActivities() {
-        assertEquals(3, q3.compareActivities(act1));
+        assertEquals(3, q3.getCorrectRatio(act1));
     }
 
     @Test
-    void stringSubstituteActivities() {
-        String expected = "Instead of \nRun the washing machine\nYou could \nCook one egg\n3 times";
-        assertEquals(expected, q3.substituteActivity(act1));
+    void testToString(){
+        String expected = "InsteadOfQuestion{options=[Activity{id='1', image_path='change/this', " +
+                "title='Cook one egg', consumption_in_wh=1000, source='change/this'}, " +
+                "Activity{id='2', image_path='change/this', title='Cook two eggs', " +
+                "consumption_in_wh=2000, source='change/this'}], " +
+                "correctAnswer=Activity{id='1', image_path='change/this', " +
+                "title='Cook one egg', consumption_in_wh=1000, source='change/this'}}";
+        assertEquals(expected, q1.toString());
     }
 }

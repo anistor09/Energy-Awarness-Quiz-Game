@@ -20,6 +20,7 @@ import commons.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -94,8 +95,11 @@ public class MainCtrl{
     private SingleplayerStartCountdownScreenCtrl singleplayerStartCountdownScreenCtrl;
     private Scene singlePlayerStartCountdownScreen;
 
+    private ConfirmBoxCtrl confirmBoxCtrl;
+    private Scene confirmBox;
     private MultiplayerIntermediateScreenCtrl multiplayerIntermediateScreenCtrl;
     private Scene multiPlayerIntermediateScreen;
+
 
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
@@ -104,6 +108,8 @@ public class MainCtrl{
     private String usedJoker;
     boolean exitedGame;
     private Player localPlayer;
+
+    private Stage popUpStage;
 
     private static int timeLeft;
     @Inject
@@ -156,7 +162,8 @@ public class MainCtrl{
                            Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity,
                            Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
                            Pair<SingleplayerStartCountdownScreenCtrl,
-                                   Parent> singleplayerStartCountdownScreenCtrlParentPair,
+                                   Parent> singleplayerStartCountdownScreenCtrlParentPair, Pair<ConfirmBoxCtrl, Parent>
+                                   confirmBox, 
                            Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair)
                             {
 
@@ -205,6 +212,8 @@ public class MainCtrl{
         this.intermediateScreen = new Scene(intermediateScreenCtrlParentPair.getValue());
         this.singleplayerStartCountdownScreenCtrl = singleplayerStartCountdownScreenCtrlParentPair.getKey();
         this.singlePlayerStartCountdownScreen = new Scene(singleplayerStartCountdownScreenCtrlParentPair.getValue());
+        this.confirmBoxCtrl = confirmBox.getKey();
+        this.confirmBox = new Scene(confirmBox.getValue());
         this.multiplayerIntermediateScreenCtrl = multiplayerIntermediateScreenCtrlParentPair.getKey();
         this.multiPlayerIntermediateScreen = new Scene(multiplayerIntermediateScreenCtrlParentPair.getValue());
 
@@ -229,15 +238,11 @@ public class MainCtrl{
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(e -> {
-            multiPlayerLobbyCtrl.tearDown();
-        }); // this is to delete the player from the game in case he was in one
-
-        //test
-//        this.serverUtils.registerForNewPlayers("/topic/updateLobby", p -> {
-//            test.add(p);
-//            System.out.println(p.getUsername());
-//        });
+            e.consume();
+            closeStage();
+        });
     }
+
 
     public static int getTimeLeft() {
         return timeLeft;
@@ -392,14 +397,114 @@ public class MainCtrl{
 
 
 
+    /**
+     * This method was creating for testing purposes until we will retrieve a game from the server automatically
+     * @param player Instance of Player representing the username of the Player
+     * @return A Game instance created for testing purposes
+     */
+    public Game initialiseSinglePlayerGame(Player player){
+       Activity act1 = new Activity("00-shower",
+                "00/shower.png",
+                "how many to take a shower (400)",
+                400,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+       Activity act2 =new Activity("00-shower",
+                "00/shower.png",
+                "how many wh to take a shower(800)",
+                800,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+       Activity act3 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "using smartphone (200)",
+                200,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
+        Activity act4 = new Activity("00-shower",
+                "00/shower.png",
+                "Another shower (1600)",
+                1600,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Activity act5 =new Activity("00-shower",
+                "00/shower.png",
+                "Extra shower (200)",
+                200,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Activity act6 = new Activity("00-smartphone",
+                "00/smartphone.png",
+                "Charging your smartphone at night (100)",
+                100,
+                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
+        ArrayList<Activity> options456 = new ArrayList<>(Arrays.asList(act4, act5, act6));
+        ArrayList<Activity> options256 = new ArrayList<>(Arrays.asList(act2, act5, act6));
+        ArrayList<Activity> options123 = new ArrayList<>(Arrays.asList(act1, act2, act3));
+        ArrayList<Activity> options642 = new ArrayList<>(Arrays.asList(act6, act4, act2));
+        ArrayList<Activity> options351 = new ArrayList<>(Arrays.asList(act3, act5, act1));
+
+        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",8);
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",8);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",8);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",8);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",8);
+        Question q6 = new MostEnergyQuestion(act1,1312,"EASY",8,options456);
+        Question q7 = new GuessQuestion(act1,2122,"EASY",8);
+        Question instead1 = new InsteadOfQuestion(act2, 1000, "EASY", 8, options456);
+        Question instead2 = new InsteadOfQuestion(act4, 1000, "EASY", 8, options256);
+        Question instead3 = new InsteadOfQuestion(act1, 1000, "EASY", 8, options123);
+
+        ArrayList<Question> questionArray = new ArrayList<Question>();
+
+        questionArray.add(q7);
+        questionArray.add(instead1);
+        questionArray.add(instead2);
+        questionArray.add(instead3);
+        questionArray.add(q6);
+        questionArray.add(q7);
+        questionArray.add(q5);
+        questionArray.add(q7);
+
+
+        JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
+                false,
+                player,q1);
+        JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker","Description",false);
+        JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
+                false,(MultipleChoiceQuestion) q1);
+
+        ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
+
+        SinglePlayerGame initialisedGame = new SinglePlayerGame(questionArray,jokerCards,player);
+
+        return initialisedGame;
+    }
 
     public Game getGame() {
         return game;
     }
 
+    /**
+     * This is the method that handles when the user presses the exit button or the window close button
+     */
     public void closeStage() {
-        this.primaryStage.close();
+        popUpStage = new Stage();
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        popUpStage.setTitle("Confirm");
+        popUpStage.setMinWidth(250);
+        popUpStage.setScene(confirmBox);
+        popUpStage.show();
+    }
+
+    /**
+     * This method will receive a parameter that determines whether to close the game or to ignore exit request
+     * @param answer true - close, false - ignore
+     */
+    public void setAnswer(boolean answer) {
+        if(answer) {
+            popUpStage.close();
+            this.primaryStage.close();
+            multiPlayerLobbyCtrl.tearDown();
+        } else {
+            popUpStage.close();
+        }
     }
 
     /**
