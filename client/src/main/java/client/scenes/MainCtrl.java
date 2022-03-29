@@ -273,7 +273,7 @@ public class MainCtrl {
           //game = initialiseSinglePlayerGame(player);
         localPlayer = player;
         game =serverUtils.createSinglePlayerGame(player);
-        goToNextQuestion();
+        goToNextSingleplayerQuestion();
 
         //test
 //        this.serverUtils.sendPlayer(new Player("test", 400));
