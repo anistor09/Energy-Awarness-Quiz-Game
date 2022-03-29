@@ -15,7 +15,7 @@
  */
 package client.utils;
 
-import client.scenes.MainCtrl;
+
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;

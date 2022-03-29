@@ -530,6 +530,7 @@ public class MainCtrl {
      *
      * @param screenName the name of the screen for which it is desired to switch
      */
+    @SuppressWarnings({"checkstyle:methodlength"})
     public void goTo(String screenName) {
         visitedScreens.push(screenName);
         switch (screenName) {
