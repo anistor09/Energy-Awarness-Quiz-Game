@@ -167,7 +167,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 0) {
+        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
         } else {
             handleWrong();
@@ -179,7 +179,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 2
      */
     public void option2Handler() {
-        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 1) {
+        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
         } else {
             handleWrong();
@@ -191,7 +191,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 3
      */
     public void option3Handler() {
-        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 2) {
+        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
         } else {
             handleWrong();
@@ -204,7 +204,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * This method will return the most expensive activity object from the questionObject stored in this class
      * @return the Activity that is the correct answer of this question
      */
-    public Activity getExpensiveActivity() {
+    public Activity generateExpensiveActivity() {
         ArrayList<Activity> list = new ArrayList<>(questionObject.getOtherActivities());
         list.add(questionObject.getActivity());
         Activity correct = list.get(0);
