@@ -49,7 +49,7 @@ public class ServerUtils {
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
-    public static void setSERVER(String SERVER) {
+    public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     }
@@ -67,6 +67,10 @@ public class ServerUtils {
             System.out.println(line);
         }
     }
+    public String getServer(){
+        return SERVER;
+    }
+
 
     public List<Quote> getQuotes() {
         return ClientBuilder.newClient(new ClientConfig()) //

@@ -1,25 +1,53 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import commons.*;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.net.URL;
 
-public class SingleplayerInsteadOfQuestionCtrl {
+public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
 
+    private ServerUtils server;
     @FXML
     private Button exit;
+
+    @FXML
+    private HBox emojiBar;
+
     @FXML
     private Label jokerMessage;
+    @FXML
+    private Label ReactionName;
+
+    @FXML
+    private ImageView anger;
+    @FXML
+    private ImageView crying;
+
+    @FXML
+    private ImageView devil;
+    @FXML
+    private ImageView inLove;
+    @FXML
+    private ImageView reaction;
+    @FXML
+    private ImageView smiling;
+
+    @FXML
+    private ImageView thinking;
+
     @FXML
     private Text question1Text;
 
@@ -89,6 +117,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
     @Inject
     public SingleplayerInsteadOfQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
+        this.server = mainCtrl.getServer();
     }
 
     /**
@@ -104,22 +133,56 @@ public class SingleplayerInsteadOfQuestionCtrl {
                         getQuestions().
                         get(currentGame.getCurrentQuestionNumber());
         questionObject = q;
-        Player player = ((SinglePlayerGame) currentGame).getPlayer();
+        this.setEmojiBarVisible(currentGame);
+        Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf((player.getCurrentScore())));
         Activity activity = q.getActivity();
         question.setText("Instead of " + activity.getTitle());
         ArrayList<Activity> options = q.getOptions();
+        Activity correctAnswer = q.getCorrectAnswer();
+
+        List<Activity> optionsCopy = new ArrayList<>();
+        for(Activity option : options){
+            optionsCopy.add(option);
+        }
+
+        String option1ratio = q.getCorrectRatio(correctAnswer) + " times";
+        String option2ratio = q.getWrongRatio((options.get(1))) + " times";
+        String option3ratio = q.getWrongRatio((options.get(2))) + " times";
+
+        // In this loop we are making sure that randomly assigned wrongRatio
+        // is not accidentally the correct one.
+        // We are assigning it randomly until both of them are not equal to the correctRatio
+        while(option2ratio.equals(q.getCorrectRatio(options.get(1))) ||
+                option3ratio.equals(q.getCorrectRatio(options.get(2)))){
+            option2ratio = q.getWrongRatio((options.get(1))) + " times";
+            option3ratio = q.getWrongRatio((options.get(2))) + " times";
+        }
+
+        Map<String, String> optionsWithRatios = new HashMap<>();
+        optionsWithRatios.put(optionsCopy.get(0).getTitle(), option1ratio);
+        optionsWithRatios.put(optionsCopy.get(1).getTitle(), option2ratio);
+        optionsWithRatios.put(optionsCopy.get(2).getTitle(), option3ratio);
+
+        List<String> answers = new ArrayList<>();
+        answers.add(option1ratio);
+        answers.add(option2ratio);
+        answers.add(option3ratio);
+
+
         Collections.shuffle(options);
+//        Collections.shuffle(answers);
+
         question1Text.setText(String.valueOf(options.get(0).getTitle()));
         question2Text.setText(String.valueOf(options.get(1).getTitle()));
         question3Text.setText(String.valueOf(options.get(2).getTitle()));
 
+        activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
+        activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
+        activity3ratio.setText(optionsWithRatios.get(options.get(2).getTitle()));
+
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
                 (currentGame.getQuestions().size() - 1));
-
-        activity1ratio.setText(String.valueOf(q.compareActivities(options.get(0))) + " times");
-        activity2ratio.setText(String.valueOf(q.compareActivities(options.get(1))) + " times");
-        activity3ratio.setText(String.valueOf(q.compareActivities(options.get(2))) + " times");
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
@@ -143,39 +206,38 @@ public class SingleplayerInsteadOfQuestionCtrl {
     /**
      * Handles the clicks on button with option 1
      */
-//    public void option1Handler() {
-//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 0) {
-//            handleCorrect();
-//        } else {
-//            handleWrong();
-//        }
-//        switchButtons(true);
-//    }
+    public void option1Handler() {
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
 
     /**
      * Handles the clicks on button with option 2
      */
-//    public void option2Handler() {
-//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 1) {
-// TODO this is the condition that produces true/false based on the answer, this might have to be changed
-// //           handleCorrect();
-//        } else {
-//            handleWrong();
-//        }
-//        switchButtons(true);
-//    }
+    public void option2Handler() {
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
 
     /**
      * Handles the clicks on button with option 3
      */
-//    public void option3Handler() {
-//        if(questionObject.getOtherActivities().indexOf(getExpensiveActivity()) == 2) {
-//            handleCorrect();
-//        } else {
-//            handleWrong();
-//        }
-//        switchButtons(true);
-//    }
+    public void option3Handler(){
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
+            handleCorrect();
+        } else {
+            handleWrong();
+        }
+        switchButtons(true);
+    }
 
     /**
      * This method will handle when the user click the correct option. For the moment it is increasing the points of the
@@ -202,6 +264,8 @@ public class SingleplayerInsteadOfQuestionCtrl {
         IntermediateScreenCtrl.setPointsGained(0);
         System.out.println("wrong");
     }
+
+
 
     /**
      * This method maps the player's jokers to their corresponding buttons
@@ -265,11 +329,11 @@ public class SingleplayerInsteadOfQuestionCtrl {
     }
 
     private void initialiseActivityImages(List<Activity> activityList) {
-        String  server = "http://localhost:8080/";
+        String serverString = server.getServer();
 
-        option1Image.setImage(new Image(server + activityList.get(0).getImage_path()));
-        option2Image.setImage(new Image(server + activityList.get(1).getImage_path()));
-        option3Image.setImage(new Image(server + activityList.get(2).getImage_path()));
+        option1Image.setImage(new Image(serverString + activityList.get(0).getImage_path()));
+        option2Image.setImage(new Image(serverString + activityList.get(1).getImage_path()));
+        option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
     }
 
     @FXML
@@ -293,6 +357,64 @@ public class SingleplayerInsteadOfQuestionCtrl {
     }
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
+    }
+    /**
+     * This method send the Emoji to the other clients through WebSockets.
+     * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
+     */
+    public void sendEmoji(Emoji e){
+        server.send("/app/emojis",e);
+    }
+    /**
+     * This  method creates an Emoji and passes it to the sendEmoji() method
+     * @param event Event that occurs when an image view for Emoji is pressed.
+     */
+    public void getEmoji(Event event){
+        Emoji e =  new Emoji(mainCtrl.getLocalPlayer().getUsername(),((ImageView)event.getSource()).
+                getImage().getUrl());
+        sendEmoji(e);
+    }
+
+    /**
+     * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
+     * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
+     */
+    public void initialiseEmoji(Emoji e) {
+        ReactionName.setText(e.getSender());
+        reaction.setImage(new Image(e.getEmojiPath()));
+    }
+    /**
+     * This method initialises the Emojis images because they are not rendered directly for Windows users.
+     * @param location
+     * @param resources
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        smiling.setImage(new Image(MainCtrl.class.getResource("/pictures/smilingTeeth.png").toString()));
+        anger.setImage(new Image(MainCtrl.class.getResource("/pictures/anger.png").toString()));
+        devil.setImage(new Image(MainCtrl.class.getResource("/pictures/devil.png").toString()));
+        inLove.setImage(new Image(MainCtrl.class.getResource("/pictures/in-love.png").toString()));
+        thinking.setImage(new Image(MainCtrl.class.getResource("/pictures/thinking.png").toString()));
+        crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
+
+    }
+
+    public void hideEmoji() {
+        emojiBar.setVisible(false);
+    }
+
+    @FXML
+    public void exit() {
+        mainCtrl.setExitedGame(true);
+        mainCtrl.goTo("menu");
+    }
+    private void setEmojiBarVisible(Game currentGame) {
+        if(currentGame instanceof MultiPlayerGame){
+            emojiBar.setVisible(true);
+        }
+        else{
+            emojiBar.setVisible(false);
+        }
     }
 
 }

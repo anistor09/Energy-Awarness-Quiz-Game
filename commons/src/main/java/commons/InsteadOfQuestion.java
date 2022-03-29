@@ -2,14 +2,17 @@ package commons;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class InsteadOfQuestion extends Question{
 
 
     private ArrayList<Activity> options;
+    private Activity correctAnswer;
 
     /**
      * Creates an instance of InsteadOfQuestion.
+     * Sets the correct answer to the 1st options. (It is shuffled later on)
      * @param activity Activity to be used in the question.
      * @param difficulty      Difficulty of the question. This will determine the range of options that will be given
      *                        to the user.
@@ -21,10 +24,12 @@ public class InsteadOfQuestion extends Question{
                              ArrayList<Activity> options) {
         super(activity, availablePoints, difficulty, allowedTime);
         this.options = options;
+        this.correctAnswer = options.get(0);
     }
 
     /**
      * Creates a new InsteadOfQuestion instance if no difficulty is provided. By default, the difficulty is "EASY".
+     * Sets the correct answer to the 1st options. (It is shuffled later on)
      * @param activity Activity to be used in the question.
      * @param availablePoints Maximum number of points that can be obtained by answering the question.
      * @param allowedTime Maximum time allowed for this question.
@@ -34,6 +39,7 @@ public class InsteadOfQuestion extends Question{
         super(activity, availablePoints, allowedTime);
         this.setDifficulty("EASY");
         this.options = options;
+        this.correctAnswer = options.get(0);
     }
 
     public InsteadOfQuestion() {
@@ -45,11 +51,44 @@ public class InsteadOfQuestion extends Question{
      * @param other Activity to be compared with.
      * @return int How many times the second activity can be done using the same consumption as this activity.
      */
-    public long compareActivities (Activity other) {
+    public double getCorrectRatio(Activity other) {
+        double thisConsumption = this.getActivity().getConsumption_in_wh();
+        double   otherConsumption = other.getConsumption_in_wh();
+
+        return thisConsumption/otherConsumption;
+    }
+
+    /**
+     * Generates the wrong ratio by comparing two activities and changing the final result
+     * @param other Activity to compare to
+     * @return ratio
+     */
+    public double getWrongRatio(Activity other){
         long thisConsumption = this.getActivity().getConsumption_in_wh();
         long otherConsumption = other.getConsumption_in_wh();
 
-        return thisConsumption/otherConsumption;
+        double randomizedRatio = myRandom(0.3, 2.0);
+
+        return randomizedRatio * thisConsumption/otherConsumption;
+    }
+
+    /**
+     * This method return random number between given min and max
+     * @param min Lower bound
+     * @param max Upper bound
+     * @return Random number in given range
+     */
+    double myRandom(double min, double max) {
+        Random r = new Random();
+        return (r.nextInt((int)((max-min)*10+1))+min*10) / 10.0;
+    }
+
+    public Activity getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(Activity correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
     /**
@@ -59,14 +98,17 @@ public class InsteadOfQuestion extends Question{
      * @return String representing how many times another activity can be done using the same consumption as this
      * activity.
      */
-    public String substituteActivity(Activity other) {
-        return "Instead of \n" + this.getActivity().getTitle() + "\nYou could \n" + other.getTitle() +
-                "\n" + compareActivities(other) + " times";
+    public String substituteRatio(Activity other) {
+        return this.getWrongRatio(other) + " times";
     }
+
 
     @Override
     public String toString() {
-        return "InsteadOfQuestion{}";
+        return "InsteadOfQuestion{" +
+                "options=" + options +
+                ", correctAnswer=" + correctAnswer +
+                '}';
     }
 
     public ArrayList<Activity> getOptions() {

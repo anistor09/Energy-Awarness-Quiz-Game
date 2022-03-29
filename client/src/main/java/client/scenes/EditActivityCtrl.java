@@ -85,6 +85,7 @@ public class EditActivityCtrl {
         String path = image_path.getText();
         if (newActId.equals("") || activityTitle.equals("") || activitySource.equals("") || path.equals("")) {
             mainCtrl.goTo("admin");
+            return;
         }
         Activity newAct = new Activity(newActId, "extra/" + newActId + "." + getExtension(this.image.getName()),
                 activityTitle, activityConsumption, activitySource);
@@ -105,6 +106,7 @@ public class EditActivityCtrl {
         if(activitySource.length() >= 255) activitySource = activitySource.substring(0, 255);
         if (activityTitle.equals("") || activitySource.equals("")) {
             mainCtrl.goTo("admin");
+            return;
         }
         Activity newAct;
         if (this.image == null) {

@@ -120,6 +120,10 @@ public class MultipleChoiceQuestion extends Question{
     public double getCorrectAnswer() {
         return correctAnswer;
     }
+
+    public void setCorrectAnswer(double correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 }
 
 
