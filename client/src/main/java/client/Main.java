@@ -106,6 +106,9 @@ public class Main extends Application {
                 FXML.load(MultiplayerIntermediateScreenCtrl.class, "client", "scenes",
                         "MultiplayerIntermediateScreen.fxml");
 
+        Pair<ErrorScreenCtrl, Parent> errorScreenCtrlParentPair =
+                FXML.load(ErrorScreenCtrl.class, "client", "scenes", "ErrorScreen.fxml");
+
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
                 multiLobby, credits, singleGame, multiGame,
@@ -119,6 +122,6 @@ public class Main extends Application {
                 multiplayerInsteadOfQuestionCtrlParentPair,
                 adminPanel, editActivity, intermediateScreenCtrlParentPair,
                 singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair,
-                multiplayerIntermediateScreenCtrlParentPair);
+                multiplayerIntermediateScreenCtrlParentPair, errorScreenCtrlParentPair);
     }
 }
