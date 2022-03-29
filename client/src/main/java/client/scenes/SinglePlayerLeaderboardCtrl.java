@@ -108,7 +108,6 @@ public class SinglePlayerLeaderboardCtrl {
         // truncate list to only get the first 10
         players = players.subList(0, min);
 
-        name1.setText(players.get(0).getUsername());
 
         Label[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10};
         Label[] scores = {score1, score2, score3, score4, score5, score6, score7, score8, score9, score10};
@@ -119,10 +118,14 @@ public class SinglePlayerLeaderboardCtrl {
             scores[i].setText(String.valueOf(players.get(i).getCurrentScore()));
         }
 
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        // check if there is a game stored.
+        if (mainCtrl.getGame() != null) {
+            SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
 
-        playerName.setText(spg.getPlayer().getUsername());
-        playerScore.setText(String.valueOf(spg.getPlayer().getCurrentScore()));
+            playerName.setText(spg.getPlayer().getUsername());
+            playerScore.setText(String.valueOf(spg.getPlayer().getCurrentScore()));
+        }
+
 
     }
 }
