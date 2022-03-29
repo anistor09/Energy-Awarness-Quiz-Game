@@ -17,13 +17,11 @@ public class InsertUsernameMultiplayerCtrl {
     private final ServerUtils server;
     private final MultiPlayerLobbyCtrl lobby;
     List<String> listOfPlayer;
-    private ServerUtils serverUtils;
-
 
     @Inject
-    public InsertUsernameMultiplayerCtrl(MainCtrl main,  MultiPlayerLobbyCtrl lobby) {
+    public InsertUsernameMultiplayerCtrl(MainCtrl main, ServerUtils server, MultiPlayerLobbyCtrl lobby) {
         this.mainCtrl=main;
-        this.server = main.getServer();
+        this.server = server;
         this.lobby = lobby;
     }
 
@@ -64,7 +62,7 @@ public class InsertUsernameMultiplayerCtrl {
         mainCtrl.setLocalPlayer(thisPlayer);
         String insertedUrl = url.getText();
         System.out.println(insertedUrl);
-        if(serverUtils.testConnection(insertedUrl)){
+        if(server.testConnection(insertedUrl)){
             server.setSERVER(insertedUrl);
         }
         else{

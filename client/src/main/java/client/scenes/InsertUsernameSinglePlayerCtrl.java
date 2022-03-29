@@ -31,8 +31,6 @@ public class InsertUsernameSinglePlayerCtrl {
     @FXML
     private Button submitButton;
 
-    private ServerUtils serverUtils;
-
 
     /**
      * This method sends the username inserted by the user to the createPlayer method in order to create a new
@@ -41,7 +39,7 @@ public class InsertUsernameSinglePlayerCtrl {
     public void submit() {
         String insertedUsername = username.getText();
         String serverURL = url.getText();
-        if(serverUtils.testConnection(serverURL)){
+        if(server.testConnection(serverURL)){
             server.setSERVER(serverURL);
         }
         else{
