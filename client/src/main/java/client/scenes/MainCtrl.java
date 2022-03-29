@@ -924,6 +924,7 @@ public class MainCtrl {
     public void startMultiPlayerGame(){
         startScanningEmojis();
         startScanningScoreUpdates();
+        localPlayer.setJokerCards(new ArrayList<JokerCard>());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
