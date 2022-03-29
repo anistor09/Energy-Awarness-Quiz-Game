@@ -107,7 +107,7 @@ public class Main extends Application {
                         "MultiplayerIntermediateScreen.fxml");
 
         Pair<ErrorScreenCtrl, Parent> errorScreenCtrlParentPair =
-                FXML.load(ErrorScreenCtrl.class, "cliens", "scenes", "ErrorScreen.fxml");
+                FXML.load(ErrorScreenCtrl.class, "client", "scenes", "ErrorScreen.fxml");
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
