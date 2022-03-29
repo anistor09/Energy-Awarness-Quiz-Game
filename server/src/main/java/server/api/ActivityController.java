@@ -1,10 +1,12 @@
 package server.api;
 
 import commons.Activity;
+import commons.ImagePacket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.sevice.ActivityService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -77,5 +79,15 @@ public class ActivityController {
      */
     public Activity getRandomActivity() {
         return activityService.getRandomActivity();
+    }
+
+    /**
+     * This method is the endpoint for the uploading of Images.
+     * @param file with he serialized image
+     * @throws IOException
+     */
+    @PostMapping("/image")
+    public void uploadImage(@RequestBody ImagePacket file) throws IOException {
+        activityService.processImagePacket(file);
     }
 }
