@@ -257,6 +257,7 @@ public class MainCtrl{
      */
     public void playSinglePLayerGame(Player player){
           //game = initialiseSinglePlayerGame(player);
+        localPlayer = player;
         game =serverUtils.createSinglePlayerGame(player);
         goToNextQuestion();
 
@@ -547,18 +548,6 @@ public class MainCtrl{
             case "SingleplayerInsteadOfQuestion" :
                 primaryStage.setScene(singleplayerInsteadOfQuestion);
                 break;
-            case "MultiplayerInsteadOfQuestion" :
-                primaryStage.setScene(multiplayerInsteadOfQuestion);
-                break;
-            case "MultiPlayerGameCtrl" :
-                primaryStage.setScene(multiPlayerGame);
-                break;
-            case "MultiPlayerOpenQuestionCtrl" :
-                primaryStage.setScene(multiPlayerOpenQuestion);
-                break;
-            case "MultiPlayerChooseOptionQuestion" :
-                primaryStage.setScene(multiPlayerChooseOptionQuestion);
-                break;
             case "SinglePlayerLeaderboard":
                 primaryStage.setScene(singlePlayerLeaderboard);
                 singlePlayerLeaderboardCtrl.initialiseLeaderboard();
@@ -774,19 +763,19 @@ public class MainCtrl{
                   .getClass().toString());
             switch (currentQuestionScreen) {
                 case "MultipleChoiceQuestion":
-                    Platform.runLater(()->{multiPlayerGameCtrl.initialiseEmoji(e);});
+                    Platform.runLater(()->{singlePlayerGameCtrl.initialiseEmoji(e);});
                     break;
 
                 case "MostEnergyQuestion":
-                    Platform.runLater(()->{multiPlayerChooseOptionQuestionCtrl.initialiseEmoji(e);});
+                    Platform.runLater(()->{singlePlayerChooseOptionQuestionCtrl.initialiseEmoji(e);});
                     break;
 
                 case "GuessQuestion":
-                    Platform.runLater(()->{multiPlayerOpenQuestionCtrl.initialiseEmoji(e);});
+                    Platform.runLater(()->{singlePlayerOpenQuestionCtrl.initialiseEmoji(e);});
                     break;
 
                 case "InsteadOfQuestion":
-                    Platform.runLater(()->{multiplayerInsteadOfQuestionCtrl.initialiseEmoji(e);});
+                    Platform.runLater(()->{singleplayerInsteadOfQuestionCtrl.initialiseEmoji(e);});
                     break;
 
                 default:
@@ -828,11 +817,11 @@ public class MainCtrl{
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
         ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
         Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",1);
-        //Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
+        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
 
-       // Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
-        //Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
-        return q4;
+        Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
+        Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
+        return q6;
 
     }
 
@@ -842,7 +831,8 @@ public class MainCtrl{
     public void startMultiPlayerGame(){
         startScanningEmojis();
         localPlayer = new Player("usernameee",1000);
-        goTo("MultiPlayerGameCtrl");
+
+        goTo("SingleplayerInsteadOfQuestion");
     }
 
 }
