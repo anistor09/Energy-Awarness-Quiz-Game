@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MultiPlayerGameCtrl implements Initializable {
+public class MultiPlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     private final ServerUtils server;
     @FXML
@@ -82,7 +82,7 @@ public class MultiPlayerGameCtrl implements Initializable {
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerGameCtrl(MainCtrl mainCtrl) {
+    public MultiPlayerMultipleChoiceQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = mainCtrl.getServer();
     }

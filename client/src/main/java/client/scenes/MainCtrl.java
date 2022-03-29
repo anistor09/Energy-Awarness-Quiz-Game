@@ -44,10 +44,10 @@ public class MainCtrl {
     private MultiPlayerLobbyCtrl multiPlayerLobbyCtrl;
     private Scene multiPlayerLobby;
 
-    private SinglePlayerGameCtrl singlePlayerGameCtrl;
+    private SinglePlayerMultipleChoiceQuestionCtrl singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
-    private MultiPlayerGameCtrl multiPlayerGameCtrl;
+    private MultiPlayerMultipleChoiceQuestionCtrl multiPlayerGameCtrl;
     private Scene multiPlayerGame;
 
     private CreditsCtrl creditsCtrl;
@@ -59,10 +59,10 @@ public class MainCtrl {
     private SinglePlayerChooseOptionQuestionCtrl singlePlayerChooseOptionQuestionCtrl;
     private Scene singlePlayerChooseOptionQuestion;
 
-    private MultiPlayerOpenQuestionCtrl multiPlayerOpenQuestionCtrl;
+    private MultiPlayerGuessQuestionCtrl multiPlayerOpenQuestionCtrl;
     private Scene multiPlayerOpenQuestion;
 
-    private SinglePlayerOpenQuestionCtrl singlePlayerOpenQuestionCtrl;
+    private SinglePlayerGuessQuestionCtrl singlePlayerOpenQuestionCtrl;
     private Scene singlePlayerOpenQuestion;
 
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
@@ -151,15 +151,15 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
-                           Pair<SinglePlayerGameCtrl,
-                                   Parent> singlePlayerGamePair, Pair<MultiPlayerGameCtrl,
+                           Pair<SinglePlayerMultipleChoiceQuestionCtrl,
+                                   Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
             Parent> multiPlayerGamePair,
                            Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
                                    multiPlayerChooseOptionQuestionControllerParentPair,
                            Pair<SinglePlayerChooseOptionQuestionCtrl, Parent>
                                    singlePlayerChooseOptionQuestionControllerParentPair,
-                           Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
-                           Pair<SinglePlayerOpenQuestionCtrl, Parent>
+                           Pair<MultiPlayerGuessQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
+                           Pair<SinglePlayerGuessQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                            Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,

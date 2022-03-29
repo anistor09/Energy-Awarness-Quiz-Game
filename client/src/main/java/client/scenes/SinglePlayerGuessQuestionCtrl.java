@@ -1,26 +1,27 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import com.google.inject.Inject;
 import commons.*;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
-import javax.inject.Inject;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
-public class SinglePlayerGameCtrl implements Initializable {
-
-    private  ServerUtils server;
+    private ServerUtils server;
     @FXML
     private Button exit;
 
@@ -49,18 +50,11 @@ public class SinglePlayerGameCtrl implements Initializable {
     @FXML
     private ImageView thinking;
 
-
-    @FXML
-    private ImageView icon1;
-
-    @FXML
-    private ImageView icon2;
-
-    @FXML
-    private ImageView icon3;
-
     @FXML
     private ImageView image;
+
+    @FXML
+    private ImageView joker;
 
     @FXML
     private Button joker1;
@@ -72,70 +66,60 @@ public class SinglePlayerGameCtrl implements Initializable {
     private Button joker3;
 
     @FXML
-    private Button option1;
-
-    @FXML
-    private Button option2;
-
-    @FXML
-    private Button option3;
-
-    @FXML
     private Label question;
 
     @FXML
     private Label score;
+    @FXML
+    private Text questionText;
+
+    @FXML
+    private Label time;
 
     @FXML
     private Label questionNumber;
 
     @FXML
-    private Label time;
-
+    private TextField userAnswer;
     private final MainCtrl mainCtrl;
-    private MultipleChoiceQuestion questionObject;
 
-    private static int pointsGained; // this is the points gained from this question.
+    private GuessQuestion questionObject;
+
+    private static int pointsGained = 0;
 
     private IntermediateScreenCtrl intermediateScreenCtrl;
 
-
-    /**
-     * @param mainCtrl
-     */
     @Inject
-    public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
+    public SinglePlayerGuessQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = mainCtrl.getServer();
-
     }
+
+    @FXML
+    void exit(ActionEvent event) {
+        mainCtrl.setExitedGame(true);
+        mainCtrl.goTo("menu");
+    }
+
 
     /**
      * This method initialises all the JFX fields with attributes of the Question and Player Classes.
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
-    public void initialiseSinglePlayerQuestion() {
+    public void initialiseSinglePlayerOpenQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
-        MultipleChoiceQuestion q = (MultipleChoiceQuestion) currentGame.getQuestions().
+        GuessQuestion q = (GuessQuestion)currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
-        Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
+        Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
-        question.setText(String.valueOf(act.getTitle()));
-        List options = q.getOptions();
-        Collections.shuffle(options);
-        option1.setText(String.valueOf(options.get(0)));
-        option2.setText(String.valueOf(options.get(1)));
-        if (options.size() == 3) {
-            option3.setText(String.valueOf(options.get(2)));
-        } else {
-            option3.setText("Wrong Option");
-        }
-
-
+        question.setText("How much energy does it take?");
+        questionText.setText(act.getTitle());
+        jokerMessage.setText("");
         initialiseActivityImage(act);
 
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
@@ -143,128 +127,88 @@ public class SinglePlayerGameCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
-        jokerMessage.setText("");
+
     }
 
-    private void setEmojiBarVisible(Game currentGame) {
-        if(currentGame instanceof MultiPlayerGame){
-            emojiBar.setVisible(true);
-        }
-        else{
-            emojiBar.setVisible(false);
-        }
+    public void resetScreen(){
+        userAnswer.setText("");
     }
 
     /**
      * This method maps the player's jokers to their corresponding buttons
-     *
      * @param jokerList List of JokerCard instances representing the player's jokers
      */
-    public void setJokers(List<JokerCard> jokerList) {
-        Button[] buttonArray = {joker1, joker2, joker3};
+    public void setJokers(List<JokerCard> jokerList){
+       Button[] buttonArray ={ joker1,joker2,joker3};
 
-        for (int i = 0; i < buttonArray.length; i++) {
-            Button current = buttonArray[i];
-            if (i <= jokerList.size() - 1) {
-                System.out.println(jokerList.get(i).getName());
-                current.setText(jokerList.get(i).getName());
-            } else {
-                current.setText("Unavailable Joker");
-                current.setDisable(true);
-            }
+       for(int i=0;i<buttonArray.length;i++){
+           Button current = buttonArray[i];
+           if(i<=jokerList.size()-1){
 
+               current.setText(jokerList.get(i).getName());
+           }
+           else{
+               current.setText("Unavailable Joker");
+               current.setDisable(true);
+           }
+
+       }
+    }
+    /**
+     * This method initialises the Image view with the corresponding image of the activity
+     * @param act Instance of Activity
+     */
+    private void initialiseActivityImage(Activity act) {
+        String  server = "http://localhost:8080/";
+        Image img = new Image(server + act.getImage_path());
+
+        image.setImage(img);
+    }
+
+    public void setTime(int i) {
+        time.setText("Time Left: " + String.valueOf(i));
+    }
+
+    /**
+     * This is the onAction method for the Label. When the user hits enter this will be called. It will either
+     * calculate the number of points in case it is an integer or clear the field in case an exception is thrown.
+     * All the buttons are disabled after the call
+     */
+    public void changeGuess() {
+        try {
+            long guess = Long.parseLong(userAnswer.getCharacters().toString());
+            switchButtons(true);
+            int points = questionObject.calculatePoints(guess);
+            Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            p.setCurrentScore(p.getCurrentScore() + points);
+            System.out.println(guess);
+            System.out.println("You earned " + points);
+            IntermediateScreenCtrl.setPointsGained(points);
+        } catch (Exception e) {
+            userAnswer.clear();
+            System.out.println("Not a number");
         }
     }
 
     /**
-     * This method initialises the Image view with the corresponding image of the activity
-     *
-     * @param act Instance of Activity
-     */
-    private void initialiseActivityImage(Activity act) {
-        String serverString = server.getServer();
-
-        image.setImage(new Image(serverString + act.getImage_path()));
-    }
-
-    /**
      * This method will switch the buttons on or off according to the boolean passed. True means off
-     *
      * @param onOff the boolean for which to set the setDisable property
      */
+
     void switchButtons(boolean onOff) {
-        option1.setDisable(onOff);
-        option2.setDisable(onOff);
-        option3.setDisable(onOff);
+        userAnswer.setDisable(onOff);
         joker1.setDisable(onOff);
         joker2.setDisable(onOff);
         joker3.setDisable(onOff);
     }
 
-    /**
-     * Handles the clicks on button with option 1
-     */
-    public void option1Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
-            handleCorrect();
-        } else {
-            handleWrong();
-        }
-        switchButtons(true);
+    public int getPointsGained() {
+        return pointsGained;
     }
 
-    /**
-     * Handles the clicks on button with option 1
-     */
-    public void option2Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
-            handleCorrect();
-        } else {
-            handleWrong();
-        }
-        switchButtons(true);
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
     }
-
-    /**
-     * Handles the clicks on button with option 1
-     */
-    public void option3Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
-            handleCorrect();
-        } else {
-            handleWrong();
-        }
-        switchButtons(true);
-    }
-
-    /**
-     * This method will handle when the user click the correct option. For the moment it is increasing the points of the
-     * player and printing out correct
-     */
-    void handleCorrect() {
-
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        Player p = spg.getPlayer();
-
-        System.out.println("correct");
-        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        p.setCurrentScore(p.getCurrentScore() + points);
-        IntermediateScreenCtrl.setPointsGained(points);
-
-
-    }
-
-    /**
-     * This method will handle when the user clicks the wrong option. For the moment it is only printing wrong on the
-     * console
-     */
-    void handleWrong() {
-        System.out.println("wrong");
-        IntermediateScreenCtrl.setPointsGained(0);
-    }
-
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
@@ -289,8 +233,8 @@ public class SinglePlayerGameCtrl implements Initializable {
     }
     @FXML
     void handleJokerButton3() {
+        jokerMessage.setText("");
         if (canUseJoker(joker3.getText())) {
-            jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
         }
@@ -299,31 +243,14 @@ public class SinglePlayerGameCtrl implements Initializable {
         }
     }
     public boolean canUseJoker(String name){
+        if(name.equals("EliminateOptionJoker"))
+            return false;
         return true;
-    }
-
-    public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
-    }
-    @FXML
-    public void exit() {
-        mainCtrl.setExitedGame(true);
-        mainCtrl.goTo("menu");
     }
 
     public void setQuestionNumber(String i) {
         questionNumber.setText(i);
     }
-
-    public int getPointsGained() {
-        return pointsGained;
-    }
-
-    public void setPointsGained(int pointsGained) {
-        this.pointsGained = pointsGained;
-    }
-
-
     /**
      * This method send the Emoji to the other clients through WebSockets.
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
@@ -364,9 +291,17 @@ public class SinglePlayerGameCtrl implements Initializable {
         crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
 
     }
+    private void setEmojiBarVisible(Game currentGame) {
+        if(currentGame instanceof MultiPlayerGame){
+            emojiBar.setVisible(true);
+        }
+        else{
+            emojiBar.setVisible(false);
+        }
+    }
 
     public void hideEmoji() {
         emojiBar.setVisible(false);
     }
-}
 
+}
