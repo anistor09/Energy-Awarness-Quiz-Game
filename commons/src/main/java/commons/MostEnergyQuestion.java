@@ -1,11 +1,11 @@
 package commons;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class MostEnergyQuestion extends Question{
 
     private ArrayList<Activity> otherActivities;
+    private Activity correctAnswer;
 
     /**
      * Creates an instance of MostEnergyQuestion.
@@ -20,6 +20,7 @@ public class MostEnergyQuestion extends Question{
                               ArrayList<Activity> otherActivities) {
         super(activity, availablePoints, difficulty, allowedTime);
         this.otherActivities = otherActivities;
+        this.correctAnswer = generateExpensiveActivity();
     }
 
     public MostEnergyQuestion() {
@@ -28,19 +29,20 @@ public class MostEnergyQuestion extends Question{
 
     /**
      * This method will find which Activity is the one which has the most energyConsumption
+     * It is used to initialise correctAnswer field in the constructor
      * @return the activity with the highest consumption
      */
-//    public Activity getExpensiveActivity() {
-//        ArrayList<Activity> list = new ArrayList<>(otherActivities);
-//        list.add(this.getActivity());
-//        Activity correct = list.get(0);
-//        for(Activity a : list) {
-//            if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
-//                correct = a;
-//            }
-//        }
-//        return correct;
-//    }
+    public Activity generateExpensiveActivity() {
+        ArrayList<Activity> list = new ArrayList<>(otherActivities);
+        list.add(this.getActivity());
+        Activity correct = list.get(0);
+        for(Activity a : list) {
+            if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
+                correct = a;
+            }
+        }
+        return correct;
+    }
 
     /**
      * Creates a new MostEnergyQuestion instance if no difficulty is provided. By default, the difficulty is "EASY".
@@ -76,28 +78,21 @@ public class MostEnergyQuestion extends Question{
         this.otherActivities = otherActivities;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MostEnergyQuestion)) return false;
-        if (!super.equals(o)) return false;
-        MostEnergyQuestion that = (MostEnergyQuestion) o;
-        return getOtherActivities().equals(that.getOtherActivities());
+    public Activity getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getOtherActivities());
+    public void setCorrectAnswer(Activity correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
+
+
 
     @Override
     public String toString() {
         return "MostEnergyQuestion{" +
                 "otherActivities=" + otherActivities +
+                ", correctAnswer=" + correctAnswer +
                 '}';
     }
-
-//    private Activity getCorrectAnswer() {
-//        return getExpensiveActivity();
-//    }
 }

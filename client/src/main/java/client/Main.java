@@ -97,6 +97,8 @@ public class Main extends Application {
         Pair<SingleplayerStartCountdownScreenCtrl, Parent> singleplayerStartCountdownScreenCtrlParentPair =
                 FXML.load(SingleplayerStartCountdownScreenCtrl.class, "client", "scenes",
                         "SingleplayerStartCountdownScreen.fxml");
+        Pair<ConfirmBoxCtrl, Parent> confirmBoxCtrlParentPair = FXML.load(ConfirmBoxCtrl.class, "client",
+                "scenes", "ConfirmBox.fxml");
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
@@ -110,6 +112,6 @@ public class Main extends Application {
                 singleplayerInsteadOfQuestionCtrlParentPair,
                 multiplayerInsteadOfQuestionCtrlParentPair,
                 adminPanel, editActivity, intermediateScreenCtrlParentPair,
-                singleplayerStartCountdownScreenCtrlParentPair);
+                singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair);
     }
 }
