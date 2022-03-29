@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class SinglePlayerMultipleChoiceQuestionCtrl {
+public class SinglePlayerGameCtrl {
 
     @FXML
     private Button exit;
@@ -74,7 +74,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl {
      * @param mainCtrl
      */
     @Inject
-    public SinglePlayerMultipleChoiceQuestionCtrl(MainCtrl mainCtrl) {
+    public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
 
     }

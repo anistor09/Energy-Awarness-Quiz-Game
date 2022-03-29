@@ -44,7 +44,7 @@ public class MainCtrl{
     private MultiPlayerLobbyCtrl multiPlayerLobbyCtrl;
     private Scene multiPlayerLobby;
 
-    private SinglePlayerMultipleChoiceQuestionCtrl singlePlayerGameCtrl;
+    private SinglePlayerGameCtrl singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
     private MultiPlayerMultipleChoiceQuestionCtrl multiPlayerGameCtrl;
@@ -141,7 +141,7 @@ public class MainCtrl{
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
-                           Pair<SinglePlayerMultipleChoiceQuestionCtrl,
+                           Pair<SinglePlayerGameCtrl,
                                    Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
             Parent> multiPlayerGamePair,
                            Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
