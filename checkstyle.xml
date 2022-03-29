@@ -7,7 +7,9 @@
     <module name="LineLength">
         <property name="max" value="120" />
     </module>
+    <module name="SuppressWarningsFilter" />
     <module name="TreeWalker">
+        <module name="SuppressWarningsHolder" />
         <module name="UnusedImports" />
         <module name="MissingJavadocMethod">
             <property name="minLineCount" value="5" />
