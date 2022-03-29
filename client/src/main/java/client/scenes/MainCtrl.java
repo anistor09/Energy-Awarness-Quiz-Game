@@ -100,6 +100,9 @@ public class MainCtrl {
     private MultiplayerIntermediateScreenCtrl multiplayerIntermediateScreenCtrl;
     private Scene multiPlayerIntermediateScreen;
 
+    private Scene errorScreen;
+    private ErrorScreenCtrl errorScreenCtrl;
+
 
     private Game game; // An instance of Game class representing the ongoing game
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
@@ -174,7 +177,8 @@ public class MainCtrl {
                            Pair<SingleplayerStartCountdownScreenCtrl,
                                    Parent> singleplayerStartCountdownScreenCtrlParentPair, Pair<ConfirmBoxCtrl, Parent>
                                    confirmBox, 
-                           Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair)
+                           Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair,
+                           Pair<ErrorScreenCtrl, Parent> errorScreenCtrlParentPair)
                             {
 
 
@@ -226,6 +230,8 @@ public class MainCtrl {
         this.confirmBox = new Scene(confirmBox.getValue());
         this.multiplayerIntermediateScreenCtrl = multiplayerIntermediateScreenCtrlParentPair.getKey();
         this.multiPlayerIntermediateScreen = new Scene(multiplayerIntermediateScreenCtrlParentPair.getValue());
+        this.errorScreenCtrl = errorScreenCtrlParentPair.getKey();
+        this.errorScreen = new Scene(errorScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
 
@@ -600,6 +606,9 @@ public class MainCtrl {
                 //
                 primaryStage.setScene(multiPlayerIntermediateScreen);
                 multiplayerIntermediateScreenCtrl.startCountdown();
+                break;
+            case "error":
+                primaryStage.setScene(errorScreen);
                 break;
             default: primaryStage.setScene(menu);
         }

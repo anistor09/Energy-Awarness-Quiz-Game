@@ -15,6 +15,7 @@
  */
 package client.utils;
 
+import client.scenes.MainCtrl;
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -52,6 +53,27 @@ public class ServerUtils {
     public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+    }
+
+    /**
+     * This method checks if the connection with the server has been established.
+     * It is meant to test whether the user provides a correct server URL.
+     * @param SERVER server to test the connection for
+     * @return true if the query for the server is successful, false if it fails.
+     */
+    public boolean testConnection(String SERVER){
+        try{
+            List<Player> list = ClientBuilder.newClient(new ClientConfig())
+                    .target(SERVER).path("api/player")
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(new GenericType<List<Player>>() {});
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("The server url is invalid! ");
+            return false;
+        }
     }
 
     /**
