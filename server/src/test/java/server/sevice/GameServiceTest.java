@@ -18,7 +18,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GameServiceTest {
 
-    @Mock private QuestionController questionController;
+    @Mock
+    private QuestionController questionController;
     private GameService underTest;
 
     @BeforeEach
@@ -26,7 +27,6 @@ class GameServiceTest {
         underTest = new GameService(questionController);
     }
 
-    @Disabled
     @Test
     void instantiateMultiGame() {
         when(questionController.getRandomQuestion("mostEnergy")).thenReturn(mostEnergyQuestionList().get(0),
@@ -36,8 +36,8 @@ class GameServiceTest {
                 guessQuestionList().get(1), guessQuestionList().get(2), guessQuestionList().get(3),
                 guessQuestionList().get(4));
         when(questionController.getRandomQuestion("multipleChoice")).thenReturn(multipleChoiceQuestionList().get(0)
-        , multipleChoiceQuestionList().get(1), multipleChoiceQuestionList().get(2), multipleChoiceQuestionList().get(3)
-        , multipleChoiceQuestionList().get(4), multipleChoiceQuestionList().get(5));
+                , multipleChoiceQuestionList().get(1), multipleChoiceQuestionList().get(2), multipleChoiceQuestionList().get(3)
+                , multipleChoiceQuestionList().get(4), multipleChoiceQuestionList().get(5));
         when(questionController.getRandomQuestion("insteadOf")).thenReturn(insteadOfQuestionList().get(0),
                 insteadOfQuestionList().get(1), insteadOfQuestionList().get(2), insteadOfQuestionList().get(3),
                 insteadOfQuestionList().get(4));
@@ -51,7 +51,6 @@ class GameServiceTest {
         assertEquals(questions, toCompare);
     }
 
-    @Disabled
     @Test
     void getListMostEnergy() {
         when(questionController.getRandomQuestion("mostEnergy")).thenReturn(mostEnergyQuestionList().get(0),
@@ -75,21 +74,24 @@ class GameServiceTest {
                         .get(3), multipleChoiceQuestionList().get(4), multipleChoiceQuestionList().get(5));
         List<MultipleChoiceQuestion> q = underTest.getListMultipleChoice();
         List<MultipleChoiceQuestion> q1 = multipleChoiceQuestionList();
-        assertEquals(q, q1 );
+        assertEquals(q, q1);
     }
 
-    @Disabled
+
     @Test
     void getListInsteadOf() {
+        List<InsteadOfQuestion> list = insteadOfQuestionList();
         when(questionController.getRandomQuestion("insteadOf")).thenReturn(insteadOfQuestionList().get(0),
                 insteadOfQuestionList().get(1), insteadOfQuestionList().get(2), insteadOfQuestionList().get(3),
                 insteadOfQuestionList().get(4));
-        assertEquals(underTest.getListInsteadOf(), insteadOfQuestionList());
+        List<InsteadOfQuestion> q = underTest.getListInsteadOf();
+        List<InsteadOfQuestion> q1 = insteadOfQuestionList();
+        assertEquals(q, q1);
     }
 
     public static List<MostEnergyQuestion> mostEnergyQuestionList() {
         List<MostEnergyQuestion> list = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             MostEnergyQuestion m = mostEnergyQuestion();
             m.setAllowedTime(i);
             list.add(m);
@@ -99,7 +101,7 @@ class GameServiceTest {
 
     public static List<MultipleChoiceQuestion> multipleChoiceQuestionList() {
         List<MultipleChoiceQuestion> list = new ArrayList<>();
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             MultipleChoiceQuestion m = multipleChoiceQuestion();
             m.setAllowedTime(i);
             m.setAvailablePoints(3 * i);
@@ -111,7 +113,7 @@ class GameServiceTest {
 
     public static List<GuessQuestion> guessQuestionList() {
         List<GuessQuestion> list = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             GuessQuestion m = guessQuestion();
             m.setAllowedTime(i);
             list.add(m);
@@ -121,7 +123,7 @@ class GameServiceTest {
 
     public static List<InsteadOfQuestion> insteadOfQuestionList() {
         List<InsteadOfQuestion> list = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             InsteadOfQuestion m = insteadOfQuestion();
             m.setAllowedTime(i);
             list.add(m);
@@ -130,7 +132,7 @@ class GameServiceTest {
     }
 
     public static MostEnergyQuestion mostEnergyQuestion() {
-        return new MostEnergyQuestion(new Activity(1L, "adf", 12), 1, "", 1, new ArrayList<>());
+        return new MostEnergyQuestion(new Activity(1L, "adf", 12), 1, "EASY", 1, new ArrayList<>());
     }
 
     public static MultipleChoiceQuestion multipleChoiceQuestion() {
@@ -138,10 +140,17 @@ class GameServiceTest {
     }
 
     public static InsteadOfQuestion insteadOfQuestion() {
-        return new InsteadOfQuestion(new Activity(1L, "adf", 12), 1, "", 1, new ArrayList<>());
+        Activity a = new Activity(1L, "ads", 12);
+        InsteadOfQuestion i = new InsteadOfQuestion();
+        i.setActivity(a);
+        i.setAllowedTime(12);
+        i.setAvailablePoints(12);
+        i.setDifficulty("EASY");
+        i.setOptions(new ArrayList<>());
+        return i;
     }
 
     public static GuessQuestion guessQuestion() {
-        return new GuessQuestion(new Activity(1L, "adf", 12), 1 ,"EASY", 1);
+        return new GuessQuestion(new Activity(1L, "adf", 12), 1, "EASY", 1);
     }
 }

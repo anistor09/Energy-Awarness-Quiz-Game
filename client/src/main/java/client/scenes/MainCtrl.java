@@ -270,10 +270,10 @@ public class MainCtrl {
      * @param player Instance of Player representing the username inserted by the user
      */
     public void playSinglePLayerGame(Player player){
-          //game = initialiseSinglePlayerGame(player);
         localPlayer = player;
-        game =serverUtils.createSinglePlayerGame(player);
+        game = serverUtils.createSinglePlayerGame(player);
         goToNextSingleplayerQuestion();
+
 
         //test
 //        this.serverUtils.sendPlayer(new Player("test", 400));
