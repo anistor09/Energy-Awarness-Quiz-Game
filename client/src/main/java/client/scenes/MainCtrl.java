@@ -399,67 +399,62 @@ public class MainCtrl{
     public Game initialiseSinglePlayerGame(Player player){
        Activity act1 = new Activity("00-shower",
                 "00/shower.png",
-                "Question 1",
-                100,
+                "how many to take a shower (400)",
+                400,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
        Activity act2 =new Activity("00-shower",
                 "00/shower.png",
-                "Question 2",
-                500,
+                "how many wh to take a shower(800)",
+                800,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
        Activity act3 = new Activity("00-smartphone",
                 "00/smartphone.png",
-                "Question 3",
-                10,
+                "using smartphone (200)",
+                200,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
         Activity act4 = new Activity("00-shower",
                 "00/shower.png",
-                "Question 4",
-                4000,
+                "Another shower (1600)",
+                1600,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act5 =new Activity("00-shower",
                 "00/shower.png",
-                "Extra Question",
-                4000,
+                "Extra shower (200)",
+                200,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act6 = new Activity("00-smartphone",
                 "00/smartphone.png",
-                "Charging your smartphone at night",
-                10,
+                "Charging your smartphone at night (100)",
+                100,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
-        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
+        ArrayList<Activity> options456 = new ArrayList<>(Arrays.asList(act4, act5, act6));
+        ArrayList<Activity> options256 = new ArrayList<>(Arrays.asList(act2, act5, act6));
+        ArrayList<Activity> options123 = new ArrayList<>(Arrays.asList(act1, act2, act3));
+        ArrayList<Activity> options642 = new ArrayList<>(Arrays.asList(act6, act4, act2));
+        ArrayList<Activity> options351 = new ArrayList<>(Arrays.asList(act3, act5, act1));
 
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",1);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",1);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",1);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",1);
-        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
-        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",1);
-        Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
-        Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
+        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",8);
+        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",8);
+        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",8);
+        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",8);
+        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",8);
+        Question q6 = new MostEnergyQuestion(act1,1312,"EASY",8,options456);
+        Question q7 = new GuessQuestion(act1,2122,"EASY",8);
+        Question instead1 = new InsteadOfQuestion(act2, 1000, "EASY", 8, options456);
+        Question instead2 = new InsteadOfQuestion(act4, 1000, "EASY", 8, options256);
+        Question instead3 = new InsteadOfQuestion(act1, 1000, "EASY", 8, options123);
 
         ArrayList<Question> questionArray = new ArrayList<Question>();
 
-
-
-
-
+        questionArray.add(q7);
+        questionArray.add(instead1);
+        questionArray.add(instead2);
+        questionArray.add(instead3);
+        questionArray.add(q6);
         questionArray.add(q7);
         questionArray.add(q5);
-        questionArray.add(q6);
-        questionArray.add(q8);
         questionArray.add(q7);
-        questionArray.add(q5);
-        questionArray.add(q6);
-        questionArray.add(q8);
-        questionArray.add(q7);
-        questionArray.add(q5);
-        questionArray.add(q6);
-
-
-
-
 
 
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",

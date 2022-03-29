@@ -121,6 +121,14 @@ public class MultipleChoiceQuestion extends Question{
     public double getCorrectAnswer() {
         return correctAnswer;
     }
+
+    public void setOptions(ArrayList<Double> options) {
+        this.options = options;
+    }
+
+    public void setCorrectAnswer(double correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 }
 
 
