@@ -849,11 +849,11 @@ public class MainCtrl {
      */
     public void startScanningEmojis(){
         serverUtils.registerForEmoji("/topic/emojis",e->{
-//            String currentQuestionScreen = getClassName(game.getQuestions().
-//                    get(game.getCurrentQuestionNumber())
-//                    .getClass().toString());
-            String currentQuestionScreen = getClassName(this.getQuestion()
-                  .getClass().toString());
+            String currentQuestionScreen = getClassName(game.getQuestions().
+                    get(game.getCurrentQuestionNumber())
+                    .getClass().toString());
+//            String currentQuestionScreen = getClassName(this.getQuestion()
+//                  .getClass().toString());
             switch (currentQuestionScreen) {
                 case "MultipleChoiceQuestion":
                     Platform.runLater(()->{singlePlayerGameCtrl.initialiseEmoji(e);});
