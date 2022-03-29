@@ -1,7 +1,6 @@
 package commons;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class MultipleChoiceQuestion extends Question{
@@ -135,16 +134,24 @@ public class MultipleChoiceQuestion extends Question{
 
     }
 
+    /**
+     * Utility method that truncates a Long to the nearest multiple of 10 ^ base.
+     * @param x Long to be rounded.
+     * @param base Power of 10 to be used as a base.
+     * @return Long Truncated number to the nearest multiple of 10 ^ base.
+     */
     private long roundToNearest(long x, long base) {
-
         long divisor = (long)Math.pow(10, base);
         // divide x by divisor
 
         return x - (x % divisor);
-
-
     }
 
+    /**
+     * Utility method that counts the number of trailing zeros of a long.
+     * @param n Number to be processed.
+     * @return Number of trailing zeros of n.
+     */
     private int countTrailingZeros(long n) {
         int i = 0;
         if (n == 0) {
