@@ -55,8 +55,8 @@ public class Main extends Application {
         Pair<SinglePlayerGameCtrl, Parent> singleGame =
                 FXML.load(SinglePlayerGameCtrl.class, "client", "scenes",
                         "SinglePlayerMultipleChoiceQuestionScreen.fxml");
-        Pair<MultiPlayerMultipleChoiceQuestionCtrl, Parent> multiGame =
-                FXML.load(MultiPlayerMultipleChoiceQuestionCtrl.class, "client", "scenes",
+        Pair<MultiPlayerGameCtrl, Parent> multiGame =
+                FXML.load(MultiPlayerGameCtrl.class, "client", "scenes",
                         "MultiPlayerMultipleChoiceQuestionScreen.fxml");
         Pair<CreditsCtrl, Parent> credits =
                 FXML.load(CreditsCtrl.class, "client", "scenes", "CreditsScreen.fxml");

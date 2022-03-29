@@ -47,7 +47,7 @@ public class MainCtrl{
     private SinglePlayerGameCtrl singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
-    private MultiPlayerMultipleChoiceQuestionCtrl multiPlayerGameCtrl;
+    private MultiPlayerGameCtrl multiPlayerGameCtrl;
     private Scene multiPlayerGame;
 
     private CreditsCtrl creditsCtrl;
@@ -142,7 +142,7 @@ public class MainCtrl{
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
                            Pair<SinglePlayerGameCtrl,
-                                   Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
+                                   Parent> singlePlayerGamePair, Pair<MultiPlayerGameCtrl,
             Parent> multiPlayerGamePair,
                            Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
                                    multiPlayerChooseOptionQuestionControllerParentPair,
