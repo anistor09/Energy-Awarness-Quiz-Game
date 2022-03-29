@@ -84,6 +84,9 @@ public class MultiplayerIntermediateScreenCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Starts the countdown for the next question
+     */
     public void startCountdown() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {

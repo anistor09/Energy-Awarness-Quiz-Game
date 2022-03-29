@@ -135,7 +135,8 @@ public class MainCtrl{
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
-                           Pair<SinglePlayerMultipleChoiceQuestionCtrl, Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
+                           Pair<SinglePlayerMultipleChoiceQuestionCtrl,
+                                   Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
             Parent> multiPlayerGamePair,
                            Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
                                    multiPlayerChooseOptionQuestionControllerParentPair,
@@ -207,15 +208,12 @@ public class MainCtrl{
         this.multiplayerIntermediateScreenCtrl = multiplayerIntermediateScreenCtrlParentPair.getKey();
         this.multiPlayerIntermediateScreen = new Scene(multiplayerIntermediateScreenCtrlParentPair.getValue());
 
-
         this.exitedGame = false;
 
         this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
 //        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 //        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-
-
 
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
@@ -691,6 +689,9 @@ public class MainCtrl{
         this.localPlayer = player;
     }
 
+    /**
+     * This method starts scanning for any updates to the scores of the players in the game
+     */
     public void startScanningScoreUpdates(){
         serverUtils.registerForScoreUpdates("/topic/updateScore", p -> {
             for(int i = 0; i < serverUtils.getCurrentMultiplayerGame().getPlayers().size();i++) {
@@ -836,6 +837,10 @@ public class MainCtrl{
         }
     }
 
+    /**
+     * This is the main timer for the multiplayer game. This method starts the timer, displays the time left, and
+     * switches between the question and intermmediate screens
+     */
     public void multiplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -897,6 +902,10 @@ public class MainCtrl{
         },0, 1000);
     }
 
+    /**
+     * Test version of the game for testing purposes
+     * @return
+     */
     public Game initialiseMultiPlayerGame(){
         Activity act1 = new Activity("00-shower",
                 "00/shower.png",
@@ -973,11 +982,8 @@ public class MainCtrl{
         JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker","Description",false);
         JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
                 false,(MultipleChoiceQuestion) q1);
-
         ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
-
         MultiPlayerGame initialisedGame = new MultiPlayerGame(questionArray,jokerCards,players);
-
         return initialisedGame;
     }
 }
