@@ -839,7 +839,6 @@ public class MainCtrl{
     public void multiplayerInGameTimer(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
             MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
             @Override
             public void run() {
@@ -854,8 +853,9 @@ public class MainCtrl{
                         //
                     }
                 }
-                if(i <= 0) {
+                if(localPlayer.getTimeLeft() <= 0) {
                     timer.cancel();
+                    localPlayer.setTimeLeft(30);
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -872,19 +872,19 @@ public class MainCtrl{
                         public void run() {
                             switch (className) {
                                 case "MultipleChoiceQuestion":
-                                    multiPlayerGameCtrl.setTime(1 + i);
+                                    multiPlayerGameCtrl.setTime(1 + localPlayer.getTimeLeft());
                                     break;
 
                                 case "MostEnergyQuestion":
-                                    multiPlayerChooseOptionQuestionCtrl.setTime(i + 1);
+                                    multiPlayerChooseOptionQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
                                     break;
 
                                     case "GuessQuestion":
-                                    multiPlayerOpenQuestionCtrl.setTime(i + 1);
+                                    multiPlayerOpenQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
                                     break;
 
                                 case "InsteadOfQuestion":
-                                    multiplayerInsteadOfQuestionCtrl.setTime(i + 1);
+                                    multiplayerInsteadOfQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
                                     break;
                                 default:
                                     break;
@@ -892,7 +892,7 @@ public class MainCtrl{
                         }
                     });
                 }
-                i--;
+                localPlayer.setTimeLeft(localPlayer.getTimeLeft() - 1);
             }
         },0, 1000);
     }
