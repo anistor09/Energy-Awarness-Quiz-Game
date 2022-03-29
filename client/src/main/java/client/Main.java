@@ -118,6 +118,7 @@ public class Main extends Application {
                 singleplayerInsteadOfQuestionCtrlParentPair,
                 multiplayerInsteadOfQuestionCtrlParentPair,
                 adminPanel, editActivity, intermediateScreenCtrlParentPair,
-                singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair, multiplayerIntermediateScreenCtrlParentPair);
+                singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair,
+                multiplayerIntermediateScreenCtrlParentPair);
     }
 }
