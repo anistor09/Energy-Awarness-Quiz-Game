@@ -109,30 +109,48 @@ public class SingleplayerInsteadOfQuestionCtrl {
         ArrayList<Activity> options = q.getOptions();
         Activity correctAnswer = q.getCorrectAnswer();
 
+        List<Activity> optionsCopy = new ArrayList<>();
+        for(Activity option : options){
+            optionsCopy.add(option);
+        }
+
         String option1ratio = q.getCorrectRatio(correctAnswer) + " times";
         String option2ratio = q.getWrongRatio((options.get(1))) + " times";
         String option3ratio = q.getWrongRatio((options.get(2))) + " times";
 
-        Map<String, String> optionsWithRatios = new HashMap<>();
-        optionsWithRatios.put(options.get(0).getTitle(), option1ratio);
-        optionsWithRatios.put(options.get(1).getTitle(), option2ratio);
-        optionsWithRatios.put(options.get(2).getTitle(), option3ratio);
+        // In this loop we are making sure that randomly assigned wrongRatio
+        // is not accidentally the correct one.
+        // We are assigning it randomly until both of them are not equal to the correctRatio
+        while(option2ratio.equals(q.getCorrectRatio(options.get(1))) ||
+                option3ratio.equals(q.getCorrectRatio(options.get(2)))){
+            option2ratio = q.getWrongRatio((options.get(1))) + " times";
+            option3ratio = q.getWrongRatio((options.get(2))) + " times";
+        }
 
-        String[] answers = new String[]{option1ratio, option2ratio, option3ratio};
+        Map<String, String> optionsWithRatios = new HashMap<>();
+        optionsWithRatios.put(optionsCopy.get(0).getTitle(), option1ratio);
+        optionsWithRatios.put(optionsCopy.get(1).getTitle(), option2ratio);
+        optionsWithRatios.put(optionsCopy.get(2).getTitle(), option3ratio);
+
+        List<String> answers = new ArrayList<>();
+        answers.add(option1ratio);
+        answers.add(option2ratio);
+        answers.add(option3ratio);
+
+
         Collections.shuffle(options);
-        Collections.shuffle(List.of(answers));
+//        Collections.shuffle(answers);
 
         question1Text.setText(String.valueOf(options.get(0).getTitle()));
         question2Text.setText(String.valueOf(options.get(1).getTitle()));
         question3Text.setText(String.valueOf(options.get(2).getTitle()));
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
-
         activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
         activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
-        activity3ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
+        activity3ratio.setText(optionsWithRatios.get(options.get(2).getTitle()));
 
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
@@ -181,7 +199,7 @@ public class SingleplayerInsteadOfQuestionCtrl {
      * Handles the clicks on button with option 3
      */
     public void option3Handler(){
-        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
             handleCorrect();
         } else {
             handleWrong();

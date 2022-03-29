@@ -2,6 +2,7 @@ package commons;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class InsteadOfQuestion extends Question{
 
@@ -51,8 +52,8 @@ public class InsteadOfQuestion extends Question{
      * @return int How many times the second activity can be done using the same consumption as this activity.
      */
     public double getCorrectRatio(Activity other) {
-        long thisConsumption = this.getActivity().getConsumption_in_wh();
-        long otherConsumption = other.getConsumption_in_wh();
+        double thisConsumption = this.getActivity().getConsumption_in_wh();
+        double   otherConsumption = other.getConsumption_in_wh();
 
         return thisConsumption/otherConsumption;
     }
@@ -66,9 +67,20 @@ public class InsteadOfQuestion extends Question{
         long thisConsumption = this.getActivity().getConsumption_in_wh();
         long otherConsumption = other.getConsumption_in_wh();
 
-        double randomizedRatio = Math.random() + 0.5;
+        double randomizedRatio = myRandom(0.3, 2.0);
 
         return randomizedRatio * thisConsumption/otherConsumption;
+    }
+
+    /**
+     * This method return random number between given min and max
+     * @param min Lower bound
+     * @param max Upper bound
+     * @return Random number in given range
+     */
+    double myRandom(double min, double max) {
+        Random r = new Random();
+        return (r.nextInt((int)((max-min)*10+1))+min*10) / 10.0;
     }
 
     public Activity getCorrectAnswer() {
