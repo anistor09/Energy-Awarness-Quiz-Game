@@ -59,10 +59,10 @@ public class MainCtrl{
     private SinglePlayerChooseOptionQuestionCtrl singlePlayerChooseOptionQuestionCtrl;
     private Scene singlePlayerChooseOptionQuestion;
 
-    private MultiPlayerGuessQuestionCtrl multiPlayerOpenQuestionCtrl;
+    private MultiPlayerOpenQuestionCtrl multiPlayerOpenQuestionCtrl;
     private Scene multiPlayerOpenQuestion;
 
-    private SinglePlayerGuessQuestionCtrl singlePlayerOpenQuestionCtrl;
+    private SinglePlayerOpenQuestionCtrl singlePlayerOpenQuestionCtrl;
     private Scene singlePlayerOpenQuestion;
 
     private InsertUsernameMultiplayerCtrl multiplayerInsertInfoCtrl;
@@ -148,8 +148,8 @@ public class MainCtrl{
                                    multiPlayerChooseOptionQuestionControllerParentPair,
                            Pair<SinglePlayerChooseOptionQuestionCtrl, Parent>
                                    singlePlayerChooseOptionQuestionControllerParentPair,
-                           Pair<MultiPlayerGuessQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
-                           Pair<SinglePlayerGuessQuestionCtrl, Parent>
+                           Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
+                           Pair<SinglePlayerOpenQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                            Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
                            Pair<HelpCtrl, Parent> helpCtrlParentPair,

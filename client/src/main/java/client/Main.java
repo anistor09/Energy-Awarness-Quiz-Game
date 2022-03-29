@@ -66,11 +66,11 @@ public class Main extends Application {
         Pair<SinglePlayerChooseOptionQuestionCtrl, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
                 FXML.load(SinglePlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "SingleplayerChooseOptionQuestionScreen.fxml");
-        Pair<MultiPlayerGuessQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
-                FXML.load(MultiPlayerGuessQuestionCtrl.class, "client", "scenes",
+        Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
+                FXML.load(MultiPlayerOpenQuestionCtrl.class, "client", "scenes",
                         "MultiplayerGuessQuestion.fxml");
-        Pair<SinglePlayerGuessQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
-                FXML.load(SinglePlayerGuessQuestionCtrl.class, "client", "scenes",
+        Pair<SinglePlayerOpenQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
+                FXML.load(SinglePlayerOpenQuestionCtrl.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
         Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
                 FXML.load(InsertUsernameMultiplayerCtrl.class, 
