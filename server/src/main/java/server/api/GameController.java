@@ -71,6 +71,16 @@ public class GameController {
     }
 
     /**
+     * This method will take the local players
+     * @param player to propagate
+     */
+    @MessageMapping("/updateScores")
+    @SendTo("/topic/updateScores")
+    public Player propagateUpdatedScore(Player player){
+        return player;
+    }
+
+    /**
      * This method is destined for messages related to the start of the game. Whenever a player clicks start it sends
      * a message that will stop here before being forwarded to everyone
      * @param check

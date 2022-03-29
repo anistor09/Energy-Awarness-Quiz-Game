@@ -53,9 +53,11 @@ public class Main extends Application {
         Pair<MultiPlayerLobbyCtrl, Parent> multiLobby =
                 FXML.load(MultiPlayerLobbyCtrl.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
         Pair<SinglePlayerGameCtrl, Parent> singleGame =
-                FXML.load(SinglePlayerGameCtrl.class, "client", "scenes", "SingleplayerGame.fxml");
+                FXML.load(SinglePlayerGameCtrl.class, "client", "scenes",
+                        "SinglePlayerMultipleChoiceQuestionScreen.fxml");
         Pair<MultiPlayerGameCtrl, Parent> multiGame =
-                FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
+                FXML.load(MultiPlayerGameCtrl.class, "client", "scenes",
+                        "MultiPlayerMultipleChoiceQuestionScreen.fxml");
         Pair<CreditsCtrl, Parent> credits =
                 FXML.load(CreditsCtrl.class, "client", "scenes", "CreditsScreen.fxml");
         Pair<MultiPlayerChooseOptionQuestionCtrl, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
@@ -66,7 +68,7 @@ public class Main extends Application {
                         "SingleplayerChooseOptionQuestionScreen.fxml");
         Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
                 FXML.load(MultiPlayerOpenQuestionCtrl.class, "client", "scenes",
-                        "MultiplayerOpenQuestion.fxml");
+                        "MultiplayerGuessQuestion.fxml");
         Pair<SinglePlayerOpenQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
                 FXML.load(SinglePlayerOpenQuestionCtrl.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
@@ -100,6 +102,10 @@ public class Main extends Application {
         Pair<ConfirmBoxCtrl, Parent> confirmBoxCtrlParentPair = FXML.load(ConfirmBoxCtrl.class, "client",
                 "scenes", "ConfirmBox.fxml");
 
+        Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair =
+                FXML.load(MultiplayerIntermediateScreenCtrl.class, "client", "scenes",
+                        "MultiplayerIntermediateScreen.fxml");
+
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
                 multiLobby, credits, singleGame, multiGame,
@@ -112,6 +118,7 @@ public class Main extends Application {
                 singleplayerInsteadOfQuestionCtrlParentPair,
                 multiplayerInsteadOfQuestionCtrlParentPair,
                 adminPanel, editActivity, intermediateScreenCtrlParentPair,
-                singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair);
+                singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair,
+                multiplayerIntermediateScreenCtrlParentPair);
     }
 }

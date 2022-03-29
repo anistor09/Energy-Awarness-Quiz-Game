@@ -129,4 +129,8 @@ public class GameService {
             currentMultiGame.getPlayers()));
         currentMultiGame = instantiateMultiGame();
     }
+
+    public void setCurrentMultiGame(MultiPlayerGame currentMultiGame) {
+        this.currentMultiGame = currentMultiGame;
+    }
 }

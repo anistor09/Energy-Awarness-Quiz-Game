@@ -56,13 +56,14 @@ public class MultiPlayerLobbyCtrl {
                 Platform.runLater(() -> {
                     if(i >= 1) alert.setText("Game Starts in " + i + " seconds");
                 });
+
                 if (i == 1) {
                     Platform.runLater(() -> alert.setText("Game Starting!"));
                 }
 
                 if(i < 0){
                     timer1.cancel();
-                    Platform.runLater(() -> mainCtrl.goTo("multiGame")); //link with playMultiPlayer
+                    Platform.runLater(() -> mainCtrl.playMultiPLayerGame()); //link with playMultiPlayer
                 }
 
                 i--;
@@ -124,8 +125,8 @@ public class MultiPlayerLobbyCtrl {
      */
     private String MakeList(List<String> currentUsernames) {
         String currentUsers = "";
-        for(int i = 0; i < currentUsernames.size(); i++){
-            currentUsers = currentUsers + currentUsernames.get(i) + "\n";
+        for(int i = 0; i < playerUsernames.size(); i++){
+            currentUsers = currentUsers + playerUsernames.get(i) + "\n";
         }
         return currentUsers;
     }

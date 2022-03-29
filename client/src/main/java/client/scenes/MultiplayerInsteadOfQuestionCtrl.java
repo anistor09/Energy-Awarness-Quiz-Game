@@ -137,4 +137,8 @@ public class MultiplayerInsteadOfQuestionCtrl implements Initializable {
         crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
 
     }
+
+    public void setTime(int i) {
+        time.setText(String.valueOf(i));
+    }
 }

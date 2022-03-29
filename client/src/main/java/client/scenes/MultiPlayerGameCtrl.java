@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.Emoji;
+import commons.Player;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -132,5 +133,10 @@ public class MultiPlayerGameCtrl implements Initializable {
         thinking.setImage(new Image(MainCtrl.class.getResource("/pictures/thinking.png").toString()));
         crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
 
+    }
+
+    public void addPoints(){
+        Player localPlayer = mainCtrl.getLocalPlayer();
+        localPlayer.setCurrentScore(localPlayer.getCurrentScore()+10);
     }
 }
