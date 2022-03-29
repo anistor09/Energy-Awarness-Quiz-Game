@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -294,6 +295,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private void setEmojiBarVisible(Game currentGame) {
         if(currentGame instanceof MultiPlayerGame){
             emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);
+                ReactionName.setText("");});
         }
         else{
             emojiBar.setVisible(false);

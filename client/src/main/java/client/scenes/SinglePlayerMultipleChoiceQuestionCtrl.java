@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -149,6 +150,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private void setEmojiBarVisible(Game currentGame) {
         if(currentGame instanceof MultiPlayerGame){
             emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);
+                ReactionName.setText("");});
         }
         else{
             emojiBar.setVisible(false);
