@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,7 +42,7 @@ class MultipleChoiceQuestionTest {
         act3 = new Activity("00-smartphone",
                 "00/smartphone.png",
                 "Charging your smartphone at night",
-                10,
+                2546,
                 "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
 
         q1 = new MultipleChoiceQuestion(act1, 1000, "EASY", 30);
@@ -79,33 +81,31 @@ class MultipleChoiceQuestionTest {
 
     @Test
     void checkAnswerRangeEasy() {
-        ArrayList<Double> options = q1.getOptions();
+        ArrayList<Long> options = q1.getOptions();
 
-        // for each option check whether they are greater than 799 and less than 1201
-        for (Double option : options) {
-            assertTrue((option >= 3200) && (option <= 4800));
-        }
+        Set<Long> s = new HashSet<>(options);
+
+        assertEquals(s.size(), 3);
+
     }
 
     @Test
     void checkAnswerRangeMedium() {
-        ArrayList<Double> options = q2.getOptions();
+        ArrayList<Long> options = q2.getOptions();
 
-        // for each option check whether they are greater than 899 and less than 1101
-        for (Double option : options) {
-            assertTrue((option >= 3600) && (option <= 4400));
-        }
+        Set<Long> s = new HashSet<>(options);
+
+        assertEquals(s.size(), 3);
     }
 
     @Test
     void checkAnswerRangeHard() {
-        ArrayList<Double> options = q3.getOptions();
+        ArrayList<Long> options = q3.getOptions();
 
         // for each option check whether they are greater than 1899 and less than 2101
-        for (Double option : options) {
-            System.out.println(option);
-            assertTrue((option >= 8) && (option <= 11));
-        }
+        Set<Long> s = new HashSet<>(options);
+
+        assertEquals(s.size(), 3);
     }
 
     @Test

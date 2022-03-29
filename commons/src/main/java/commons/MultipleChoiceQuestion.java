@@ -1,12 +1,13 @@
 package commons;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MultipleChoiceQuestion extends Question{
 
-    private ArrayList<Double> options;
-    private double correctAnswer;
+    private ArrayList<Long> options;
+    private long correctAnswer;
 
 
     /**
@@ -22,17 +23,17 @@ public class MultipleChoiceQuestion extends Question{
 
 
         // create a range of answers
-        double correctAnswer = activity.getConsumption_in_wh();
-        ArrayList<Double> options;
+        this.correctAnswer = activity.getConsumption_in_wh();
+        ArrayList<Long> options;
         switch (difficulty){
             case "EASY":
-                options = generateRandomNumbers(correctAnswer*0.8, correctAnswer*1.2);
+                options = generateRandomNumbers((long)(correctAnswer*0.8), (long)(correctAnswer*1.2));
                 break;
             case "MEDIUM":
-                options = generateRandomNumbers(correctAnswer*0.9, correctAnswer*1.1);
+                options = generateRandomNumbers((long)(correctAnswer*0.9), (long)(correctAnswer*1.1));
                 break;
             case "HARD":
-                options = generateRandomNumbers(correctAnswer*0.95, correctAnswer*1.05);
+                options = generateRandomNumbers((long)(correctAnswer*0.95), (long)(correctAnswer*1.05));
                 break;
             default:
                 throw new IllegalArgumentException("You did not specify a valid difficulty");
@@ -40,7 +41,6 @@ public class MultipleChoiceQuestion extends Question{
 
 
         options.add(correctAnswer);
-        this.correctAnswer = (long) correctAnswer;
         this.options = options;
     }
 
@@ -54,9 +54,9 @@ public class MultipleChoiceQuestion extends Question{
         super(activity, availablePoints, allowedTime);
         this.setDifficulty("EASY");
         // create a range of answers
-        double correctAnswer = activity.getConsumption_in_wh();
-        ArrayList<Double> options = generateRandomNumbers(correctAnswer * 0.8,
-                correctAnswer * 1.2);
+        this.correctAnswer = activity.getConsumption_in_wh();
+        ArrayList<Long> options = generateRandomNumbers((long) (correctAnswer * 0.8),
+                (long)(correctAnswer * 1.2));
 
         options.add(correctAnswer);
         this.options = options;
@@ -73,34 +73,102 @@ public class MultipleChoiceQuestion extends Question{
      * @param upperBound Upper bound.
      * @return An ArrayList of two distinct random numbers between lowerBound and upperBound.
      */
-    private ArrayList<Double> generateRandomNumbers(double lowerBound, double upperBound) {
-        double range = upperBound - lowerBound;
-        double optionOne;
-        double optionTwo;
+    private ArrayList<Long> generateRandomNumbers(long lowerBound, long upperBound) {
+        // generate two random numbers within a given range.
 
-        // generate 2 unique numbers within these bounds
-        optionOne = (long)((Math.random() * range) + lowerBound);
-        optionTwo = optionOne;
-        while (optionOne == optionTwo) {
-            optionTwo = (long)((Math.random() * range) + lowerBound);
+        // find the number of trailing zeros
+
+        long numOfTrailingZeros = countTrailingZeros(correctAnswer);
+
+        // 560
+        // 632
+        // 521
+
+        // 4500
+        // 4312
+        // 4817
+
+        // edge case:
+        // 4500
+        // 4512
+        // 4527
+
+
+
+        long range = upperBound - lowerBound;
+
+        long optionOne = this.correctAnswer;
+
+        int i = 5;
+        while (optionOne == this.correctAnswer && i > 0) {
+            optionOne = roundToNearest((long) (Math.random() * range) + lowerBound, numOfTrailingZeros);
+            i --;
         }
 
-        ArrayList<Double> returnable = new ArrayList<>();
+        if (i==0) {
+            optionOne = correctAnswer + (long)Math.pow(10, numOfTrailingZeros);
+        }
+
+
+        long optionTwo = optionOne;
+
+        int j = 5;
+        while ((optionTwo == optionOne || optionTwo == this.correctAnswer) && j>0) {
+            optionTwo = roundToNearest((long) (Math.random() * range) + lowerBound, numOfTrailingZeros);
+            j--;
+        }
+
+        if (j==0) {
+            optionTwo = correctAnswer - (long)Math.pow(10, numOfTrailingZeros);
+        }
+
+        if (optionTwo == optionOne) {
+            optionTwo = correctAnswer + (long)Math.pow(10, numOfTrailingZeros);
+        }
+
+
+        ArrayList<Long> returnable = new ArrayList<Long>();
         returnable.add(optionOne);
         returnable.add(optionTwo);
-        
         return returnable;
+
+
+    }
+
+    private long roundToNearest(long x, long base) {
+
+        long divisor = (long)Math.pow(10, base);
+        // divide x by divisor
+
+        return x - (x % divisor);
+
+
+    }
+
+    private int countTrailingZeros(long n) {
+        int i = 0;
+        if (n == 0) {
+            return 0;
+        }
+        while (n % 10 == 0) {
+            i++;
+            n /= 10;
+        }
+        return i;
     }
 
 
-    public ArrayList<Double> getOptions() {
+    public ArrayList<Long> getOptions() {
         return options;
     }
 
-    public void setOptions(ArrayList<Double> options) {
+    public void setOptions(ArrayList<Long> options) {
         this.options = options;
     }
 
+    public void setCorrectAnswer(long correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 
     /**
      * Equals method between two instances of the MultipleChoiceQuestion class, not including the ArrayList options
@@ -121,9 +189,6 @@ public class MultipleChoiceQuestion extends Question{
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(double correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
 }
 
 
