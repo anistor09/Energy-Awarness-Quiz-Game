@@ -187,7 +187,11 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             int points = questionObject.calculatePoints(guess);
             Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
             p.setCurrentScore(p.getCurrentScore() + points);
-            if (points > 70) {
+            if (points == 100) {
+                actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            }
+            else if (points > 70) {
                 actualAnswer.setText("Close! The actual consumption for this activity is " +
                         questionObject.getActivity().getConsumption_in_wh() + "wh");
             } else if (points > 0) {
