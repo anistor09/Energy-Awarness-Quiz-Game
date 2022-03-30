@@ -25,11 +25,17 @@ public class DecreaseTimeJoker extends JokerCard {
     public Player getLocalPlayer() {
         return localPlayer;
     }
+    public int returnUseCard(){
+        int decreasedTime = (int) Math.round(localPlayer.getTimeLeft()*0.25);
+        useCard();
+        return decreasedTime ;
+    }
+
 
     @Override
     public void useCard() {
         if(!senderUsername.equals(localPlayer.getUsername())){
-            localPlayer.setTimeLeft((int) Math.round(localPlayer.getTimeLeft()*0.5));
+            localPlayer.setTimeLeft((int) Math.round(localPlayer.getTimeLeft()*0.75));
         }
     }
     public void setLocalPlayer(Player localPlayer){

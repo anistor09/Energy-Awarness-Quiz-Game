@@ -871,11 +871,19 @@ public class MainCtrl {
     });
     }
 
+    /**
+     *
+     */
     public void startScanningTimeJoker(){
         serverUtils.registerForTimeJoker("/topic/timeJoker",j->{
 
             j.setLocalPlayer(localPlayer);
-            j.useCard();
+            if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
+                int decreasedTime = j.returnUseCard();
+                multiplayerIntermediateScreenCtrl.setI(decreasedTime);
+            }
+
+
         });
     }
 
@@ -988,7 +996,7 @@ private List<JokerCard> getJokerList() {
                 @Override
                 public void run() {
                     switchQuestionScreen(className);
-                } //TODO NEED METHOD THAT INITIALIZES MULTIPLAYER QUESTIONS
+                }
             });
         }
         else{
