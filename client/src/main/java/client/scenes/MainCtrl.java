@@ -827,7 +827,7 @@ public class MainCtrl {
      * retrieved from other clients.
      */
     public void startScanningEmojis(){
-        serverUtils.registerForEmoji("/topic/emojis",e->{
+        serverUtils.registerForEmoji("/topic/emojis",e -> {
             String currentQuestionScreen = getClassName(game.getQuestions().
                     get(game.getCurrentQuestionNumber())
                     .getClass().toString());

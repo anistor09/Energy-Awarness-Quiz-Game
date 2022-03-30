@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,11 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
@@ -342,6 +342,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
         reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
+
     }
     /**
      * This method initialises the Emojis images because they are not rendered directly for Windows users.

@@ -2,7 +2,6 @@ package server.sevice;
 
 import commons.*;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -36,7 +35,8 @@ class GameServiceTest {
                 guessQuestionList().get(1), guessQuestionList().get(2), guessQuestionList().get(3),
                 guessQuestionList().get(4));
         when(questionController.getRandomQuestion("multipleChoice")).thenReturn(multipleChoiceQuestionList().get(0)
-                , multipleChoiceQuestionList().get(1), multipleChoiceQuestionList().get(2), multipleChoiceQuestionList().get(3)
+                , multipleChoiceQuestionList().get(1), multipleChoiceQuestionList().get(2),
+                multipleChoiceQuestionList().get(3)
                 , multipleChoiceQuestionList().get(4), multipleChoiceQuestionList().get(5));
         when(questionController.getRandomQuestion("insteadOf")).thenReturn(insteadOfQuestionList().get(0),
                 insteadOfQuestionList().get(1), insteadOfQuestionList().get(2), insteadOfQuestionList().get(3),
