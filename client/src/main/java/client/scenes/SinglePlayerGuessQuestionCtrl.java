@@ -201,8 +201,6 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 actualAnswer.setText("Nowhere near! The actual consumption for this activity is " +
                         questionObject.getActivity().getConsumption_in_wh()+ "wh");
             }
-            System.out.println(guess);
-            System.out.println("You earned " + points);
             IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();

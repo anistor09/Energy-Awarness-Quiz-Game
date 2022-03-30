@@ -171,16 +171,16 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     /**
-     * Changes all button's colours depending on whether they are correct or incorrect.
-     * @param correct Button containing correct consumption.
-     * @param wrong1 Button containing incorrect consumption.
-     * @param wrong2 Button containing incorrect consumption.
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
      */
-    private void changeButtonColours(Button correct, Button wrong1, Button wrong2) {
-        correct.setStyle("-fx-background-color: green;");
-        wrong1.setStyle("-fx-background-color: red;");
-        wrong2.setStyle("-fx-background-color: red;");
-        System.out.println("Successfully changed colours");
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
     }
 
 
@@ -190,8 +190,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option1Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
-            changeButtonColours(option1, option2, option3);
+            changeButtonColours(option1, "green");
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -203,8 +204,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option2Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
-            changeButtonColours(option2, option1, option3);
+            changeButtonColours(option2, "green");
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -216,8 +218,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option3Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
-            changeButtonColours(option3, option2, option1);
+            changeButtonColours(option3, "green");
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -290,13 +293,12 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
         if (questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
-            changeButtonColours(option1, option2, option3);
+            changeButtonColours(option1, "green");
         } else if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
-            changeButtonColours(option2, option1, option3);
+            changeButtonColours(option2, "green");
         } else {
-            changeButtonColours(option3, option1, option2);
+            changeButtonColours(option3, "green");
         }
-        System.out.println("wrong");
     }
     @FXML
     void handleJokerButton1() {
