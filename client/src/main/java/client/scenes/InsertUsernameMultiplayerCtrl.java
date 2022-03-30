@@ -69,7 +69,6 @@ public class InsertUsernameMultiplayerCtrl {
             System.out.println("Provided server url is wrong!");
             mainCtrl.goTo("error");
         }
-        System.out.println(insertedUsername);
         mainCtrl.goTo("multiLobby");
     }
 

@@ -184,6 +184,10 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
             System.out.println("You earned " + points);
+            Game game = mainCtrl.getGame();
+            if(game instanceof MultiPlayerGame) {
+                server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+            }
             IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();

@@ -71,11 +71,12 @@ public class GameController {
     }
 
     /**
-     * This method will take the local players
+     * This method will propagate the player with new score to all those who are subscribed to /topic/updateScores/ +
+     * the id of the game. This way we avoid sending the score to all players in games that don't have this player
      * @param player to propagate
      */
-    @MessageMapping("/updateScores")
-    @SendTo("/topic/updateScores")
+    @MessageMapping("/updateScores/{id}")
+    @SendTo("/topic/updateScores/{id}")
     public Player propagateUpdatedScore(Player player){
         return player;
     }
@@ -137,6 +138,11 @@ public class GameController {
     @GetMapping(path = "multiGame/players")
     public ArrayList<Player> getCurrentListPlayers() {
         return gameService.getCurrentMultiGame().getPlayers();
+    }
+
+    @GetMapping(path = "multiGame/gameId")
+    public int getCurrentGameId() {
+        return gameService.getActiveGamesSize();
     }
 
 }
