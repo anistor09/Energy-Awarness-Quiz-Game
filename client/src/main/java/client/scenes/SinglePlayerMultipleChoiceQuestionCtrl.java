@@ -246,15 +246,29 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * player and printing out correct
      */
     void handleCorrect() {
-
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        Player p = spg.getPlayer();
-
+        Game game = mainCtrl.getGame();
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
         System.out.println("correct");
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
         p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
         IntermediateScreenCtrl.setPointsGained(points);
 
 

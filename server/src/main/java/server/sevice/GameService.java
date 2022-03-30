@@ -133,4 +133,8 @@ public class GameService {
     public void setCurrentMultiGame(MultiPlayerGame currentMultiGame) {
         this.currentMultiGame = currentMultiGame;
     }
+
+    public int getActiveGamesSize() {
+        return activeMultiGames.size();
+    }
 }
