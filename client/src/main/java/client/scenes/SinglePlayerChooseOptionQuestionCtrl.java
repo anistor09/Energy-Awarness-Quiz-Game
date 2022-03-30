@@ -4,7 +4,6 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
 import javafx.animation.ScaleTransition;
-import javafx.event.ActionEvent;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
