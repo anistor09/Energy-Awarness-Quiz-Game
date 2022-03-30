@@ -113,6 +113,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseMostEnergyQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -136,6 +137,12 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
        this.setJokers(jokerList);
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
     }
 
     /**
@@ -163,6 +170,19 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
     }
 
+    /**
+     * Changes all button's colours depending on whether they are correct or incorrect.
+     * @param correct Button containing correct consumption.
+     * @param wrong1 Button containing incorrect consumption.
+     * @param wrong2 Button containing incorrect consumption.
+     */
+    private void changeButtonColours(Button correct, Button wrong1, Button wrong2) {
+        correct.setStyle("-fx-background-color: green;");
+        wrong1.setStyle("-fx-background-color: red;");
+        wrong2.setStyle("-fx-background-color: red;");
+        System.out.println("Successfully changed colours");
+    }
+
 
     /**
      * Handles the clicks on button with option 1
@@ -170,6 +190,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option1Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
+            changeButtonColours(option1, option2, option3);
         } else {
             handleWrong();
         }
@@ -182,6 +203,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option2Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
+            changeButtonColours(option2, option1, option3);
         } else {
             handleWrong();
         }
@@ -194,6 +216,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option3Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
+            changeButtonColours(option3, option2, option1);
         } else {
             handleWrong();
         }
@@ -266,6 +289,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
+        if (questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+            changeButtonColours(option1, option2, option3);
+        } else if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+            changeButtonColours(option2, option1, option3);
+        } else {
+            changeButtonColours(option3, option1, option2);
+        }
         System.out.println("wrong");
     }
     @FXML

@@ -92,6 +92,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     @FXML
     private Label time;
+    @FXML
+    private Label debug;
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
@@ -116,6 +118,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -145,6 +148,12 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
     }
 
     private void setEmojiBarVisible(Game currentGame) {
@@ -206,10 +215,30 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
+     * Changes all button's colours depending on whether they are correct or incorrect.
+     * @param correct Button containing correct consumption.
+     * @param wrong1 Button containing incorrect consumption.
+     * @param wrong2 Button containing incorrect consumption.
+     */
+    private void changeButtonColours(Button correct, Button wrong1, Button wrong2) {
+        correct.setStyle("-fx-background-color: green;");
+        //correct.setText("CORRECT");
+        wrong1.setStyle("-fx-background-color: red;");
+        //wrong1.setText("WRONG");
+        wrong2.setStyle("-fx-background-color: red;");
+        //wrong2.setText("WRONG");
+        System.out.println("Successfully changed colours");
+    }
+
+    // method to locate the correct answer
+
+
+    /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, option2, option3);
             handleCorrect();
         } else {
             handleWrong();
@@ -221,7 +250,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, option1, option3);
             handleCorrect();
         } else {
             handleWrong();
@@ -233,7 +263,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 2) {
+            changeButtonColours(option3, option1, option2);
             handleCorrect();
         } else {
             handleWrong();
@@ -249,7 +280,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
         SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
         Player p = spg.getPlayer();
-
         System.out.println("correct");
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
         double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
@@ -266,6 +296,13 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         System.out.println("wrong");
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, option2, option3);
+        } else if(questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, option1, option3);
+        } else {
+            changeButtonColours(option3, option1, option2);
+        }
         IntermediateScreenCtrl.setPointsGained(0);
     }
 

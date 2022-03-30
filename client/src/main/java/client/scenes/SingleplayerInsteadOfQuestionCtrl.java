@@ -127,6 +127,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      *      attributes of the Question and Player Classes.
      */
     public void initialiseSinglePlayerInsteadOfQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         InsteadOfQuestion q =
@@ -191,6 +192,12 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         jokerMessage.setText("");
     }
 
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
+    }
+
     /**
      * This method will switch the buttons on or off according to the boolean passed. True means off
      * @param onOff the boolean for which to set the setDisable property
@@ -205,10 +212,27 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     }
 
     /**
+     * Changes all button's colours depending on whether they are correct or incorrect.
+     * @param correct Button containing correct consumption.
+     * @param wrong1 Button containing incorrect consumption.
+     * @param wrong2 Button containing incorrect consumption.
+     */
+    private void changeButtonColours(Button correct, Button wrong1, Button wrong2) {
+        correct.setStyle("-fx-background-color: green;");
+        //correct.setText("CORRECT");
+        wrong1.setStyle("-fx-background-color: red;");
+        //wrong1.setText("WRONG");
+        wrong2.setStyle("-fx-background-color: red;");
+        //wrong2.setText("WRONG");
+        System.out.println("Successfully changed colours");
+    }
+
+    /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
+            changeButtonColours(option1, option2, option3);
             handleCorrect();
         } else {
             handleWrong();
@@ -221,6 +245,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     public void option2Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
+            changeButtonColours(option2, option1, option3);
             handleCorrect();
         } else {
             handleWrong();
@@ -233,6 +258,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     public void option3Handler(){
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
+            changeButtonColours(option3, option2, option1);
             handleCorrect();
         } else {
             handleWrong();
@@ -263,6 +289,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
+        if (questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
+            changeButtonColours(option1, option2, option3);
+        } else if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
+            changeButtonColours(option2, option1, option3);
+        } else {
+            changeButtonColours(option3, option1, option2);
+        }
         System.out.println("wrong");
     }
 
