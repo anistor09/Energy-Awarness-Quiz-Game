@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +32,7 @@ public class MultiPlayerLobbyCtrl {
 
     List<String> playerUsernames;
     private MultiPlayerGame game;
+    private int gameId;
     private Player thisPlayer;
     private boolean starting = false;
 
@@ -64,7 +66,7 @@ public class MultiPlayerLobbyCtrl {
                 if(i < 0){
                     timer1.cancel();
                     mainCtrl.startMultiPlayerGame();
-                    Platform.runLater(() -> mainCtrl.playMultiPLayerGame()); //link with playMultiPlayer
+                    Platform.runLater(mainCtrl::playMultiPLayerGame); //link with playMultiPlayer
                 }
 
                 i--;
@@ -90,17 +92,19 @@ public class MultiPlayerLobbyCtrl {
      */
     public void prepare() {
         game = server.getCurrentMultiplayerGame();
+        this.gameId = server.getCurrentMultiplayerGameId();
         playerUsernames = game.getPlayers().stream().map(Player::getUsername).collect(Collectors.toList());
         refresh();
         server.registerForNewPlayers("/topic/updateLobby", p -> {
-            playerUsernames = server.getCurrentMultiGamePlayers().stream().map(Player::getUsername).
+            List<Player> currentPlayers = server.getCurrentMultiGamePlayers();
+            playerUsernames = currentPlayers.stream().map(Player::getUsername).
                     collect(Collectors.toList());
+            this.game.setPlayers((ArrayList<Player>) currentPlayers);
             Platform.runLater(() -> refresh());
         });
-        server.registerForGameStart("/topic/startGame", b -> {
-            startGameButton();
-        });
+        server.registerForGameStart("/topic/startGame", b -> startGameButton());
         mainCtrl.setGame(game);
+        mainCtrl.setGameId(gameId);
     }
 
 

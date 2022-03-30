@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import commons.*;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -125,7 +126,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         question1Text.setText(actList.get(0).getTitle());
         question2Text.setText(actList.get(1).getTitle());
         question3Text.setText(actList.get(2).getTitle());
-//
+
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
 
@@ -134,7 +135,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
-       this.setJokers(jokerList);
+        this.setJokers(jokerList);
     }
 
     /**
@@ -217,13 +218,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     @FXML
-    void exit(ActionEvent event) {
+    void exit() {
         mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
+        time.setText("Time Left: " + i);
     }
 
     /**
@@ -249,12 +250,28 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * player and printing out correct
      */
     void handleCorrect() {
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        Player p = spg.getPlayer();
+        Game game = mainCtrl.getGame();
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
         double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
         int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        p.setCurrentScore(p.getCurrentScore()+points);
+        p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
         IntermediateScreenCtrl.setPointsGained(points);
 
     }
@@ -368,6 +385,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private void setEmojiBarVisible(Game currentGame) {
         if(currentGame instanceof MultiPlayerGame){
             emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);
+                ReactionName.setText("");});
         }
         else{
             emojiBar.setVisible(false);

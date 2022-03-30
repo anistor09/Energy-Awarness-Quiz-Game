@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
+import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -247,13 +248,29 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     void handleCorrect() {
         // get the time left
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        questionObject = (InsteadOfQuestion)spg.getQuestions().get(spg.getCurrentQuestionNumber());
+        Game game = mainCtrl.getGame();
+        questionObject = (InsteadOfQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
         p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
         IntermediateScreenCtrl.setPointsGained(points);
         System.out.println("correct");
     }
@@ -420,6 +437,9 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private void setEmojiBarVisible(Game currentGame) {
         if(currentGame instanceof MultiPlayerGame){
             emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);;
+                ReactionName.setText("");});
         }
         else{
             emojiBar.setVisible(false);

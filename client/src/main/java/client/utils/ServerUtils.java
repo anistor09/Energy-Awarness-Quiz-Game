@@ -15,6 +15,7 @@
  */
 package client.utils;
 
+
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -37,6 +38,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
@@ -52,6 +54,27 @@ public class ServerUtils {
     public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+    }
+
+    /**
+     * This method checks if the connection with the server has been established.
+     * It is meant to test whether the user provides a correct server URL.
+     * @param SERVER server to test the connection for
+     * @return true if the query for the server is successful, false if it fails.
+     */
+    public boolean testConnection(String SERVER){
+        try{
+            List<Player> list = ClientBuilder.newClient(new ClientConfig())
+                    .target(SERVER).path("api/player")
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(new GenericType<List<Player>>() {});
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("The server url is invalid! ");
+            return false;
+        }
     }
 
     /**
@@ -283,15 +306,16 @@ public class ServerUtils {
 
     /**
      * This method will retrieve the current MultiGame that has an active lobby, with all the players that are currently
-     * in the lobby.
+     * in the lobby. It shuffles the question list deterministically
      * @return the MultiPlayerGame Object
      */
     public MultiPlayerGame getCurrentMultiplayerGame() {
         ArrayList<Question> questions = new ArrayList<>();
+        questions.addAll(getCurrentMultiGameMostEnergy());
         questions.addAll(getCurrentMultiGameGuess());
         questions.addAll(getCurrentMultiGameInsteadOf());
         questions.addAll(getCurrentMultiGameMultipleChoice());
-        questions.addAll(getCurrentMultiGameMostEnergy());
+        Collections.shuffle(questions, new Random(69));
         return new MultiPlayerGame(questions, new ArrayList<>(),new ArrayList<Player>(getCurrentMultiGamePlayers()));
     }
 
@@ -304,11 +328,12 @@ public class ServerUtils {
     }
 
     /**
-     * This method will send the updated player through the websocket
+     * This method will send the updated player through the websocket to those subscribed to the topic that has the same
+     * gameId
      * @param player to send
      */
-    public void updatePlayerScore(Player player){
-        this.send("/app/updateScores", player);
+    public void updatePlayerScore(Player player, int gameId){
+        this.send("/app/updateScores/" + gameId, player);
     }
 
     /**
@@ -342,6 +367,14 @@ public class ServerUtils {
     public List<MultipleChoiceQuestion> getCurrentMultiGameMultipleChoice() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("api/game/multiGame/multipleChoice")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+    }
+
+    public int getCurrentMultiplayerGameId() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/multiGame/gameId")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {});
@@ -453,6 +486,7 @@ public class ServerUtils {
     public void send(String dest, Object o) {
         session.send(dest, o);
     }
+
 
 
 }

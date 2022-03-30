@@ -100,8 +100,12 @@ public class MainCtrl {
     private MultiplayerIntermediateScreenCtrl multiplayerIntermediateScreenCtrl;
     private Scene multiPlayerIntermediateScreen;
 
+    private Scene errorScreen;
+    private ErrorScreenCtrl errorScreenCtrl;
+
 
     private Game game; // An instance of Game class representing the ongoing game
+    private int gameId;
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
     // that the player chose to use
 
@@ -174,7 +178,8 @@ public class MainCtrl {
                            Pair<SingleplayerStartCountdownScreenCtrl,
                                    Parent> singleplayerStartCountdownScreenCtrlParentPair, Pair<ConfirmBoxCtrl, Parent>
                                    confirmBox, 
-                           Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair)
+                           Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair,
+                           Pair<ErrorScreenCtrl, Parent> errorScreenCtrlParentPair)
                             {
 
 
@@ -226,6 +231,8 @@ public class MainCtrl {
         this.confirmBox = new Scene(confirmBox.getValue());
         this.multiplayerIntermediateScreenCtrl = multiplayerIntermediateScreenCtrlParentPair.getKey();
         this.multiPlayerIntermediateScreen = new Scene(multiplayerIntermediateScreenCtrlParentPair.getValue());
+        this.errorScreenCtrl = errorScreenCtrlParentPair.getKey();
+        this.errorScreen = new Scene(errorScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
 
@@ -524,6 +531,7 @@ public class MainCtrl {
      *
      * @param screenName the name of the screen for which it is desired to switch
      */
+    @SuppressWarnings({"checkstyle:methodlength"})
     public void goTo(String screenName) {
         visitedScreens.push(screenName);
         switch (screenName) {
@@ -600,6 +608,9 @@ public class MainCtrl {
                 //
                 primaryStage.setScene(multiPlayerIntermediateScreen);
                 multiplayerIntermediateScreenCtrl.startCountdown();
+                break;
+            case "error":
+                primaryStage.setScene(errorScreen);
                 break;
             default: primaryStage.setScene(menu);
         }
@@ -831,8 +842,6 @@ public class MainCtrl {
             String currentQuestionScreen = getClassName(game.getQuestions().
                     get(game.getCurrentQuestionNumber())
                     .getClass().toString());
-//            String currentQuestionScreen = getClassName(this.getQuestion()
-//                  .getClass().toString());
             switch (currentQuestionScreen) {
                 case "MultipleChoiceQuestion":
                     Platform.runLater(()->{singlePlayerGameCtrl.initialiseEmoji(e);});
@@ -902,6 +911,16 @@ public class MainCtrl {
      * The method includes the logic of the multiplayer game but it is not fully implemented.
      */
     public void startMultiPlayerGame(){
+        System.out.println(localPlayer.getUsername());
+        serverUtils.registerForScoreUpdates("/topic/updateScores/" + gameId, q -> {
+            MultiPlayerGame multiGame = (MultiPlayerGame) game;
+            for(int i = 0; i < multiGame.getPlayers().size(); i++) {
+                if(multiGame.getPlayers().get(i).getUsername().equals(q.getUsername())) {
+                    multiGame.getPlayers().get(i).setCurrentScore(q.getCurrentScore());
+                    System.out.println("ping from " + q.getUsername()); //test
+                }
+            }
+        });
         startScanningEmojis();
         startScanningScoreUpdates();
         localPlayer.setJokerCards(new ArrayList<JokerCard>());
@@ -910,7 +929,7 @@ public class MainCtrl {
         //
     }
 
-    public void playMultiPLayerGame(){
+    public void playMultiPLayerGame() {
         goToNextMultiplayerQuestion();
     }
 
@@ -1052,7 +1071,7 @@ public class MainCtrl {
         Activity act4 = new Activity("00-shower",
                 "00/shower.png",
                 "Question 4",
-                4000,
+                5000,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act5 =new Activity("00-shower",
                 "00/shower.png",
@@ -1083,7 +1102,7 @@ public class MainCtrl {
         ArrayList<Question> questionArray = new ArrayList<Question>();
 
         questionArray.add(extraquestion);
-        questionArray.add(q1);
+        questionArray.add(extraquestion);
         questionArray.add(q2);
         questionArray.add(q3);
         questionArray.add(q4);
@@ -1116,6 +1135,14 @@ public class MainCtrl {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
+    public int getGameId() {
+        return this.gameId;
     }
 }
 

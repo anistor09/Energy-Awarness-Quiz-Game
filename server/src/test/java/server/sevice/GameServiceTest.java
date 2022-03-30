@@ -36,8 +36,8 @@ class GameServiceTest {
                 guessQuestionList().get(4));
         when(questionController.getRandomQuestion("multipleChoice")).thenReturn(multipleChoiceQuestionList().get(0)
                 , multipleChoiceQuestionList().get(1), multipleChoiceQuestionList().get(2),
-                multipleChoiceQuestionList().get(3)
-                , multipleChoiceQuestionList().get(4), multipleChoiceQuestionList().get(5));
+                multipleChoiceQuestionList().get(3), multipleChoiceQuestionList().get(4),
+                multipleChoiceQuestionList().get(5));
         when(questionController.getRandomQuestion("insteadOf")).thenReturn(insteadOfQuestionList().get(0),
                 insteadOfQuestionList().get(1), insteadOfQuestionList().get(2), insteadOfQuestionList().get(3),
                 insteadOfQuestionList().get(4));

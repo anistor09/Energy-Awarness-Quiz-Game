@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -185,6 +186,10 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
             System.out.println("You earned " + points);
+            Game game = mainCtrl.getGame();
+            if(game instanceof MultiPlayerGame) {
+                server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+            }
             IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();
@@ -302,6 +307,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private void setEmojiBarVisible(Game currentGame) {
         if(currentGame instanceof MultiPlayerGame){
             emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);
+                ReactionName.setText("");});
         }
         else{
             emojiBar.setVisible(false);

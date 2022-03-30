@@ -59,4 +59,12 @@ class ServerUtilsTest {
                 Files.readAllBytes(Paths.get(image.getAbsolutePath())));
         //sut.uploadImage(file);
     }
+
+    @Disabled
+    @Test
+    void testScore() {
+        ServerUtils sut = new ServerUtils();
+        sut.registerForScoreUpdates("/topic/updateScores/3", q -> System.out.println(q.getUsername()));
+        sut.updatePlayerScore(new Player("some", 55), 3);
+    }
 }
