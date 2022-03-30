@@ -722,7 +722,7 @@ public class MainCtrl {
                                 getCurrentQuestionNumber()));
                 eliminateOptionJokerJoker.useCard();
                 singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(eliminateOptionJokerJoker);
+                localPlayer.deleteJoker(eliminateOptionJokerJoker);
                 break;
             case "Question Change Joker":
                 QuestionChangeJoker questionChangeJoker =
@@ -731,7 +731,12 @@ public class MainCtrl {
                 game.setCurrentQuestionNumber(0);
                 this.goToNextQuestionNoTimer();
                 game.setCurrentQuestionNumber(questionNr);
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(questionChangeJoker);
+                localPlayer.deleteJoker(questionChangeJoker);
+            case "Decrease Time Joker":
+                DecreaseTimeJoker timeJoker = (DecreaseTimeJoker) this.getJoker("Decrease Time Joker");
+                timeJoker.setSenderUsername(localPlayer.getUsername());
+                serverUtils.send("/app/timeJoker",timeJoker);
+                localPlayer.deleteJoker(timeJoker);
                 break;
 
         }
@@ -748,7 +753,7 @@ public class MainCtrl {
 
     private JokerCard getJoker(String jokerName) {
         JokerCard returnedJokerCard = null;
-        for (JokerCard j : ((SinglePlayerGame) game).getPlayer().getJokerCards()) {
+        for (JokerCard j : localPlayer.getJokerCards()) {
             if (j.getName().equals(jokerName))
                 returnedJokerCard = j;
         }
@@ -867,6 +872,14 @@ public class MainCtrl {
     });
     }
 
+    public void startScanningTimeJoker(){
+        serverUtils.registerForTimeJoker("/topic/timeJoker",j->{
+
+            j.setLocalPlayer(localPlayer);
+            j.useCard();
+        });
+    }
+
     /**
      * This method creates a mock question
      * @return An instance of anstract class Question
@@ -914,10 +927,25 @@ public class MainCtrl {
     public void startMultiPlayerGame(){
         startScanningEmojis();
         startScanningScoreUpdates();
-        localPlayer.setJokerCards(new ArrayList<JokerCard>());
+        startScanningTimeJoker();
+        localPlayer.setJokerCards(getJokerList());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
+    }
+
+    private List<JokerCard> getJokerList() {
+
+        List<JokerCard> jokerList = new ArrayList<>();
+       // jokerList.add(new AdditionalPointsJoker(localPlayer));
+
+        jokerList.add(new EliminateOptionJoker(null));
+
+        jokerList.add(new DecreaseTimeJoker(localPlayer.getUsername()));
+        //jokerList.add(new QuestionChangeJoker());
+
+        return jokerList;
+
     }
 
     public void playMultiPLayerGame(){

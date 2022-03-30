@@ -37,7 +37,7 @@
                     </rowConstraints>
                      <children>
                         <Label alignment="CENTER" prefHeight="84.0" prefWidth="481.0" text="Enter Your Server URL:" GridPane.rowIndex="1" />
-                        <TextField fx:id="url" alignment="CENTER" prefHeight="60.0" prefWidth="460.0" promptText="ex. http://localhost:8080" text="http://localhost:8080" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="url" alignment="CENTER" prefHeight="60.0" prefWidth="460.0" promptText="ex. http://localhost:8080/" text="http://localhost:8080/" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets right="20.0" />
                            </GridPane.margin>
