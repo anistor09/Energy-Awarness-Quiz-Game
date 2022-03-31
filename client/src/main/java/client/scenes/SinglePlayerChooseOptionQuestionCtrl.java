@@ -112,6 +112,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseMostEnergyQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -135,6 +136,12 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
         this.setJokers(jokerList);
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
     }
 
     /**
@@ -162,6 +169,19 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
     }
 
+    /**
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
+     */
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
+    }
+
 
     /**
      * Handles the clicks on button with option 1
@@ -169,7 +189,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option1Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
+            changeButtonColours(option1, "green");
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -181,7 +203,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option2Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
+            changeButtonColours(option2, "green");
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -193,7 +217,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option3Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
+            changeButtonColours(option3, "green");
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -281,14 +307,22 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
-        System.out.println("wrong");
+        if (questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+            changeButtonColours(option1, "green");
+        } else if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+            changeButtonColours(option2, "green");
+        } else {
+            changeButtonColours(option3, "green");
+        }
     }
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
+            joker1.setDisable(true);
             mainCtrl.handleJoker();
+
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -299,6 +333,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
+            joker2.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -310,6 +345,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
+            joker3.setDisable(true);
             mainCtrl.handleJoker();
         }
         else {
@@ -339,7 +375,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-        server.send("/app/emojis",e);
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method

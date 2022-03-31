@@ -79,6 +79,8 @@ public class MultiplayerIntermediateScreenCtrl {
     private Text countdown;
     private MainCtrl mainCtrl;
 
+    int i=5;
+
     @Inject
     public MultiplayerIntermediateScreenCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -87,19 +89,30 @@ public class MultiplayerIntermediateScreenCtrl {
     /**
      * Starts the countdown for the next question
      */
+
     public void startCountdown() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 5;
+
             @Override
             public void run() {
                 if(i <= 0){
                     timer.cancel();
+                    i=5;
                     mainCtrl.checkGameStatus();
                 }
                 countdown.setText("Game Continues in " + i + " Seconds");
                 i--;
             }
         }, 0, 1000);
+
+    }
+
+    /**
+     *
+     * @param additionalTime
+     */
+    public void setI(int additionalTime) {
+        this.i = 5+additionalTime;
     }
 }

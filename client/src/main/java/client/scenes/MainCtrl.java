@@ -520,7 +520,9 @@ public class MainCtrl {
         if(answer) {
             popUpStage.close();
             this.primaryStage.close();
-            multiPlayerLobbyCtrl.tearDown();
+            if (visitedScreens.peek().equals("multiLobby")) {
+                multiPlayerLobbyCtrl.tearDown();
+            }
         } else {
             popUpStage.close();
         }
@@ -540,6 +542,7 @@ public class MainCtrl {
                 break;
             case "singleGame":
                 primaryStage.setScene(singleplayerInsertInfo);
+                singleplayerInsertInfoCtrl.prepare();
                 break;
             case "multiGame":
                 primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
@@ -559,6 +562,7 @@ public class MainCtrl {
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
+                multiplayerInsertInfoCtrl.prepare();
                 break;
             case "help":
                 primaryStage.setScene(help);
@@ -723,7 +727,7 @@ public class MainCtrl {
                                 getCurrentQuestionNumber()));
                 eliminateOptionJokerJoker.useCard();
                 singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(eliminateOptionJokerJoker);
+                localPlayer.deleteJoker(eliminateOptionJokerJoker);
                 break;
             case "Question Change Joker":
                 QuestionChangeJoker questionChangeJoker =
@@ -732,7 +736,12 @@ public class MainCtrl {
                 game.setCurrentQuestionNumber(0);
                 this.goToNextQuestionNoTimer();
                 game.setCurrentQuestionNumber(questionNr);
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(questionChangeJoker);
+                localPlayer.deleteJoker(questionChangeJoker);
+            case "Decrease Time Joker":
+                DecreaseTimeJoker timeJoker = (DecreaseTimeJoker) this.getJoker("Decrease Time Joker");
+                timeJoker.setSenderUsername(localPlayer.getUsername());
+                serverUtils.send("/app/timeJoker/"+ this.getGameId(),timeJoker);
+                localPlayer.deleteJoker(timeJoker);
                 break;
 
         }
@@ -749,7 +758,7 @@ public class MainCtrl {
 
     private JokerCard getJoker(String jokerName) {
         JokerCard returnedJokerCard = null;
-        for (JokerCard j : ((SinglePlayerGame) game).getPlayer().getJokerCards()) {
+        for (JokerCard j : localPlayer.getJokerCards()) {
             if (j.getName().equals(jokerName))
                 returnedJokerCard = j;
         }
@@ -838,7 +847,7 @@ public class MainCtrl {
      * retrieved from other clients.
      */
     public void startScanningEmojis(){
-        serverUtils.registerForEmoji("/topic/emojis",e -> {
+        serverUtils.registerForEmoji("/topic/emojis/"+this.getGameId(),e->{
             String currentQuestionScreen = getClassName(game.getQuestions().
                     get(game.getCurrentQuestionNumber())
                     .getClass().toString());
@@ -864,6 +873,22 @@ public class MainCtrl {
                     break;
         }
     });
+    }
+
+    /**
+     *
+     */
+    public void startScanningTimeJoker(){
+        serverUtils.registerForTimeJoker("/topic/timeJoker/"+this.getGameId(),j->{
+
+            j.setLocalPlayer(localPlayer);
+            if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
+                int decreasedTime = j.returnUseCard();
+                multiplayerIntermediateScreenCtrl.setI(decreasedTime);
+            }
+
+
+        });
     }
 
     /**
@@ -923,16 +948,30 @@ public class MainCtrl {
         });
         startScanningEmojis();
         startScanningScoreUpdates();
-        localPlayer.setJokerCards(new ArrayList<JokerCard>());
+        startScanningTimeJoker();
+        localPlayer.setJokerCards(getJokerList());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
     }
 
     public void playMultiPLayerGame() {
+
         goToNextMultiplayerQuestion();
     }
+private List<JokerCard> getJokerList() {
 
+        List<JokerCard> jokerList = new ArrayList<>();
+       // jokerList.add(new AdditionalPointsJoker(localPlayer));
+
+        jokerList.add(new EliminateOptionJoker(null));
+
+        jokerList.add(new DecreaseTimeJoker(localPlayer.getUsername()));
+        //jokerList.add(new QuestionChangeJoker());
+
+        return jokerList;
+
+    }
     public Stack<String> getVisitedScreens() {
         return visitedScreens;
     }
@@ -961,11 +1000,11 @@ public class MainCtrl {
                 @Override
                 public void run() {
                     switchQuestionScreen(className);
-                } //TODO NEED METHOD THAT INITIALIZES MULTIPLAYER QUESTIONS
+                }
             });
         }
-        else{
-            MultiPlayerGame mpg = (MultiPlayerGame)this.game;
+        else {
+            MultiPlayerGame mpg = (MultiPlayerGame) this.game;
             ArrayList<Player> players = mpg.getPlayers();
 
             for(int i = 0; i < players.size(); i++){
@@ -976,7 +1015,7 @@ public class MainCtrl {
                 @Override
                 public void run() {
                     //TODO METHOD THAT INITIALIZES THE FINAL LEADERBOARD SCREEN
-                    goTo("menu"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
+                    goTo("SinglePlayerLeaderboard"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
                 }
             });
 
@@ -1103,11 +1142,11 @@ public class MainCtrl {
 
         questionArray.add(extraquestion);
         questionArray.add(extraquestion);
-        questionArray.add(q2);
-        questionArray.add(q3);
-        questionArray.add(q4);
-        questionArray.add(q5);
-        questionArray.add(q6);
+//        questionArray.add(q2);
+//        questionArray.add(q3);
+//        questionArray.add(q4);
+//        questionArray.add(q5);
+//        questionArray.add(q6);
 
         Player player1 = new Player("Som",0);
         Player player2 = new Player("Som",0);

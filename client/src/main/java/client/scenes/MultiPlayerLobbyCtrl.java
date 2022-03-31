@@ -80,7 +80,7 @@ public class MultiPlayerLobbyCtrl {
      */
     @FXML
     protected void returnScreen(){
-        server.sendPlayer(thisPlayer);
+        server.sendPlayer(new Player(thisPlayer.getUsername(), thisPlayer.getCurrentScore()));
         thisPlayer = null;
         mainCtrl.goTo("insertInfoMultiPlayer");
     }
@@ -91,6 +91,7 @@ public class MultiPlayerLobbyCtrl {
      * for when a player is deleted/added to the MultiPlayerGame
      */
     public void prepare() {
+        starting = false;
         game = server.getCurrentMultiplayerGame();
         this.gameId = server.getCurrentMultiplayerGameId();
         playerUsernames = game.getPlayers().stream().map(Player::getUsername).collect(Collectors.toList());
@@ -150,7 +151,7 @@ public class MultiPlayerLobbyCtrl {
      */
     public void tearDown() {
         if(thisPlayer != null) {
-            server.sendPlayer(thisPlayer);
+            server.sendPlayer(new Player(thisPlayer.getUsername(), thisPlayer.getCurrentScore()));
         }
     }
 
