@@ -1,5 +1,6 @@
 package client.scenes;
 
+import animatefx.animation.*;
 import client.MyFXML;
 import client.MyModule;
 import com.google.inject.Inject;
@@ -7,7 +8,9 @@ import com.google.inject.Injector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -26,6 +29,9 @@ public class MenuCtrl {
         this.mainCtrl = mainCtrl;
         System.out.println(this.singleIcon == null);
     }
+
+    @FXML
+    private Label title;
 
     @FXML
     private Button credits;
@@ -86,5 +92,19 @@ public class MenuCtrl {
     public void goToLeaderboard(ActionEvent actionEvent) {
         mainCtrl.goTo("SinglePlayerLeaderboard");
 
+    }
+
+    public void test(ActionEvent actionEvent) {
+        new GlowText(credits, Color.RED, Color.BLUE).play();
+        new Bounce(exit).play();
+        new JackInTheBox(credits).play();
+        new Pulse(admin).play();
+        new SlideInRight(multiPlayer).play();
+        new SlideInLeft(singlePlayer).play();
+        new Tada(title).play();
+        new GlowText(title, Color.MAGENTA, Color.AZURE).play();
+        new LightSpeedIn(title).play();
+        new RotateInDownLeft(singleIcon).play();
+        new RotateInUpRight(multiIcon).play();
     }
 }

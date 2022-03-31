@@ -1,5 +1,6 @@
 package client.scenes;
 
+import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
@@ -132,6 +133,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
+        new Bounce(userAnswer).play();
 
     }
 

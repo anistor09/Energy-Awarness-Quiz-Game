@@ -20,7 +20,7 @@
         <HBox BorderPane.alignment="CENTER">
             <children>
                 <Region prefHeight="100.0" prefWidth="355.0" HBox.hgrow="ALWAYS" />
-                <Label text="Quizzz" HBox.hgrow="ALWAYS">
+                <Label fx:id="title" text="Quizzz" HBox.hgrow="ALWAYS">
                     <font>
                         <Font size="40.0" />
                     </font>
@@ -101,6 +101,7 @@
                                         <Image url="@../../../../../../docs/pictures/multiplayer.png" />
                                     </image>
                                 </ImageView>
+                        <Button fx:id="testAnimation" mnemonicParsing="false" onAction="#test" prefHeight="26.0" prefWidth="132.0" text="Test Animations" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
                     </children>
