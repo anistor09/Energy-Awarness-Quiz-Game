@@ -266,7 +266,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             changeButtonColours(option3, "green");
             handleCorrect();
         } else {
-            changeButtonColours(option1, "red");
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
