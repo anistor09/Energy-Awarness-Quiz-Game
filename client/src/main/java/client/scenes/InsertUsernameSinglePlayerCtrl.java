@@ -11,10 +11,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class InsertUsernameSinglePlayerCtrl {
     private final MainCtrl mainCtrl;
     private final ServerUtils server;
+    private String storedUsername;
 
 
     @Inject
@@ -42,7 +48,7 @@ public class InsertUsernameSinglePlayerCtrl {
      * This method sends the username inserted by the user to the createPlayer method in order to create a new
      * Player instance that will be passed to the playSinglePLayerGame
      */
-    public void submit() {
+    public void submit() throws IOException {
         String insertedUsername = username.getText();
         String serverURL = url.getText();
         if(server.testConnection(serverURL)){
@@ -54,22 +60,39 @@ public class InsertUsernameSinglePlayerCtrl {
         }
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
         mainCtrl.startSinglePlayerGameCountdown(player);
-
+        String userNameToStore = username.getText();
+        FileWriter writer = new FileWriter("src/main/resources/username");
+        writer.write(userNameToStore);
+        writer.close();
     }
 
     /**
      * This method prepares the scene in order to respond to the input of the user
      */
     public void prepare() {
+        username.setText(storedUsername);
         root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 ev.consume();
-                submit();
+                try {
+                    submit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-
+    /**
+     * This method will retrieve the username that is stored in the local file, which is the last username this
+     * precise user has used
+     * @throws FileNotFoundException in case the file storing the username is not found
+     */
+    public void initialize() throws FileNotFoundException {
+        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
+        this.storedUsername = usernameScanner.next();
+        usernameScanner.close();
+    }
 
     public void returnToLobby(){
         mainCtrl.goTo("singleLobby");
