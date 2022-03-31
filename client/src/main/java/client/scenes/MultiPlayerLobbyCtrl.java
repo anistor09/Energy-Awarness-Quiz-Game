@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +32,7 @@ public class MultiPlayerLobbyCtrl {
 
     List<String> playerUsernames;
     private MultiPlayerGame game;
+    private int gameId;
     private Player thisPlayer;
     private boolean starting = false;
 
@@ -56,13 +58,15 @@ public class MultiPlayerLobbyCtrl {
                 Platform.runLater(() -> {
                     if(i >= 1) alert.setText("Game Starts in " + i + " seconds");
                 });
+
                 if (i == 1) {
                     Platform.runLater(() -> alert.setText("Game Starting!"));
                 }
 
                 if(i < 0){
                     timer1.cancel();
-                    Platform.runLater(() -> mainCtrl.goTo("multiGame")); //link with playMultiPlayer
+                    mainCtrl.startMultiPlayerGame();
+                    Platform.runLater(mainCtrl::playMultiPLayerGame); //link with playMultiPlayer
                 }
 
                 i--;
@@ -71,12 +75,12 @@ public class MultiPlayerLobbyCtrl {
     }
 
     /**
-     * This method is for when the player clicks the return button. This will delete the player from the game (by
+     * This method is for when the player clicks the return button. This will delete the player from the game by
      * sending it through the websocket with sendPlayer()
      */
     @FXML
     protected void returnScreen(){
-        server.sendPlayer(thisPlayer);
+        server.sendPlayer(new Player(thisPlayer.getUsername(), thisPlayer.getCurrentScore()));
         thisPlayer = null;
         mainCtrl.goTo("insertInfoMultiPlayer");
     }
@@ -87,17 +91,21 @@ public class MultiPlayerLobbyCtrl {
      * for when a player is deleted/added to the MultiPlayerGame
      */
     public void prepare() {
+        starting = false;
         game = server.getCurrentMultiplayerGame();
+        this.gameId = server.getCurrentMultiplayerGameId();
         playerUsernames = game.getPlayers().stream().map(Player::getUsername).collect(Collectors.toList());
         refresh();
         server.registerForNewPlayers("/topic/updateLobby", p -> {
-            playerUsernames = server.getCurrentMultiGamePlayers().stream().map(Player::getUsername).
+            List<Player> currentPlayers = server.getCurrentMultiGamePlayers();
+            playerUsernames = currentPlayers.stream().map(Player::getUsername).
                     collect(Collectors.toList());
+            this.game.setPlayers((ArrayList<Player>) currentPlayers);
             Platform.runLater(() -> refresh());
         });
-        server.registerForGameStart("/topic/startGame", b -> {
-            startGameButton();
-        });
+        server.registerForGameStart("/topic/startGame", b -> startGameButton());
+        mainCtrl.setGame(game);
+        mainCtrl.setGameId(gameId);
     }
 
 
@@ -124,8 +132,8 @@ public class MultiPlayerLobbyCtrl {
      */
     private String MakeList(List<String> currentUsernames) {
         String currentUsers = "";
-        for(int i = 0; i < currentUsernames.size(); i++){
-            currentUsers = currentUsers + currentUsernames.get(i) + "\n";
+        for(int i = 0; i < playerUsernames.size(); i++){
+            currentUsers = currentUsers + playerUsernames.get(i) + "\n";
         }
         return currentUsers;
     }
@@ -143,7 +151,12 @@ public class MultiPlayerLobbyCtrl {
      */
     public void tearDown() {
         if(thisPlayer != null) {
-            server.sendPlayer(thisPlayer);
+            server.sendPlayer(new Player(thisPlayer.getUsername(), thisPlayer.getCurrentScore()));
         }
+    }
+
+    @FXML
+    protected void goToHelp(){
+        mainCtrl.goTo("help");
     }
 }

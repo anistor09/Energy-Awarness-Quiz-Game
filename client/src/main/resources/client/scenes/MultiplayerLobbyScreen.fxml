@@ -33,5 +33,6 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <Button fx:id="help" layoutX="827.0" layoutY="630.0" mnemonicParsing="false" onAction="#goToHelp" prefHeight="25.0" prefWidth="62.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #023047;" text="Help" textFill="#fb8500" />
     </children>
 </Pane>

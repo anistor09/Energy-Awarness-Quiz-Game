@@ -1,23 +1,22 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
-import com.google.inject.Inject;
 import commons.Emoji;
-import javafx.event.ActionEvent;
+import commons.Player;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MultiPlayerOpenQuestionCtrl implements Initializable {
+public class MultiPlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     private final ServerUtils server;
     @FXML
@@ -57,6 +56,12 @@ public class MultiPlayerOpenQuestionCtrl implements Initializable {
     private Button joker3;
 
     @FXML
+    private Button option1;
+
+    @FXML
+    private Button option3;
+
+    @FXML
     private Label question;
 
     @FXML
@@ -74,26 +79,25 @@ public class MultiPlayerOpenQuestionCtrl implements Initializable {
     @FXML
     private Label time;
 
-    @FXML
-    private TextField userAnswer;
-
     private final MainCtrl mainCtrl;
 
     @Inject
-    public MultiPlayerOpenQuestionCtrl(MainCtrl mainCtrl) {
+    public MultiPlayerMultipleChoiceQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = mainCtrl.getServer();
     }
 
-    @FXML
-    void exit(ActionEvent event) {
+    public void exit() {
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
         time.setText(String.valueOf(i));
     }
-
+    /**
+     * This method send the Emoji to the other clients through WebSockets.
+     * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
+     */
     public void sendEmoji(Emoji e){
         server.send("/app/emojis",e);
     }
@@ -129,5 +133,10 @@ public class MultiPlayerOpenQuestionCtrl implements Initializable {
         thinking.setImage(new Image(MainCtrl.class.getResource("/pictures/thinking.png").toString()));
         crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
 
+    }
+
+    public void addPoints(){
+        Player localPlayer = mainCtrl.getLocalPlayer();
+        localPlayer.setCurrentScore(localPlayer.getCurrentScore()+10);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import server.sevice.GameService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -60,11 +61,23 @@ public class GameController {
     @MessageMapping("/updateLobby")
     @SendTo("/topic/updateLobby")
     public Player propagateNewPlayer(Player player) {
-        if(gameService.getCurrentMultiGame().getPlayers().contains(player)) {
-            gameService.getCurrentMultiGame().getPlayers().remove(player);
+        List<Player> players = gameService.getCurrentMultiGame().getPlayers();
+        if(players.contains(player)) {
+            players.remove(player);
         } else {
-            gameService.getCurrentMultiGame().getPlayers().add(player);
+            players.add(player);
         }
+        return player;
+    }
+
+    /**
+     * This method will propagate the player with new score to all those who are subscribed to /topic/updateScores/ +
+     * the id of the game. This way we avoid sending the score to all players in games that don't have this player
+     * @param player to propagate
+     */
+    @MessageMapping("/updateScores/{id}")
+    @SendTo("/topic/updateScores/{id}")
+    public Player propagateUpdatedScore(Player player){
         return player;
     }
 
@@ -125,6 +138,11 @@ public class GameController {
     @GetMapping(path = "multiGame/players")
     public ArrayList<Player> getCurrentListPlayers() {
         return gameService.getCurrentMultiGame().getPlayers();
+    }
+
+    @GetMapping(path = "multiGame/gameId")
+    public int getCurrentGameId() {
+        return gameService.getActiveGamesSize();
     }
 
 }

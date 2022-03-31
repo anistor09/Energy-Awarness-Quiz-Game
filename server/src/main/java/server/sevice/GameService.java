@@ -21,7 +21,6 @@ public class GameService {
     public GameService(QuestionController questionController) {
         this.questionController = questionController;
         activeMultiGames = new ArrayList<>();
-        //this.currentMultiGame = instantiateMultiGame();
     }
 
     /**
@@ -129,5 +128,13 @@ public class GameService {
         activeMultiGames.add(new MultiPlayerGame(currentMultiGame.getQuestions(), new ArrayList<>(),
             currentMultiGame.getPlayers()));
         currentMultiGame = instantiateMultiGame();
+    }
+
+    public void setCurrentMultiGame(MultiPlayerGame currentMultiGame) {
+        this.currentMultiGame = currentMultiGame;
+    }
+
+    public int getActiveGamesSize() {
+        return activeMultiGames.size();
     }
 }

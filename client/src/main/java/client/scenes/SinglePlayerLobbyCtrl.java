@@ -158,4 +158,9 @@ public class SinglePlayerLobbyCtrl {
             checkedStringJokers.add(e);
         }
     }
+
+    @FXML
+    protected void goToHelp(){
+        mainCtrl.goTo("help");
+    }
 }

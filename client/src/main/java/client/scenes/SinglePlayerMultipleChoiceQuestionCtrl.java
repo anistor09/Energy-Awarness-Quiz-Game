@@ -1,24 +1,57 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import commons.*;
+import javafx.application.Platform;
+import javafx.animation.ScaleTransition;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class SinglePlayerGameCtrl {
+public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
+    private  ServerUtils server;
     @FXML
     private Button exit;
 
     @FXML
+    private HBox emojiBar;
+
+    @FXML
     private Label jokerMessage;
+    @FXML
+    private Label ReactionName;
+
+    @FXML
+    private ImageView anger;
+    @FXML
+    private ImageView crying;
+
+    @FXML
+    private ImageView devil;
+    @FXML
+    private ImageView inLove;
+    @FXML
+    private ImageView reaction;
+    @FXML
+    private ImageView smiling;
+
+    @FXML
+    private ImageView thinking;
+
 
     @FXML
     private ImageView icon1;
@@ -61,6 +94,8 @@ public class SinglePlayerGameCtrl {
 
     @FXML
     private Label time;
+    @FXML
+    private Label debug;
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
@@ -74,8 +109,9 @@ public class SinglePlayerGameCtrl {
      * @param mainCtrl
      */
     @Inject
-    public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
+    public SinglePlayerMultipleChoiceQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
+        this.server = mainCtrl.getServer();
 
     }
 
@@ -84,11 +120,13 @@ public class SinglePlayerGameCtrl {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
+        this.setEmojiBarVisible(currentGame);
         MultipleChoiceQuestion q = (MultipleChoiceQuestion) currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
-        Player player = ((SinglePlayerGame) currentGame).getPlayer();
+        Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
@@ -103,6 +141,7 @@ public class SinglePlayerGameCtrl {
             option3.setText("Wrong Option");
         }
 
+
         initialiseActivityImage(act);
 
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
@@ -111,6 +150,24 @@ public class SinglePlayerGameCtrl {
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
+    }
+
+    private void setEmojiBarVisible(Game currentGame) {
+        if(currentGame instanceof MultiPlayerGame){
+            emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);
+                ReactionName.setText("");});
+        }
+        else{
+            emojiBar.setVisible(false);
+        }
     }
 
     /**
@@ -140,9 +197,9 @@ public class SinglePlayerGameCtrl {
      * @param act Instance of Activity
      */
     private void initialiseActivityImage(Activity act) {
-        String server = "http://localhost:8080/";
+        String serverString = server.getServer();
 
-        image.setImage(new Image(server + act.getImage_path()));
+        image.setImage(new Image(serverString + act.getImage_path()));
     }
 
     /**
@@ -160,12 +217,30 @@ public class SinglePlayerGameCtrl {
     }
 
     /**
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
+     */
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
+    }
+
+    // method to locate the correct answer
+
+
+    /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -175,9 +250,11 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -187,9 +264,11 @@ public class SinglePlayerGameCtrl {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 2) {
+            changeButtonColours(option3, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -200,15 +279,29 @@ public class SinglePlayerGameCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
+        Game game = mainCtrl.getGame();
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
 
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        Player p = spg.getPlayer();
-
-        System.out.println("correct");
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
+        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
         p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
         IntermediateScreenCtrl.setPointsGained(points);
 
 
@@ -219,7 +312,13 @@ public class SinglePlayerGameCtrl {
      * console
      */
     void handleWrong() {
-        System.out.println("wrong");
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, "green");
+        } else if(questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, "green");
+        } else {
+            changeButtonColours(option3, "green");
+        }
         IntermediateScreenCtrl.setPointsGained(0);
     }
 
@@ -228,6 +327,7 @@ public class SinglePlayerGameCtrl {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
+            joker1.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -239,6 +339,7 @@ public class SinglePlayerGameCtrl {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
+            joker2.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -250,6 +351,7 @@ public class SinglePlayerGameCtrl {
         if (canUseJoker(joker3.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
+            joker3.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -281,5 +383,57 @@ public class SinglePlayerGameCtrl {
         this.pointsGained = pointsGained;
     }
 
+
+    /**
+     * This method send the Emoji to the other clients through WebSockets.
+     * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
+     */
+    public void sendEmoji(Emoji e){
+
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
+    }
+    /**
+     * This  method creates an Emoji and passes it to the sendEmoji() method
+     * @param event Event that occurs when an image view for Emoji is pressed.
+     */
+    public void getEmoji(Event event){
+        Emoji e =  new Emoji(mainCtrl.getLocalPlayer().getUsername(),((ImageView)event.getSource()).
+                getImage().getUrl());
+        sendEmoji(e);
+    }
+
+    /**
+     * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
+     * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
+     */
+    public void initialiseEmoji(Emoji e) {
+        ReactionName.setText(e.getSender());
+        reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
+    }
+    /**
+     * This method initialises the Emojis images because they are not rendered directly for Windows users.
+     * @param location
+     * @param resources
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        smiling.setImage(new Image(MainCtrl.class.getResource("/pictures/smilingTeeth.png").toString()));
+        anger.setImage(new Image(MainCtrl.class.getResource("/pictures/anger.png").toString()));
+        devil.setImage(new Image(MainCtrl.class.getResource("/pictures/devil.png").toString()));
+        inLove.setImage(new Image(MainCtrl.class.getResource("/pictures/in-love.png").toString()));
+        thinking.setImage(new Image(MainCtrl.class.getResource("/pictures/thinking.png").toString()));
+        crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
+
+    }
+
+    public void hideEmoji() {
+        emojiBar.setVisible(false);
+    }
 }
 

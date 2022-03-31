@@ -27,7 +27,7 @@ class EliminateOptionJokerTest {
     @Test
     void useCard() {
         eliminate.useCard();
-        assertTrue(question.getOptions().contains((double) question.getActivity().getConsumption_in_wh()));
+        assertTrue(question.getOptions().contains(question.getActivity().getConsumption_in_wh()));
         assertEquals(2, question.getOptions().size());
     }
 

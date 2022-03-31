@@ -5,17 +5,17 @@ import javafx.fxml.FXML;
 import javax.inject.Inject;
 
 
-public class HelpCtrl{
+public class ErrorScreenCtrl{
     private final MainCtrl mainCtrl;
 
     @Inject
-    public HelpCtrl(MainCtrl mainCtrl){
+    public ErrorScreenCtrl(MainCtrl mainCtrl){
         this.mainCtrl = mainCtrl;
     }
 
     @FXML
     protected void goToMenu(){
-        mainCtrl.getVisitedScreens().pop(); // removes "help" from the top of the stack
+        mainCtrl.getVisitedScreens().pop(); // removes "ErrorScreen" from the top of the stack
         String previousScreen = mainCtrl.getVisitedScreens().pop();
         mainCtrl.goTo(previousScreen);
     }
