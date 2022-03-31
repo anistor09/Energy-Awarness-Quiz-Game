@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.application.Platform;
+import javafx.animation.ScaleTransition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 
 import javax.inject.Inject;
@@ -425,6 +427,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         Emoji e =  new Emoji(mainCtrl.getLocalPlayer().getUsername(),((ImageView)event.getSource()).
                 getImage().getUrl());
         sendEmoji(e);
+
     }
 
     /**
@@ -434,6 +437,12 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
         reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
     }
     /**
      * This method initialises the Emojis images because they are not rendered directly for Windows users.
