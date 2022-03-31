@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TimeJokerController {
-    @MessageMapping("/timeJoker") //app/timeJoker
-    @SendTo("/topic/timeJoker")
+    @MessageMapping("/timeJoker/{id}") //app/timeJoker
+    @SendTo("/topic/timeJoker/{id}")
     public DecreaseTimeJoker addEmoji(DecreaseTimeJoker j){
         return j;
     }

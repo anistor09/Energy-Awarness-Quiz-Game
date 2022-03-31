@@ -736,7 +736,7 @@ public class MainCtrl {
             case "Decrease Time Joker":
                 DecreaseTimeJoker timeJoker = (DecreaseTimeJoker) this.getJoker("Decrease Time Joker");
                 timeJoker.setSenderUsername(localPlayer.getUsername());
-                serverUtils.send("/app/timeJoker",timeJoker);
+                serverUtils.send("/app/timeJoker/"+ this.getGameId(),timeJoker);
                 localPlayer.deleteJoker(timeJoker);
                 break;
 
@@ -843,7 +843,7 @@ public class MainCtrl {
      * retrieved from other clients.
      */
     public void startScanningEmojis(){
-        serverUtils.registerForEmoji("/topic/emojis",e->{
+        serverUtils.registerForEmoji("/topic/emojis/"+this.getGameId(),e->{
             String currentQuestionScreen = getClassName(game.getQuestions().
                     get(game.getCurrentQuestionNumber())
                     .getClass().toString());
@@ -875,7 +875,7 @@ public class MainCtrl {
      *
      */
     public void startScanningTimeJoker(){
-        serverUtils.registerForTimeJoker("/topic/timeJoker",j->{
+        serverUtils.registerForTimeJoker("/topic/timeJoker/"+this.getGameId(),j->{
 
             j.setLocalPlayer(localPlayer);
             if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
