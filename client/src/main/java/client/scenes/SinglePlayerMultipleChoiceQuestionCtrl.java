@@ -1,24 +1,55 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import commons.*;
+import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 import javax.inject.Inject;
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class SinglePlayerGameCtrl {
+public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
+    private  ServerUtils server;
     @FXML
     private Button exit;
 
     @FXML
+    private HBox emojiBar;
+
+    @FXML
     private Label jokerMessage;
+    @FXML
+    private Label ReactionName;
+
+    @FXML
+    private ImageView anger;
+    @FXML
+    private ImageView crying;
+
+    @FXML
+    private ImageView devil;
+    @FXML
+    private ImageView inLove;
+    @FXML
+    private ImageView reaction;
+    @FXML
+    private ImageView smiling;
+
+    @FXML
+    private ImageView thinking;
+
 
     @FXML
     private ImageView icon1;
@@ -57,18 +88,26 @@ public class SinglePlayerGameCtrl {
     private Label score;
 
     @FXML
+    private Label questionNumber;
+
+    @FXML
     private Label time;
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
+
+    private static int pointsGained; // this is the points gained from this question.
+
+    private IntermediateScreenCtrl intermediateScreenCtrl;
 
 
     /**
      * @param mainCtrl
      */
     @Inject
-    public SinglePlayerGameCtrl(MainCtrl mainCtrl) {
+    public SinglePlayerMultipleChoiceQuestionCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
+        this.server = mainCtrl.getServer();
 
     }
 
@@ -79,9 +118,10 @@ public class SinglePlayerGameCtrl {
     public void initialiseSinglePlayerQuestion() {
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
+        this.setEmojiBarVisible(currentGame);
         MultipleChoiceQuestion q = (MultipleChoiceQuestion) currentGame.getQuestions().
                 get(currentGame.getCurrentQuestionNumber());
-        Player player = ((SinglePlayerGame) currentGame).getPlayer();
+        Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
         score.setText(String.valueOf(player.getCurrentScore()));
         Activity act = q.getActivity();
@@ -96,11 +136,27 @@ public class SinglePlayerGameCtrl {
             option3.setText("Wrong Option");
         }
 
+
         initialiseActivityImage(act);
+
+        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
+                (currentGame.getQuestions().size() - 1));
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+    }
+
+    private void setEmojiBarVisible(Game currentGame) {
+        if(currentGame instanceof MultiPlayerGame){
+            emojiBar.setVisible(true);
+            Platform.runLater(()->{
+                reaction.setImage(null);
+                ReactionName.setText("");});
+        }
+        else{
+            emojiBar.setVisible(false);
+        }
     }
 
     /**
@@ -130,9 +186,9 @@ public class SinglePlayerGameCtrl {
      * @param act Instance of Activity
      */
     private void initialiseActivityImage(Activity act) {
-        String server = "http://localhost:8080/";
+        String serverString = server.getServer();
 
-        image.setImage(new Image(server + act.getImage_path()));
+        image.setImage(new Image(serverString + act.getImage_path()));
     }
 
     /**
@@ -190,10 +246,32 @@ public class SinglePlayerGameCtrl {
      * player and printing out correct
      */
     void handleCorrect() {
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-        p.setCurrentScore(p.getCurrentScore() + questionObject.getAvailablePoints());
+        Game game = mainCtrl.getGame();
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
         System.out.println("correct");
-        System.out.println(p.getCurrentScore());
+        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+        p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
+        IntermediateScreenCtrl.setPointsGained(points);
+
+
     }
 
     /**
@@ -202,6 +280,7 @@ public class SinglePlayerGameCtrl {
      */
     void handleWrong() {
         System.out.println("wrong");
+        IntermediateScreenCtrl.setPointsGained(0);
     }
 
     @FXML
@@ -249,4 +328,63 @@ public class SinglePlayerGameCtrl {
         mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
+
+    public void setQuestionNumber(String i) {
+        questionNumber.setText(i);
+    }
+
+    public int getPointsGained() {
+        return pointsGained;
+    }
+
+    public void setPointsGained(int pointsGained) {
+        this.pointsGained = pointsGained;
+    }
+
+
+    /**
+     * This method send the Emoji to the other clients through WebSockets.
+     * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
+     */
+    public void sendEmoji(Emoji e){
+        server.send("/app/emojis",e);
+    }
+    /**
+     * This  method creates an Emoji and passes it to the sendEmoji() method
+     * @param event Event that occurs when an image view for Emoji is pressed.
+     */
+    public void getEmoji(Event event){
+        Emoji e =  new Emoji(mainCtrl.getLocalPlayer().getUsername(),((ImageView)event.getSource()).
+                getImage().getUrl());
+        sendEmoji(e);
+    }
+
+    /**
+     * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
+     * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
+     */
+    public void initialiseEmoji(Emoji e) {
+        ReactionName.setText(e.getSender());
+        reaction.setImage(new Image(e.getEmojiPath()));
+    }
+    /**
+     * This method initialises the Emojis images because they are not rendered directly for Windows users.
+     * @param location
+     * @param resources
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        smiling.setImage(new Image(MainCtrl.class.getResource("/pictures/smilingTeeth.png").toString()));
+        anger.setImage(new Image(MainCtrl.class.getResource("/pictures/anger.png").toString()));
+        devil.setImage(new Image(MainCtrl.class.getResource("/pictures/devil.png").toString()));
+        inLove.setImage(new Image(MainCtrl.class.getResource("/pictures/in-love.png").toString()));
+        thinking.setImage(new Image(MainCtrl.class.getResource("/pictures/thinking.png").toString()));
+        crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
+
+    }
+
+    public void hideEmoji() {
+        emojiBar.setVisible(false);
+    }
 }
+

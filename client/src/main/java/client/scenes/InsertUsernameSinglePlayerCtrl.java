@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import commons.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,17 +11,22 @@ import javax.inject.Inject;
 
 public class InsertUsernameSinglePlayerCtrl {
     private final MainCtrl mainCtrl;
+    private final ServerUtils server;
 
 
     @Inject
     public InsertUsernameSinglePlayerCtrl(MainCtrl main) {
         this.mainCtrl=main;
+        this.server = mainCtrl.getServer();
     }
 
     @FXML
     private Label usernameLabel;
     @FXML
     private TextField username;
+
+    @FXML
+    private TextField url;
 
     @FXML
     private Button submitButton;
@@ -32,10 +38,20 @@ public class InsertUsernameSinglePlayerCtrl {
      */
     public void submit() {
         String insertedUsername = username.getText();
+        String serverURL = url.getText();
+        if(server.testConnection(serverURL)){
+            server.setSERVER(serverURL);
+        }
+        else{
+            System.out.println("Provided server url is wrong!");
+            mainCtrl.goTo("error");
+        }
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
-        mainCtrl.playSinglePLayerGame(player);
+        mainCtrl.startSinglePlayerGameCountdown(player);
 
     }
+
+
 
     public void returnToLobby(){
         mainCtrl.goTo("singleLobby");

@@ -17,6 +17,8 @@ public class IntermediateScreenCtrl {
 
     private final MainCtrl mainCtrl;
 
+    private static int pointsGained = 0;
+
     @Inject
     public IntermediateScreenCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -27,8 +29,6 @@ public class IntermediateScreenCtrl {
      * earned by the player after answering the question.
      */
     public void initialiseScene() {
-        // go to the intermediate screen after X seconds
-
         Timer timerLabel = new Timer();
         timerLabel.scheduleAtFixedRate(new TimerTask() {
             int i = 5;
@@ -46,5 +46,23 @@ public class IntermediateScreenCtrl {
                 }
             }
         }, 0,1000);
+    }
+
+    // set the pointsLabel to the appropriate points depending on the type of question.
+
+    /**
+     * Sets the points label to the appropriate number depending on the preceding question.
+     */
+    public void setPointsLabel() {
+        this.pointsLabel.setText(String.valueOf(pointsGained));
+        setPointsGained(0); // refresh
+    }
+
+    public static int getPointsGained() {
+        return pointsGained;
+    }
+
+    public static void setPointsGained(int pointsGained) {
+        IntermediateScreenCtrl.pointsGained = pointsGained;
     }
 }

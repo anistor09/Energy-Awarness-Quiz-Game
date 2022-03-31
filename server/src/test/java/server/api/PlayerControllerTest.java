@@ -35,7 +35,7 @@ public class PlayerControllerTest {
         assertEquals(localList,repositoryList);
     }
     @Test
-    public void testDeleteActivities(){
+    public void testDeletePlayer(){
         controller.addNewPlayer(getPlayer());
         List<Player> localList  = new ArrayList<>();
         controller.deletePlayer(1L);

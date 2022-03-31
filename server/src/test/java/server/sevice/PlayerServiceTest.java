@@ -1,7 +1,6 @@
 package server.sevice;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -9,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import server.database.PlayerRepository;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceTest {
@@ -34,12 +34,10 @@ class PlayerServiceTest {
         verify(playerRepository).save(null);
     }
 
-    /**
-     * This method is currently not testable due to the lack of activities on the database when test is ran.
-     */
-    @Disabled
     @Test
     void deletePlayer() {
-
+        when(playerRepository.existsById(1L)).thenReturn(true);
+        underTest.deletePlayer(1L);
+        verify(playerRepository).deleteById(1L);
     }
 }

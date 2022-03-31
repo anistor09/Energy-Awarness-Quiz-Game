@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerGameCtrl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiPlayerMultipleChoiceQuestionCtrl">
     <top>
         <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="737.0" text="Question" BorderPane.alignment="BOTTOM_CENTER">
             <BorderPane.margin>
@@ -35,7 +35,7 @@
                         <Insets bottom="10.0" left="1.0" top="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="option3" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
+                <Button fx:id="option2" mnemonicParsing="false" prefHeight="36.0" prefWidth="400.0" text="Option 2" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="40.0" />
                     </VBox.margin>
@@ -82,6 +82,7 @@
     <left>
         <VBox prefHeight="638.0" prefWidth="247.0" BorderPane.alignment="CENTER">
             <children>
+            <Button mnemonicParsing="false" onAction="#addPoints" text="Add 10 Points" />
                 <ImageView fx:id="image" fitHeight="282.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="30.0" top="70.0" />
@@ -139,7 +140,7 @@
                 </Button>
                 <HBox prefHeight="100.0" prefWidth="656.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="smiling" fitHeight="70.0" fitWidth="70.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="20.0" top="25.0" />
                             </HBox.margin>
@@ -147,7 +148,7 @@
                                 <Image url="@../../../../../../docs/pictures/smilingTeeth.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="crying" fitHeight="70.0" fitWidth="70.0" layoutX="50.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="20.0" top="25.0" />
                             </HBox.margin>
@@ -155,7 +156,7 @@
                                 <Image url="@../../../../../../docs/pictures/crying.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="devil" fitHeight="70.0" fitWidth="70.0" layoutX="150.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="25.0" top="25.0" />
                             </HBox.margin>
@@ -163,7 +164,7 @@
                                 <Image url="@../../../../../../docs/pictures/devil.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="inLove" fitHeight="70.0" fitWidth="70.0" layoutX="255.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="20.0" top="25.0" />
                             </HBox.margin>
@@ -171,7 +172,7 @@
                                 <Image url="@../../../../../../docs/pictures/in-love.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="anger" fitHeight="70.0" fitWidth="70.0" layoutX="355.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="20.0" top="25.0" />
                             </HBox.margin>
@@ -179,7 +180,7 @@
                                 <Image url="@../../../../../../docs/pictures/anger.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="thinking" fitHeight="70.0" fitWidth="70.0" layoutX="455.0" layoutY="35.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="20.0" top="25.0" />
                             </HBox.margin>

@@ -21,7 +21,6 @@ public class GameService {
     public GameService(QuestionController questionController) {
         this.questionController = questionController;
         activeMultiGames = new ArrayList<>();
-        //this.currentMultiGame = instantiateMultiGame();
     }
 
     /**
@@ -119,5 +118,23 @@ public class GameService {
     public MultiPlayerGame getCurrentMultiGame() {
         if(this.currentMultiGame == null) currentMultiGame = instantiateMultiGame();
         return this.currentMultiGame;
+    }
+
+    /**
+     * This method will close the lobby of the game that currently has an open lobby. It will archive it into the list
+     * of active games, and it will create a new multiplayer game for the new lobby
+     */
+    public void archiveGame() {
+        activeMultiGames.add(new MultiPlayerGame(currentMultiGame.getQuestions(), new ArrayList<>(),
+            currentMultiGame.getPlayers()));
+        currentMultiGame = instantiateMultiGame();
+    }
+
+    public void setCurrentMultiGame(MultiPlayerGame currentMultiGame) {
+        this.currentMultiGame = currentMultiGame;
+    }
+
+    public int getActiveGamesSize() {
+        return activeMultiGames.size();
     }
 }

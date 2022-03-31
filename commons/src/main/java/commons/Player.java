@@ -23,7 +23,7 @@ public class Player {
     private String username;
     private int currentScore;
     @Transient
-    private int timeLeft = 3; // #### CHANGE IN FINAL VERSION ####
+    private int timeLeft = 30; // #### CHANGE IN FINAL VERSION ####
     @Transient
     private List<JokerCard> jokerCards;//each player is assigned with a set of available jokers
 
@@ -68,7 +68,7 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return currentScore == player.currentScore && id.equals(player.id) && username.equals(player.username);
+        return currentScore == player.currentScore && username.equals(player.username);
     }
 
     @Override

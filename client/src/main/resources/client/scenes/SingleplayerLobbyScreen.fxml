@@ -66,5 +66,6 @@
                 <Font size="20.0" />
             </font>
         </RadioButton>
+      <Button fx:id="help" layoutX="767.0" layoutY="606.0" mnemonicParsing="false" onAction="#goToHelp" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Help" textFill="#fb8500" />
     </children>
 </Pane>

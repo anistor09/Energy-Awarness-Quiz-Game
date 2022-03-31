@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import server.sevice.GameService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -60,8 +61,37 @@ public class GameController {
     @MessageMapping("/updateLobby")
     @SendTo("/topic/updateLobby")
     public Player propagateNewPlayer(Player player) {
-        gameService.getCurrentMultiGame().getPlayers().add(player);
+        List<Player> players = gameService.getCurrentMultiGame().getPlayers();
+        if(players.contains(player)) {
+            players.remove(player);
+        } else {
+            players.add(player);
+        }
         return player;
+    }
+
+    /**
+     * This method will propagate the player with new score to all those who are subscribed to /topic/updateScores/ +
+     * the id of the game. This way we avoid sending the score to all players in games that don't have this player
+     * @param player to propagate
+     */
+    @MessageMapping("/updateScores/{id}")
+    @SendTo("/topic/updateScores/{id}")
+    public Player propagateUpdatedScore(Player player){
+        return player;
+    }
+
+    /**
+     * This method is destined for messages related to the start of the game. Whenever a player clicks start it sends
+     * a message that will stop here before being forwarded to everyone
+     * @param check
+     * @return
+     */
+    @MessageMapping("/startGame")
+    @SendTo("/topic/startGame")
+    public boolean startGame(boolean check) {
+        gameService.archiveGame();
+        return check;
     }
 
     /**
@@ -108,6 +138,11 @@ public class GameController {
     @GetMapping(path = "multiGame/players")
     public ArrayList<Player> getCurrentListPlayers() {
         return gameService.getCurrentMultiGame().getPlayers();
+    }
+
+    @GetMapping(path = "multiGame/gameId")
+    public int getCurrentGameId() {
+        return gameService.getActiveGamesSize();
     }
 
 }
