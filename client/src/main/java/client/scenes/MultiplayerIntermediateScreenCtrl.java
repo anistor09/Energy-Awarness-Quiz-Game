@@ -1,12 +1,14 @@
 package client.scenes;
 
+import commons.MultiPlayerGame;
+import commons.Player;
+import commons.SinglePlayerGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class MultiplayerIntermediateScreenCtrl {
     @FXML
@@ -89,7 +91,6 @@ public class MultiplayerIntermediateScreenCtrl {
     /**
      * Starts the countdown for the next question
      */
-
     public void startCountdown() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -114,5 +115,50 @@ public class MultiplayerIntermediateScreenCtrl {
      */
     public void setI(int additionalTime) {
         this.i = 5+additionalTime;
+    }
+
+
+    public void initialiseLeaderboard() {
+        // get list of players from server util
+        List<Player> players = ((MultiPlayerGame) mainCtrl.getGame()).getPlayers();
+
+        int numOfPlayers = players.size();
+
+
+        // if there are fewer than 10 players, we only want to set the first N rows in the leaderboard
+        int min = Math.min(10, numOfPlayers);
+
+
+        // sort leaderboard in descending order from 1 to 10
+
+        players.sort((o1, o2) -> o2.getCurrentScore() - o1.getCurrentScore());
+
+        // truncate list to only get the first 10
+        players = players.subList(0, min);
+
+
+        Label[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10};
+        Label[] scores = {score1, score2, score3, score4, score5, score6, score7, score8, score9, score10};
+
+        // set name and score labels to their corresponding values retrieved from the server.
+        for (int i = 0; i < min; i++) {
+            names[i].setText(players.get(i).getUsername());
+            scores[i].setText(String.valueOf(players.get(i).getCurrentScore()));
+        }
+
+        // check if there is a game stored.
+        if (mainCtrl.getGame() != null) {
+            Player localPlayer;
+            if(mainCtrl.getGame() instanceof SinglePlayerGame) {
+                localPlayer = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            } else {
+                localPlayer = mainCtrl.getLocalPlayer();
+            }
+
+            playerName.setText(localPlayer.getUsername());
+            playerScore.setText(String.valueOf(localPlayer.getCurrentScore()));
+        }
+
+
     }
 }

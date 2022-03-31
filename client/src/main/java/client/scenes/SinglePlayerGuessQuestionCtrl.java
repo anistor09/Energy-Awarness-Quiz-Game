@@ -187,7 +187,23 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             long guess = Long.parseLong(userAnswer.getCharacters().toString());
             switchButtons(true);
             int points = questionObject.calculatePoints(guess);
-            Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            Game game = mainCtrl.getGame();
+            Player p = null;
+            if (game instanceof SinglePlayerGame) {
+                p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            } else {
+                MultiPlayerGame m = (MultiPlayerGame) game;
+                for (int i = 0; i < m.getPlayers().size(); i++) {
+                    Player localPlayer = mainCtrl.getLocalPlayer();
+                    Player toSearch = m.getPlayers().get(i);
+                    if (toSearch.getUsername().equals(localPlayer.getUsername())) {
+                        p = m.getPlayers().get(i);
+                    }
+                }
+            }
+            if (p==null) {
+                throw new NullPointerException("No player found");
+            }
             p.setCurrentScore(p.getCurrentScore() + points);
             if (points == 100) {
                 actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
