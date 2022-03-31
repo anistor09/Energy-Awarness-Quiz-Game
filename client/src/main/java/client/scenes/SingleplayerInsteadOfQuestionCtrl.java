@@ -106,7 +106,6 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     @FXML
     private Label questionNumber;
 
-    private boolean isChosenAnswerCorrect;
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
 
@@ -200,9 +199,9 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         option1.setDisable(onOff);
         option2.setDisable(onOff);
         option3.setDisable(onOff);
-        joker1.setDisable(onOff);
-        joker2.setDisable(onOff);
-        joker3.setDisable(onOff);
+//        joker1.setDisable(onOff);
+//        joker2.setDisable(onOff);
+//        joker3.setDisable(onOff);
     }
 
     /**
@@ -271,6 +270,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
         IntermediateScreenCtrl.setPointsGained(points);
+        questionObject.setChosenAnswerCorrect(true);
         System.out.println("correct");
     }
 
@@ -280,6 +280,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
+        questionObject.setChosenAnswerCorrect(false);
         System.out.println("wrong");
     }
 

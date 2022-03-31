@@ -24,6 +24,10 @@ public class AdditionalPointsJoker extends JokerCard{
         this.usedJoker = false;
     }
 
+    public AdditionalPointsJoker() {
+        super("Additional Points Joker", "....", false);
+        this.usedJoker = false;
+    }
 
     /**
      * This method adds additional points for the player in case the answer is correct.

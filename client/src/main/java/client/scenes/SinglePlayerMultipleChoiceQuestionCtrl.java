@@ -200,9 +200,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         option1.setDisable(onOff);
         option2.setDisable(onOff);
         option3.setDisable(onOff);
-        joker1.setDisable(onOff);
-        joker2.setDisable(onOff);
-        joker3.setDisable(onOff);
+//        joker1.setDisable(onOff);
+//        joker2.setDisable(onOff);
+//        joker3.setDisable(onOff);
     }
 
     /**
@@ -270,7 +270,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
         IntermediateScreenCtrl.setPointsGained(points);
-
+        questionObject.setChosenAnswerCorrect(true);
 
     }
 
@@ -281,6 +281,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     void handleWrong() {
         System.out.println("wrong");
         IntermediateScreenCtrl.setPointsGained(0);
+        questionObject.setChosenAnswerCorrect(false);
     }
 
     @FXML

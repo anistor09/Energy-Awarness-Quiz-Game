@@ -181,6 +181,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             switchButtons(true);
             int points = questionObject.calculatePoints(guess);
             Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            questionObject.setChosenAnswerCorrect(true);
             p.setCurrentScore(p.getCurrentScore() + points);
             System.out.println(guess);
             System.out.println("You earned " + points);
@@ -202,9 +203,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     void switchButtons(boolean onOff) {
         userAnswer.setDisable(onOff);
-        joker1.setDisable(onOff);
-        joker2.setDisable(onOff);
-        joker3.setDisable(onOff);
+//        joker1.setDisable(onOff);
+//        joker2.setDisable(onOff);
+//        joker3.setDisable(onOff);
     }
 
     public int getPointsGained() {

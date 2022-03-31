@@ -97,7 +97,6 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private Label time;
 
     private final MainCtrl mainCtrl;
-    private boolean isChosenAnswerCorrect;
     private MostEnergyQuestion questionObject; //the object that is being displayed
 
     private static int pointsGained;    // points gained from this question.
@@ -150,9 +149,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option1.setDisable(onOff);
         option2.setDisable(onOff);
         option3.setDisable(onOff);
-        joker1.setDisable(onOff);
-        joker2.setDisable(onOff);
-        joker3.setDisable(onOff);
+//        joker1.setDisable(onOff);
+//        joker2.setDisable(onOff);
+//        joker3.setDisable(onOff);
     }
 
     private void initialiseActivityImages(List<Activity> activityList) {
@@ -273,6 +272,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
         IntermediateScreenCtrl.setPointsGained(points);
+        questionObject.setChosenAnswerCorrect(true);
 
     }
 
@@ -282,7 +282,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
-        this.isChosenAnswerCorrect = false;
+        questionObject.setChosenAnswerCorrect(false);
         System.out.println("wrong");
     }
     @FXML
@@ -391,12 +391,6 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void hideEmoji() {
         emojiBar.setVisible(false);
     }
-    public boolean isChosenAnswerCorrect() {
-        return isChosenAnswerCorrect;
-    }
 
-    public void setChosenAnswerCorrect(boolean chosenAnswerCorrect) {
-        isChosenAnswerCorrect = chosenAnswerCorrect;
-    }
 }
 

@@ -37,7 +37,7 @@ class AdditionalPointsTest {
     @Test
     void useCard() {
         additionalPointsJoker1.useCard();
-        assertEquals(20, player.getCurrentScore());
+        assertEquals(25, player.getCurrentScore());
 
     }
 
