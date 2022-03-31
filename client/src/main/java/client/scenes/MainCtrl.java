@@ -713,19 +713,29 @@ public class MainCtrl {
         switch (usedJoker) {
             case "Additional Points Joker":
                 AdditionalPointsJoker pointsJoker =
-                        (AdditionalPointsJoker) this.getJoker("Additional Points Joker");
+                        (AdditionalPointsJoker)this.getJoker("Additional Points Joker");
+                pointsJoker.setQuestion(game.getQuestions().get(game.getCurrentQuestionNumber()));
+                pointsJoker.setPlayer(((SinglePlayerGame)game).getPlayer());
+                if(pointsJoker.getQuestion().get()){
+                    pointsJoker.useCard();
+                }
+
+                ((SinglePlayerGame)game).getPlayer().deleteJoker(pointsJoker);
+
                 break;
-            case "EliminateOptionJoker":
-                EliminateOptionJoker eliminateOptionJokerJoker =
+
+            case"EliminateOptionJoker":
+                EliminateOptionJoker eliminateOptionJoker =
                         (EliminateOptionJoker) this.getJoker("EliminateOptionJoker");
-                eliminateOptionJokerJoker.setQuestion((MultipleChoiceQuestion) game.getQuestions().
+                eliminateOptionJoker.setQuestion((MultipleChoiceQuestion) game.getQuestions().
                         get((game).
                                 getCurrentQuestionNumber()));
-                eliminateOptionJokerJoker.useCard();
+                eliminateOptionJoker.useCard();
                 singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(eliminateOptionJokerJoker);
+                ((SinglePlayerGame)game).getPlayer().deleteJoker(eliminateOptionJoker);
                 break;
-            case "Question Change Joker":
+            case"Question Change Joker":
+
                 QuestionChangeJoker questionChangeJoker =
                         (QuestionChangeJoker) this.getJoker("Question Change Joker");
                 int questionNr = game.getCurrentQuestionNumber();

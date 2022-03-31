@@ -106,6 +106,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     @FXML
     private Label questionNumber;
 
+    private boolean isChosenAnswerCorrect;
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
 
