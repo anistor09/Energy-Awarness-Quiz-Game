@@ -235,6 +235,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
+            joker1.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -246,6 +247,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
+            joker2.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -257,6 +259,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         jokerMessage.setText("");
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
+            joker3.setDisable(true);
             mainCtrl.handleJoker();
         }
         else{
@@ -277,7 +280,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-        server.send("/app/emojis",e);
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method

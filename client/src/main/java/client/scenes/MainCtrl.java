@@ -727,7 +727,7 @@ public class MainCtrl {
                                 getCurrentQuestionNumber()));
                 eliminateOptionJokerJoker.useCard();
                 singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(eliminateOptionJokerJoker);
+                localPlayer.deleteJoker(eliminateOptionJokerJoker);
                 break;
             case "Question Change Joker":
                 QuestionChangeJoker questionChangeJoker =
@@ -736,7 +736,12 @@ public class MainCtrl {
                 game.setCurrentQuestionNumber(0);
                 this.goToNextQuestionNoTimer();
                 game.setCurrentQuestionNumber(questionNr);
-                ((SinglePlayerGame) game).getPlayer().deleteJoker(questionChangeJoker);
+                localPlayer.deleteJoker(questionChangeJoker);
+            case "Decrease Time Joker":
+                DecreaseTimeJoker timeJoker = (DecreaseTimeJoker) this.getJoker("Decrease Time Joker");
+                timeJoker.setSenderUsername(localPlayer.getUsername());
+                serverUtils.send("/app/timeJoker/"+ this.getGameId(),timeJoker);
+                localPlayer.deleteJoker(timeJoker);
                 break;
 
         }
@@ -753,7 +758,7 @@ public class MainCtrl {
 
     private JokerCard getJoker(String jokerName) {
         JokerCard returnedJokerCard = null;
-        for (JokerCard j : ((SinglePlayerGame) game).getPlayer().getJokerCards()) {
+        for (JokerCard j : localPlayer.getJokerCards()) {
             if (j.getName().equals(jokerName))
                 returnedJokerCard = j;
         }
@@ -842,7 +847,7 @@ public class MainCtrl {
      * retrieved from other clients.
      */
     public void startScanningEmojis(){
-        serverUtils.registerForEmoji("/topic/emojis",e->{
+        serverUtils.registerForEmoji("/topic/emojis/"+this.getGameId(),e->{
             String currentQuestionScreen = getClassName(game.getQuestions().
                     get(game.getCurrentQuestionNumber())
                     .getClass().toString());
@@ -868,6 +873,22 @@ public class MainCtrl {
                     break;
         }
     });
+    }
+
+    /**
+     *
+     */
+    public void startScanningTimeJoker(){
+        serverUtils.registerForTimeJoker("/topic/timeJoker/"+this.getGameId(),j->{
+
+            j.setLocalPlayer(localPlayer);
+            if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
+                int decreasedTime = j.returnUseCard();
+                multiplayerIntermediateScreenCtrl.setI(decreasedTime);
+            }
+
+
+        });
     }
 
     /**
@@ -927,16 +948,30 @@ public class MainCtrl {
         });
         startScanningEmojis();
         startScanningScoreUpdates();
-        localPlayer.setJokerCards(new ArrayList<>());
+        startScanningTimeJoker();
+        localPlayer.setJokerCards(getJokerList());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
     }
 
     public void playMultiPLayerGame() {
+
         goToNextMultiplayerQuestion();
     }
+private List<JokerCard> getJokerList() {
 
+        List<JokerCard> jokerList = new ArrayList<>();
+       // jokerList.add(new AdditionalPointsJoker(localPlayer));
+
+        jokerList.add(new EliminateOptionJoker(null));
+
+        jokerList.add(new DecreaseTimeJoker(localPlayer.getUsername()));
+        //jokerList.add(new QuestionChangeJoker());
+
+        return jokerList;
+
+    }
     public Stack<String> getVisitedScreens() {
         return visitedScreens;
     }
@@ -965,7 +1000,7 @@ public class MainCtrl {
                 @Override
                 public void run() {
                     switchQuestionScreen(className);
-                } //TODO NEED METHOD THAT INITIALIZES MULTIPLAYER QUESTIONS
+                }
             });
         }
         else {
