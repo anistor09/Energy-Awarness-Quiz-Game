@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerMultipleChoiceQuestionCtrl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerMultipleChoiceQuestionCtrl">
     <center>
         <VBox maxWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="option1" mnemonicParsing="false" onAction="#option1Handler" prefHeight="36.0" prefWidth="400.0" text="Option 1" VBox.vgrow="ALWAYS">
+                <Button fx:id="option1" mnemonicParsing="false" onAction="#option1Handler" prefHeight="36.0" prefWidth="400.0" stylesheets="@../../stylesheets/singleplayer_game.css" text="Option 1" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="50.0" top="120.0" />
                     </VBox.margin>
@@ -40,6 +40,7 @@
                         <Insets bottom="10.0" top="10.0" />
                     </padding>
                 </Button>
+            <Label id="debug" />
                 <Label fx:id="time" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="60.0" top="130.0" />

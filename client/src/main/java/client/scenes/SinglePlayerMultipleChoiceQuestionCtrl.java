@@ -92,6 +92,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     @FXML
     private Label time;
+    @FXML
+    private Label debug;
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
@@ -116,6 +118,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -145,6 +148,12 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
     }
 
     private void setEmojiBarVisible(Game currentGame) {
@@ -206,12 +215,30 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
+     */
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
+    }
+
+    // method to locate the correct answer
+
+
+    /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -221,9 +248,11 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -233,9 +262,11 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 2) {
+            changeButtonColours(option3, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -260,7 +291,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
                 }
             }
         }
-        System.out.println("correct");
+
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
         double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
         int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
@@ -279,7 +310,13 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * console
      */
     void handleWrong() {
-        System.out.println("wrong");
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, "green");
+        } else if(questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, "green");
+        } else {
+            changeButtonColours(option3, "green");
+        }
         IntermediateScreenCtrl.setPointsGained(0);
     }
 
