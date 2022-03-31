@@ -118,6 +118,9 @@ public class MultiplayerIntermediateScreenCtrl {
     }
 
 
+    /**
+     * Retrieves the game and initialises the leaderboard by displaying the top ten players in descending order.
+     */
     public void initialiseLeaderboard() {
         // get list of players from server util
         List<Player> players = ((MultiPlayerGame) mainCtrl.getGame()).getPlayers();
