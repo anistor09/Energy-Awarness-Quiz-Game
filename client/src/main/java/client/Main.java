@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 import client.scenes.*;
 
 import com.google.inject.Injector;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
