@@ -91,6 +91,7 @@ public class MultiPlayerLobbyCtrl {
      * for when a player is deleted/added to the MultiPlayerGame
      */
     public void prepare() {
+        starting = false;
         game = server.getCurrentMultiplayerGame();
         this.gameId = server.getCurrentMultiplayerGameId();
         playerUsernames = game.getPlayers().stream().map(Player::getUsername).collect(Collectors.toList());

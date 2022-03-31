@@ -520,7 +520,9 @@ public class MainCtrl {
         if(answer) {
             popUpStage.close();
             this.primaryStage.close();
-            multiPlayerLobbyCtrl.tearDown();
+            if (visitedScreens.peek().equals("multiLobby")) {
+                multiPlayerLobbyCtrl.tearDown();
+            }
         } else {
             popUpStage.close();
         }
@@ -540,6 +542,7 @@ public class MainCtrl {
                 break;
             case "singleGame":
                 primaryStage.setScene(singleplayerInsertInfo);
+                singleplayerInsertInfoCtrl.prepare();
                 break;
             case "multiGame":
                 primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
@@ -559,6 +562,7 @@ public class MainCtrl {
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
+                multiplayerInsertInfoCtrl.prepare();
                 break;
             case "help":
                 primaryStage.setScene(help);
@@ -923,7 +927,7 @@ public class MainCtrl {
         });
         startScanningEmojis();
         startScanningScoreUpdates();
-        localPlayer.setJokerCards(new ArrayList<JokerCard>());
+        localPlayer.setJokerCards(new ArrayList<>());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
@@ -964,8 +968,8 @@ public class MainCtrl {
                 } //TODO NEED METHOD THAT INITIALIZES MULTIPLAYER QUESTIONS
             });
         }
-        else{
-            MultiPlayerGame mpg = (MultiPlayerGame)this.game;
+        else {
+            MultiPlayerGame mpg = (MultiPlayerGame) this.game;
             ArrayList<Player> players = mpg.getPlayers();
 
             for(int i = 0; i < players.size(); i++){
@@ -976,7 +980,7 @@ public class MainCtrl {
                 @Override
                 public void run() {
                     //TODO METHOD THAT INITIALIZES THE FINAL LEADERBOARD SCREEN
-                    goTo("menu"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
+                    goTo("SinglePlayerLeaderboard"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
                 }
             });
 
@@ -1103,11 +1107,11 @@ public class MainCtrl {
 
         questionArray.add(extraquestion);
         questionArray.add(extraquestion);
-        questionArray.add(q2);
-        questionArray.add(q3);
-        questionArray.add(q4);
-        questionArray.add(q5);
-        questionArray.add(q6);
+//        questionArray.add(q2);
+//        questionArray.add(q3);
+//        questionArray.add(q4);
+//        questionArray.add(q5);
+//        questionArray.add(q6);
 
         Player player1 = new Player("Som",0);
         Player player2 = new Player("Som",0);

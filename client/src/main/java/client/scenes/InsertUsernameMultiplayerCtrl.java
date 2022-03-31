@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -25,6 +28,8 @@ public class InsertUsernameMultiplayerCtrl {
         this.lobby = lobby;
     }
 
+    @FXML
+    private BorderPane root;
     @FXML
     private Label usernameLabel;
     @FXML
@@ -70,6 +75,18 @@ public class InsertUsernameMultiplayerCtrl {
             mainCtrl.goTo("error");
         }
         mainCtrl.goTo("multiLobby");
+    }
+
+    /**
+     * This method prepares the scene in order to respond to the input of the user
+     */
+    public void prepare() {
+        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+            if (ev.getCode() == KeyCode.ENTER) {
+                ev.consume();
+                submit();
+            }
+        });
     }
 
     /**

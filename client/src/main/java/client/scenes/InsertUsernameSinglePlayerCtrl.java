@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
 
@@ -31,6 +34,9 @@ public class InsertUsernameSinglePlayerCtrl {
     @FXML
     private Button submitButton;
 
+    @FXML
+    private BorderPane root;
+
 
     /**
      * This method sends the username inserted by the user to the createPlayer method in order to create a new
@@ -49,6 +55,18 @@ public class InsertUsernameSinglePlayerCtrl {
         Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
         mainCtrl.startSinglePlayerGameCountdown(player);
 
+    }
+
+    /**
+     * This method prepares the scene in order to respond to the input of the user
+     */
+    public void prepare() {
+        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+            if (ev.getCode() == KeyCode.ENTER) {
+                ev.consume();
+                submit();
+            }
+        });
     }
 
 
