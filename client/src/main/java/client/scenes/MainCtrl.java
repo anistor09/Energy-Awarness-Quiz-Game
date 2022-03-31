@@ -105,6 +105,7 @@ public class MainCtrl {
 
 
     private Game game; // An instance of Game class representing the ongoing game
+    private int gameId;
     private List<String> jokersStringList; // A list of Strings representing the names of the Jokers
     // that the player chose to use
 
@@ -519,7 +520,9 @@ public class MainCtrl {
         if(answer) {
             popUpStage.close();
             this.primaryStage.close();
-            multiPlayerLobbyCtrl.tearDown();
+            if (visitedScreens.peek().equals("multiLobby")) {
+                multiPlayerLobbyCtrl.tearDown();
+            }
         } else {
             popUpStage.close();
         }
@@ -539,6 +542,7 @@ public class MainCtrl {
                 break;
             case "singleGame":
                 primaryStage.setScene(singleplayerInsertInfo);
+                singleplayerInsertInfoCtrl.prepare();
                 break;
             case "multiGame":
                 primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
@@ -558,6 +562,7 @@ public class MainCtrl {
                 break;
             case "insertInfoMultiPlayer":
                 primaryStage.setScene(multiplayerInsertInfo);
+                multiplayerInsertInfoCtrl.prepare();
                 break;
             case "help":
                 primaryStage.setScene(help);
@@ -841,8 +846,6 @@ public class MainCtrl {
             String currentQuestionScreen = getClassName(game.getQuestions().
                     get(game.getCurrentQuestionNumber())
                     .getClass().toString());
-//            String currentQuestionScreen = getClassName(this.getQuestion()
-//                  .getClass().toString());
             switch (currentQuestionScreen) {
                 case "MultipleChoiceQuestion":
                     Platform.runLater(()->{singlePlayerGameCtrl.initialiseEmoji(e);});
@@ -912,15 +915,25 @@ public class MainCtrl {
      * The method includes the logic of the multiplayer game but it is not fully implemented.
      */
     public void startMultiPlayerGame(){
+        System.out.println(localPlayer.getUsername());
+        serverUtils.registerForScoreUpdates("/topic/updateScores/" + gameId, q -> {
+            MultiPlayerGame multiGame = (MultiPlayerGame) game;
+            for(int i = 0; i < multiGame.getPlayers().size(); i++) {
+                if(multiGame.getPlayers().get(i).getUsername().equals(q.getUsername())) {
+                    multiGame.getPlayers().get(i).setCurrentScore(q.getCurrentScore());
+                    System.out.println("ping from " + q.getUsername()); //test
+                }
+            }
+        });
         startScanningEmojis();
         startScanningScoreUpdates();
-        localPlayer.setJokerCards(new ArrayList<JokerCard>());
+        localPlayer.setJokerCards(new ArrayList<>());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER
         //
     }
 
-    public void playMultiPLayerGame(){
+    public void playMultiPLayerGame() {
         goToNextMultiplayerQuestion();
     }
 
@@ -955,8 +968,8 @@ public class MainCtrl {
                 } //TODO NEED METHOD THAT INITIALIZES MULTIPLAYER QUESTIONS
             });
         }
-        else{
-            MultiPlayerGame mpg = (MultiPlayerGame)this.game;
+        else {
+            MultiPlayerGame mpg = (MultiPlayerGame) this.game;
             ArrayList<Player> players = mpg.getPlayers();
 
             for(int i = 0; i < players.size(); i++){
@@ -967,7 +980,7 @@ public class MainCtrl {
                 @Override
                 public void run() {
                     //TODO METHOD THAT INITIALIZES THE FINAL LEADERBOARD SCREEN
-                    goTo("menu"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
+                    goTo("SinglePlayerLeaderboard"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
                 }
             });
 
@@ -1062,7 +1075,7 @@ public class MainCtrl {
         Activity act4 = new Activity("00-shower",
                 "00/shower.png",
                 "Question 4",
-                4000,
+                5000,
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         Activity act5 =new Activity("00-shower",
                 "00/shower.png",
@@ -1093,12 +1106,12 @@ public class MainCtrl {
         ArrayList<Question> questionArray = new ArrayList<Question>();
 
         questionArray.add(extraquestion);
-        questionArray.add(q1);
-        questionArray.add(q2);
-        questionArray.add(q3);
-        questionArray.add(q4);
-        questionArray.add(q5);
-        questionArray.add(q6);
+        questionArray.add(extraquestion);
+//        questionArray.add(q2);
+//        questionArray.add(q3);
+//        questionArray.add(q4);
+//        questionArray.add(q5);
+//        questionArray.add(q6);
 
         Player player1 = new Player("Som",0);
         Player player2 = new Player("Som",0);
@@ -1126,6 +1139,14 @@ public class MainCtrl {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
+    public int getGameId() {
+        return this.gameId;
     }
 }
 

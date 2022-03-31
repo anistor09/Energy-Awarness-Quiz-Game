@@ -127,6 +127,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      *      attributes of the Question and Player Classes.
      */
     public void initialiseSinglePlayerInsteadOfQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         InsteadOfQuestion q =
@@ -191,6 +192,12 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         jokerMessage.setText("");
     }
 
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
+    }
+
     /**
      * This method will switch the buttons on or off according to the boolean passed. True means off
      * @param onOff the boolean for which to set the setDisable property
@@ -205,12 +212,27 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     }
 
     /**
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
+     */
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
+    }
+
+    /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
+            changeButtonColours(option1, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -221,8 +243,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     public void option2Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
+            changeButtonColours(option2, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -233,8 +257,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     public void option3Handler(){
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
+            changeButtonColours(option3, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -246,15 +272,30 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     void handleCorrect() {
         // get the time left
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        questionObject = (InsteadOfQuestion)spg.getQuestions().get(spg.getCurrentQuestionNumber());
+        Game game = mainCtrl.getGame();
+        questionObject = (InsteadOfQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
         p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
         IntermediateScreenCtrl.setPointsGained(points);
-        System.out.println("correct");
     }
 
     /**
@@ -263,7 +304,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
-        System.out.println("wrong");
+        if (questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
+            changeButtonColours(option1, "green");
+        } else if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
+            changeButtonColours(option2, "green");
+        } else {
+            changeButtonColours(option3, "green");
+        }
     }
 
 

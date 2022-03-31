@@ -97,6 +97,6 @@
          </children>
       </HBox>
       <Button fx:id="MenuButton" layoutX="53.0" layoutY="598.0" mnemonicParsing="false" onAction="#goToMenu" text="Menu" />
-      <Button fx:id="SPLobbyButton" layoutX="786.0" layoutY="601.0" mnemonicParsing="false" onAction="#goToSPLobby" text="Play Again" />
+      <Button fx:id="playAgain" layoutX="786.0" layoutY="601.0" mnemonicParsing="false" onAction="#goToLobby" text="Play Again" />
    </children>
 </AnchorPane>

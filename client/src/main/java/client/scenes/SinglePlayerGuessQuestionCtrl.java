@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
+
     private ServerUtils server;
     @FXML
     private Button exit;
@@ -81,6 +82,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private Label questionNumber;
 
     @FXML
+    private Label actualAnswer;
+
+    @FXML
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
@@ -133,6 +137,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     public void resetScreen(){
         userAnswer.setText("");
+        actualAnswer.setText("");
     }
 
     /**
@@ -182,8 +187,23 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             int points = questionObject.calculatePoints(guess);
             Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
             p.setCurrentScore(p.getCurrentScore() + points);
-            System.out.println(guess);
-            System.out.println("You earned " + points);
+            if (points == 100) {
+                actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            }
+            else if (points > 70) {
+                actualAnswer.setText("Close! The actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            } else if (points > 0) {
+                actualAnswer.setText("Not quite! The actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            } else {
+                actualAnswer.setText("Nowhere near! The actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh()+ "wh");
+            }
+            if(mainCtrl.getGame() instanceof MultiPlayerGame) {
+                server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+            }
             IntermediateScreenCtrl.setPointsGained(points);
         } catch (Exception e) {
             userAnswer.clear();

@@ -4,7 +4,6 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -113,6 +112,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseMostEnergyQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -126,7 +126,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         question1Text.setText(actList.get(0).getTitle());
         question2Text.setText(actList.get(1).getTitle());
         question3Text.setText(actList.get(2).getTitle());
-//
+
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
 
@@ -135,7 +135,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
-       this.setJokers(jokerList);
+        this.setJokers(jokerList);
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
     }
 
     /**
@@ -163,6 +169,19 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
     }
 
+    /**
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
+     */
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
+    }
+
 
     /**
      * Handles the clicks on button with option 1
@@ -170,7 +189,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option1Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
+            changeButtonColours(option1, "green");
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -182,7 +203,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option2Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
+            changeButtonColours(option2, "green");
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -194,7 +217,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option3Handler() {
         if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
+            changeButtonColours(option3, "green");
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -218,13 +243,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     @FXML
-    void exit(ActionEvent event) {
+    void exit() {
         mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }
 
     public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
+        time.setText("Time Left: " + i);
     }
 
     /**
@@ -250,12 +275,28 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * player and printing out correct
      */
     void handleCorrect() {
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
-        Player p = spg.getPlayer();
+        Game game = mainCtrl.getGame();
+        Player p = null;
+        if(game instanceof SinglePlayerGame) {
+            p = ((SinglePlayerGame) game).getPlayer();
+        } else {
+            MultiPlayerGame m = (MultiPlayerGame) game;
+            for(int i = 0; i < m.getPlayers().size(); i++) {
+                Player localPlayer = mainCtrl.getLocalPlayer();
+                Player toSearch = m.getPlayers().get(i);
+                if(toSearch.getUsername().equals(localPlayer.getUsername())) {
+                    p = m.getPlayers().get(i);
+                }
+            }
+        }
         int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
         double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
         int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        p.setCurrentScore(p.getCurrentScore()+points);
+        p.setCurrentScore(p.getCurrentScore() + points);
+        mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
+        if(game instanceof MultiPlayerGame) {
+            server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
+        }
         IntermediateScreenCtrl.setPointsGained(points);
 
     }
@@ -266,7 +307,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
-        System.out.println("wrong");
+        if (questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+            changeButtonColours(option1, "green");
+        } else if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+            changeButtonColours(option2, "green");
+        } else {
+            changeButtonColours(option3, "green");
+        }
     }
     @FXML
     void handleJokerButton1() {
