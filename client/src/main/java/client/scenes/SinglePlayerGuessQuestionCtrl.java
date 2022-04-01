@@ -182,7 +182,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         image.setImage(img);
     }
 
-    public void setTime() {
+    public void startTimerAnimation() {
         Timer animationTimer = new Timer();
         animationTimer.scheduleAtFixedRate(new TimerTask() {
             double p = timeBarWidth;

@@ -366,7 +366,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         return true;
     }
 
-    public void setTime() {
+    public void startTimerAnimation() {
         ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(20), timeBar);
         timerAnimation.setFromX(1);
         timerAnimation.setToX(0);

@@ -269,19 +269,19 @@ public class MainCtrl {
             public void run() {
                 switch (className) {
                     case "MultipleChoiceQuestion":
-                        singlePlayerGameCtrl.setTime();
+                        singlePlayerGameCtrl.startTimerAnimation();
                         break;
 
                     case "MostEnergyQuestion":
-                        singlePlayerChooseOptionQuestionCtrl.setTime();
+                        singlePlayerChooseOptionQuestionCtrl.startTimerAnimation();
                         break;
 
                     case "GuessQuestion":
-                        singlePlayerGuessQuestionCtrl.setTime();
+                        singlePlayerGuessQuestionCtrl.startTimerAnimation();
                         break;
 
                     case "InsteadOfQuestion":
-                        singleplayerInsteadOfQuestionCtrl.setTime();
+                        singleplayerInsteadOfQuestionCtrl.startTimerAnimation();
                         break;
                     default:
                         break;
@@ -989,19 +989,19 @@ private List<JokerCard> getJokerList() {
             public void run() {
                 switch (className) {
                     case "MultipleChoiceQuestion":
-                        singlePlayerGameCtrl.setTime();
+                        singlePlayerGameCtrl.startTimerAnimation();
                         break;
 
                     case "MostEnergyQuestion":
-                        singlePlayerChooseOptionQuestionCtrl.setTime();
+                        singlePlayerChooseOptionQuestionCtrl.startTimerAnimation();
                         break;
 
                     case "GuessQuestion":
-                        singlePlayerGuessQuestionCtrl.setTime();
+                        singlePlayerGuessQuestionCtrl.startTimerAnimation();
                         break;
 
                     case "InsteadOfQuestion":
-                        singleplayerInsteadOfQuestionCtrl.setTime();
+                        singleplayerInsteadOfQuestionCtrl.startTimerAnimation();
                         break;
                     default:
                         break;

@@ -255,7 +255,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
-    public void setTime() {
+    public void startTimerAnimation() {
         Timer animationTimer = new Timer();
         animationTimer.scheduleAtFixedRate(new TimerTask() {
             double p = timeBarWidth;

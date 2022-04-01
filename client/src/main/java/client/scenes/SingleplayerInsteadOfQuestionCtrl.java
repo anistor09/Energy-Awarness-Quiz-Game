@@ -402,7 +402,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
-    public void setTime() {
+    public void startTimerAnimation() {
         ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(20), timeBar);
         timerAnimation.setFromX(1);
         timerAnimation.setToX(0);
