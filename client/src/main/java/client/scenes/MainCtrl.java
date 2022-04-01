@@ -112,9 +112,6 @@ public class MainCtrl {
         this.serverUtils = serverUtils;
     }
 
-    //test
-//    List<Player> test = new ArrayList<>();
-
 
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
@@ -251,9 +248,6 @@ public class MainCtrl {
         game = serverUtils.createSinglePlayerGame(player);
         goToNextSingleplayerQuestion();
 
-
-        //test
-//        this.serverUtils.sendPlayer(new Player("test", 400));
     }
 
 
@@ -273,15 +267,12 @@ public class MainCtrl {
                 }
                 if (i <= 0) {
                     timer.cancel();
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            int currentQuestionNumber = game.getCurrentQuestionNumber();
-                            Question q = game.getQuestions().get(currentQuestionNumber);
-                            String className = getClassName(q.getClass().getName());
-                            intermediateScreenCtrl.setPointsLabel();
-                            goTo("intermediateScreen");
-                        }
+                    Platform.runLater(() -> {
+                        int currentQuestionNumber = game.getCurrentQuestionNumber();
+                        Question q = game.getQuestions().get(currentQuestionNumber);
+                        String className = getClassName(q.getClass().getName());
+                        intermediateScreenCtrl.setPointsLabel();
+                        goTo("intermediateScreen");
                     });
                 }
                 if (exitedGame) {
@@ -291,28 +282,25 @@ public class MainCtrl {
                     int currentQuestionNumber = game.getCurrentQuestionNumber();
                     Question q = game.getQuestions().get(currentQuestionNumber);
                     String className = getClassName(q.getClass().getName());
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            switch (className) {
-                                case "MultipleChoiceQuestion":
-                                    singlePlayerGameCtrl.setTime(1 + i);
-                                    break;
+                    Platform.runLater(() -> {
+                        switch (className) {
+                            case "MultipleChoiceQuestion":
+                                singlePlayerGameCtrl.setTime(1 + i);
+                                break;
 
-                                case "MostEnergyQuestion":
-                                    singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
-                                    break;
+                            case "MostEnergyQuestion":
+                                singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
+                                break;
 
-                                case "GuessQuestion":
-                                    singlePlayerGuessQuestionCtrl.setTime(i + 1);
-                                    break;
+                            case "GuessQuestion":
+                                singlePlayerGuessQuestionCtrl.setTime(i + 1);
+                                break;
 
-                                case "InsteadOfQuestion":
-                                    singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
-                                    break;
-                                default:
-                                    break;
-                            }
+                            case "InsteadOfQuestion":
+                                singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
+                                break;
+                            default:
+                                break;
                         }
                     });
                     MainCtrl.setTimeLeft(i);
@@ -352,22 +340,14 @@ public class MainCtrl {
 
             String className = getClassName(q.getClass().getName());
 
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    switchQuestionScreen(className);
-                }
-            });
+            Platform.runLater(() -> switchQuestionScreen(className));
         } else {
             SinglePlayerGame spg = (SinglePlayerGame) this.game;
             Player p = spg.getPlayer();
             p.setJokerCards(null);
             serverUtils.addPlayer(spg.getPlayer());
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
-                }
+            Platform.runLater(() -> {
+                goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
             });
         }
     }
