@@ -121,11 +121,17 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         questionObject = q;
         Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
-        List<Activity> actList = q.getOtherActivities();
+        List<Activity> actList = new ArrayList<>(q.getOtherActivities());
         actList.add(q.getActivity());
+        Collections.shuffle(actList);
         question1Text.setText(actList.get(0).getTitle());
         question2Text.setText(actList.get(1).getTitle());
-        question3Text.setText(actList.get(2).getTitle());
+        if(actList.size()==3) {
+            question3Text.setText(actList.get(2).getTitle());
+        }
+        else{
+            question3Text.setText("Wrong option");
+        }
 
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
@@ -166,7 +172,12 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
         option1Image.setImage(new Image(serverString + activityList.get(0).getImage_path()));
         option2Image.setImage(new Image(serverString + activityList.get(1).getImage_path()));
-        option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
+        if(activityList.size()==3) {
+            option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
+        }
+        else{
+            option3Image.setImage(null);
+        }
     }
 
     /**
@@ -320,8 +331,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
-            joker1.setDisable(true);
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
 
         }
         else{
@@ -333,8 +344,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
-            joker2.setDisable(true);
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -345,16 +356,16 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
-            joker3.setDisable(true);
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else {
              jokerMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
-            return false;
+//        if(name.equals("EliminateOptionJoker"))
+//            return false;
         return true;
     }
 

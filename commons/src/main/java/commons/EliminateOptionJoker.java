@@ -1,10 +1,11 @@
 package commons;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class EliminateOptionJoker extends JokerCard{
-    private MultipleChoiceQuestion question;
+    private Question question;
 
     public EliminateOptionJoker(String name, String description,
                                 boolean onlyMultiplayer, MultipleChoiceQuestion question) {
@@ -21,7 +22,27 @@ public class EliminateOptionJoker extends JokerCard{
      */
     @Override
     public void useCard() {
-        ArrayList<Long> options = this.question.getOptions();
+
+        if(question instanceof MultipleChoiceQuestion)
+        {
+            useCardMultipleChoice();
+        }
+
+        if(question instanceof MostEnergyQuestion)
+        {
+            useCardMostEnergy();
+        }
+    }
+
+    private void useCardMostEnergy() {
+        ((MostEnergyQuestion)question).getOtherActivities().
+               remove(0);
+
+    }
+
+
+    public void useCardMultipleChoice(){
+        ArrayList<Long> options = ((MultipleChoiceQuestion)this.question).getOptions();
         long correctOption = this.question.getActivity().getConsumption_in_wh();
         long optionToDelete = options.get(0);
         //first two elements in the list are always wrong according to Som's implementation
@@ -33,11 +54,11 @@ public class EliminateOptionJoker extends JokerCard{
     }
 
 
-    public MultipleChoiceQuestion getQuestion() {
+    public Question getQuestion() {
         return question;
     }
 
-    public void setQuestion(MultipleChoiceQuestion question) {
+    public void setQuestion(Question question) {
         this.question = question;
     }
 

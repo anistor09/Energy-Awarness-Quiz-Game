@@ -193,6 +193,22 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         setJokers(jokerCards);
         jokerMessage.setText("");
     }
+    public void initialiseAfterJoker(){
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) != 0)
+        {
+            question1Text.setText("Wrong option!");
+            activity1ratio.setText("");
+            option1Image.setImage(null);
+        }
+        else
+        {
+            question2Text.setText("Wrong option!");
+            activity2ratio.setText("");
+            option2Image.setImage(null);
+        }
+
+    }
+
 
     private void resetScreen() {
         option1.setStyle("-fx-background-color: #8ECAE6");
@@ -342,8 +358,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
-            joker1.setDisable(true);
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -354,9 +370,9 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
-            mainCtrl.setUsedJoker(joker2.getText());
-            joker2.setDisable(true);
+            mainCtrl.setUsedJoker(joker2.getText());joker2.setDisable(true);
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -367,8 +383,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
-            joker3.setDisable(true);
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -376,8 +392,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         }
 
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
-            return false;
+//        if(name.equals("EliminateOptionJoker"))
+//            return false;
         return true;
     }
 

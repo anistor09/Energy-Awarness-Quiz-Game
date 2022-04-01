@@ -278,7 +278,9 @@ public class MainCtrl {
      */
     public void playSinglePLayerGame(Player player){
         localPlayer = player;
-        game = serverUtils.createSinglePlayerGame(player);
+
+       game = serverUtils.createSinglePlayerGame(player);
+       // game = initialiseSinglePlayerGame(player);
         goToNextSingleplayerQuestion();
 
 
@@ -460,13 +462,14 @@ public class MainCtrl {
         ArrayList<Activity> options123 = new ArrayList<>(Arrays.asList(act1, act2, act3));
         ArrayList<Activity> options642 = new ArrayList<>(Arrays.asList(act6, act4, act2));
         ArrayList<Activity> options351 = new ArrayList<>(Arrays.asList(act3, act5, act1));
+        ArrayList<Activity> options45 = new ArrayList<>(Arrays.asList(act4, act5));
 
         Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",8);
         Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",8);
         Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",8);
         Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",8);
         Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",8);
-        Question q6 = new MostEnergyQuestion(act1,1312,"EASY",8,options456);
+        Question q6 = new MostEnergyQuestion(act1,1312,"EASY",8,options45);
         Question q7 = new GuessQuestion(act1,2122,"EASY",8);
         Question instead1 = new InsteadOfQuestion(act2, 1000, "EASY", 8, options456);
         Question instead2 = new InsteadOfQuestion(act4, 1000, "EASY", 8, options256);
@@ -474,14 +477,12 @@ public class MainCtrl {
         ArrayList<Question> questionArray = new ArrayList<Question>();
 
 
-        questionArray.add(q7);
-        questionArray.add(instead1);
-        questionArray.add(instead2);
+        questionArray.add(q6);
+
         questionArray.add(instead3);
         questionArray.add(q6);
         questionArray.add(q7);
-        questionArray.add(q5);
-        questionArray.add(q7);
+        questionArray.add(q1);
         JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
                 false,
                 player, q1);
@@ -684,9 +685,6 @@ public class MainCtrl {
                 case "QuestionChangeJoker":
                     jokerList.add(new QuestionChangeJoker());
                     break;
-                case "ShortenTimeJoker":
-                    jokerList.add(new ShortenTimeJoker(1000, null));
-                    break;
                 default:
                     break;
             }
@@ -710,6 +708,27 @@ public class MainCtrl {
         usedJoker = name;
     }
 
+    public void handleEliminateOptionJoker( EliminateOptionJoker eliminateOptionJokerJoker){
+        Question currentQuestion = game.getQuestions().
+                get((game).
+                        getCurrentQuestionNumber());
+        if(currentQuestion instanceof InsteadOfQuestion)
+        {
+            singleplayerInsteadOfQuestionCtrl.initialiseAfterJoker();
+        }
+        else {
+            eliminateOptionJokerJoker.setQuestion(currentQuestion);
+            eliminateOptionJokerJoker.useCard();
+        }
+        if(currentQuestion instanceof MultipleChoiceQuestion) {
+            singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+        }
+        else if(currentQuestion instanceof MostEnergyQuestion){
+            singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+        }
+    }
+
+
     /**
      * This method handles each type of Joker and calls their useCard methods.
      */
@@ -718,15 +737,12 @@ public class MainCtrl {
             case "Additional Points Joker":
                 AdditionalPointsJoker pointsJoker =
                         (AdditionalPointsJoker) this.getJoker("Additional Points Joker");
+                localPlayer.deleteJoker(pointsJoker);
                 break;
             case "EliminateOptionJoker":
                 EliminateOptionJoker eliminateOptionJokerJoker =
                         (EliminateOptionJoker) this.getJoker("EliminateOptionJoker");
-                eliminateOptionJokerJoker.setQuestion((MultipleChoiceQuestion) game.getQuestions().
-                        get((game).
-                                getCurrentQuestionNumber()));
-                eliminateOptionJokerJoker.useCard();
-                singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                handleEliminateOptionJoker(eliminateOptionJokerJoker);
                 localPlayer.deleteJoker(eliminateOptionJokerJoker);
                 break;
             case "Question Change Joker":
@@ -734,9 +750,11 @@ public class MainCtrl {
                         (QuestionChangeJoker) this.getJoker("Question Change Joker");
                 int questionNr = game.getCurrentQuestionNumber();
                 game.setCurrentQuestionNumber(0);
+                localPlayer.deleteJoker(questionChangeJoker);
                 this.goToNextQuestionNoTimer();
                 game.setCurrentQuestionNumber(questionNr);
-                localPlayer.deleteJoker(questionChangeJoker);
+                break;
+
             case "Decrease Time Joker":
                 DecreaseTimeJoker timeJoker = (DecreaseTimeJoker) this.getJoker("Decrease Time Joker");
                 timeJoker.setSenderUsername(localPlayer.getUsername());
