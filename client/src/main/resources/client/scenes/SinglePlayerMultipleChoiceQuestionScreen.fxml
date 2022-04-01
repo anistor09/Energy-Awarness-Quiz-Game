@@ -224,11 +224,7 @@
                   <Insets />
                </VBox.margin>
               </HBox>
-            <Rectangle fx:id="timeBar" fill="WHITE" height="10.0" stroke="BLACK" strokeType="INSIDE" width="950.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Rectangle>
+            <Rectangle fx:id="timeBar" fill="WHITE" height="10.0" stroke="BLACK" strokeType="INSIDE" width="950.0" />
          </children>
          <BorderPane.margin>
             <Insets />

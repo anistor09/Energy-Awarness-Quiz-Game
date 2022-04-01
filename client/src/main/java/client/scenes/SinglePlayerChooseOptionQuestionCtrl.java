@@ -96,10 +96,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private Label questionNumber;
 
     @FXML
-    private Rectangle timeBar;
+    public Rectangle timeBar;
 
-    int timeBarHeight = (int) timeBar.getHeight();
-    int timeBarWidth = (int) timeBar.getWidth();
+    public int timeBarWidth = 950;
 
 
     private final MainCtrl mainCtrl;
@@ -148,7 +147,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
-        timeBar.setWidth(timeBarWidth);
+        timeBar.setWidth(950);
         timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
@@ -256,21 +255,36 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
-    public void setTime(int i) {
-        int timerBarLengthRatio = i/mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
-                .getAllowedTime();
-        int timerBarLength = timerBarLengthRatio*timeBarWidth;
-        timeBar.setWidth(timerBarLength);
+    public void setTime() {
+        Timer animationTimer = new Timer();
+        animationTimer.scheduleAtFixedRate(new TimerTask() {
+            double p = timeBarWidth;
+            double w = (double) mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).
+                    getAllowedTime();
+            int j = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).
+                    getAllowedTime();
+            @Override
+            public void run() {
+                if(w < 0){
+                    animationTimer.cancel();
+                }
 
-        if((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)){
-            timeBar.setFill(Color.valueOf("#FFFF00"));
-        }
-        if((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)){
-            timeBar.setFill(Color.valueOf("#FFA500"));
-        }
-        if(timerBarLengthRatio <= 0.125){
-            timeBar.setFill(Color.valueOf("#FF0000"));
-        }    }
+                double timerBarLengthRatio = w/j;
+
+                if ((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)) {
+                    timeBar.setFill(Color.valueOf("#FFFF00"));
+                }
+                if ((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)) {
+                    timeBar.setFill(Color.valueOf("#FFA500"));
+                }
+                if (timerBarLengthRatio <= 0.125) {
+                    timeBar.setFill(Color.valueOf("#FF0000"));
+                }
+                timeBar.setWidth(p*timerBarLengthRatio);
+                w = w - 0.1;
+            }
+        },0,100);
+    }
 
     /**
      * This method maps the player's jokers to their corresponding buttons

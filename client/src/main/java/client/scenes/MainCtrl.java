@@ -261,6 +261,33 @@ public class MainCtrl {
      * This is a timer that works in the background and switches to the next question
      */
     public void singleplayerInGameTimer() {
+        int currentQuestionNumber = game.getCurrentQuestionNumber();
+        Question q = game.getQuestions().get(currentQuestionNumber);
+        String className = getClassName(q.getClass().getName());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                switch (className) {
+                    case "MultipleChoiceQuestion":
+                        singlePlayerGameCtrl.setTime();
+                        break;
+
+                    case "MostEnergyQuestion":
+                        singlePlayerChooseOptionQuestionCtrl.setTime();
+                        break;
+
+                    case "GuessQuestion":
+                        singlePlayerGuessQuestionCtrl.setTime();
+                        break;
+
+                    case "InsteadOfQuestion":
+                        singleplayerInsteadOfQuestionCtrl.setTime();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
@@ -287,37 +314,9 @@ public class MainCtrl {
                 if (exitedGame) {
                     timer.cancel();
                     setExitedGame(false);
-                } else {
-                    int currentQuestionNumber = game.getCurrentQuestionNumber();
-                    Question q = game.getQuestions().get(currentQuestionNumber);
-                    String className = getClassName(q.getClass().getName());
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            switch (className) {
-                                case "MultipleChoiceQuestion":
-                                    singlePlayerGameCtrl.setTime(1 + i);
-                                    break;
-
-                                case "MostEnergyQuestion":
-                                    singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
-                                    break;
-
-                                case "GuessQuestion":
-                                    singlePlayerGuessQuestionCtrl.setTime(i + 1);
-                                    break;
-
-                                case "InsteadOfQuestion":
-                                    singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    });
-                    MainCtrl.setTimeLeft(i);
-                    i--;
                 }
+                MainCtrl.setTimeLeft(i);
+                i--;
             }
         }, 0, 1000);
     }
@@ -982,6 +981,33 @@ private List<JokerCard> getJokerList() {
      * switches between the question and intermmediate screens
      */
     public void multiplayerInGameTimer(){
+        int currentQuestionNumber = game.getCurrentQuestionNumber();
+        Question q = game.getQuestions().get(currentQuestionNumber);
+        String className = getClassName(q.getClass().getName());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                switch (className) {
+                    case "MultipleChoiceQuestion":
+                        singlePlayerGameCtrl.setTime();
+                        break;
+
+                    case "MostEnergyQuestion":
+                        singlePlayerChooseOptionQuestionCtrl.setTime();
+                        break;
+
+                    case "GuessQuestion":
+                        singlePlayerGuessQuestionCtrl.setTime();
+                        break;
+
+                    case "InsteadOfQuestion":
+                        singleplayerInsteadOfQuestionCtrl.setTime();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
@@ -1005,35 +1031,6 @@ private List<JokerCard> getJokerList() {
                         @Override
                         public void run() {
                             goTo("multiplayerIntermediateScreen");
-                        }
-                    });
-                }
-                else{
-                    int currentQuestionNumber = game.getCurrentQuestionNumber();
-                    Question q = game.getQuestions().get(currentQuestionNumber);
-                    String className = getClassName(q.getClass().getName());
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            switch (className) {
-                                case "MultipleChoiceQuestion":
-                                    singlePlayerGameCtrl.setTime(1 + localPlayer.getTimeLeft());
-                                    break;
-
-                                case "MostEnergyQuestion":
-                                    singlePlayerChooseOptionQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
-                                    break;
-
-                                    case "GuessQuestion":
-                                    singlePlayerGuessQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
-                                    break;
-
-                                case "InsteadOfQuestion":
-                                    singleplayerInsteadOfQuestionCtrl.setTime(localPlayer.getTimeLeft() + 1);
-                                    break;
-                                default:
-                                    break;
-                            }
                         }
                     });
                 }

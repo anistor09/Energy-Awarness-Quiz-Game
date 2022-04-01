@@ -23,6 +23,8 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
@@ -91,8 +93,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     @FXML
     private Rectangle timeBar;
 
-    int timeBarHeight = (int) timeBar.getHeight();
-    int timeBarWidth = (int) timeBar.getWidth();
+    private int timeBarWidth = 950;
 
     private final MainCtrl mainCtrl;
 
@@ -146,7 +147,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void resetScreen(){
         userAnswer.setText("");
         actualAnswer.setText("");
-        timeBar.setWidth(timeBarWidth);
+        timeBar.setWidth(950);
         timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
@@ -181,21 +182,36 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         image.setImage(img);
     }
 
-    public void setTime(int i) {
-        int timerBarLengthRatio = i/mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
-                .getAllowedTime();
-        int timerBarLength = timerBarLengthRatio*timeBarWidth;
-        timeBar.setWidth(timerBarLength);
+    public void setTime() {
+        Timer animationTimer = new Timer();
+        animationTimer.scheduleAtFixedRate(new TimerTask() {
+            double p = timeBarWidth;
+            double w = (double) mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).
+                    getAllowedTime();
+            int j = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).
+                    getAllowedTime();
+            @Override
+            public void run() {
+                if(w < 0){
+                    animationTimer.cancel();
+                }
 
-        if((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)){
-            timeBar.setFill(Color.valueOf("#FFFF00"));
-        }
-        if((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)){
-            timeBar.setFill(Color.valueOf("#FFA500"));
-        }
-        if(timerBarLengthRatio <= 0.125){
-            timeBar.setFill(Color.valueOf("#FF0000"));
-        }    }
+                double timerBarLengthRatio = w/j;
+
+                if ((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)) {
+                    timeBar.setFill(Color.valueOf("#FFFF00"));
+                }
+                if ((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)) {
+                    timeBar.setFill(Color.valueOf("#FFA500"));
+                }
+                if (timerBarLengthRatio <= 0.125) {
+                    timeBar.setFill(Color.valueOf("#FF0000"));
+                }
+                timeBar.setWidth(p*timerBarLengthRatio);
+                w = w - 0.1;
+            }
+        },0,100);
+    }
 
     /**
      * This is the onAction method for the Label. When the user hits enter this will be called. It will either
