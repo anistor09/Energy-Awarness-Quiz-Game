@@ -282,8 +282,8 @@ public class MainCtrl {
     public void playSinglePLayerGame(Player player){
         localPlayer = player;
 
-       game = serverUtils.createSinglePlayerGame(player);
-       // game = initialiseSinglePlayerGame(player);
+      game = serverUtils.createSinglePlayerGame(player);
+
         goToNextSingleplayerQuestion();
 
 
@@ -491,7 +491,15 @@ public class MainCtrl {
 
         questionArray.add(q6);
 
-        questionArray.add(instead3);
+
+        questionArray.add(q6);
+        questionArray.add(q1);
+
+
+        questionArray.add(q1);
+        questionArray.add(q6);
+
+
         questionArray.add(q6);
         questionArray.add(q7);
         questionArray.add(q1);

@@ -35,8 +35,15 @@ public class EliminateOptionJoker extends JokerCard{
     }
 
     private void useCardMostEnergy() {
-        ((MostEnergyQuestion)question).getOtherActivities().
-               remove(0);
+        Activity correct = ((MostEnergyQuestion)question).getCorrectAnswer();
+
+        List<Activity> options = ((MostEnergyQuestion)question).getOtherActivities();
+       if(options.get(0).equals(correct)){
+           options.remove(1);
+       }
+       else{
+           options.remove(0);
+       }
 
     }
 
