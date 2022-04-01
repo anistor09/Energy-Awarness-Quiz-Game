@@ -47,20 +47,11 @@ public class MainCtrl {
     private SinglePlayerMultipleChoiceQuestionCtrl singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
-    private MultiPlayerMultipleChoiceQuestionCtrl multiPlayerMultipleChoiceQuestionCtrl;
-    private Scene multiPlayerMultipleChoiceQuestion;
-
     private CreditsCtrl creditsCtrl;
     private Scene credits;
 
-    private MultiPlayerChooseOptionQuestionCtrl multiPlayerChooseOptionQuestionCtrl;
-    private Scene multiPlayerChooseOptionQuestion;
-
     private SinglePlayerChooseOptionQuestionCtrl singlePlayerChooseOptionQuestionCtrl;
     private Scene singlePlayerChooseOptionQuestion;
-
-    private MultiPlayerGuessQuestionCtrl multiPlayerGuessQuestionCtrl;
-    private Scene multiPlayerGuessQuestion;
 
     private SinglePlayerGuessQuestionCtrl singlePlayerGuessQuestionCtrl;
     private Scene singlePlayerGuessQuestion;
@@ -88,9 +79,6 @@ public class MainCtrl {
 
     private IntermediateScreenCtrl intermediateScreenCtrl;
     private Scene intermediateScreen;
-
-    private MultiplayerInsteadOfQuestionCtrl multiplayerInsteadOfQuestionCtrl;
-    private Scene multiplayerInsteadOfQuestion;
 
     private SingleplayerStartCountdownScreenCtrl singleplayerStartCountdownScreenCtrl;
     private Scene singlePlayerStartCountdownScreen;
@@ -145,24 +133,17 @@ public class MainCtrl {
      *                                                             fxml file "Parent"
      * @param singlePlayerGamePair                                 the pair containing the singlePlayerGame controller
      *                                                             and its fxml file "Parent"
-     * @param multiPlayerGamePair                                  the pair containing the multiPlayer controller and
      *                                                             its fxml file "Parent"
-     * @param multiPlayerChooseOptionQuestionControllerParentPair
      * @param singlePlayerChooseOptionQuestionControllerParentPair
-     * @param multiPlayerOpenQuestionControllerParentPair
      * @param singlePlayerOpenQuestionControllerParentPair
      */
     public void initialize(Stage primaryStage, Pair<MenuCtrl, Parent> menuPair, Pair<SinglePlayerLobbyCtrl,
             Parent> singlePlayerLobbyControllerParentPair, Pair<MultiPlayerLobbyCtrl,
             Parent> multiPlayerLobbyControllerParentPair, Pair<CreditsCtrl, Parent> creditsControllerParentPair,
                            Pair<SinglePlayerMultipleChoiceQuestionCtrl,
-                                   Parent> singlePlayerGamePair, Pair<MultiPlayerMultipleChoiceQuestionCtrl,
-            Parent> multiPlayerGamePair,
-                           Pair<MultiPlayerChooseOptionQuestionCtrl, Parent>
-                                   multiPlayerChooseOptionQuestionControllerParentPair,
+                                   Parent> singlePlayerGamePair,
                            Pair<SinglePlayerChooseOptionQuestionCtrl, Parent>
                                    singlePlayerChooseOptionQuestionControllerParentPair,
-                           Pair<MultiPlayerGuessQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair,
                            Pair<SinglePlayerGuessQuestionCtrl, Parent>
                                    singlePlayerOpenQuestionControllerParentPair,
                            Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer,
@@ -171,8 +152,6 @@ public class MainCtrl {
                            Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair,
                            Pair<SingleplayerInsteadOfQuestionCtrl, Parent>
                                    singleplayerInsteadOfQuestionCtrlParentPair,
-                           Pair<MultiplayerInsteadOfQuestionCtrl, Parent>
-                                   multiPlayerInsteadOfQuestionCtrlParentPair,
                            Pair<AdminPanelCtrl, Parent> adminPanel, Pair<EditActivityCtrl, Parent> editActivity,
                            Pair<IntermediateScreenCtrl, Parent> intermediateScreenCtrlParentPair,
                            Pair<SingleplayerStartCountdownScreenCtrl,
@@ -193,18 +172,11 @@ public class MainCtrl {
         this.multiPlayerLobby = new Scene(multiPlayerLobbyControllerParentPair.getValue());
         this.singlePlayerGameCtrl = singlePlayerGamePair.getKey();
         this.singlePlayerGame = new Scene(singlePlayerGamePair.getValue());
-        this.multiPlayerMultipleChoiceQuestionCtrl = multiPlayerGamePair.getKey();
-        this.multiPlayerMultipleChoiceQuestion = new Scene(multiPlayerGamePair.getValue());
         this.creditsCtrl = creditsControllerParentPair.getKey();
         this.credits = new Scene(creditsControllerParentPair.getValue());
-        this.multiPlayerChooseOptionQuestionCtrl = multiPlayerChooseOptionQuestionControllerParentPair.getKey();
-        this.multiPlayerChooseOptionQuestion = new
-                Scene(multiPlayerChooseOptionQuestionControllerParentPair.getValue());
         this.singlePlayerChooseOptionQuestionCtrl = singlePlayerChooseOptionQuestionControllerParentPair.getKey();
         this.singlePlayerChooseOptionQuestion = new
                 Scene(singlePlayerChooseOptionQuestionControllerParentPair.getValue());
-        this.multiPlayerGuessQuestionCtrl = multiPlayerOpenQuestionControllerParentPair.getKey();
-        this.multiPlayerGuessQuestion = new Scene(multiPlayerOpenQuestionControllerParentPair.getValue());
         this.singlePlayerGuessQuestionCtrl = singlePlayerOpenQuestionControllerParentPair.getKey();
         this.singlePlayerGuessQuestion = new Scene(singlePlayerOpenQuestionControllerParentPair.getValue());
         this.multiplayerInsertInfoCtrl = insertInfoMultiplayer.getKey();
@@ -219,8 +191,6 @@ public class MainCtrl {
         this.editActivity = new Scene(editActivity.getValue());
         this.singleplayerInsteadOfQuestionCtrl = singleplayerInsteadOfQuestionCtrlParentPair.getKey();
         this.singleplayerInsteadOfQuestion = new Scene(singleplayerInsteadOfQuestionCtrlParentPair.getValue());
-        this.multiplayerInsteadOfQuestionCtrl = multiPlayerInsteadOfQuestionCtrlParentPair.getKey();
-        this.multiplayerInsteadOfQuestion = new Scene(multiPlayerInsteadOfQuestionCtrlParentPair.getValue());
         this.singlePlayerLeaderboardCtrl = singlePlayerLeaderboardCtrlParentPair.getKey();
         this.singlePlayerLeaderboard = new Scene(singlePlayerLeaderboardCtrlParentPair.getValue());
         this.intermediateScreenCtrl = intermediateScreenCtrlParentPair.getKey();
@@ -544,9 +514,6 @@ public class MainCtrl {
                 primaryStage.setScene(singleplayerInsertInfo);
                 singleplayerInsertInfoCtrl.prepare();
                 break;
-            case "multiGame":
-                primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
-                break;
             case "credits":
                 primaryStage.setScene(credits);
                 break;
@@ -578,18 +545,6 @@ public class MainCtrl {
                 break;
             case "SingleplayerInsteadOfQuestion":
                 primaryStage.setScene(singleplayerInsteadOfQuestion);
-                break;
-            case "MultiplayerInsteadOfQuestion":
-                primaryStage.setScene(multiplayerInsteadOfQuestion);
-                break;
-            case "MultiPlayerGameCtrl" :
-                primaryStage.setScene(multiPlayerMultipleChoiceQuestion);
-                break;
-            case "MultiPlayerOpenQuestionCtrl" :
-                primaryStage.setScene(multiPlayerGuessQuestion);
-                break;
-            case "MultiPlayerChooseOptionQuestion" :
-                primaryStage.setScene(multiPlayerChooseOptionQuestion);
                 break;
             case "SinglePlayerLeaderboard":
                 primaryStage.setScene(singlePlayerLeaderboard);
