@@ -45,23 +45,24 @@ public class QuestionService {
     /**
      * This method will get a random InsteadOfQuestion. It will request the main activity from the database through the
      * activityController and then will request the other activities (also random) to prepare the options. The ratio
-     * is done in the InsteadOfQuestion class
+     * is done in the InsteadOfQuestion class. It is guaranteed that the other options have a smaller consumption than
+     * the main activity.
      * @return the InsteadOfQuestion
      */
     public Question getRandomInsteadOfQuestion() {
         Activity activity = activityController.getRandomActivity();
+        long maxConsumption  = activity.getConsumption_in_wh();
         ArrayList<Activity> options = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Activity option = activityController.getRandomActivity();
-            if (options.contains(option) || option.equals(activity)) {
+            if (options.contains(option) || option.equals(activity) || option.getConsumption_in_wh() > maxConsumption) {
                 i--;
                 continue;
             } else {
                 options.add(option);
             }
         }
-        InsteadOfQuestion insteadOfQuestion = new InsteadOfQuestion(activity, 100, globalTimeAllowed, options);
-        return insteadOfQuestion;
+        return new InsteadOfQuestion(activity, 100, globalTimeAllowed, options);
     }
 
     /**
