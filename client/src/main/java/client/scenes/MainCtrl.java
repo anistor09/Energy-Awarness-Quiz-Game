@@ -119,6 +119,9 @@ public class MainCtrl {
 
     private static Stack<String> visitedScreens = new Stack<>();    // stores the screens visited in reverse order.
 
+    private boolean usedQuestionChangeJoker=false;
+
+    private int oldQuestionNumber=0;
     @Inject
     public MainCtrl(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
@@ -305,6 +308,11 @@ public class MainCtrl {
                 }
                 if (i <= 0) {
                     timer.cancel();
+                    if(usedQuestionChangeJoker) {
+                        usedQuestionChangeJoker = false;
+                        game.setCurrentQuestionNumber(oldQuestionNumber);
+                    }
+
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -320,7 +328,11 @@ public class MainCtrl {
                     timer.cancel();
                     setExitedGame(false);
                 } else {
-                    int currentQuestionNumber = game.getCurrentQuestionNumber();
+                    int currentQuestionNumber=0;
+                    if(!usedQuestionChangeJoker) {
+                        currentQuestionNumber = game.getCurrentQuestionNumber();
+                    }
+
                     Question q = game.getQuestions().get(currentQuestionNumber);
                     String className = getClassName(q.getClass().getName());
                     Platform.runLater(new Runnable() {
@@ -641,9 +653,9 @@ public class MainCtrl {
      * This method is implemented for the Question Change Joker and we don't need a timer because
      * we have one from the question that has been changed
      */
-    public void goToNextQuestionNoTimer() {
-        int currentQuestionNumber = game.getCurrentQuestionNumber();
-        Question q = game.getQuestions().get(currentQuestionNumber);
+    public void goToExtraQuestion() {
+
+        Question q = game.getQuestions().get(0);
         String className = getClassName(q.getClass().getName());
         this.switchQuestionScreen(className);
     }
@@ -748,11 +760,15 @@ public class MainCtrl {
             case "Question Change Joker":
                 QuestionChangeJoker questionChangeJoker =
                         (QuestionChangeJoker) this.getJoker("Question Change Joker");
-                int questionNr = game.getCurrentQuestionNumber();
-                game.setCurrentQuestionNumber(0);
+
+                oldQuestionNumber = game.getCurrentQuestionNumber();
                 localPlayer.deleteJoker(questionChangeJoker);
-                this.goToNextQuestionNoTimer();
-                game.setCurrentQuestionNumber(questionNr);
+
+                game.setCurrentQuestionNumber(0);
+
+                this.goToExtraQuestion();
+
+                usedQuestionChangeJoker=true;
                 break;
 
             case "Decrease Time Joker":
