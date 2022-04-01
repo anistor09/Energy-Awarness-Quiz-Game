@@ -68,9 +68,6 @@ public class InsertUsernameMultiplayerCtrl {
             alert.setText("Username already exists!");
             return;
         }
-        Player thisPlayer = new Player(insertedUsername, 0);
-        server.sendPlayer(thisPlayer);
-        mainCtrl.setLocalPlayer(thisPlayer);
         String insertedUrl = url.getText();
         System.out.println(insertedUrl);
         if(server.testConnection(insertedUrl)){
@@ -79,7 +76,11 @@ public class InsertUsernameMultiplayerCtrl {
         else{
             System.out.println("Provided server url is wrong!");
             mainCtrl.goTo("error");
+            return;
         }
+        Player thisPlayer = new Player(insertedUsername, 0);
+        server.sendPlayer(thisPlayer);
+        mainCtrl.setLocalPlayer(thisPlayer);
         String userNameToStore = username.getText();
         FileWriter writer = new FileWriter("src/main/resources/username");
         writer.write(userNameToStore);

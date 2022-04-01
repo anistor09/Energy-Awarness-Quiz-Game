@@ -53,12 +53,15 @@ public class InsertUsernameSinglePlayerCtrl {
         String serverURL = url.getText();
         if(server.testConnection(serverURL)){
             server.setSERVER(serverURL);
+            Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
+            mainCtrl.startSinglePlayerGameCountdown(player);
         }
         else{
-            System.out.println("Provided server url is wrong!");
             mainCtrl.goTo("error");
+            System.out.println("Provided server url is wrong!");
+            return;
         }
-        Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
+
         mainCtrl.startSinglePlayerGameCountdown(player);
         String userNameToStore = username.getText();
         FileWriter writer = new FileWriter("src/main/resources/username");
