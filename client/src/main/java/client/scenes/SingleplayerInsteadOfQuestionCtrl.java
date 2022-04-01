@@ -193,6 +193,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         setJokers(jokerCards);
         jokerMessage.setText("");
     }
+
+    /**
+     *
+     */
     public void initialiseAfterJoker(){
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) != 0)
         {
@@ -370,7 +374,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
-            mainCtrl.setUsedJoker(joker2.getText());joker2.setDisable(true);
+            mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }

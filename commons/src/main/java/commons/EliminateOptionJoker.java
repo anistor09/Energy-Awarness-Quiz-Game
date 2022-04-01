@@ -47,7 +47,9 @@ public class EliminateOptionJoker extends JokerCard{
 
     }
 
-
+    /**
+     *
+     */
     public void useCardMultipleChoice(){
         ArrayList<Long> options = ((MultipleChoiceQuestion)this.question).getOptions();
         long correctOption = this.question.getActivity().getConsumption_in_wh();

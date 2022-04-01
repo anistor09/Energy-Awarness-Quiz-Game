@@ -728,6 +728,10 @@ public class MainCtrl {
         usedJoker = name;
     }
 
+    /**
+     *
+     * @param eliminateOptionJokerJoker
+     */
     public void handleEliminateOptionJoker( EliminateOptionJoker eliminateOptionJokerJoker){
         Question currentQuestion = game.getQuestions().
                 get((game).
