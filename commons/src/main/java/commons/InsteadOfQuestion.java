@@ -78,7 +78,7 @@ public class InsteadOfQuestion extends Question{
      * @param max Upper bound
      * @return Random number in given range
      */
-    double myRandom(double min, double max) {
+    private double myRandom(double min, double max) {
         Random r = new Random();
         return (r.nextInt((int)((max-min)*10+1))+min*10) / 10.0;
     }

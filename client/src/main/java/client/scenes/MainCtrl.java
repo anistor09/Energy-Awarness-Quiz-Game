@@ -310,7 +310,12 @@ public class MainCtrl {
                             Question q = game.getQuestions().get(currentQuestionNumber);
                             String className = getClassName(q.getClass().getName());
                             intermediateScreenCtrl.setPointsLabel();
-                            goTo("intermediateScreen");
+                            // if we are on the last question, don't go to the intermediate screen
+                            if (currentQuestionNumber < game.getQuestions().size()-1) {
+                                goTo("intermediateScreen");
+                            } else {
+                                goTo("SinglePlayerLeaderboard");
+                            }
                         }
                     });
                 }

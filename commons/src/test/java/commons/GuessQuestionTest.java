@@ -46,7 +46,10 @@ class GuessQuestionTest {
     void calculateCloseness() {
         assertEquals(0, q1.calculateCloseness(2100));
         assertEquals(0, q1.calculateCloseness(0));
-        assertEquals(0.5, q1.calculateCloseness(1500));
+        assertEquals(0, q1.calculateCloseness(1500));
+        assertEquals(0, q1.calculateCloseness(400));
+        assertEquals(0, q1.calculateCloseness(1600));
+        assertEquals(0.8, q1.calculateCloseness(1100));
     }
 
     @Test
