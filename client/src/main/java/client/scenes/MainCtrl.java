@@ -283,6 +283,7 @@ public class MainCtrl {
         localPlayer = player;
 
       game = serverUtils.createSinglePlayerGame(player);
+        //game = initialiseSinglePlayerGame(player);
 
         goToNextSingleplayerQuestion();
 
@@ -1008,9 +1009,10 @@ public class MainCtrl {
 private List<JokerCard> getJokerList() {
 
         List<JokerCard> jokerList = new ArrayList<>();
-       // jokerList.add(new AdditionalPointsJoker(localPlayer));
+        jokerList.add(new AdditionalPointsJoker(localPlayer));
 
         jokerList.add(new EliminateOptionJoker(null));
+
 
         jokerList.add(new DecreaseTimeJoker(localPlayer.getUsername()));
         //jokerList.add(new QuestionChangeJoker());
