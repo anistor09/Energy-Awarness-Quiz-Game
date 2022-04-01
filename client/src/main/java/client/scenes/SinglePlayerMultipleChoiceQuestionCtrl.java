@@ -200,9 +200,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         option1.setDisable(onOff);
         option2.setDisable(onOff);
         option3.setDisable(onOff);
-//        joker1.setDisable(onOff);
-//        joker2.setDisable(onOff);
-//        joker3.setDisable(onOff);
+        joker1.setDisable(onOff);
+        joker2.setDisable(onOff);
+        joker3.setDisable(onOff);
     }
 
     /**

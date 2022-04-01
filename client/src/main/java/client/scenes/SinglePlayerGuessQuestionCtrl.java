@@ -203,9 +203,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     void switchButtons(boolean onOff) {
         userAnswer.setDisable(onOff);
-//        joker1.setDisable(onOff);
-//        joker2.setDisable(onOff);
-//        joker3.setDisable(onOff);
+        joker1.setDisable(onOff);
+        joker2.setDisable(onOff);
+        joker3.setDisable(onOff);
     }
 
     public int getPointsGained() {

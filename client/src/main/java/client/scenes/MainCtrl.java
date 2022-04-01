@@ -717,12 +717,8 @@ public class MainCtrl {
                         (AdditionalPointsJoker)this.getJoker("Additional Points Joker");
                 pointsJoker.setQuestion(game.getQuestions().get(game.getCurrentQuestionNumber()));
                 pointsJoker.setPlayer(((SinglePlayerGame)game).getPlayer());
-                boolean isCorrect = pointsJoker.getQuestion().isChosenAnswerCorrect();
-                if(isCorrect){
-                    pointsJoker.useCard();
-                }
-                System.out.println("used additional points joker");
-
+                pointsJoker.useCard();
+                System.out.println("Used additional points joker");
                 ((SinglePlayerGame)game).getPlayer().deleteJoker(pointsJoker);
 
                 break;

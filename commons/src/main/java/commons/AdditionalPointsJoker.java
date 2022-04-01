@@ -37,7 +37,9 @@ public class AdditionalPointsJoker extends JokerCard{
      */
     @Override
     public void useCard() {
-        this.player.setCurrentScore(player.getCurrentScore() + question.getAvailablePoints());
+        System.out.println("old available points: " + this.question.getAvailablePoints());
+        this.question.setAvailablePoints(2 * this.question.getAvailablePoints());
+        System.out.println("new available points: " + this.question.getAvailablePoints());
         this.usedJoker = true;
     }
 
