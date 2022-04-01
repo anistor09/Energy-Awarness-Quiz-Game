@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -90,12 +91,11 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private Label score;
 
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     @FXML
     private Label time;
-    @FXML
-    private Label debug;
+
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
@@ -144,8 +144,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
         initialiseActivityImage(act);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -371,8 +370,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
 
     public int getPointsGained() {

@@ -225,8 +225,8 @@ public class ServerUtils {
         ArrayList<Question> questions = new ArrayList<>();
         questions.addAll(getListMostEnergy());
         questions.addAll(getListInsteadOf());
-        questions.addAll(getListMultipleChoice());
-        questions.addAll(getListGuessQuestion());
+//        questions.addAll(getListMultipleChoice());
+//        questions.addAll(getListGuessQuestion());
         Collections.shuffle(questions);
         SinglePlayerGame game = new SinglePlayerGame(questions, new ArrayList<JokerCard>(), player);
         return game;

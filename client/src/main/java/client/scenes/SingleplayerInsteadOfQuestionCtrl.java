@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -106,7 +107,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private Label time;
 
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
@@ -141,7 +142,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf((player.getCurrentScore())));
         Activity activity = q.getActivity();
-        question.setText("Instead of " + activity.getTitle());
+        question.setText("Instead of " + activity.getTitle() + ", you could:");
+        if(activity.getTitle().length() >= 53) {
+            question.setStyle("-fx-font-size: 13;");
+        }
         ArrayList<Activity> options = q.getOptions();
         Activity correctAnswer = q.getCorrectAnswer();
 
@@ -150,17 +154,17 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             optionsCopy.add(option);
         }
 
-        String option1ratio = q.getCorrectRatio(correctAnswer) + " times";
-        String option2ratio = q.getWrongRatio((options.get(1))) + " times";
-        String option3ratio = q.getWrongRatio((options.get(2))) + " times";
+        String option1ratio = (long) q.getCorrectRatio(correctAnswer) + " times";
+        String option2ratio = (long) q.getWrongRatio((options.get(1))) + " times";
+        String option3ratio = (long) q.getWrongRatio((options.get(2))) + " times";
 
         // In this loop we are making sure that randomly assigned wrongRatio
         // is not accidentally the correct one.
         // We are assigning it randomly until both of them are not equal to the correctRatio
         while(option2ratio.equals(q.getCorrectRatio(options.get(1))) ||
                 option3ratio.equals(q.getCorrectRatio(options.get(2)))){
-            option2ratio = q.getWrongRatio((options.get(1))) + " times";
-            option3ratio = q.getWrongRatio((options.get(2))) + " times";
+            option2ratio = (long) q.getWrongRatio((options.get(1))) + " times";
+            option3ratio = (long) q.getWrongRatio((options.get(2))) + " times";
         }
 
         Map<String, String> optionsWithRatios = new HashMap<>();
@@ -177,16 +181,15 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         Collections.shuffle(options);
 //        Collections.shuffle(answers);
 
-        question1Text.setText(String.valueOf(options.get(0).getTitle()));
-        question2Text.setText(String.valueOf(options.get(1).getTitle()));
-        question3Text.setText(String.valueOf(options.get(2).getTitle()));
+        question1Text.setText(options.get(0).getTitle() + " " + optionsWithRatios.get(options.get(0).getTitle()));
+        question2Text.setText(options.get(1).getTitle() + " " + optionsWithRatios.get(options.get(1).getTitle()));
+        question3Text.setText(options.get(2).getTitle() + " " + optionsWithRatios.get(options.get(2).getTitle()));
 
-        activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
-        activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
-        activity3ratio.setText(optionsWithRatios.get(options.get(2).getTitle()));
+//        activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
+//        activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
+//        activity3ratio.setText(optionsWithRatios.get(options.get(2).getTitle()));
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
@@ -408,9 +411,12 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void setPointsGained(int pointsGained) {
         this.pointsGained = pointsGained;
     }
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
+
     /**
      * This method send the Emoji to the other clients through WebSockets.
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.

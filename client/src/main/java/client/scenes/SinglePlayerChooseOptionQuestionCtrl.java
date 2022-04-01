@@ -18,7 +18,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
@@ -91,8 +93,6 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     @FXML
     private Label score;
 
-//    @FXML
-//    private Label questionNumber;
     @FXML
     private ProgressBar progressBar;
 
@@ -116,7 +116,6 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     public void initialiseMostEnergyQuestion() {
         resetScreen();
-        progressBar = new ProgressBar();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -139,7 +138,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
         this.setJokers(jokerList);
+
     }
+
 
     private void resetScreen() {
         option1.setStyle("-fx-background-color: #8ECAE6");
@@ -363,7 +364,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
 
     public void setQuestionNumber(int i) {
-        progressBar.setProgress(((double) i / 20.0));
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
 
     public int getPointsGained() {
@@ -374,6 +376,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         this.pointsGained = pointsGained;
     }
     /**
+     * This method send the Emoji to the other clients through WebSockets.
      * This method send the Emoji to the other clients through WebSockets.
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */

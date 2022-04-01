@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,7 +82,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private Label time;
 
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     @FXML
     private Label actualAnswer;
@@ -129,8 +130,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         jokerMessage.setText("");
         initialiseActivityImage(act);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -274,8 +274,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         return true;
     }
 
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
     /**
      * This method send the Emoji to the other clients through WebSockets.
