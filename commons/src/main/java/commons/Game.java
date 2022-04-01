@@ -18,12 +18,7 @@ public abstract class Game {
         currentQuestionNumber = 1;
     }
 
-    public Game() {
-
-    }
-
-
-
+    public Game() {}
 
     public ArrayList<Question> getQuestions() {
         return questions;
@@ -53,15 +48,6 @@ public abstract class Game {
     @Override
     public int hashCode() {
         return Objects.hash(getQuestions(), getJokerCards());
-    }
-
-
-    @Override
-    public String toString() {
-        return "Game{" +
-                "questions=" + questions +
-                ", jokerCards=" + jokerCards +
-                '}';
     }
 
     public void setGameOver(boolean gameOver) {

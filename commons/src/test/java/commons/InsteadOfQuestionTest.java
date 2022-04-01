@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InsteadOfQuestionTest {
 
@@ -51,6 +49,38 @@ class InsteadOfQuestionTest {
     @Test
     void checkConstructor() {
         assertNotNull(q1);
+        InsteadOfQuestion i = new InsteadOfQuestion(act1, 1, "EASY", 1,
+        new ArrayList<>(List.of(act1)));
+        assertNotNull(i);
+        InsteadOfQuestion i1 = new InsteadOfQuestion();
+        assertNotNull(i1);
+    }
+
+    @Test
+    void testGetWrongRation() {
+        assertNotEquals(q1.getWrongRatio(act6), q1.getWrongRatio(act5));
+    }
+
+    @Test
+    void testMyRandom() {
+        assertTrue((q1.myRandom(1, 5) >= 1) && (q1.myRandom(1, 5) <= 5));
+    }
+
+    @Test
+    void getCorrectAnswer() {
+        assertEquals(act2, q1.getCorrectAnswer());
+    }
+
+    @Test
+    void setCorrectAnswer() {
+        q1.setCorrectAnswer(act3);
+        assertEquals(act3, q1.getCorrectAnswer());
+    }
+
+    @Test
+    void setOptions() {
+        q1.setOptions(new ArrayList<>());
+        assertEquals(new ArrayList<>(), q1.getOptions());
     }
 
     @Test

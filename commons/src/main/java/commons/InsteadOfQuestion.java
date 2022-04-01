@@ -42,9 +42,7 @@ public class InsteadOfQuestion extends Question{
         this.correctAnswer = options.get(0);
     }
 
-    public InsteadOfQuestion() {
-
-    }
+    public InsteadOfQuestion() {}
 
     /**
      * Compares this activity with another activity.

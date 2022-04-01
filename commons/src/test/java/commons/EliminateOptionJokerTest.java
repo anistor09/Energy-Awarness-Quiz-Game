@@ -3,8 +3,7 @@ package commons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EliminateOptionJokerTest {
 
@@ -22,6 +21,12 @@ class EliminateOptionJokerTest {
                 "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
         question = new MultipleChoiceQuestion(activity, 10,"EASY", 20);
         eliminate = new EliminateOptionJoker("name", "desc", false, question);
+    }
+
+    @Test
+    void testConstructor() {
+        EliminateOptionJoker j = new EliminateOptionJoker(new MultipleChoiceQuestion());
+        assertNotNull(j);
     }
 
     @Test
@@ -46,8 +51,10 @@ class EliminateOptionJokerTest {
 
     @Test
     void testEquals() {
-        Question question2 = new MultipleChoiceQuestion(activity, 10,"EASY", 20);
-        assertTrue(question2.equals(question2));
+        EliminateOptionJoker j = new EliminateOptionJoker(new MultipleChoiceQuestion());
+        EliminateOptionJoker j1 = new EliminateOptionJoker("name", "desc", false, question);
+        assertNotEquals(j, j1);
+        assertEquals(j1, eliminate);
     }
 
     @Test
@@ -58,11 +65,10 @@ class EliminateOptionJokerTest {
 
     @Test
     void testToString() {
-        assertEquals(question.toString(),
-                "Question{activity=Activity{id='00-shower', image_path='00/shower.png', " +
-                        "title='Taking a hot shower for 6 minutes', consumption_in_wh=4000, " +
-                        "source='https://www.quora.com/" +
-                        "How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower'}, " +
-                        "availablePoints=10, difficulty='EASY', allowedTime=20}");
+        assertEquals(eliminate.toString(),
+                "EliminateOptionJoker{question=Question{activity=Activity{id='00-shower', " +
+                        "image_path='00/shower.png', title='Taking a hot shower for 6 minutes', consumption_in_wh=" +
+                        "4000, source='https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-" +
+                        "shower'}, availablePoints=10, difficulty='EASY', allowedTime=20}}");
     }
 }

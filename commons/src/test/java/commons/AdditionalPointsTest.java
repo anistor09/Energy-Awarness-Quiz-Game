@@ -3,9 +3,7 @@ package commons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AdditionalPointsTest {
 
@@ -32,6 +30,12 @@ class AdditionalPointsTest {
 
 
 
+    }
+
+    @Test
+    void testConstructor() {
+        AdditionalPointsJoker joker = new AdditionalPointsJoker(new Player("asdf", 44));
+        assertNotNull(joker);
     }
 
     @Test
@@ -63,7 +67,7 @@ class AdditionalPointsTest {
 
     @Test
     void testHashCode() {
-        assertTrue(additionalPointsJoker1.hashCode() == additionalPointsJoker2.hashCode());
+        assertEquals(additionalPointsJoker1.hashCode(), additionalPointsJoker2.hashCode());
     }
 
     @Test
