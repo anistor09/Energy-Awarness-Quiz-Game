@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -90,8 +91,10 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     @FXML
     private Label score;
 
+//    @FXML
+//    private Label questionNumber;
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     @FXML
     private Label time;
@@ -113,6 +116,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     public void initialiseMostEnergyQuestion() {
         resetScreen();
+        progressBar = new ProgressBar();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -130,8 +134,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
@@ -359,8 +362,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
 
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+    public void setQuestionNumber(int i) {
+        progressBar.setProgress(((double) i / 20.0));
     }
 
     public int getPointsGained() {
