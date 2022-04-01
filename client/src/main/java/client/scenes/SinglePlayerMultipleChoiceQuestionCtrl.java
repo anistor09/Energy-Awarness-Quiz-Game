@@ -367,7 +367,12 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     public void startTimerAnimation() {
-        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(20), timeBar);
+        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
+        int colourChange1 = (int) (i*1000*0.25);
+        int colourChange2 = (int) (i*1000*0.5);
+        int colourChange3 = (int) (i*1000*0.75);
+
+        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
         timerAnimation.setFromX(1);
         timerAnimation.setToX(0);
         timerAnimation.play();
@@ -377,19 +382,19 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             public void run() {
                 timeBar.setFill(Color.valueOf("#FFFF00"));
             }
-        }, 5000);
+        }, colourChange1);
         changeTimerBarColor.schedule(new TimerTask() {
             @Override
             public void run() {
                 timeBar.setFill(Color.valueOf("#FFA500"));
             }
-        },10000);
+        },colourChange2);
         changeTimerBarColor.schedule(new TimerTask() {
             @Override
             public void run() {
                 timeBar.setFill(Color.valueOf("#FF0000"));
             }
-        },15000);
+        },colourChange3);
     }
 
     @FXML

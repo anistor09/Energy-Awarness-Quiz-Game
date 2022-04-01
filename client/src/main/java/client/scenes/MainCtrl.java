@@ -246,9 +246,12 @@ public class MainCtrl {
      * and set the correct scene for each of them
      * @param player Instance of Player representing the username inserted by the user
      */
-    public void playSinglePLayerGame(Player player){
+    public void playSinglePLayerGame(Player player, int difficulty){
         localPlayer = player;
         game = serverUtils.createSinglePlayerGame(player);
+        for(int i = 0; i < game.getQuestions().size();i++){
+            game.getQuestions().get(i).setAllowedTime(difficulty);
+        }
         goToNextSingleplayerQuestion();
 
 
@@ -1134,6 +1137,10 @@ private List<JokerCard> getJokerList() {
 
     public int getGameId() {
         return this.gameId;
+    }
+
+    public SingleplayerStartCountdownScreenCtrl getSingleplayerStartCountdownScreenCtrl() {
+        return singleplayerStartCountdownScreenCtrl;
     }
 }
 
