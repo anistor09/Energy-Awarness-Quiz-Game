@@ -100,6 +100,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private MostEnergyQuestion questionObject; //the object that is being displayed
 
     private static int pointsGained;    // points gained from this question.
+    List<Activity> activityList=null;
 
     @Inject
     public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
@@ -123,6 +124,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         score.setText(String.valueOf(player.getCurrentScore()));
         List<Activity> actList = new ArrayList<>(q.getOtherActivities());
         actList.add(q.getActivity());
+        activityList = actList;
         Collections.shuffle(actList);
         question1Text.setText(actList.get(0).getTitle());
         question2Text.setText(actList.get(1).getTitle());
@@ -198,7 +200,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+        if(activityList.indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
             changeButtonColours(option1, "green");
         } else {
@@ -212,7 +214,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 2
      */
     public void option2Handler() {
-        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+        if(activityList.indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
             changeButtonColours(option2, "green");
         } else {
@@ -226,7 +228,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 3
      */
     public void option3Handler() {
-        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
+        if(activityList.indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
             changeButtonColours(option3, "green");
         } else {
@@ -318,9 +320,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
-        if (questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+        if (activityList.indexOf(generateExpensiveActivity()) == 0) {
             changeButtonColours(option1, "green");
-        } else if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+        } else if(activityList.indexOf(generateExpensiveActivity()) == 1) {
             changeButtonColours(option2, "green");
         } else {
             changeButtonColours(option3, "green");
