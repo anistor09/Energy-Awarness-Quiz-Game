@@ -237,8 +237,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
-            joker1.setDisable(true);
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -249,8 +249,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
-            joker2.setDisable(true);
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -261,8 +261,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         jokerMessage.setText("");
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
-            joker3.setDisable(true);
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");

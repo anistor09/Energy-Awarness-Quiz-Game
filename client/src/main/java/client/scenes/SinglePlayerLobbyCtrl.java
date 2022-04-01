@@ -46,8 +46,8 @@ public class SinglePlayerLobbyCtrl {
     protected void startGameButtonClick(){
         tmpLabel1.setText("Started the game!");
         mainCtrl.goTo("singleGame");
-        resetScreen();
         mainCtrl.setStringJokers(checkedStringJokers);
+        resetScreen();
     }
 
     /**
@@ -67,6 +67,7 @@ public class SinglePlayerLobbyCtrl {
                     break;
             }
         }
+        checkedStringJokers = new ArrayList<>();
     }
 
     @FXML
