@@ -55,6 +55,7 @@ public class InsertUsernameSinglePlayerCtrl {
             server.setSERVER(serverURL);
             Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
             mainCtrl.startSinglePlayerGameCountdown(player);
+
         }
         else{
             mainCtrl.goTo("error");
@@ -62,7 +63,7 @@ public class InsertUsernameSinglePlayerCtrl {
             return;
         }
 
-        mainCtrl.startSinglePlayerGameCountdown(player);
+
         String userNameToStore = username.getText();
         FileWriter writer = new FileWriter("src/main/resources/username");
         writer.write(userNameToStore);
