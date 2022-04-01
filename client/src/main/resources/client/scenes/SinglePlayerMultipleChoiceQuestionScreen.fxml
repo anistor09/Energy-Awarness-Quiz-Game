@@ -10,9 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/singleplayer_game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerMultipleChoiceQuestionCtrl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerMultipleChoiceQuestionCtrl">
     <center>
         <VBox maxWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" BorderPane.alignment="CENTER">
             <children>
@@ -41,7 +42,7 @@
                     </padding>
                 </Button>
             <Label id="debug" />
-                <Label fx:id="time" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+                <Label fx:id="time" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="JUSTIFY" visible="false" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets left="60.0" top="130.0" />
                     </VBox.margin>
@@ -121,83 +122,6 @@
             </children>
         </VBox>
     </left>
-    <bottom>
-        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="exit" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="184.0" text="Exit" HBox.hgrow="ALWAYS">
-                    <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets left="10.0" top="50.0" />
-                    </HBox.margin>
-                </Button>
-                <Region prefHeight="100.0" prefWidth="170.0">
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin></Region>
-            <HBox fx:id="emojiBar" prefHeight="100.0" prefWidth="655.0">
-               <children>
-                  <ImageView fx:id="smiling" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="10.0" top="40.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="crying" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="10.0" top="40.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="devil" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="10.0" top="40.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="inLove" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="10.0" top="40.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="anger" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="10.0" top="40.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="thinking" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="10.0" top="40.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Separator orientation="VERTICAL" prefHeight="200.0">
-                     <HBox.margin>
-                        <Insets bottom="5.0" top="35.0" />
-                     </HBox.margin>
-                  </Separator>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label fx:id="ReactionName" text="Name">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ImageView fx:id="reaction" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <VBox.margin>
-                              <Insets left="10.0" top="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </HBox>
-            </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-        </HBox>
-    </bottom>
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -220,4 +144,95 @@
          </children>
       </HBox>
    </top>
+   <bottom>
+      <VBox prefHeight="200.0" prefWidth="950.0" BorderPane.alignment="BOTTOM_CENTER">
+         <children>
+            <Region prefHeight="200.0" prefWidth="200.0" />
+              <HBox fillHeight="false" prefHeight="100.0" prefWidth="950.0">
+                  <children>
+                      <Button fx:id="exit" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="184.0" text="Exit" HBox.hgrow="ALWAYS">
+                          <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                          </padding>
+                          <HBox.margin>
+                              <Insets left="10.0" top="50.0" />
+                          </HBox.margin>
+                      </Button>
+                      <Region prefHeight="100.0" prefWidth="170.0">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Region>
+                  <HBox fx:id="emojiBar" prefHeight="100.0" prefWidth="655.0">
+                     <children>
+                        <ImageView fx:id="smiling" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" top="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="crying" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" top="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="devil" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" top="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="inLove" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" top="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="anger" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" top="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="thinking" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#getEmoji" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" top="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Separator orientation="VERTICAL" prefHeight="200.0">
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="35.0" />
+                           </HBox.margin>
+                        </Separator>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="ReactionName" text="Name">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ImageView fx:id="reaction" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+                  </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+              </HBox>
+            <Rectangle fx:id="timeBar" fill="WHITE" height="10.0" stroke="BLACK" strokeType="INSIDE" width="950.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Rectangle>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </bottom>
 </BorderPane>

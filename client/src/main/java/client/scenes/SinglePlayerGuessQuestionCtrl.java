@@ -2,6 +2,8 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import commons.*;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
@@ -78,9 +80,6 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private Text questionText;
 
     @FXML
-    private Label time;
-
-    @FXML
     private Label questionNumber;
 
     @FXML
@@ -88,6 +87,13 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     @FXML
     private TextField userAnswer;
+
+    @FXML
+    private Rectangle timeBar;
+
+    int timeBarHeight = (int) timeBar.getHeight();
+    int timeBarWidth = (int) timeBar.getWidth();
+
     private final MainCtrl mainCtrl;
 
     private GuessQuestion questionObject;
@@ -140,6 +146,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void resetScreen(){
         userAnswer.setText("");
         actualAnswer.setText("");
+        timeBar.setWidth(timeBarWidth);
+        timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
     /**
@@ -174,8 +182,20 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     }
 
     public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
-    }
+        int timerBarLengthRatio = i/mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
+        int timerBarLength = timerBarLengthRatio*timeBarWidth;
+        timeBar.setWidth(timerBarLength);
+
+        if((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)){
+            timeBar.setFill(Color.valueOf("#FFFF00"));
+        }
+        if((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)){
+            timeBar.setFill(Color.valueOf("#FFA500"));
+        }
+        if(timerBarLengthRatio <= 0.125){
+            timeBar.setFill(Color.valueOf("#FF0000"));
+        }    }
 
     /**
      * This is the onAction method for the Label. When the user hits enter this will be called. It will either

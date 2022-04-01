@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
+import javafx.scene.shape.Rectangle;
 import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
 import javafx.event.Event;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -103,7 +105,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private Label score;
 
     @FXML
-    private Label time;
+    private Rectangle timeBar;
+
+    int timeBarHeight = (int) timeBar.getHeight();
+    int timeBarWidth = (int) timeBar.getWidth();
 
     @FXML
     private Label questionNumber;
@@ -198,6 +203,9 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
+        timeBar.setWidth(timeBarWidth);
+        timeBar.setFill(Color.valueOf("#00FF00"));
+
     }
 
     /**
@@ -398,8 +406,20 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
 
     @FXML
     public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
-    }
+        int timerBarLengthRatio = i/mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
+        int timerBarLength = timerBarLengthRatio*timeBarWidth;
+        timeBar.setWidth(timerBarLength);
+
+        if((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)){
+            timeBar.setFill(Color.valueOf("#FFFF00"));
+        }
+        if((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)){
+            timeBar.setFill(Color.valueOf("#FFA500"));
+        }
+        if(timerBarLengthRatio <= 0.125){
+            timeBar.setFill(Color.valueOf("#FF0000"));
+        }    }
 
     public int getPointsGained() {
         return pointsGained;

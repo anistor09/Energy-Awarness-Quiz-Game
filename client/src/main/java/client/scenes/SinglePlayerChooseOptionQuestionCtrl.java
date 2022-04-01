@@ -3,6 +3,8 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -94,7 +96,11 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private Label questionNumber;
 
     @FXML
-    private Label time;
+    private Rectangle timeBar;
+
+    int timeBarHeight = (int) timeBar.getHeight();
+    int timeBarWidth = (int) timeBar.getWidth();
+
 
     private final MainCtrl mainCtrl;
     private MostEnergyQuestion questionObject; //the object that is being displayed
@@ -142,6 +148,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
+        timeBar.setWidth(timeBarWidth);
+        timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
     /**
@@ -249,8 +257,20 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     public void setTime(int i) {
-        time.setText("Time Left: " + i);
-    }
+        int timerBarLengthRatio = i/mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
+        int timerBarLength = timerBarLengthRatio*timeBarWidth;
+        timeBar.setWidth(timerBarLength);
+
+        if((timerBarLengthRatio <= 0.5) && (timerBarLengthRatio > 0.25)){
+            timeBar.setFill(Color.valueOf("#FFFF00"));
+        }
+        if((timerBarLengthRatio <= 0.25) && (timerBarLengthRatio > 0.125)){
+            timeBar.setFill(Color.valueOf("#FFA500"));
+        }
+        if(timerBarLengthRatio <= 0.125){
+            timeBar.setFill(Color.valueOf("#FF0000"));
+        }    }
 
     /**
      * This method maps the player's jokers to their corresponding buttons
