@@ -244,10 +244,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * @return the Activity that is the correct answer of this question
      */
     public Activity generateExpensiveActivity() {
-        ArrayList<Activity> list = new ArrayList<>(questionObject.getOtherActivities());
-        list.add(questionObject.getActivity());
-        Activity correct = list.get(0);
-        for(Activity a : list) {
+
+        Activity correct = activityList.get(0);
+        for(Activity a : activityList) {
             if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
                 correct = a;
             }
