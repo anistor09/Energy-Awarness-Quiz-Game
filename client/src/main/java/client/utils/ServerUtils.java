@@ -54,6 +54,7 @@ public class ServerUtils {
     public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         WEBSOCKETSERVER = SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+        session = connect(WEBSOCKETSERVER + "/websocket");
         System.out.println(WEBSOCKETSERVER);
     }
 
