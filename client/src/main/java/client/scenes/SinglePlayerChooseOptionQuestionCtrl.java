@@ -19,6 +19,7 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,6 +36,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private Label jokerMessage;
     @FXML
     private Label ReactionName;
+
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private ImageView anger;
@@ -103,6 +107,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private MostEnergyQuestion questionObject; //the object that is being displayed
 
     private static int pointsGained;    // points gained from this question.
+    List<Activity> activityList=null;
 
     @Inject
     public SinglePlayerChooseOptionQuestionCtrl(MainCtrl mainCtrl) {
@@ -124,11 +129,18 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         questionObject = q;
         Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf(player.getCurrentScore()));
-        List<Activity> actList = q.getOtherActivities();
+        List<Activity> actList = new ArrayList<>(q.getOtherActivities());
         actList.add(q.getActivity());
+        activityList = actList;
+        Collections.shuffle(actList);
         question1Text.setText(actList.get(0).getTitle());
         question2Text.setText(actList.get(1).getTitle());
-        question3Text.setText(actList.get(2).getTitle());
+        if(actList.size()==3) {
+            question3Text.setText(actList.get(2).getTitle());
+        }
+        else{
+            question3Text.setText("Wrong option");
+        }
 
         question.setText("What requires more energy?");
         initialiseActivityImages(actList);
@@ -137,6 +149,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         this.setJokers(jokerList);
 
     }
@@ -170,7 +183,12 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
         option1Image.setImage(new Image(serverString + activityList.get(0).getImage_path()));
         option2Image.setImage(new Image(serverString + activityList.get(1).getImage_path()));
-        option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
+        if(activityList.size()==3) {
+            option3Image.setImage(new Image(serverString + activityList.get(2).getImage_path()));
+        }
+        else{
+            option3Image.setImage(null);
+        }
     }
 
     /**
@@ -191,7 +209,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+        if(activityList.indexOf(generateExpensiveActivity()) == 0) {
             handleCorrect();
             changeButtonColours(option1, "green");
         } else {
@@ -205,7 +223,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 2
      */
     public void option2Handler() {
-        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+        if(activityList.indexOf(generateExpensiveActivity()) == 1) {
             handleCorrect();
             changeButtonColours(option2, "green");
         } else {
@@ -219,7 +237,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 3
      */
     public void option3Handler() {
-        if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 2) {
+        if(activityList.indexOf(generateExpensiveActivity()) == 2) {
             handleCorrect();
             changeButtonColours(option3, "green");
         } else {
@@ -235,10 +253,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      * @return the Activity that is the correct answer of this question
      */
     public Activity generateExpensiveActivity() {
-        ArrayList<Activity> list = new ArrayList<>(questionObject.getOtherActivities());
-        list.add(questionObject.getActivity());
-        Activity correct = list.get(0);
-        for(Activity a : list) {
+
+        Activity correct = activityList.get(0);
+        for(Activity a : activityList) {
             if(a.getConsumption_in_wh() > correct.getConsumption_in_wh()) {
                 correct = a;
             }
@@ -280,28 +297,37 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleCorrect() {
         Game game = mainCtrl.getGame();
+        questionObject = (MostEnergyQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
         Player p = null;
         if(game instanceof SinglePlayerGame) {
             p = ((SinglePlayerGame) game).getPlayer();
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } else {
             MultiPlayerGame m = (MultiPlayerGame) game;
+            int tl = 0;
             for(int i = 0; i < m.getPlayers().size(); i++) {
                 Player localPlayer = mainCtrl.getLocalPlayer();
+                tl = localPlayer.getTimeLeft();
                 Player toSearch = m.getPlayers().get(i);
                 if(toSearch.getUsername().equals(localPlayer.getUsername())) {
                     p = m.getPlayers().get(i);
                 }
             }
+            // we now have player
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - tl;
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
         }
-        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double)timeAfterQuestionStart / (double)questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5*quotient)*questionObject.getAvailablePoints());
-        p.setCurrentScore(p.getCurrentScore() + points);
+
         mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
         if(game instanceof MultiPlayerGame) {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
-        IntermediateScreenCtrl.setPointsGained(points);
 
     }
 
@@ -311,9 +337,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     void handleWrong() {
         IntermediateScreenCtrl.setPointsGained(0);
-        if (questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 0) {
+        if (activityList.indexOf(generateExpensiveActivity()) == 0) {
             changeButtonColours(option1, "green");
-        } else if(questionObject.getOtherActivities().indexOf(generateExpensiveActivity()) == 1) {
+        } else if(activityList.indexOf(generateExpensiveActivity()) == 1) {
             changeButtonColours(option2, "green");
         } else {
             changeButtonColours(option3, "green");
@@ -324,8 +350,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
-            joker1.setDisable(true);
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
 
         }
         else{
@@ -337,8 +363,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
-            joker2.setDisable(true);
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -349,16 +375,16 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
-            joker3.setDisable(true);
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else {
              jokerMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
-            return false;
+//        if(name.equals("EliminateOptionJoker"))
+//            return false;
         return true;
     }
 
@@ -437,6 +463,10 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
     public void hideEmoji() {
         emojiBar.setVisible(false);
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 }
 
