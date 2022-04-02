@@ -78,23 +78,19 @@ class MultiPlayerGameTest {
                 "Adds 10 additional points if you answer correctly",
                 false, player1, q4);
 
-
-        ShortenTimeJoker shorten = new ShortenTimeJoker("10 seconds reduce time card",
-                "Gives everyone 10sec less time to answer this question",10, q6);
-
         mpg = new MultiPlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
 
         mpg2 = new MultiPlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
 
         mpg3 = new MultiPlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
                 new ArrayList<Player>(Arrays.asList(player1, player2, player3, player4, player5)));
     }
 
