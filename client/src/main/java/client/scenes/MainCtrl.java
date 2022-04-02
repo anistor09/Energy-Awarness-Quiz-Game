@@ -762,12 +762,23 @@ public class MainCtrl {
             case "Additional Points Joker":
                 AdditionalPointsJoker pointsJoker =
                         (AdditionalPointsJoker) this.getJoker("Additional Points Joker");
+                if(game instanceof MultiPlayerGame) {
+                    serverUtils.send("/app/jokerAlert/" + getGameId(),
+                            new JokerAlert(localPlayer.getUsername(), pointsJoker.getName()));
+                }
                 localPlayer.deleteJoker(pointsJoker);
                 break;
             case "EliminateOptionJoker":
                 EliminateOptionJoker eliminateOptionJokerJoker =
                         (EliminateOptionJoker) this.getJoker("EliminateOptionJoker");
                 handleEliminateOptionJoker(eliminateOptionJokerJoker);
+                if(game instanceof MultiPlayerGame) {
+                    String Path = "/app/jokerAlert/" + getGameId();
+
+                    JokerAlert ja = new JokerAlert(localPlayer.getUsername(), eliminateOptionJokerJoker.getName());
+                    serverUtils.send(Path,
+                           ja);
+                }
                 localPlayer.deleteJoker(eliminateOptionJokerJoker);
                 break;
             case "Question Change Joker":
@@ -788,6 +799,8 @@ public class MainCtrl {
                 DecreaseTimeJoker timeJoker = (DecreaseTimeJoker) this.getJoker("Decrease Time Joker");
                 timeJoker.setSenderUsername(localPlayer.getUsername());
                 serverUtils.send("/app/timeJoker/"+ this.getGameId(),timeJoker);
+                serverUtils.send("/app/jokerAlert/"+this.getGameId(),
+                        new JokerAlert(localPlayer.getUsername(),timeJoker.getName()));
                 localPlayer.deleteJoker(timeJoker);
                 break;
 
@@ -925,6 +938,38 @@ public class MainCtrl {
     /**
      *
      */
+    public void startScanningJokerAlert(){
+        serverUtils.registerForJokerAlert("/topic/jokerAlert/"+this.getGameId(),jokerAlert->{
+            String currentQuestionScreen = getClassName(game.getQuestions().
+                    get(game.getCurrentQuestionNumber())
+                    .getClass().toString());
+            switch (currentQuestionScreen) {
+                case "MultipleChoiceQuestion":
+                    Platform.runLater(()->{singlePlayerGameCtrl.initialisejokerAlert(jokerAlert);});
+                    break;
+
+                case "MostEnergyQuestion":
+                    Platform.runLater(()->{singlePlayerChooseOptionQuestionCtrl.initialisejokerAlert(jokerAlert);});
+                    break;
+
+                case "GuessQuestion":
+                    Platform.runLater(()->{
+                        singlePlayerGuessQuestionCtrl.initialisejokerAlert(jokerAlert);});
+                    break;
+
+                case "InsteadOfQuestion":
+                    Platform.runLater(()->{singleplayerInsteadOfQuestionCtrl.initialisejokerAlert(jokerAlert);});
+                    break;
+
+                default:
+                    break;
+            }
+        });
+    }
+
+    /**
+     *
+     */
     public void startScanningTimeJoker(){
         serverUtils.registerForTimeJoker("/topic/timeJoker/"+this.getGameId(),j->{
 
@@ -996,6 +1041,7 @@ public class MainCtrl {
         startScanningEmojis();
         startScanningScoreUpdates();
         startScanningTimeJoker();
+        startScanningJokerAlert();
         localPlayer.setJokerCards(getJokerList());
         //
         //TODO SET THE LOCALPLAYER TO LOCALPLAYER

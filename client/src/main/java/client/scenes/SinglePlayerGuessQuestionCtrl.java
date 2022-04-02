@@ -28,6 +28,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private ServerUtils server;
     @FXML
     private Button exit;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private HBox emojiBar;
@@ -127,6 +129,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         initialiseActivityImage(act);
 
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
@@ -339,4 +342,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         emojiBar.setVisible(false);
     }
 
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
+    }
 }

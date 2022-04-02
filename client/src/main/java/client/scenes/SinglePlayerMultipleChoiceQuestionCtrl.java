@@ -34,6 +34,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private Label jokerMessage;
     @FXML
     private Label ReactionName;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private ImageView anger;
@@ -150,6 +152,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
     }
 
     private void resetScreen() {
@@ -434,6 +437,10 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     public void hideEmoji() {
         emojiBar.setVisible(false);
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 }
 

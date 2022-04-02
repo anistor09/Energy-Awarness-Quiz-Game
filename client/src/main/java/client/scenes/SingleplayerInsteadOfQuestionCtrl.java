@@ -28,6 +28,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
 
     @FXML
     private HBox emojiBar;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private Label jokerMessage;
@@ -192,6 +194,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         initialiseActivityImages(options);
         setJokers(jokerCards);
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
     }
 
     /**
@@ -499,6 +502,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         else{
             emojiBar.setVisible(false);
         }
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 
 }

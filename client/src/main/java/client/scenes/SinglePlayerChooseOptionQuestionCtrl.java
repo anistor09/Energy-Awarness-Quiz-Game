@@ -34,6 +34,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private Label ReactionName;
 
     @FXML
+    private Label jokerAlertMessage;
+
+    @FXML
     private ImageView anger;
     @FXML
     private ImageView crying;
@@ -143,6 +146,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         this.setJokers(jokerList);
     }
 
@@ -443,6 +447,10 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
     public void hideEmoji() {
         emojiBar.setVisible(false);
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 }
 
