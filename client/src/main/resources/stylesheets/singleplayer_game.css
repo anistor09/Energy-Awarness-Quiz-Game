@@ -7,6 +7,24 @@
     -fx-scale-y: 1.1;
 }
 
+.progress-bar {
+    -fx-accent: #FB8500;
+}
+
+.progress-bar .bar {
+    -fx-padding: 1px;
+    -fx-background-insets: 0;
+    -fx-background-radius: 15;
+}
+
+.progress-bar > .track {
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-text-box-border: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: #126782;
+}
+
 #question {
     -fx-background-color: #023047;
     -fx-text-fill: #FB8500;

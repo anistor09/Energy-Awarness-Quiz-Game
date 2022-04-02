@@ -12,7 +12,7 @@ public class QuestionService {
 
     private final ActivityController activityController;
 
-    private final int globalTimeAllowed = 5;
+    private final int globalTimeAllowed = 15;
 
     @Autowired
     public QuestionService(ActivityController activityController) {
