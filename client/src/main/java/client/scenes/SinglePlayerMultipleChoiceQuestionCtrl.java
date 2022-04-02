@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -34,6 +35,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private Label jokerMessage;
     @FXML
     private Label ReactionName;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private ImageView anger;
@@ -90,12 +93,11 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private Label score;
 
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     @FXML
     private Label time;
-    @FXML
-    private Label debug;
+
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
@@ -144,12 +146,12 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
         initialiseActivityImage(act);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
     }
 
     private void resetScreen() {
@@ -280,30 +282,37 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      */
     void handleCorrect() {
         Game game = mainCtrl.getGame();
+        questionObject = (MultipleChoiceQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
         Player p = null;
         if(game instanceof SinglePlayerGame) {
             p = ((SinglePlayerGame) game).getPlayer();
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } else {
             MultiPlayerGame m = (MultiPlayerGame) game;
+            int tl = 0;
             for(int i = 0; i < m.getPlayers().size(); i++) {
                 Player localPlayer = mainCtrl.getLocalPlayer();
+                tl = localPlayer.getTimeLeft();
                 Player toSearch = m.getPlayers().get(i);
                 if(toSearch.getUsername().equals(localPlayer.getUsername())) {
                     p = m.getPlayers().get(i);
                 }
             }
+            // we now have player
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - tl;
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
         }
 
-        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
-        p.setCurrentScore(p.getCurrentScore() + points);
         mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
         if(game instanceof MultiPlayerGame) {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
-        IntermediateScreenCtrl.setPointsGained(points);
-
 
     }
 
@@ -320,6 +329,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             changeButtonColours(option3, "green");
         }
         IntermediateScreenCtrl.setPointsGained(0);
+        questionObject.setChosenAnswerCorrect(false);
     }
 
     @FXML
@@ -327,8 +337,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
-            joker1.setDisable(true);
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -339,8 +349,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
-            joker2.setDisable(true);
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -351,8 +361,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
-            joker3.setDisable(true);
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -371,8 +381,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
 
     public int getPointsGained() {
@@ -434,6 +445,10 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     public void hideEmoji() {
         emojiBar.setVisible(false);
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 }
 

@@ -429,6 +429,26 @@ public class ServerUtils {
      * @param dest
      * @param consumer
      */
+    public void registerForJokerAlert(String dest,Consumer<JokerAlert> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return JokerAlert.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((JokerAlert) payload);
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param dest
+     * @param consumer
+     */
     public void registerForTimeJoker(String dest,Consumer<DecreaseTimeJoker> consumer){
         session.subscribe(dest, new StompFrameHandler() {
             @Override
@@ -471,6 +491,7 @@ public class ServerUtils {
      * @param o the object to send
      */
     public void send(String dest, Object o) {
+
         session.send(dest, o);
     }
 

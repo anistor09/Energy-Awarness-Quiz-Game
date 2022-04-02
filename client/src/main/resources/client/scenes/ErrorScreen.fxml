@@ -17,7 +17,7 @@
             <Font size="40.0" />
          </font>
       </Text>
-      <Label layoutX="196.0" layoutY="516.0" style="-fx-font-weight: bold;" text="Something went wrong..." textFill="#fd9e02">
+      <Label layoutX="136.0" layoutY="514.0" style="-fx-font-weight: bold;" text="Failed to connect with the server..." textFill="#fd9e02">
          <font>
             <Font size="42.0" />
          </font>
