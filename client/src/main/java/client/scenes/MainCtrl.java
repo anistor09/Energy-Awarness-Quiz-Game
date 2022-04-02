@@ -781,15 +781,15 @@ public class MainCtrl {
             case"EliminateOptionJoker":
                 EliminateOptionJoker eliminateOptionJoker =
                         (EliminateOptionJoker) this.getJoker("EliminateOptionJoker");
-                handleEliminateOptionJoker(eliminateOptionJokerJoker);
+                handleEliminateOptionJoker(eliminateOptionJoker);
                 if(game instanceof MultiPlayerGame) {
                     String Path = "/app/jokerAlert/" + getGameId();
 
-                    JokerAlert ja = new JokerAlert(localPlayer.getUsername(), eliminateOptionJokerJoker.getName());
+                    JokerAlert ja = new JokerAlert(localPlayer.getUsername(), eliminateOptionJoker.getName());
                     serverUtils.send(Path,
                            ja);
                 }
-                localPlayer.deleteJoker(eliminateOptionJokerJoker);
+                localPlayer.deleteJoker(eliminateOptionJoker);
                 break;
             case"Question Change Joker":
 
