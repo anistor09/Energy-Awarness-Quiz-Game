@@ -402,6 +402,9 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
+    /**
+     * This method starts the animation for the timer bar
+     */
     public void startTimerAnimation() {
         int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
         int colourChange1 = (int) (i*1000*0.25);
