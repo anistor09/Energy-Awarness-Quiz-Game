@@ -56,6 +56,7 @@
                                         <Insets right="20.0" />
                                     </GridPane.margin>
                                 </TextField>
+                        <Label fx:id="error" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="urlLabel" alignment="CENTER" prefHeight="94.0" prefWidth="482.0" text="Enter server URL:" GridPane.rowIndex="2" />
                         <TextField fx:id="url" alignment="CENTER" prefHeight="60.0" prefWidth="460.0" promptText="ex. http://localhost:8080/" text="http://localhost:8080/" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             </children>

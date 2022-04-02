@@ -3,7 +3,6 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 import java.util.List;
