@@ -50,13 +50,13 @@ public class SinglePlayerLobbyCtrl {
     private void resetScreen() {
         for(int i = 0; i < checkedStringJokers.size(); i++){
             switch (checkedStringJokers.get(i)){
-                case "AdditionalPointsJoker":
+                case "Additional Points Joker":
                     pointBoost.setSelected(false);
                     break;
-                case "EliminateOptionJoker":
+                case "Eliminate Option Joker":
                     detective.setSelected(false);
                     break;
-                case "QuestionChangeJoker":
+                case "Question Change Joker":
                     questionChange.setSelected(false);
                     break;
             }
@@ -87,19 +87,19 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void addPointBoost(){
         addJokerCard(pointBoost);
-        addStringJokerCard("AdditionalPointsJoker");
+        addStringJokerCard("Additional Points Joker");
     }
 
     @FXML
     protected void addDetective(){
         addJokerCard(detective);
-        addStringJokerCard("EliminateOptionJoker");
+        addStringJokerCard("Eliminate Option Joker");
     }
 
     @FXML
     protected void addQuestionChange(){
         addJokerCard(questionChange);
-        addStringJokerCard("QuestionChangeJoker");
+        addStringJokerCard("Question Change Joker");
     }
 
 //    @FXML

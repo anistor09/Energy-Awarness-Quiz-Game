@@ -13,7 +13,7 @@ public class EliminateOptionJoker extends JokerCard{
         this.question = question;
     }
     public EliminateOptionJoker( MultipleChoiceQuestion question) {
-        super("EliminateOptionJoker", "....", false);
+        super("Eliminate Option Joker", "....", false);
         this.question = question;
     }
 
