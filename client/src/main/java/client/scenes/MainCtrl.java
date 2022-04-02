@@ -629,9 +629,7 @@ public class MainCtrl {
                 adminPanelCtrl.instantiateActivities(true, true);
                 break;
             case "multiplayerIntermediateScreen":
-                //
-                //TODO METHOD THAT INITIALIZES THE LEADERBOARD
-                //
+                multiplayerIntermediateScreenCtrl.initialiseLeaderboard();
                 primaryStage.setScene(multiPlayerIntermediateScreen);
                 multiplayerIntermediateScreenCtrl.startCountdown();
                 break;
@@ -1118,7 +1116,7 @@ private List<JokerCard> getJokerList() {
 
     /**
      * This is the main timer for the multiplayer game. This method starts the timer, displays the time left, and
-     * switches between the question and intermmediate screens
+     * switches between the question and intermediate screens
      */
     public void multiplayerInGameTimer(){
         Timer timer = new Timer();
@@ -1139,7 +1137,7 @@ private List<JokerCard> getJokerList() {
                 }
                 if(localPlayer.getTimeLeft() <= 0) {
                     timer.cancel();
-                    localPlayer.setTimeLeft(30);
+                    localPlayer.setTimeLeft(20);
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {

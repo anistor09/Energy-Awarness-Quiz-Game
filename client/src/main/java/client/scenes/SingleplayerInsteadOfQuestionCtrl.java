@@ -299,28 +299,37 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         // get the time left
         Game game = mainCtrl.getGame();
         questionObject = (InsteadOfQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
-        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
         Player p = null;
         if(game instanceof SinglePlayerGame) {
             p = ((SinglePlayerGame) game).getPlayer();
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } else {
             MultiPlayerGame m = (MultiPlayerGame) game;
+            int tl = 0;
             for(int i = 0; i < m.getPlayers().size(); i++) {
                 Player localPlayer = mainCtrl.getLocalPlayer();
+                tl = localPlayer.getTimeLeft();
                 Player toSearch = m.getPlayers().get(i);
                 if(toSearch.getUsername().equals(localPlayer.getUsername())) {
                     p = m.getPlayers().get(i);
                 }
             }
+            // we now have player
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - tl;
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
         }
-        p.setCurrentScore(p.getCurrentScore() + points);
+
         mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
         if(game instanceof MultiPlayerGame) {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
-        IntermediateScreenCtrl.setPointsGained(points);
+
     }
 
     /**
