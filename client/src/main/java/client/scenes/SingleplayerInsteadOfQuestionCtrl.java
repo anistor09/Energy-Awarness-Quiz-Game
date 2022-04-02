@@ -220,13 +220,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) != 0)
         {
             question1Text.setText("Wrong option!");
-            activity1ratio.setText("");
+
             option1Image.setImage(null);
         }
         else
         {
             question2Text.setText("Wrong option!");
-            activity2ratio.setText("");
+
             option2Image.setImage(null);
         }
 
