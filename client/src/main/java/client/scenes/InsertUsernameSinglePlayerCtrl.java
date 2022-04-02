@@ -58,6 +58,9 @@ public class InsertUsernameSinglePlayerCtrl {
             return;
         }
         String serverURL = url.getText();
+        if(!serverURL.endsWith("/")) {
+            serverURL = serverURL + "/";
+        }
         if(server.testConnection(serverURL)){
             server.setSERVER(serverURL);
             Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());
@@ -72,9 +75,9 @@ public class InsertUsernameSinglePlayerCtrl {
 
 
         String userNameToStore = username.getText();
-        FileWriter writer = new FileWriter("src/main/resources/username");
-        writer.write(userNameToStore);
-        writer.close();
+//        FileWriter writer = new FileWriter("src/main/resources/username");
+//        writer.write(userNameToStore);
+//        writer.close();
     }
 
     /**
@@ -100,9 +103,9 @@ public class InsertUsernameSinglePlayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException {
-        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
-        this.storedUsername = usernameScanner.next();
-        usernameScanner.close();
+//        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
+//        this.storedUsername = usernameScanner.next();
+//        usernameScanner.close();
     }
 
     public void returnToLobby(){
