@@ -110,6 +110,7 @@ public class MainCtrl {
     // that the player chose to use
 
     private String usedJoker;
+    private boolean usedAdditionalPoints;
     boolean exitedGame;
     private Player localPlayer;
 
@@ -765,26 +766,33 @@ public class MainCtrl {
             case "Additional Points Joker":
                 AdditionalPointsJoker pointsJoker =
                         (AdditionalPointsJoker) this.getJoker("Additional Points Joker");
+                pointsJoker.setQuestion(game.getQuestions().get(game.getCurrentQuestionNumber()));
+                pointsJoker.setPlayer(localPlayer);
+                pointsJoker.useCard();
+                System.out.println("Used additional points joker");
                 if(game instanceof MultiPlayerGame) {
                     serverUtils.send("/app/jokerAlert/" + getGameId(),
                             new JokerAlert(localPlayer.getUsername(), pointsJoker.getName()));
                 }
                 localPlayer.deleteJoker(pointsJoker);
+
                 break;
-            case "EliminateOptionJoker":
-                EliminateOptionJoker eliminateOptionJokerJoker =
+
+            case"EliminateOptionJoker":
+                EliminateOptionJoker eliminateOptionJoker =
                         (EliminateOptionJoker) this.getJoker("EliminateOptionJoker");
-                handleEliminateOptionJoker(eliminateOptionJokerJoker);
+                handleEliminateOptionJoker(eliminateOptionJoker);
                 if(game instanceof MultiPlayerGame) {
                     String Path = "/app/jokerAlert/" + getGameId();
 
-                    JokerAlert ja = new JokerAlert(localPlayer.getUsername(), eliminateOptionJokerJoker.getName());
+                    JokerAlert ja = new JokerAlert(localPlayer.getUsername(), eliminateOptionJoker.getName());
                     serverUtils.send(Path,
                            ja);
                 }
-                localPlayer.deleteJoker(eliminateOptionJokerJoker);
+                localPlayer.deleteJoker(eliminateOptionJoker);
                 break;
-            case "Question Change Joker":
+            case"Question Change Joker":
+
                 QuestionChangeJoker questionChangeJoker =
                         (QuestionChangeJoker) this.getJoker("Question Change Joker");
 

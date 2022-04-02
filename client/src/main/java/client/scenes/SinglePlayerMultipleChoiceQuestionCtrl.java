@@ -314,7 +314,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
 
-
     }
 
     /**
@@ -330,6 +329,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             changeButtonColours(option3, "green");
         }
         IntermediateScreenCtrl.setPointsGained(0);
+        questionObject.setChosenAnswerCorrect(false);
     }
 
     @FXML
