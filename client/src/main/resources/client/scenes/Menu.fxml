@@ -17,10 +17,10 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MenuCtrl">
     <top>
-        <HBox BorderPane.alignment="CENTER">
+        <HBox styleClass="header-section" BorderPane.alignment="CENTER">
             <children>
                 <Region prefHeight="100.0" prefWidth="355.0" HBox.hgrow="ALWAYS" />
-                <Label fx:id="title" text="Quizzz" HBox.hgrow="ALWAYS">
+                <Label fx:id="title" styleClass="title" text="Quizzz" HBox.hgrow="ALWAYS">
                     <font>
                         <Font size="40.0" />
                     </font>

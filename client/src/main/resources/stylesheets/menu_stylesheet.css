@@ -7,10 +7,13 @@
     -fx-font-family: 'ZCOOL QingKe HuangYou', cursive;
 }
 
+#title {
+    -fx-font-size: 70pt;
+}
 .label {
     -fx-text-fill: #FD9E02;
     -fx-font-family: 'ZCOOL QingKe HuangYou', cursive;
-    -fx-font-size: 100;
+    -fx-font-size: 10pt;
 }
 
 .button {
