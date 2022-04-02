@@ -51,6 +51,9 @@ public class InsertUsernameSinglePlayerCtrl {
     public void submit() throws IOException {
         String insertedUsername = username.getText();
         String serverURL = url.getText();
+        if(!serverURL.endsWith("/")) {
+            serverURL = serverURL + "/";
+        }
         if(server.testConnection(serverURL)){
             server.setSERVER(serverURL);
             Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());

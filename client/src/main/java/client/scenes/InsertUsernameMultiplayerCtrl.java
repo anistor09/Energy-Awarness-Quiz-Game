@@ -69,7 +69,10 @@ public class InsertUsernameMultiplayerCtrl {
             return;
         }
         String insertedUrl = url.getText();
-        System.out.println(insertedUrl);
+        if(!insertedUrl.endsWith("/")) {
+            insertedUrl = insertedUrl + "/";
+        }
+
         if(server.testConnection(insertedUrl)){
             server.setSERVER(insertedUrl);
         }
