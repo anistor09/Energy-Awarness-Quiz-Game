@@ -257,6 +257,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+        primaryStage.setResizable(false);
 
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
