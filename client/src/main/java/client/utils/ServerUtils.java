@@ -47,13 +47,14 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 public class ServerUtils {
 
     private static String SERVER = "http://localhost:8080/";
-    private static final String WEBSOCKETSERVER =
+    private static String WEBSOCKETSERVER =
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
     public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
-        SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+        WEBSOCKETSERVER = SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+        System.out.println(WEBSOCKETSERVER);
     }
 
     /**
