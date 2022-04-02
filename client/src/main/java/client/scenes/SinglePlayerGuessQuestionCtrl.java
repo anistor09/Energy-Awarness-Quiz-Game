@@ -288,7 +288,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         }
     }
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
+        if(name.equals("Eliminate Option Joker"))
             return false;
         return true;
     }

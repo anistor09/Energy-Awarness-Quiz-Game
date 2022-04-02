@@ -25,9 +25,9 @@
             </font>
         </Text>
 <!--        <CheckBox fx:id="timeTwister" layoutX="90.0" layoutY="215.0" mnemonicParsing="false" onAction="#addTimeTwister" scaleX="1.5" scaleY="1.5" text="Time Twister" />-->
-        <CheckBox fx:id="pointBoost" layoutX="89.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPointBoost" scaleX="1.5" scaleY="1.5" text="Point Boost" />
-        <CheckBox fx:id="detective" layoutX="86.0" layoutY="255.0" mnemonicParsing="false" onAction="#addDetective" scaleX="1.5" scaleY="1.5" text="Detective" />
-        <CheckBox fx:id="questionChange" layoutX="96.0" layoutY="335.0" mnemonicParsing="false" onAction="#addQuestionChange" scaleX="1.5" scaleY="1.5" text="Question Change" />
+        <CheckBox fx:id="pointBoost" layoutX="89.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPointBoost" scaleX="1.5" scaleY="1.5" text="Additional Points Joker" />
+        <CheckBox fx:id="detective" layoutX="86.0" layoutY="255.0" mnemonicParsing="false" onAction="#addDetective" scaleX="1.5" scaleY="1.5" text="Eliminate Option Joker" />
+        <CheckBox fx:id="questionChange" layoutX="96.0" layoutY="335.0" mnemonicParsing="false" onAction="#addQuestionChange" scaleX="1.5" scaleY="1.5" text="Question Change Joker" />
         <Rectangle fill="#8ecae6" height="70.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="956.0" />
         <Text layoutX="421.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lobby" textAlignment="CENTER">
             <font>
