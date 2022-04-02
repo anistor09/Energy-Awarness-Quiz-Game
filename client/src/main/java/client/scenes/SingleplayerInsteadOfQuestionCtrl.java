@@ -125,6 +125,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         this.server = mainCtrl.getServer();
     }
 
+    private String pluralOrSingular(int x) {
+        if (x==1) {
+            return "";
+        } else {
+            return "s";
+        }
+    }
     /**
      * /**
      *      This method initialises all the JFX fields with
@@ -152,17 +159,22 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             optionsCopy.add(option);
         }
 
-        String option1ratio = q.getCorrectRatio(correctAnswer) + " times";
-        String option2ratio = q.getWrongRatio((options.get(1))) + " times";
-        String option3ratio = q.getWrongRatio((options.get(2))) + " times";
+        int ratio1 = q.getCorrectRatio(correctAnswer);
+        int ratio2 = q.getWrongRatio((options.get(1)));
+        int ratio3 = q.getWrongRatio((options.get(2)));
+        String option1ratio = ratio1 + " time" + pluralOrSingular(ratio1);
+        String option2ratio = ratio2 + " time" + pluralOrSingular(ratio2);
+        String option3ratio = ratio3 + " time" + pluralOrSingular(ratio3);
 
         // In this loop we are making sure that randomly assigned wrongRatio
         // is not accidentally the correct one.
         // We are assigning it randomly until both of them are not equal to the correctRatio
-        while(option2ratio.equals(q.getCorrectRatio(options.get(1))) ||
-                option3ratio.equals(q.getCorrectRatio(options.get(2)))){
-            option2ratio = q.getWrongRatio((options.get(1))) + " times";
-            option3ratio = q.getWrongRatio((options.get(2))) + " times";
+        while(ratio2 == (q.getCorrectRatio(options.get(1))) ||
+                ratio3 == (q.getCorrectRatio(options.get(2)))){
+            option2ratio = q.getWrongRatio((options.get(1))) + " time" +
+                    pluralOrSingular(q.getWrongRatio((options.get(1))));
+            option3ratio = q.getWrongRatio((options.get(2))) + " time" +
+                    pluralOrSingular(q.getWrongRatio((options.get(2))));
         }
 
         Map<String, String> optionsWithRatios = new HashMap<>();
