@@ -16,6 +16,8 @@ public class SingleplayerStartCountdownScreenCtrl {
 
     private final MainCtrl mainCtrl;
 
+    public int difficulty = 20;
+
     @Inject
     public SingleplayerStartCountdownScreenCtrl(MainCtrl main) {
         this.mainCtrl=main;
@@ -34,7 +36,7 @@ public class SingleplayerStartCountdownScreenCtrl {
             public void run() {
                 if(i<0){
                     timer.cancel();
-                    mainCtrl.playSinglePLayerGame(player);
+                    mainCtrl.playSinglePLayerGame(player, difficulty);
                 }
                 Platform.runLater(new Runnable() {
                     @Override
@@ -45,5 +47,9 @@ public class SingleplayerStartCountdownScreenCtrl {
                 i--;
             }
         },0,1000);
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 }
