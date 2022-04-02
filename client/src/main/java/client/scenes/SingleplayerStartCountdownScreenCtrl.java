@@ -34,7 +34,7 @@ public class SingleplayerStartCountdownScreenCtrl {
             public void run() {
                 if(i < 0){
                     timer.cancel();
-                    timeLeft.setText("Starting Game!");
+                    Platform.runLater(() -> timeLeft.setText("Starting Game!"));
                     mainCtrl.playSinglePLayerGame(player);
                 }
                 Platform.runLater(new Runnable() {

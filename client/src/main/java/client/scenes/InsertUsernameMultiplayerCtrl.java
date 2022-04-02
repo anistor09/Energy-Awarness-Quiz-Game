@@ -46,6 +46,8 @@ public class InsertUsernameMultiplayerCtrl {
     private Button submitButton;
     @FXML
     private Label alert;
+    @FXML
+    private Label error;
 
 
     /**
