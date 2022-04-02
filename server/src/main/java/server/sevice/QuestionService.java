@@ -53,6 +53,9 @@ public class QuestionService {
         Activity activity = activityController.getRandomActivity();
         long maxConsumption  = activity.getConsumption_in_wh();
         ArrayList<Activity> options = new ArrayList<>();
+        //TODO maxConsumption = 10 * consumption.
+        //TODO find activities within some given range
+        //TODO: still rendering "0 times".
         for (int i = 0; i < 3; i++) {
             Activity option = activityController.getRandomActivity();
             if (options.contains(option) || option.equals(activity) || option.getConsumption_in_wh() > maxConsumption) {
