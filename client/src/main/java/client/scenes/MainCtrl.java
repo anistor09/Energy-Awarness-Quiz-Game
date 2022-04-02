@@ -716,10 +716,10 @@ public class MainCtrl {
                 AdditionalPointsJoker pointsJoker =
                         (AdditionalPointsJoker)this.getJoker("Additional Points Joker");
                 pointsJoker.setQuestion(game.getQuestions().get(game.getCurrentQuestionNumber()));
-                pointsJoker.setPlayer(((SinglePlayerGame)game).getPlayer());
+                pointsJoker.setPlayer(localPlayer);
                 pointsJoker.useCard();
                 System.out.println("Used additional points joker");
-                ((SinglePlayerGame)game).getPlayer().deleteJoker(pointsJoker);
+                localPlayer.deleteJoker(pointsJoker);
 
                 break;
 
