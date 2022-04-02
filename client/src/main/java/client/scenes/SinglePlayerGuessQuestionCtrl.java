@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,6 +33,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private ServerUtils server;
     @FXML
     private Button exit;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private HBox emojiBar;
@@ -85,6 +88,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private Label questionNumber;
 
     @FXML
+    private ProgressBar progressBar;
+
+    @FXML
     private Label actualAnswer;
 
     @FXML
@@ -134,10 +140,10 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         initialiseActivityImage(act);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -226,7 +232,23 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             long guess = Long.parseLong(userAnswer.getCharacters().toString());
             switchButtons(true);
             int points = questionObject.calculatePoints(guess);
-            Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            Game game = mainCtrl.getGame();
+            Player p = null;
+            if (game instanceof SinglePlayerGame) {
+                p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            } else {
+                MultiPlayerGame m = (MultiPlayerGame) game;
+                for (int i = 0; i < m.getPlayers().size(); i++) {
+                    Player localPlayer = mainCtrl.getLocalPlayer();
+                    Player toSearch = m.getPlayers().get(i);
+                    if (toSearch.getUsername().equals(localPlayer.getUsername())) {
+                        p = m.getPlayers().get(i);
+                    }
+                }
+            }
+            if (p==null) {
+                throw new NullPointerException("No player found");
+            }
             p.setCurrentScore(p.getCurrentScore() + points);
             if (points == 100) {
                 actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
@@ -276,8 +298,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if(canUseJoker(joker1.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
-            joker1.setDisable(true);
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -288,8 +310,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if(canUseJoker(joker2.getText())) {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
-            joker2.setDisable(true);
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -300,8 +322,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         jokerMessage.setText("");
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
-            joker3.setDisable(true);
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -313,8 +335,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         return true;
     }
 
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
     /**
      * This method send the Emoji to the other clients through WebSockets.
@@ -378,4 +401,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         emojiBar.setVisible(false);
     }
 
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
+    }
 }

@@ -1,18 +1,16 @@
 package server.api;
 
-import commons.Emoji;
+import commons.JokerAlert;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmojiController {
-    @MessageMapping("/emojis/{id}") //app/emojis
-    @SendTo("/topic/emojis/{id}")
-    public Emoji addEmoji( Emoji e){
+public class JokerAlertController {
+    @MessageMapping("/jokerAlert/{id}") //app/jokerAlert
+    @SendTo("/topic/jokerAlert/{id}")
+    public JokerAlert addJokerAlert(JokerAlert j){
 
-        return e;
+        return j;
     }
-
-
 }

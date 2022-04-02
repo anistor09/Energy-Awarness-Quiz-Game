@@ -37,8 +37,39 @@ class AdditionalPointsTest {
     @Test
     void useCard() {
         additionalPointsJoker1.useCard();
-        assertEquals(20, player.getCurrentScore());
+        assertEquals(15, player.getCurrentScore());
+    }
 
+    @Test
+    void useCard2() {
+        Player testPlayer = new Player("noname", 20);
+        Activity testActivity = new Activity("00-shower",
+                "00/shower.png",
+                "Some title",
+                2137,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Question testQuestion = new MultipleChoiceQuestion(testActivity, 100,"EASY", 20);
+        AdditionalPointsJoker testJoker = new AdditionalPointsJoker("Additional",
+                "Adds 10 additional points if you answer correctly",
+                false, testPlayer, testQuestion);
+        testJoker.useCard();
+        assertEquals(200, testQuestion.getAvailablePoints());
+    }
+
+    @Test
+    void useCard3() {
+        Player testPlayer = new Player("noname", 20);
+        Activity testActivity = new Activity("00-shower",
+                "00/shower.png",
+                "Some title",
+                2137,
+                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
+        Question testQuestion = new MultipleChoiceQuestion(testActivity, 100,"EASY", 20);
+        AdditionalPointsJoker testJoker = new AdditionalPointsJoker("Additional",
+                "Adds 10 additional points if you answer correctly",
+                false, testPlayer, testQuestion);
+        testJoker.useCard();
+        assertEquals(20, testPlayer.getCurrentScore());
     }
 
     @Test

@@ -6,6 +6,7 @@ public class AdditionalPointsJoker extends JokerCard{
 
     private Player player;
     private Question question;
+    private boolean usedJoker;
 
     public AdditionalPointsJoker(String name,
                                  String description,
@@ -15,12 +16,18 @@ public class AdditionalPointsJoker extends JokerCard{
         super(name, description, onlyMultiplayer);
         this.player = player;
         this.question = question;
+        this.usedJoker = false;
     }
     public AdditionalPointsJoker(Player player) {
         super("Additional Points Joker", "....", false);
         this.player = player;
+        this.usedJoker = false;
     }
 
+    public AdditionalPointsJoker() {
+        super("Additional Points Joker", "....", false);
+        this.usedJoker = false;
+    }
 
     /**
      * This method adds additional points for the player in case the answer is correct.
@@ -30,7 +37,34 @@ public class AdditionalPointsJoker extends JokerCard{
      */
     @Override
     public void useCard() {
-        this.player.setCurrentScore(player.getCurrentScore() + question.getAvailablePoints() / 2);
+        System.out.println("old available points: " + this.question.getAvailablePoints());
+        this.question.setAvailablePoints(2 * this.question.getAvailablePoints());
+        System.out.println("new available points: " + this.question.getAvailablePoints());
+        this.usedJoker = true;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public boolean isUsedJoker() {
+        return usedJoker;
+    }
+
+    public void setUsedJoker(boolean usedJoker) {
+        this.usedJoker = usedJoker;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     @Override
