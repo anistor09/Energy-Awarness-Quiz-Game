@@ -109,7 +109,7 @@
          </children>
       </VBox>
    </center>
-   <top>
+   <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="exit" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="184.0" text="Exit" HBox.hgrow="ALWAYS">

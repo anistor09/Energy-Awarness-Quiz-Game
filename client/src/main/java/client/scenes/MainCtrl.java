@@ -301,13 +301,13 @@ public class MainCtrl {
 
             @Override
             public void run() {
-                if(exitedGame){
+                if (exitedGame) {
                     timer.cancel();
                     setExitedGame(false);
                 }
                 if (i <= 0) {
                     timer.cancel();
-                    if(usedQuestionChangeJoker) {
+                    if (usedQuestionChangeJoker) {
                         usedQuestionChangeJoker = false;
                         game.setCurrentQuestionNumber(oldQuestionNumber);
                     }
@@ -320,7 +320,7 @@ public class MainCtrl {
                             String className = getClassName(q.getClass().getName());
                             intermediateScreenCtrl.setPointsLabel();
                             // if we are on the last question, don't go to the intermediate screen
-                            if (currentQuestionNumber < game.getQuestions().size()-1) {
+                            if (currentQuestionNumber < game.getQuestions().size() - 1) {
                                 goTo("intermediateScreen");
                             } else {
                                 goTo("SinglePlayerLeaderboard");
@@ -332,12 +332,13 @@ public class MainCtrl {
                     timer.cancel();
                     setExitedGame(false);
                 } else {
-                    int currentQuestionNumber=0;
-                    if(!usedQuestionChangeJoker) {
+                    int currentQuestionNumber = 0;
+                    if (!usedQuestionChangeJoker) {
                         currentQuestionNumber = game.getCurrentQuestionNumber();
                     }
-                MainCtrl.setTimeLeft(i);
-                i--;
+                    MainCtrl.setTimeLeft(i);
+                    i--;
+                }
             }
         }, 0, 1000);
     }
