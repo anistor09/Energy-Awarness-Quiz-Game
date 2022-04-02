@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -15,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.List;
@@ -22,9 +24,12 @@ import java.util.ResourceBundle;
 
 public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
+
     private ServerUtils server;
     @FXML
     private Button exit;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private HBox emojiBar;
@@ -81,6 +86,9 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private Label questionNumber;
 
     @FXML
+    private Label actualAnswer;
+
+    @FXML
     private TextField userAnswer;
     private final MainCtrl mainCtrl;
 
@@ -121,6 +129,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         initialiseActivityImage(act);
 
         setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
@@ -133,6 +142,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     public void resetScreen(){
         userAnswer.setText("");
+        actualAnswer.setText("");
     }
 
     /**
@@ -180,13 +190,39 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             long guess = Long.parseLong(userAnswer.getCharacters().toString());
             switchButtons(true);
             int points = questionObject.calculatePoints(guess);
-            Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
-            questionObject.setChosenAnswerCorrect(true);
-            p.setCurrentScore(p.getCurrentScore() + points);
-            System.out.println(guess);
-            System.out.println("You earned " + points);
             Game game = mainCtrl.getGame();
-            if(game instanceof MultiPlayerGame) {
+            Player p = null;
+            if (game instanceof SinglePlayerGame) {
+                p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            } else {
+                MultiPlayerGame m = (MultiPlayerGame) game;
+                for (int i = 0; i < m.getPlayers().size(); i++) {
+                    Player localPlayer = mainCtrl.getLocalPlayer();
+                    Player toSearch = m.getPlayers().get(i);
+                    if (toSearch.getUsername().equals(localPlayer.getUsername())) {
+                        p = m.getPlayers().get(i);
+                    }
+                }
+            }
+            if (p==null) {
+                throw new NullPointerException("No player found");
+            }
+            p.setCurrentScore(p.getCurrentScore() + points);
+            if (points == 100) {
+                actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            }
+            else if (points > 70) {
+                actualAnswer.setText("Close! The actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            } else if (points > 0) {
+                actualAnswer.setText("Not quite! The actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh() + "wh");
+            } else {
+                actualAnswer.setText("Nowhere near! The actual consumption for this activity is " +
+                        questionObject.getActivity().getConsumption_in_wh()+ "wh");
+            }
+            if(mainCtrl.getGame() instanceof MultiPlayerGame) {
                 server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
             }
             IntermediateScreenCtrl.setPointsGained(points);
@@ -221,6 +257,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -232,6 +269,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -243,6 +281,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -262,7 +301,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-        server.send("/app/emojis",e);
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
@@ -281,6 +320,12 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
         reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
     }
     /**
      * This method initialises the Emojis images because they are not rendered directly for Windows users.
@@ -313,4 +358,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         emojiBar.setVisible(false);
     }
 
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
+    }
 }

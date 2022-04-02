@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.application.Platform;
+import javafx.animation.ScaleTransition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
 import java.net.URL;
@@ -32,6 +34,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private Label jokerMessage;
     @FXML
     private Label ReactionName;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private ImageView anger;
@@ -92,6 +96,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     @FXML
     private Label time;
+    @FXML
+    private Label debug;
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;
@@ -116,6 +122,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Goes to the intermediate screen after X seconds where X is the maximum allowed time.
      */
     public void initialiseSinglePlayerQuestion() {
+        resetScreen();
         switchButtons(false);
         Game currentGame = mainCtrl.getGame();
         this.setEmojiBarVisible(currentGame);
@@ -145,6 +152,13 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
+    }
+
+    private void resetScreen() {
+        option1.setStyle("-fx-background-color: #8ECAE6");
+        option2.setStyle("-fx-background-color: #8ECAE6");
+        option3.setStyle("-fx-background-color: #8ECAE6");
     }
 
     private void setEmojiBarVisible(Game currentGame) {
@@ -206,12 +220,30 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
+     * Changes a button's background colour to the colour specified.
+     * @param button Button whose colour needs to be changed.
+     * @param colour Colour to change to.
+     */
+    private void changeButtonColours(Button button, String colour) {
+        if (colour.equals("green")) {
+            button.setStyle("-fx-background-color: green");
+        } else {
+            button.setStyle("-fx-background-color: red");
+        }
+    }
+
+    // method to locate the correct answer
+
+
+    /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 0) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option1, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -221,9 +253,11 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option2Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 1) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option2, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -233,9 +267,11 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * Handles the clicks on button with option 1
      */
     public void option3Handler() {
-        if (questionObject.getOptions().indexOf((double) questionObject.getActivity().getConsumption_in_wh()) == 2) {
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 2) {
+            changeButtonColours(option3, "green");
             handleCorrect();
         } else {
+            changeButtonColours(option3, "red");
             handleWrong();
         }
         switchButtons(true);
@@ -247,30 +283,37 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      */
     void handleCorrect() {
         Game game = mainCtrl.getGame();
+        questionObject = (MultipleChoiceQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
         Player p = null;
         if(game instanceof SinglePlayerGame) {
             p = ((SinglePlayerGame) game).getPlayer();
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } else {
             MultiPlayerGame m = (MultiPlayerGame) game;
+            int tl = 0;
             for(int i = 0; i < m.getPlayers().size(); i++) {
                 Player localPlayer = mainCtrl.getLocalPlayer();
+                tl = localPlayer.getTimeLeft();
                 Player toSearch = m.getPlayers().get(i);
                 if(toSearch.getUsername().equals(localPlayer.getUsername())) {
                     p = m.getPlayers().get(i);
                 }
             }
+            // we now have player
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - tl;
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
         }
-        System.out.println("correct");
-        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
-        p.setCurrentScore(p.getCurrentScore() + points);
+
         mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
         if(game instanceof MultiPlayerGame) {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
-        IntermediateScreenCtrl.setPointsGained(points);
-        questionObject.setChosenAnswerCorrect(true);
 
     }
 
@@ -279,7 +322,13 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * console
      */
     void handleWrong() {
-        System.out.println("wrong");
+        if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
+            changeButtonColours(option1, "green");
+        } else if(questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
+            changeButtonColours(option2, "green");
+        } else {
+            changeButtonColours(option3, "green");
+        }
         IntermediateScreenCtrl.setPointsGained(0);
         questionObject.setChosenAnswerCorrect(false);
     }
@@ -290,6 +339,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -301,6 +351,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -312,6 +363,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -348,7 +400,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-        server.send("/app/emojis",e);
+
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
@@ -367,6 +420,12 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
         reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
     }
     /**
      * This method initialises the Emojis images because they are not rendered directly for Windows users.
@@ -386,6 +445,10 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
     public void hideEmoji() {
         emojiBar.setVisible(false);
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 }
 

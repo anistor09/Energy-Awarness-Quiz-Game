@@ -458,6 +458,46 @@ public class ServerUtils {
     }
 
     /**
+     *
+     * @param dest
+     * @param consumer
+     */
+    public void registerForJokerAlert(String dest,Consumer<JokerAlert> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return JokerAlert.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((JokerAlert) payload);
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param dest
+     * @param consumer
+     */
+    public void registerForTimeJoker(String dest,Consumer<DecreaseTimeJoker> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return DecreaseTimeJoker.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((DecreaseTimeJoker) payload);
+            }
+        });
+
+    }
+
+    /**
      * This method will listen for messages regarding the start of the game. Whenever the server propagates the
      * startGame message on the server it wil
      * @param dest
@@ -484,6 +524,7 @@ public class ServerUtils {
      * @param o the object to send
      */
     public void send(String dest, Object o) {
+
         session.send(dest, o);
     }
 
