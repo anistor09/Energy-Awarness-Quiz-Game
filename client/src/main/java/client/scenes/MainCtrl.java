@@ -244,7 +244,6 @@ public class MainCtrl {
         this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
 //        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 //        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerGuessQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
@@ -252,6 +251,7 @@ public class MainCtrl {
         this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerStartCountdownScreen.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");
@@ -1140,6 +1140,10 @@ private List<JokerCard> getJokerList() {
                 //
                 //TODO CHECK IF A PLAYER LEFT GAME AND REMOVE THEM FROM THE PLAYER ARRAYLIST IN THE GAME OBJECT
                 //
+                if(exitedGame){
+                    timer.cancel();
+                    setExitedGame(false);
+                }
                 if(game instanceof MultiPlayerGame){
                     MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
                     if(multiPlayerGame.getPlayers().size() == 0){
