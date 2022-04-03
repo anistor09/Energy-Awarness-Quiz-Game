@@ -35,8 +35,6 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private Label jokerAlertMessage;
 
     @FXML
-    private Label jokerMessage;
-    @FXML
     private Label ReactionName;
 
     @FXML
@@ -110,8 +108,6 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     @FXML
     private Rectangle timeBar;
 
-    private int timeBarWidth = 950;
-
     @FXML
     private ProgressBar progressBar;
 
@@ -153,7 +149,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         questionObject = q;
         this.setEmojiBarVisible(currentGame);
         Player player = mainCtrl.getLocalPlayer();
-        score.setText(String.valueOf((player.getCurrentScore())));
+        score.setText("Score: " + player.getCurrentScore());
         Activity activity = q.getActivity();
         question.setText("Instead of " + activity.getTitle() + ", you could:");
         if(activity.getTitle().length() >= 53) {
@@ -213,7 +209,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
         setJokers(jokerCards);
-        jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         jokerAlertMessage.setText("");
     }
 
@@ -395,38 +391,38 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
             joker1.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
         }
 
     @FXML
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton3() {
         if (canUseJoker(joker3.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
             joker3.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
         }
 
