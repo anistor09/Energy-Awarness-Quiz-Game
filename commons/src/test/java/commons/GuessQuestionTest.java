@@ -35,6 +35,8 @@ class GuessQuestionTest {
     @Test
     void checkConstructor() {
         assertNotNull(q1);
+        GuessQuestion g = new GuessQuestion();
+        assertNotNull(g);
     }
 
     @Test
@@ -50,6 +52,11 @@ class GuessQuestionTest {
         assertEquals(0, q1.calculateCloseness(400));
         assertEquals(0, q1.calculateCloseness(1600));
         assertEquals(0.8, q1.calculateCloseness(1100));
+    }
+
+    @Test
+    void testCalculatePoints() {
+        assertEquals(1000, q1.calculatePoints(1000));
     }
 
     @Test

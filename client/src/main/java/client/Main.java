@@ -43,10 +43,9 @@ public class Main extends Application {
      * This method will prepare all the Pair of controller and fxml files for every scene. It will then call the
      * initialize method of the mainCtrl class
      * @param primaryStage is the Stage where the game will take place in
-     * @throws IOException is thrown in case of an error with the IO
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
         Pair<SinglePlayerLobbyCtrl, Parent> singleLobby =
                 FXML.load(SinglePlayerLobbyCtrl.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
