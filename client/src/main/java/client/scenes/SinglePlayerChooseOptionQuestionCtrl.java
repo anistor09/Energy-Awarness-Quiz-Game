@@ -420,12 +420,25 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     /**
+     *
+     * @param absolutePath
+     * @return
+     */
+
+    public String getLocalPath(String absolutePath){
+        String[] result = absolutePath.split("/");
+        return "/"+ result[result.length-2] + "/" + result[result.length-1];
+    }
+
+
+    /**
      * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
      * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
      */
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
-        reaction.setImage(new Image(e.getEmojiPath()));
+        String localPath = MainCtrl.class.getResource(getLocalPath(e.getEmojiPath())).toString();
+        reaction.setImage(new Image(localPath));
         ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
         scale.setToX(1);
         scale.setToY(1);
