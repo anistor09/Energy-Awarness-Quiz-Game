@@ -55,20 +55,11 @@ public class Main extends Application {
         Pair<SinglePlayerMultipleChoiceQuestionCtrl, Parent> singleGame =
                 FXML.load(SinglePlayerMultipleChoiceQuestionCtrl.class, "client", "scenes",
                         "SinglePlayerMultipleChoiceQuestionScreen.fxml");
-        Pair<MultiPlayerMultipleChoiceQuestionCtrl, Parent> multiGame =
-                FXML.load(MultiPlayerMultipleChoiceQuestionCtrl.class, "client", "scenes",
-                        "MultiPlayerMultipleChoiceQuestionScreen.fxml");
         Pair<CreditsCtrl, Parent> credits =
                 FXML.load(CreditsCtrl.class, "client", "scenes", "CreditsScreen.fxml");
-        Pair<MultiPlayerChooseOptionQuestionCtrl, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
-                FXML.load(MultiPlayerChooseOptionQuestionCtrl.class, "client", "scenes",
-                        "MultiplayerChooseOptionQuestionScreen.fxml");
         Pair<SinglePlayerChooseOptionQuestionCtrl, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
                 FXML.load(SinglePlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "SingleplayerChooseOptionQuestionScreen.fxml");
-        Pair<MultiPlayerGuessQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
-                FXML.load(MultiPlayerGuessQuestionCtrl.class, "client", "scenes",
-                        "MultiplayerGuessQuestion.fxml");
         Pair<SinglePlayerGuessQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
                 FXML.load(SinglePlayerGuessQuestionCtrl.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
@@ -87,9 +78,6 @@ public class Main extends Application {
         Pair<SingleplayerInsteadOfQuestionCtrl, Parent> singleplayerInsteadOfQuestionCtrlParentPair =
                 FXML.load(SingleplayerInsteadOfQuestionCtrl.class,
                         "client", "scenes", "SingleplayerInsteadOfQuestion.fxml");
-        Pair<MultiplayerInsteadOfQuestionCtrl, Parent> multiplayerInsteadOfQuestionCtrlParentPair =
-                FXML.load(MultiplayerInsteadOfQuestionCtrl.class,
-                        "client", "scenes", "MultiplayerInsteadOfQuestion.fxml");
         Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair =
                 FXML.load(SinglePlayerLeaderboardCtrl.class, "client", "scenes",
                         "SinglePlayerLeaderboard.fxml");
@@ -111,15 +99,12 @@ public class Main extends Application {
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
-                multiLobby, credits, singleGame, multiGame,
-                multiPlayerChooseOptionQuestionControllerParentPair,
+                multiLobby, credits, singleGame,
                 singlePlayerChooseOptionQuestionControllerParentPair,
-                multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
                 insertInfoMultiplayer,helpCtrlParentPair, insertInfoSingleplayer,
                 singlePlayerLeaderboardCtrlParentPair,
                 singleplayerInsteadOfQuestionCtrlParentPair,
-                multiplayerInsteadOfQuestionCtrlParentPair,
                 adminPanel, editActivity, intermediateScreenCtrlParentPair,
                 singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair,
                 multiplayerIntermediateScreenCtrlParentPair, errorScreenCtrlParentPair);

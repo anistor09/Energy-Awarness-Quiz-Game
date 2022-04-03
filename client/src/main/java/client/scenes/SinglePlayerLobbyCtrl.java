@@ -3,6 +3,7 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,15 @@ public class SinglePlayerLobbyCtrl {
 //    private CheckBox flash;
 //    @FXML
 //    private CheckBox emergencyCall;
+    @FXML
+    private RadioButton easy;
+    @FXML
+    private RadioButton medium;
+    @FXML
+    private RadioButton hard;
+
+
+
 
     private final MainCtrl mainCtrl;
 
@@ -144,5 +154,27 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void goToHelp(){
         mainCtrl.goTo("help");
+    }
+
+
+    public void handleEasy(){
+        easy.setSelected(true);
+        medium.setSelected(false);
+        hard.setSelected(false);
+        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(30);
+    }
+
+    public void handleMedium(){
+        easy.setSelected(false);
+        medium.setSelected(true);
+        hard.setSelected(false);
+        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(20);
+    }
+
+    public void handleHard(){
+        easy.setSelected(false);
+        medium.setSelected(false);
+        hard.setSelected(true);
+        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(10);
     }
 }
