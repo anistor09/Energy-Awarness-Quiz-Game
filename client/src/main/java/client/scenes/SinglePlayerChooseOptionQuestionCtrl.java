@@ -3,6 +3,8 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -18,10 +20,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
@@ -101,7 +100,10 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     private ProgressBar progressBar;
 
     @FXML
-    private Label time;
+    public Rectangle timeBar;
+
+    public int timeBarWidth = 950;
+
 
     private final MainCtrl mainCtrl;
     private MostEnergyQuestion questionObject; //the object that is being displayed
@@ -159,6 +161,8 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
+        timeBar.setWidth(950);
+        timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
     /**
@@ -269,8 +273,38 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
-    public void setTime(int i) {
-        time.setText("Time Left: " + i);
+    /**
+     * This method starts the animation for the timer bar
+     */
+    public void startTimerAnimation() {
+        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
+        int colourChange1 = (int) (i*1000*0.25);
+        int colourChange2 = (int) (i*1000*0.5);
+        int colourChange3 = (int) (i*1000*0.75);
+
+        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
+        timerAnimation.setFromX(1);
+        timerAnimation.setToX(0);
+        timerAnimation.play();
+        Timer changeTimerBarColor = new Timer();
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FFFF00"));
+            }
+        }, colourChange1);
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FFA500"));
+            }
+        },colourChange2);
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FF0000"));
+            }
+        },colourChange3);
     }
 
     /**

@@ -11,11 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class InsertUsernameSinglePlayerCtrl {
     private final MainCtrl mainCtrl;
@@ -103,9 +101,9 @@ public class InsertUsernameSinglePlayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException {
-        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
-        this.storedUsername = usernameScanner.next();
-        usernameScanner.close();
+//        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
+//        this.storedUsername = usernameScanner.next();
+//        usernameScanner.close();
     }
 
     public void returnToLobby(){
