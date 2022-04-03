@@ -122,9 +122,8 @@
       </StackPane>
    </top>
    <bottom>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="950.0" BorderPane.alignment="CENTER">
          <children>
-            <Region prefHeight="200.0" prefWidth="200.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="exit" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="184.0" text="Exit" HBox.hgrow="ALWAYS">
@@ -197,6 +196,9 @@
                      </HBox.margin>
                   </HBox>
                </children>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
             </HBox>
             <Rectangle fx:id="timeBar" fill="WHITE" height="10.0" stroke="BLACK" strokeType="INSIDE" width="950.0" />
          </children>
