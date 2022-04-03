@@ -29,8 +29,6 @@ public class IntermediateScreenCtrl {
      * earned by the player after answering the question.
      */
     public void initialiseScene() {
-        // go to the intermediate screen after X seconds
-
         Timer timerLabel = new Timer();
         timerLabel.scheduleAtFixedRate(new TimerTask() {
             int i = 5;

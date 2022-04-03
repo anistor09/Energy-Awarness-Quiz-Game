@@ -1,10 +1,11 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import commons.MultiPlayerGame;
 import commons.Player;
 import commons.SinglePlayerGame;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javax.inject.Inject;
@@ -65,6 +66,8 @@ public class SinglePlayerLeaderboardCtrl {
     private Label playerName;
     @FXML
     private Label playerScore;
+    @FXML
+    private Button playAgain;
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
@@ -76,13 +79,16 @@ public class SinglePlayerLeaderboardCtrl {
     }
 
 
-    public void goToMenu(ActionEvent actionEvent) {
-        name1.setText("hello, this is a test");
+    public void goToMenu() {
         mainCtrl.goTo("menu");
     }
 
-    public void goToSPLobby(ActionEvent actionEvent) {
-        mainCtrl.goTo("singleLobby");
+    public void goToLobby() {
+        if(mainCtrl.getGame() instanceof SinglePlayerGame) {
+            mainCtrl.goTo("singleLobby");
+        } else {
+            mainCtrl.goTo("insertInfoMultiPlayer");
+        }
     }
 
 
@@ -91,8 +97,17 @@ public class SinglePlayerLeaderboardCtrl {
      * Usernames and scores are mapped to the leaderboard's corresponding labels.
      */
     public void initialiseLeaderboard() {
+        playAgain.setVisible(true);
+        if(mainCtrl.getGame() == null) {
+            playAgain.setVisible(false);
+        }
         // get list of players from server util
-        List<Player> players = serverUtils.getLeaderboard();
+        List<Player> players;
+        if(mainCtrl.getGame() == null || mainCtrl.getGame() instanceof SinglePlayerGame) {
+            players = serverUtils.getLeaderboard();
+        } else {
+            players = ((MultiPlayerGame) mainCtrl.getGame()).getPlayers();
+        }
 
         int numOfPlayers = players.size();
 
@@ -108,7 +123,6 @@ public class SinglePlayerLeaderboardCtrl {
         // truncate list to only get the first 10
         players = players.subList(0, min);
 
-        name1.setText(players.get(0).getUsername());
 
         Label[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10};
         Label[] scores = {score1, score2, score3, score4, score5, score6, score7, score8, score9, score10};
@@ -119,10 +133,19 @@ public class SinglePlayerLeaderboardCtrl {
             scores[i].setText(String.valueOf(players.get(i).getCurrentScore()));
         }
 
-        SinglePlayerGame spg = (SinglePlayerGame) mainCtrl.getGame();
+        // check if there is a game stored.
+        if (mainCtrl.getGame() != null) {
+            Player localPlayer;
+            if(mainCtrl.getGame() instanceof SinglePlayerGame) {
+                localPlayer = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            } else {
+                localPlayer = mainCtrl.getLocalPlayer();
+            }
 
-        playerName.setText(spg.getPlayer().getUsername());
-        playerScore.setText(String.valueOf(spg.getPlayer().getCurrentScore()));
+            playerName.setText(localPlayer.getUsername());
+            playerScore.setText(String.valueOf(localPlayer.getCurrentScore()));
+        }
+
 
     }
 }

@@ -8,6 +8,7 @@ public abstract class Question {
     private int availablePoints;
     private String difficulty;
     private int allowedTime;    // maximum allowed time for this question
+    private boolean isChosenAnswerCorrect;
 
     public Question(Activity activity, int availablePoints, String difficulty, int allowedTime) {
         this.activity = activity;
@@ -55,6 +56,14 @@ public abstract class Question {
 
     public void setAllowedTime(int allowedTime) {
         this.allowedTime = allowedTime;
+    }
+
+    public boolean isChosenAnswerCorrect() {
+        return isChosenAnswerCorrect;
+    }
+
+    public void setChosenAnswerCorrect(boolean chosenAnswerCorrect) {
+        isChosenAnswerCorrect = chosenAnswerCorrect;
     }
 
     @Override

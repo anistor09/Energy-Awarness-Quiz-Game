@@ -18,4 +18,8 @@ public class CreditsCtrl {
         mainCtrl.goTo("menu");
     }
 
+    @FXML
+    protected void goToHelp(){
+        mainCtrl.goTo("help");
+    }
 }

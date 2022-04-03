@@ -43,32 +43,24 @@ public class Main extends Application {
      * This method will prepare all the Pair of controller and fxml files for every scene. It will then call the
      * initialize method of the mainCtrl class
      * @param primaryStage is the Stage where the game will take place in
-     * @throws IOException is thrown in case of an error with the IO
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
         Pair<SinglePlayerLobbyCtrl, Parent> singleLobby =
                 FXML.load(SinglePlayerLobbyCtrl.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
         Pair<MultiPlayerLobbyCtrl, Parent> multiLobby =
                 FXML.load(MultiPlayerLobbyCtrl.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
-        Pair<SinglePlayerGameCtrl, Parent> singleGame =
-                FXML.load(SinglePlayerGameCtrl.class, "client", "scenes", "SingleplayerGame.fxml");
-        Pair<MultiPlayerGameCtrl, Parent> multiGame =
-                FXML.load(MultiPlayerGameCtrl.class, "client", "scenes", "MultiplayerGame.fxml");
+        Pair<SinglePlayerMultipleChoiceQuestionCtrl, Parent> singleGame =
+                FXML.load(SinglePlayerMultipleChoiceQuestionCtrl.class, "client", "scenes",
+                        "SinglePlayerMultipleChoiceQuestionScreen.fxml");
         Pair<CreditsCtrl, Parent> credits =
                 FXML.load(CreditsCtrl.class, "client", "scenes", "CreditsScreen.fxml");
-        Pair<MultiPlayerChooseOptionQuestionCtrl, Parent> multiPlayerChooseOptionQuestionControllerParentPair =
-                FXML.load(MultiPlayerChooseOptionQuestionCtrl.class, "client", "scenes",
-                        "MultiplayerChooseOptionQuestionScreen.fxml");
         Pair<SinglePlayerChooseOptionQuestionCtrl, Parent> singlePlayerChooseOptionQuestionControllerParentPair =
                 FXML.load(SinglePlayerChooseOptionQuestionCtrl.class, "client", "scenes",
                         "SingleplayerChooseOptionQuestionScreen.fxml");
-        Pair<MultiPlayerOpenQuestionCtrl, Parent> multiPlayerOpenQuestionControllerParentPair =
-                FXML.load(MultiPlayerOpenQuestionCtrl.class, "client", "scenes",
-                        "MultiplayerOpenQuestion.fxml");
-        Pair<SinglePlayerOpenQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
-                FXML.load(SinglePlayerOpenQuestionCtrl.class, "client", "scenes",
+        Pair<SinglePlayerGuessQuestionCtrl, Parent> singlePlayerOpenQuestionControllerParentPair =
+                FXML.load(SinglePlayerGuessQuestionCtrl.class, "client", "scenes",
                         "SingleplayerOpenQuestion.fxml");
         Pair<InsertUsernameMultiplayerCtrl, Parent> insertInfoMultiplayer =
                 FXML.load(InsertUsernameMultiplayerCtrl.class, 
@@ -85,9 +77,6 @@ public class Main extends Application {
         Pair<SingleplayerInsteadOfQuestionCtrl, Parent> singleplayerInsteadOfQuestionCtrlParentPair =
                 FXML.load(SingleplayerInsteadOfQuestionCtrl.class,
                         "client", "scenes", "SingleplayerInsteadOfQuestion.fxml");
-        Pair<MultiplayerInsteadOfQuestionCtrl, Parent> multiplayerInsteadOfQuestionCtrlParentPair =
-                FXML.load(MultiplayerInsteadOfQuestionCtrl.class,
-                        "client", "scenes", "MultiplayerInsteadOfQuestion.fxml");
         Pair<SinglePlayerLeaderboardCtrl, Parent> singlePlayerLeaderboardCtrlParentPair =
                 FXML.load(SinglePlayerLeaderboardCtrl.class, "client", "scenes",
                         "SinglePlayerLeaderboard.fxml");
@@ -97,19 +86,26 @@ public class Main extends Application {
         Pair<SingleplayerStartCountdownScreenCtrl, Parent> singleplayerStartCountdownScreenCtrlParentPair =
                 FXML.load(SingleplayerStartCountdownScreenCtrl.class, "client", "scenes",
                         "SingleplayerStartCountdownScreen.fxml");
+        Pair<ConfirmBoxCtrl, Parent> confirmBoxCtrlParentPair = FXML.load(ConfirmBoxCtrl.class, "client",
+                "scenes", "ConfirmBox.fxml");
+
+        Pair<MultiplayerIntermediateScreenCtrl, Parent> multiplayerIntermediateScreenCtrlParentPair =
+                FXML.load(MultiplayerIntermediateScreenCtrl.class, "client", "scenes",
+                        "MultiplayerIntermediateScreen.fxml");
+
+        Pair<ErrorScreenCtrl, Parent> errorScreenCtrlParentPair =
+                FXML.load(ErrorScreenCtrl.class, "client", "scenes", "ErrorScreen.fxml");
 
         MainCtrl mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, menu, singleLobby,
-                multiLobby, credits, singleGame, multiGame,
-                multiPlayerChooseOptionQuestionControllerParentPair,
+                multiLobby, credits, singleGame,
                 singlePlayerChooseOptionQuestionControllerParentPair,
-                multiPlayerOpenQuestionControllerParentPair,
                 singlePlayerOpenQuestionControllerParentPair,
                 insertInfoMultiplayer,helpCtrlParentPair, insertInfoSingleplayer,
                 singlePlayerLeaderboardCtrlParentPair,
                 singleplayerInsteadOfQuestionCtrlParentPair,
-                multiplayerInsteadOfQuestionCtrlParentPair,
                 adminPanel, editActivity, intermediateScreenCtrlParentPair,
-                singleplayerStartCountdownScreenCtrlParentPair);
+                singleplayerStartCountdownScreenCtrlParentPair, confirmBoxCtrlParentPair,
+                multiplayerIntermediateScreenCtrlParentPair, errorScreenCtrlParentPair);
     }
 }

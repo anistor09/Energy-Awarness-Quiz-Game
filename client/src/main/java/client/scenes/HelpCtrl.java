@@ -15,6 +15,8 @@ public class HelpCtrl{
 
     @FXML
     protected void goToMenu(){
-        mainCtrl.goTo("menu");
+        mainCtrl.getVisitedScreens().pop(); // removes "help" from the top of the stack
+        String previousScreen = mainCtrl.getVisitedScreens().pop();
+        mainCtrl.goTo(previousScreen);
     }
 }

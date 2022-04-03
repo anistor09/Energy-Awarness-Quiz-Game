@@ -26,9 +26,7 @@ public class GuessQuestion extends Question{
         this.setDifficulty("EASY");
     }
 
-    public GuessQuestion() {
-
-    }
+    public GuessQuestion() {}
 
     /**
      * Returns the closeness of guess to the actual energy consumption of the activity as a value between 0 and 1. If
@@ -38,12 +36,14 @@ public class GuessQuestion extends Question{
      */
     public double calculateCloseness(long guess) {
         long correctAnswer = this.getActivity().getConsumption_in_wh();
-        // Formula: if the guess is 100% away from the actual answer, the closeness should be 0. Else, it is 1-error
+        // Create a range from -0.5 to +1.5 of the answer
 
-        if (guess >= 2*correctAnswer || guess <= 0) {
+        if (guess >= 1.5*correctAnswer || guess <= 0.5*correctAnswer) {
             return 0;
         }
-        return 1-(Math.abs((double)(guess-correctAnswer))/correctAnswer);
+        double error = Math.abs(guess - correctAnswer);
+
+        return 1-(error/(0.5 * correctAnswer));
     }
 
     public int calculatePoints(long guess) {

@@ -1,12 +1,15 @@
 package server.sevice;
 
 import commons.Activity;
-
+import commons.ImagePacket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +39,8 @@ public class ActivityService {
      * Service layer method for adding an activity to the repository.
      * @param activity An instance of the Activity Class  that will be added to the repository;
      */
-    public void addActivity(Activity activity) {activityRepository.save(activity);
+    public void addActivity(Activity activity) {
+        activityRepository.save(activity);
     }
 
     /**
@@ -98,4 +102,18 @@ public class ActivityService {
             return toUpdate;
         }
     }
+
+    /**
+     * This method will materialize the image in the byte array to the Extra directory of the Activity_bank
+     * @param file that contains the serialized image and it's name
+     * @throws IOException
+     */
+    public void processImagePacket(ImagePacket file) throws IOException {
+        byte[] arr =  file.getByteArr();
+        Files.write(Path.of("src/main/resources/Activity_bank/extra/", file.getFileName()), arr);
+        Files.write(Path.of("build/resources/main/Activity_bank/extra/", file.getFileName()), arr);
+    }
+
+
+
 }

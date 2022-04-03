@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class EmojiController {
-    @MessageMapping("/emojis") //app/emojis
-    @SendTo("/topic/emojis")
+    @MessageMapping("/emojis/{id}") //app/emojis
+    @SendTo("/topic/emojis/{id}")
     public Emoji addEmoji( Emoji e){
+
         return e;
     }
 

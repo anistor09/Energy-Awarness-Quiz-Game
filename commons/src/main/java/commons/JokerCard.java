@@ -1,8 +1,21 @@
 package commons;
 
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.Objects;
 
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(DecreaseTimeJoker.class)
+})
+
 public abstract class JokerCard {
+
 
     private final String name;
     private String description;
@@ -53,4 +66,7 @@ public abstract class JokerCard {
                 ", onlyMultiplayer=" + onlyMultiplayer +
                 '}';
     }
+
+
+
 }

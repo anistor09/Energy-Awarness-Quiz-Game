@@ -15,10 +15,12 @@
  */
 package client.utils;
 
+
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
@@ -28,14 +30,11 @@ import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
@@ -48,39 +47,43 @@ public class ServerUtils {
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
-    public static void setSERVER(String SERVER) {
+    public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
         SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     }
 
     /**
-     * This method gets the quotes from the url
-     * @throws IOException = In case the input is wrong
+     * This method checks if the connection with the server has been established.
+     * It is meant to test whether the user provides a correct server URL.
+     * @param SERVER server to test the connection for
+     * @return true if the query for the server is successful, false if it fails.
      */
-    public void getQuotesTheHardWay() throws IOException {
-        var url = new URL("http://localhost:8080/api/quotes");
-        var is = url.openConnection().getInputStream();
-        var br = new BufferedReader(new InputStreamReader(is));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
+    public boolean testConnection(String SERVER){
+        try{
+            List<Player> list = ClientBuilder.newClient(new ClientConfig())
+                    .target(SERVER).path("api/player")
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(new GenericType<List<Player>>() {});
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("The server url is invalid! ");
+            return false;
         }
     }
 
-    public List<Quote> getQuotes() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Quote>>() {});
+    public String getServer(){
+        return SERVER;
     }
 
-    public Quote addQuote(Quote quote) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/quotes") //
+
+    public Activity addActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
+                .post(Entity.entity(activity, APPLICATION_JSON), Activity.class);
     }
 
     /**
@@ -122,6 +125,32 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<>() {});
         return activity;
+    }
+
+    /**
+     * This method will delete the activity from the repository of activities
+     * @param activity to delete
+     * @return HTTP Response
+     */
+    public Response deleteActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/" + activity.getId())
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete();
+    }
+
+    /**
+     * This method will make a post request to the server with an ImagePacket which contains a string with the
+     * serialized image
+     * @param file the image packet to send
+     */
+    public void uploadImage(ImagePacket file) {
+        ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/activity/image")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(file, APPLICATION_JSON), ImagePacket.class);
     }
 
     /**
@@ -244,15 +273,16 @@ public class ServerUtils {
 
     /**
      * This method will retrieve the current MultiGame that has an active lobby, with all the players that are currently
-     * in the lobby.
+     * in the lobby. It shuffles the question list deterministically
      * @return the MultiPlayerGame Object
      */
     public MultiPlayerGame getCurrentMultiplayerGame() {
         ArrayList<Question> questions = new ArrayList<>();
+        questions.addAll(getCurrentMultiGameMostEnergy());
         questions.addAll(getCurrentMultiGameGuess());
         questions.addAll(getCurrentMultiGameInsteadOf());
         questions.addAll(getCurrentMultiGameMultipleChoice());
-        questions.addAll(getCurrentMultiGameMostEnergy());
+        Collections.shuffle(questions, new Random(69));
         return new MultiPlayerGame(questions, new ArrayList<>(),new ArrayList<Player>(getCurrentMultiGamePlayers()));
     }
 
@@ -262,6 +292,15 @@ public class ServerUtils {
      */
     public void sendPlayer(Player player) {
         this.send("/app/updateLobby", player);
+    }
+
+    /**
+     * This method will send the updated player through the websocket to those subscribed to the topic that has the same
+     * gameId
+     * @param player to send
+     */
+    public void updatePlayerScore(Player player, int gameId){
+        this.send("/app/updateScores/" + gameId, player);
     }
 
     /**
@@ -300,6 +339,14 @@ public class ServerUtils {
                 .get(new GenericType<>() {});
     }
 
+    public int getCurrentMultiplayerGameId() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("api/game/multiGame/gameId")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {});
+    }
+
     /**
      * This method will retrieve the list of players that are currently in the MultiGame. Keep in mind more players can
      * join still, and that is why we have the method registerForNewPlayers
@@ -321,8 +368,6 @@ public class ServerUtils {
      *                 of the topic. This is to be passed as a lambda function
      */
     public void registerForNewPlayers(String dest, Consumer<Player> consumer) {
-        if(session.isConnected())
-            connect("");
         session.subscribe(dest, new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) {
@@ -335,6 +380,28 @@ public class ServerUtils {
             }
         });
     }
+
+    /**
+     * This method will listen for a topic in the websocket session with path as the one in the destination. It is
+     * expecting Objects of type Player.
+     * @param dest the topic of the websocket to listen to
+     * @param consumer the Consumer that represents the action that this method is supposed to execute when on trigger
+     *                 of the topic. This is to be passed as a lambda function
+     */
+    public void registerForScoreUpdates(String dest, Consumer<Player> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return Player.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((Player) payload);
+            }
+        });
+    }
+
     /**
      * This method will listen for a topic in the websocket session with path as the one in the destination. It is
      * expecting Objects of type Emoji.
@@ -352,6 +419,46 @@ public class ServerUtils {
             @Override
             public void handleFrame(StompHeaders headers, Object payload) {
                 consumer.accept((Emoji) payload);
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param dest
+     * @param consumer
+     */
+    public void registerForJokerAlert(String dest,Consumer<JokerAlert> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return JokerAlert.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((JokerAlert) payload);
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param dest
+     * @param consumer
+     */
+    public void registerForTimeJoker(String dest,Consumer<DecreaseTimeJoker> consumer){
+        session.subscribe(dest, new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return DecreaseTimeJoker.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                consumer.accept((DecreaseTimeJoker) payload);
             }
         });
 
@@ -384,8 +491,10 @@ public class ServerUtils {
      * @param o the object to send
      */
     public void send(String dest, Object o) {
+
         session.send(dest, o);
     }
+
 
 
 }
