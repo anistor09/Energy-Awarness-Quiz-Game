@@ -98,6 +98,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     private Label debug;
 
+    @FXML
     private Rectangle timeBar;
     @FXML
     private int timeBarWidth = 950;

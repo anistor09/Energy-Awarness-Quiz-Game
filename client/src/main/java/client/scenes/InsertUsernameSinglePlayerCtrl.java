@@ -51,7 +51,7 @@ public class InsertUsernameSinglePlayerCtrl {
      */
     public void submit() throws IOException {
         String insertedUsername = username.getText();
-        if (insertedUsername.length() == 0|| insertedUsername.contains(" ")) {
+        if (insertedUsername == null || insertedUsername.length() == 0 || insertedUsername.contains(" ")) {
             error.setText("Invalid username");
             return;
         }

@@ -42,7 +42,6 @@
                 <Image url="@../../../../../../docs/pictures/info_icon.png" />
             </image>
         </ImageView>
-        <Region layoutX="220.0" layoutY="174.0" onMouseEntered="#displayJokerInfo" onMouseExited="#stopJokerInfo" prefHeight="8.0" prefWidth="7.0" scaleX="2.0" scaleY="2.0" />
         <RadioButton fx:id="easy" layoutX="721.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleEasy" text="Easy">
             <font>
                 <Font size="20.0" />
