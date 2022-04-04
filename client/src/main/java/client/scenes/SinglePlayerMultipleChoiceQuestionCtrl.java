@@ -383,23 +383,29 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      */
     public void startTimerAnimation() {
         int i = 0;
+        int colourChange1;
+        int colourChange2;
+        int colourChange3;
         ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
 
         if(mainCtrl.getGame() instanceof MultiPlayerGame){
             i = mainCtrl.getLocalPlayer().getTimeLeft();
             timerAnimation.setFromX(950*(i/20));
+            colourChange1 = (5000);
+            colourChange2 = (10000);
+            colourChange3 = (15000);
         }
-        if(mainCtrl.getGame() instanceof SinglePlayerGame) {
+        else{
             i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
             timerAnimation.setFromX(1);
-            timerAnimation.setToX(0);
-            timerAnimation.play();
+            colourChange1 = (int) (i*1000*0.25);
+            colourChange2 = (int) (i*1000*0.5);
+            colourChange3 = (int) (i*1000*0.75);
         }
 
-        int colourChange1 = (int) (i*1000*0.25);
-        int colourChange2 = (int) (i*1000*0.5);
-        int colourChange3 = (int) (i*1000*0.75);
-        
+        timerAnimation.setToX(0);
+        timerAnimation.play();
+
         Timer changeTimerBarColor = new Timer();
         changeTimerBarColor.schedule(new TimerTask() {
             @Override

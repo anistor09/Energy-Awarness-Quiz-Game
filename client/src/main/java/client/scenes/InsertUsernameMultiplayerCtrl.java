@@ -111,8 +111,11 @@ public class InsertUsernameMultiplayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException {
-        Scanner usernameScanner = new Scanner(new File("\"client/src/main/resources/username.txt\""));
-        this.storedUsername = usernameScanner.next();
+        Scanner usernameScanner = new Scanner(new File("client/src/main/resources/username.txt"));
+
+        if(usernameScanner.hasNext())
+            this.storedUsername = usernameScanner.next();
+
         usernameScanner.close();
     }
 
