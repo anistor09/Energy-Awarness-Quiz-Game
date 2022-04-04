@@ -1001,9 +1001,6 @@ public class MainCtrl {
         startScanningTimeJoker();
         startScanningJokerAlert();
         localPlayer.setJokerCards(getJokerList());
-        //
-        //TODO SET THE LOCALPLAYER TO LOCALPLAYER
-        //
     }
 
     public void playMultiPLayerGame() {
@@ -1066,8 +1063,7 @@ private List<JokerCard> getJokerList() {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    //TODO METHOD THAT INITIALIZES THE FINAL LEADERBOARD SCREEN
-                    goTo("SinglePlayerLeaderboard"); //TODO THIS SHOULD GO TO THE FINAL LEADERBOARD SCREEN
+                    goTo("SinglePlayerLeaderboard");
                 }
             });
 
@@ -1111,16 +1107,8 @@ private List<JokerCard> getJokerList() {
             MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
             @Override
             public void run() {
-                //
-                //TODO CHECK IF A PLAYER LEFT GAME AND REMOVE THEM FROM THE PLAYER ARRAYLIST IN THE GAME OBJECT
-                //
                 if(game instanceof MultiPlayerGame){
                     MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
-                    if(multiPlayerGame.getPlayers().size() == 0){
-                        //
-                        //TODO METHOD THAT DELETES THE GAME FROM ARRAYLIST OF GAMES
-                        //
-                    }
                 }
                 if(localPlayer.getTimeLeft() <= 0) {
                     timer.cancel();

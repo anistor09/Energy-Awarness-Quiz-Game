@@ -102,7 +102,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     @FXML
     public Rectangle timeBar;
 
-    public int timeBarWidth = 950;
+    public final int timeBarWidth = 950;
 
 
     private final MainCtrl mainCtrl;

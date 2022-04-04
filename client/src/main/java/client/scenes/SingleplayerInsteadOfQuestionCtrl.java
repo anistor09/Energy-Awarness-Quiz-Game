@@ -110,7 +110,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     @FXML
     private Rectangle timeBar;
 
-    private int timeBarWidth = 950;
+    private final int timeBarWidth = 950;
 
     @FXML
     private ProgressBar progressBar;
