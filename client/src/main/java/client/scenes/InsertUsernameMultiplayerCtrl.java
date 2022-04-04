@@ -11,12 +11,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class InsertUsernameMultiplayerCtrl {
@@ -68,9 +66,6 @@ public class InsertUsernameMultiplayerCtrl {
             alert.setText("Username already exists!");
             return;
         }
-        Player thisPlayer = new Player(insertedUsername, 0);
-        server.sendPlayer(thisPlayer);
-        mainCtrl.setLocalPlayer(thisPlayer);
         String insertedUrl = url.getText();
         System.out.println(insertedUrl);
         if(server.testConnection(insertedUrl)){
@@ -79,7 +74,11 @@ public class InsertUsernameMultiplayerCtrl {
         else{
             System.out.println("Provided server url is wrong!");
             mainCtrl.goTo("error");
+            return;
         }
+        Player thisPlayer = new Player(insertedUsername, 0);
+        server.sendPlayer(thisPlayer);
+        mainCtrl.setLocalPlayer(thisPlayer);
         String userNameToStore = username.getText();
         FileWriter writer = new FileWriter("src/main/resources/username");
         writer.write(userNameToStore);
@@ -110,9 +109,9 @@ public class InsertUsernameMultiplayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException {
-        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
-        this.storedUsername = usernameScanner.next();
-        usernameScanner.close();
+//        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
+//        this.storedUsername = usernameScanner.next();
+//        usernameScanner.close();
     }
 
     /**

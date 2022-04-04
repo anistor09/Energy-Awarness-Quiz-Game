@@ -1,18 +1,16 @@
 package server.api;
 
-import commons.Emoji;
+import commons.DecreaseTimeJoker;
+
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmojiController {
-    @MessageMapping("/emojis/{id}") //app/emojis
-    @SendTo("/topic/emojis/{id}")
-    public Emoji addEmoji( Emoji e){
-
-        return e;
+public class TimeJokerController {
+    @MessageMapping("/timeJoker/{id}") //app/timeJoker
+    @SendTo("/topic/timeJoker/{id}")
+    public DecreaseTimeJoker addEmoji(DecreaseTimeJoker j){
+        return j;
     }
-
-
 }

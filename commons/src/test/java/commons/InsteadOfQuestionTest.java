@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InsteadOfQuestionTest {
 
@@ -43,7 +41,7 @@ class InsteadOfQuestionTest {
         q3 = new InsteadOfQuestion(act6, 2000, 40, new ArrayList<Activity>(
                 Arrays.asList(act4, act5)
         ));
-        q4 = new InsteadOfQuestion(act3, 2000, 40, new ArrayList<Activity>(
+        q4 = new InsteadOfQuestion(act4, 2000, 40, new ArrayList<Activity>(
                 Arrays.asList(act5, act6)
         ));
     }
@@ -51,6 +49,33 @@ class InsteadOfQuestionTest {
     @Test
     void checkConstructor() {
         assertNotNull(q1);
+        InsteadOfQuestion i = new InsteadOfQuestion(act1, 1, "EASY", 1,
+                new ArrayList<>(List.of(act1)));
+        assertNotNull(i);
+        InsteadOfQuestion i1 = new InsteadOfQuestion();
+        assertNotNull(i1);
+    }
+
+    @Test
+    void testMyRandom() {
+        assertTrue((q1.myRandom(1, 5) >= 1) && (q1.myRandom(1, 5) <= 5));
+    }
+
+    @Test
+    void getCorrectAnswer() {
+        assertEquals(act2, q1.getCorrectAnswer());
+    }
+
+    @Test
+    void setCorrectAnswer() {
+        q1.setCorrectAnswer(act3);
+        assertEquals(act3, q1.getCorrectAnswer());
+    }
+
+    @Test
+    void setOptions() {
+        q1.setOptions(new ArrayList<>());
+        assertEquals(new ArrayList<>(), q1.getOptions());
     }
 
     @Test

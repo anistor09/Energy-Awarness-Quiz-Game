@@ -51,17 +51,17 @@
             </image>
         </ImageView>
         <Region layoutX="220.0" layoutY="174.0" onMouseEntered="#displayJokerInfo" onMouseExited="#stopJokerInfo" prefHeight="8.0" prefWidth="7.0" scaleX="2.0" scaleY="2.0" />
-        <RadioButton layoutX="721.0" layoutY="225.0" mnemonicParsing="false" text="Easy">
+        <RadioButton fx:id="easy" layoutX="721.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleEasy" text="Easy">
             <font>
                 <Font size="20.0" />
             </font>
         </RadioButton>
-        <RadioButton layoutX="721.0" layoutY="325.0" mnemonicParsing="false" text="Medium">
+        <RadioButton fx:id="medium" layoutX="721.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleMedium" text="Medium">
             <font>
                 <Font size="20.0" />
             </font>
         </RadioButton>
-        <RadioButton layoutX="721.0" layoutY="425.0" mnemonicParsing="false" text="Hard">
+        <RadioButton fx:id="hard" layoutX="721.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleHard" text="Hard">
             <font>
                 <Font size="20.0" />
             </font>

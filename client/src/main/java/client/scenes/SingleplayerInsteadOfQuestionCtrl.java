@@ -2,16 +2,21 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
+import javafx.scene.shape.Rectangle;
 import javafx.application.Platform;
+import javafx.animation.ScaleTransition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 
 import javax.inject.Inject;
@@ -26,6 +31,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
 
     @FXML
     private HBox emojiBar;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private Label jokerMessage;
@@ -101,10 +108,12 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private Label score;
 
     @FXML
-    private Label time;
+    private Rectangle timeBar;
+
+    private int timeBarWidth = 950;
 
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     private final MainCtrl mainCtrl;
     private InsteadOfQuestion questionObject;
@@ -121,6 +130,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         this.server = mainCtrl.getServer();
     }
 
+    private String pluralOrSingular(int x) {
+        if (x==1) {
+            return "";
+        } else {
+            return "s";
+        }
+    }
     /**
      * /**
      *      This method initialises all the JFX fields with
@@ -139,7 +155,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         Player player = mainCtrl.getLocalPlayer();
         score.setText(String.valueOf((player.getCurrentScore())));
         Activity activity = q.getActivity();
-        question.setText("Instead of " + activity.getTitle());
+        question.setText("Instead of " + activity.getTitle() + ", you could:");
+        if(activity.getTitle().length() >= 53) {
+            question.setStyle("-fx-font-size: 13;");
+        }
         ArrayList<Activity> options = q.getOptions();
         Activity correctAnswer = q.getCorrectAnswer();
 
@@ -148,17 +167,23 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             optionsCopy.add(option);
         }
 
-        String option1ratio = q.getCorrectRatio(correctAnswer) + " times";
-        String option2ratio = q.getWrongRatio((options.get(1))) + " times";
-        String option3ratio = q.getWrongRatio((options.get(2))) + " times";
+        int ratio1 = q.getCorrectRatio(correctAnswer);
+        int ratio2 = q.getWrongRatio((options.get(1)));
+        int ratio3 = q.getWrongRatio((options.get(2)));
+        String option1ratio = ratio1 + " time" + pluralOrSingular(ratio1);
+        String option2ratio = ratio2 + " time" + pluralOrSingular(ratio2);
+        String option3ratio = ratio3 + " time" + pluralOrSingular(ratio3);
 
         // In this loop we are making sure that randomly assigned wrongRatio
         // is not accidentally the correct one.
         // We are assigning it randomly until both of them are not equal to the correctRatio
-        while(option2ratio.equals(q.getCorrectRatio(options.get(1))) ||
-                option3ratio.equals(q.getCorrectRatio(options.get(2)))){
-            option2ratio = q.getWrongRatio((options.get(1))) + " times";
-            option3ratio = q.getWrongRatio((options.get(2))) + " times";
+
+        while(ratio2 == (q.getCorrectRatio(options.get(1))) ||
+                ratio3 == (q.getCorrectRatio(options.get(2)))){
+            option2ratio = q.getWrongRatio((options.get(1))) + " time" +
+                    pluralOrSingular(q.getWrongRatio((options.get(1))));
+            option3ratio = q.getWrongRatio((options.get(2))) + " time" +
+                    pluralOrSingular(q.getWrongRatio((options.get(2))));
         }
 
         Map<String, String> optionsWithRatios = new HashMap<>();
@@ -175,27 +200,50 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         Collections.shuffle(options);
 //        Collections.shuffle(answers);
 
-        question1Text.setText(String.valueOf(options.get(0).getTitle()));
-        question2Text.setText(String.valueOf(options.get(1).getTitle()));
-        question3Text.setText(String.valueOf(options.get(2).getTitle()));
+        question1Text.setText(options.get(0).getTitle() + " " + optionsWithRatios.get(options.get(0).getTitle()));
+        question2Text.setText(options.get(1).getTitle() + " " + optionsWithRatios.get(options.get(1).getTitle()));
+        question3Text.setText(options.get(2).getTitle() + " " + optionsWithRatios.get(options.get(2).getTitle()));
 
-        activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
-        activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
-        activity3ratio.setText(optionsWithRatios.get(options.get(2).getTitle()));
+//        activity1ratio.setText(optionsWithRatios.get(options.get(0).getTitle()));
+//        activity2ratio.setText(optionsWithRatios.get(options.get(1).getTitle()));
+//        activity3ratio.setText(optionsWithRatios.get(options.get(2).getTitle()));
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerCards = player.getJokerCards();
         initialiseActivityImages(options);
         setJokers(jokerCards);
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
     }
+
+    /**
+     *
+     */
+    public void initialiseAfterJoker(){
+        if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) != 0)
+        {
+            question1Text.setText("Wrong option!");
+            activity1ratio.setText("");
+            option1Image.setImage(null);
+        }
+        else
+        {
+            question2Text.setText("Wrong option!");
+            activity2ratio.setText("");
+            option2Image.setImage(null);
+        }
+
+    }
+
 
     private void resetScreen() {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
+        timeBar.setWidth(950);
+        timeBar.setFill(Color.valueOf("#00FF00"));
+
     }
 
     /**
@@ -274,28 +322,37 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         // get the time left
         Game game = mainCtrl.getGame();
         questionObject = (InsteadOfQuestion) game.getQuestions().get(game.getCurrentQuestionNumber());
-        int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
-        double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
-        int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
         Player p = null;
         if(game instanceof SinglePlayerGame) {
             p = ((SinglePlayerGame) game).getPlayer();
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - MainCtrl.getTimeLeft();
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
+            IntermediateScreenCtrl.setPointsGained(points);
         } else {
             MultiPlayerGame m = (MultiPlayerGame) game;
+            int tl = 0;
             for(int i = 0; i < m.getPlayers().size(); i++) {
                 Player localPlayer = mainCtrl.getLocalPlayer();
+                tl = localPlayer.getTimeLeft();
                 Player toSearch = m.getPlayers().get(i);
                 if(toSearch.getUsername().equals(localPlayer.getUsername())) {
                     p = m.getPlayers().get(i);
                 }
             }
+            // we now have player
+            int timeAfterQuestionStart = questionObject.getAllowedTime() - tl;
+            double quotient = (double) timeAfterQuestionStart / (double) questionObject.getAllowedTime();
+            int points = (int) ((1 - 0.5 * quotient) * questionObject.getAvailablePoints());
+            p.setCurrentScore(p.getCurrentScore() + points);
         }
-        p.setCurrentScore(p.getCurrentScore() + points);
+
         mainCtrl.getLocalPlayer().setCurrentScore(p.getCurrentScore());
         if(game instanceof MultiPlayerGame) {
             server.updatePlayerScore(new Player(p.getUsername(), p.getCurrentScore()), mainCtrl.getGameId());
         }
-        IntermediateScreenCtrl.setPointsGained(points);
+
     }
 
     /**
@@ -341,6 +398,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -353,6 +411,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -364,6 +423,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -371,8 +431,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         }
 
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
-            return false;
+//        if(name.equals("EliminateOptionJoker"))
+//            return false;
         return true;
     }
 
@@ -390,10 +450,38 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         mainCtrl.goTo("menu");
     }
 
+    /**
+     * This method starts the animation for the timer bar
+     */
+    public void startTimerAnimation() {
+        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
+        int colourChange1 = (int) (i*1000*0.25);
+        int colourChange2 = (int) (i*1000*0.5);
+        int colourChange3 = (int) (i*1000*0.75);
 
-    @FXML
-    public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
+        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
+        timerAnimation.setFromX(1);
+        timerAnimation.setToX(0);
+        timerAnimation.play();
+        Timer changeTimerBarColor = new Timer();
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FFFF00"));
+            }
+        }, colourChange1);
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FFA500"));
+            }
+        },colourChange2);
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FF0000"));
+            }
+        },colourChange3);
     }
 
     public int getPointsGained() {
@@ -403,15 +491,19 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void setPointsGained(int pointsGained) {
         this.pointsGained = pointsGained;
     }
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
+
     /**
      * This method send the Emoji to the other clients through WebSockets.
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-        server.send("/app/emojis",e);
+
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
@@ -421,6 +513,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         Emoji e =  new Emoji(mainCtrl.getLocalPlayer().getUsername(),((ImageView)event.getSource()).
                 getImage().getUrl());
         sendEmoji(e);
+
     }
 
     /**
@@ -430,6 +523,12 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
         reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
     }
     /**
      * This method initialises the Emojis images because they are not rendered directly for Windows users.
@@ -466,6 +565,10 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         else{
             emojiBar.setVisible(false);
         }
+    }
+
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
     }
 
 }

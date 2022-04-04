@@ -80,7 +80,7 @@ public class MultiPlayerLobbyCtrl {
      */
     @FXML
     protected void returnScreen(){
-        server.sendPlayer(thisPlayer);
+        server.sendPlayer(new Player(thisPlayer.getUsername(), thisPlayer.getCurrentScore()));
         thisPlayer = null;
         mainCtrl.goTo("insertInfoMultiPlayer");
     }
@@ -151,7 +151,7 @@ public class MultiPlayerLobbyCtrl {
      */
     public void tearDown() {
         if(thisPlayer != null) {
-            server.sendPlayer(thisPlayer);
+            server.sendPlayer(new Player(thisPlayer.getUsername(), thisPlayer.getCurrentScore()));
         }
     }
 

@@ -72,24 +72,19 @@ class SinglePlayerGameTest {
                 "Adds 10 additional points if you answer correctly",
                 false, player1, q4);
 
-
-        ShortenTimeJoker shorten = new ShortenTimeJoker("10 seconds reduce time card",
-                "Gives everyone 10sec less time to answer this question",10, q6);
-
-
         spg1 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
                 player1);
 
         spg2 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6, q7, q8)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
                 player1);
 
         spg3 = new SinglePlayerGame(
                 new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6)),
-                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1, shorten)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
                 player2);
     }
 

@@ -3,7 +3,10 @@ package client.scenes;
 import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import commons.*;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -11,15 +14,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
@@ -27,6 +34,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private ServerUtils server;
     @FXML
     private Button exit;
+    @FXML
+    private Label jokerAlertMessage;
 
     @FXML
     private HBox emojiBar;
@@ -77,16 +86,22 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private Text questionText;
 
     @FXML
-    private Label time;
+    private Label questionNumber;
 
     @FXML
-    private Label questionNumber;
+    private ProgressBar progressBar;
 
     @FXML
     private Label actualAnswer;
 
     @FXML
     private TextField userAnswer;
+
+    @FXML
+    private Rectangle timeBar;
+
+    private int timeBarWidth = 950;
+
     private final MainCtrl mainCtrl;
 
     private GuessQuestion questionObject;
@@ -126,10 +141,10 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
         jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         initialiseActivityImage(act);
 
-        setQuestionNumber("Question " + currentGame.getCurrentQuestionNumber() + "/" +
-                (currentGame.getQuestions().size() - 1));
+        setQuestionNumber(currentGame.getCurrentQuestionNumber());
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
@@ -140,6 +155,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void resetScreen(){
         userAnswer.setText("");
         actualAnswer.setText("");
+        timeBar.setWidth(950);
+        timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
     /**
@@ -173,8 +190,38 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         image.setImage(img);
     }
 
-    public void setTime(int i) {
-        time.setText("Time Left: " + String.valueOf(i));
+    /**
+     * This method starts the animation for the timer bar
+     */
+    public void startTimerAnimation() {
+        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
+        int colourChange1 = (int) (i*1000*0.25);
+        int colourChange2 = (int) (i*1000*0.5);
+        int colourChange3 = (int) (i*1000*0.75);
+
+        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
+        timerAnimation.setFromX(1);
+        timerAnimation.setToX(0);
+        timerAnimation.play();
+        Timer changeTimerBarColor = new Timer();
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FFFF00"));
+            }
+        }, colourChange1);
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FFA500"));
+            }
+        },colourChange2);
+        changeTimerBarColor.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeBar.setFill(Color.valueOf("#FF0000"));
+            }
+        },colourChange3);
     }
 
     /**
@@ -187,7 +234,23 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             long guess = Long.parseLong(userAnswer.getCharacters().toString());
             switchButtons(true);
             int points = questionObject.calculatePoints(guess);
-            Player p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            Game game = mainCtrl.getGame();
+            Player p = null;
+            if (game instanceof SinglePlayerGame) {
+                p = ((SinglePlayerGame) mainCtrl.getGame()).getPlayer();
+            } else {
+                MultiPlayerGame m = (MultiPlayerGame) game;
+                for (int i = 0; i < m.getPlayers().size(); i++) {
+                    Player localPlayer = mainCtrl.getLocalPlayer();
+                    Player toSearch = m.getPlayers().get(i);
+                    if (toSearch.getUsername().equals(localPlayer.getUsername())) {
+                        p = m.getPlayers().get(i);
+                    }
+                }
+            }
+            if (p==null) {
+                throw new NullPointerException("No player found");
+            }
             p.setCurrentScore(p.getCurrentScore() + points);
             if (points == 100) {
                 actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
@@ -238,6 +301,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
+            joker1.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -249,6 +313,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             jokerMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
+            joker2.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -260,6 +325,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
+            joker3.setDisable(true);
         }
         else{
             jokerMessage.setText("This joker cannot be used in this type of question!");
@@ -271,15 +337,16 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         return true;
     }
 
-    public void setQuestionNumber(String i) {
-        questionNumber.setText(i);
+    public void setQuestionNumber(int i) {
+        double progress = (double) i / 20.0;
+        progressBar.setProgress(progress);
     }
     /**
      * This method send the Emoji to the other clients through WebSockets.
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-        server.send("/app/emojis",e);
+        server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
@@ -298,6 +365,12 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
         reaction.setImage(new Image(e.getEmojiPath()));
+        ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setFromX(0.75);
+        scale.setFromY(0.75);
+        scale.play();
     }
     /**
      * This method initialises the Emojis images because they are not rendered directly for Windows users.
@@ -330,4 +403,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         emojiBar.setVisible(false);
     }
 
+    public void initialisejokerAlert(JokerAlert jokerAlert) {
+        jokerAlertMessage.setText(jokerAlert.getSenderUsername()+" used "+jokerAlert.getJokerType());
+    }
 }
