@@ -3,7 +3,6 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 
 import java.util.ArrayList;
@@ -11,12 +10,7 @@ import java.util.List;
 
 public class SinglePlayerLobbyCtrl {
 
-    @FXML
-    private Label tmpLabel1;
-    @FXML
-    private Label jokerInfoLabel;
-    @FXML
-    private Label jokerNumber;
+
 //    @FXML
 //    private CheckBox timeTwister;
     @FXML
@@ -54,7 +48,6 @@ public class SinglePlayerLobbyCtrl {
 
     @FXML
     protected void startGameButtonClick(){
-        tmpLabel1.setText("Started the game!");
         mainCtrl.goTo("singleGame");
         mainCtrl.setStringJokers(checkedStringJokers);
         resetScreen();
@@ -66,13 +59,13 @@ public class SinglePlayerLobbyCtrl {
     private void resetScreen() {
         for(int i = 0; i < checkedStringJokers.size(); i++){
             switch (checkedStringJokers.get(i)){
-                case "AdditionalPointsJoker":
+                case "Additional Points Joker":
                     pointBoost.setSelected(false);
                     break;
-                case "EliminateOptionJoker":
+                case "Eliminate Option Joker":
                     detective.setSelected(false);
                     break;
-                case "QuestionChangeJoker":
+                case "Question Change Joker":
                     questionChange.setSelected(false);
                     break;
             }
@@ -83,16 +76,6 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void returnScreen(){
         mainCtrl.goTo("menu");
-    }
-
-    @FXML
-    protected void displayJokerInfo(){
-        jokerInfoLabel.setText("Joker info is being displayed!");
-    }
-
-    @FXML
-    protected void stopJokerInfo(){
-        jokerInfoLabel.setText("Joker Info was not pressed");
     }
 
 //    @FXML
@@ -113,19 +96,19 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void addPointBoost(){
         addJokerCard(pointBoost);
-        addStringJokerCard("AdditionalPointsJoker");
+        addStringJokerCard("Additional Points Joker");
     }
 
     @FXML
     protected void addDetective(){
         addJokerCard(detective);
-        addStringJokerCard("EliminateOptionJoker");
+        addStringJokerCard("Eliminate Option Joker");
     }
 
     @FXML
     protected void addQuestionChange(){
         addJokerCard(questionChange);
-        addStringJokerCard("QuestionChangeJoker");
+        addStringJokerCard("Question Change Joker");
     }
 
 //    @FXML
@@ -147,7 +130,6 @@ public class SinglePlayerLobbyCtrl {
     protected void addJokerCard(CheckBox e){
         if(checkedJokers.size() < 3){
             checkedJokers.add(e);
-            jokerNumber.setText(Integer.toString(checkedJokers.size()));
         }
         if(checkedJokers.size() == 3){
             checkedJokers.remove(0);
@@ -162,7 +144,6 @@ public class SinglePlayerLobbyCtrl {
     protected void addStringJokerCard(String e){
         if(checkedStringJokers.size() < 3){
             checkedStringJokers.add(e);
-            jokerNumber.setText(Integer.toString(checkedStringJokers.size()));
         }
         else if (checkedStringJokers.size() == 3){
             checkedStringJokers.remove(0);

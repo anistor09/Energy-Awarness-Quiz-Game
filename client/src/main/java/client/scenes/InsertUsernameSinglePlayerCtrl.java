@@ -38,6 +38,9 @@ public class InsertUsernameSinglePlayerCtrl {
     private TextField username;
 
     @FXML
+    private Label error;
+
+    @FXML
     private TextField url;
 
     @FXML
@@ -53,7 +56,14 @@ public class InsertUsernameSinglePlayerCtrl {
      */
     public void submit() throws IOException {
         String insertedUsername = username.getText();
+        if (insertedUsername == null || insertedUsername.length() == 0 || insertedUsername.contains(" ")) {
+            error.setText("Invalid username");
+            return;
+        }
         String serverURL = url.getText();
+        if(!serverURL.endsWith("/")) {
+            serverURL = serverURL + "/";
+        }
         if(server.testConnection(serverURL)){
             server.setSERVER(serverURL);
             Player player = mainCtrl.createPlayer(insertedUsername,mainCtrl.getStringJokers());

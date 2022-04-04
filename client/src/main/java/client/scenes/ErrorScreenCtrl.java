@@ -17,6 +17,10 @@ public class ErrorScreenCtrl{
     protected void goToMenu(){
         mainCtrl.getVisitedScreens().pop(); // removes "ErrorScreen" from the top of the stack
         String previousScreen = mainCtrl.getVisitedScreens().pop();
+        if(previousScreen.equals("admin") || previousScreen.equals("SinglePlayerLeaderboard")) {
+            mainCtrl.goTo("menu");
+            return;
+        }
         mainCtrl.goTo(previousScreen);
     }
 }

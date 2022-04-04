@@ -32,8 +32,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private HBox emojiBar;
 
     @FXML
-    private Label jokerMessage;
-    @FXML
     private Label ReactionName;
     @FXML
     private Label jokerAlertMessage;
@@ -134,7 +132,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
                 get(currentGame.getCurrentQuestionNumber());
         Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
-        score.setText(String.valueOf(player.getCurrentScore()));
+        score.setText("Score: " + player.getCurrentScore());
         Activity act = q.getActivity();
         question.setText(String.valueOf(act.getTitle()));
         List options = q.getOptions();
@@ -154,7 +152,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
-        jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         jokerAlertMessage.setText("");
     }
 
@@ -341,37 +339,37 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
             joker1.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton3() {
         if (canUseJoker(joker3.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
             joker3.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
@@ -466,12 +464,25 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
+     *
+     * @param absolutePath
+     * @return
+     */
+
+    public String getLocalPath(String absolutePath){
+        String[] result = absolutePath.split("/");
+        return "/"+ result[result.length-2] + "/" + result[result.length-1];
+    }
+
+
+    /**
      * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
      * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
      */
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
-        reaction.setImage(new Image(e.getEmojiPath()));
+        String localPath = MainCtrl.class.getResource(getLocalPath(e.getEmojiPath())).toString();
+        reaction.setImage(new Image(localPath));
         ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
         scale.setToX(1);
         scale.setToY(1);

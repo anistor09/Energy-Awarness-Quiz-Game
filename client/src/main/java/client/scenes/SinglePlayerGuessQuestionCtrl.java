@@ -38,9 +38,6 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     @FXML
     private HBox emojiBar;
-
-    @FXML
-    private Label jokerMessage;
     @FXML
     private Label ReactionName;
 
@@ -91,7 +88,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private ProgressBar progressBar;
 
     @FXML
-    private Label actualAnswer;
+    private Text actualAnswer;
 
     @FXML
     private TextField userAnswer;
@@ -135,11 +132,10 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 get(currentGame.getCurrentQuestionNumber());
         questionObject = q;
         Player player = mainCtrl.getLocalPlayer();
-        score.setText(String.valueOf(player.getCurrentScore()));
+        score.setText("Score: " + player.getCurrentScore());;
         Activity act = q.getActivity();
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
-        jokerMessage.setText("");
         jokerAlertMessage.setText("");
         initialiseActivityImage(act);
 
@@ -296,41 +292,41 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
             joker1.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton3() {
-        jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
             joker3.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
+        if(name.equals("Eliminate Option Joker"))
             return false;
         return true;
     }
@@ -355,6 +351,17 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 getImage().getUrl());
         sendEmoji(e);
     }
+    /**
+     *
+     * @param absolutePath
+     * @return
+     */
+
+    public String getLocalPath(String absolutePath){
+        String[] result = absolutePath.split("/");
+        return "/"+ result[result.length-2] + "/" + result[result.length-1];
+    }
+
 
     /**
      * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
@@ -362,7 +369,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
      */
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
-        reaction.setImage(new Image(e.getEmojiPath()));
+        String localPath = MainCtrl.class.getResource(getLocalPath(e.getEmojiPath())).toString();
+        reaction.setImage(new Image(localPath));
         ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
         scale.setToX(1);
         scale.setToY(1);

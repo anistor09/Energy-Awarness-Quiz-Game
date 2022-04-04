@@ -43,13 +43,15 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 public class ServerUtils {
 
     private static String SERVER = "http://localhost:8080/";
-    private static final String WEBSOCKETSERVER =
+    private static String WEBSOCKETSERVER =
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
     public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
-        SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+        WEBSOCKETSERVER = SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
+        session = connect(WEBSOCKETSERVER + "/websocket");
+        System.out.println(WEBSOCKETSERVER);
     }
 
     /**
@@ -73,6 +75,34 @@ public class ServerUtils {
         }
     }
 
+    public boolean testConnection() {
+        try{
+            List<Player> list = ClientBuilder.newClient(new ClientConfig())
+                    .target(SERVER).path("api/player")
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(new GenericType<List<Player>>() {});
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("The server url is invalid! ");
+            return false;
+        }
+    }
+
+    /**
+     * This method gets the quotes from the url
+     * @throws IOException = In case the input is wrong
+     */
+    public void getQuotesTheHardWay() throws IOException {
+        var url = new URL("http://localhost:8080/api/quotes");
+        var is = url.openConnection().getInputStream();
+        var br = new BufferedReader(new InputStreamReader(is));
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+    }
     public String getServer(){
         return SERVER;
     }
@@ -250,7 +280,7 @@ public class ServerUtils {
 
     //  MULTIPLAYER GAME LOGIC
 
-    private StompSession session = connect(WEBSOCKETSERVER + "/websocket"); //the StompSession
+    private StompSession session; //the StompSession
 
     /**
      * This method configures the StompSession for the websocket

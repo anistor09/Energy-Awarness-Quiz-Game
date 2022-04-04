@@ -216,7 +216,6 @@ public class MainCtrl {
         this.multiPlayerIntermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
 //        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 //        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.multiplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
@@ -225,11 +224,13 @@ public class MainCtrl {
         this.singleplayerInsteadOfQuestion.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerStartCountdownScreen.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
+        primaryStage.setResizable(false);
 
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
@@ -474,11 +475,11 @@ public class MainCtrl {
         questionArray.add(q6);
         questionArray.add(q7);
         questionArray.add(q1);
-        JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
+        JokerCard j1 = new AdditionalPointsJoker("Additional Points Joker","Description",
                 false,
                 player, q1);
-        JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker", "Description", false);
-        JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker", "Description",
+        JokerCard j2 = new QuestionChangeJoker("Question Change Joker", "Description", false);
+        JokerCard j3 = new EliminateOptionJoker("Eliminate Option Joker", "Description",
                 false, (MultipleChoiceQuestion) q1);
 
         ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1, j2, j3));
@@ -579,7 +580,12 @@ public class MainCtrl {
             case "admin":
                 primaryStage.setScene(admin);
                 adminPanelCtrl.searchBox.clear();
-                adminPanelCtrl.setListOfActivities(serverUtils.getActivities());
+                if(serverUtils.testConnection()) {
+                    adminPanelCtrl.setListOfActivities(serverUtils.getActivities());
+                } else {
+                    goTo("error");
+                    break;
+                }
                 adminPanelCtrl.activateLabels();
                 adminPanelCtrl.instantiateActivities(true, true);
                 break;
@@ -650,13 +656,13 @@ public class MainCtrl {
         System.out.println(stringJokers);
         for (String s : stringJokers) {
             switch (s) {
-                case "AdditionalPointsJoker":
+                case "Additional Points Joker":
                     jokerList.add(new AdditionalPointsJoker(p));
                     break;
-                case "EliminateOptionJoker":
+                case "Eliminate Option Joker":
                     jokerList.add(new EliminateOptionJoker(null));
                     break;
-                case "QuestionChangeJoker":
+                case "Question Change Joker":
                     jokerList.add(new QuestionChangeJoker());
                     break;
                 default:
@@ -727,9 +733,9 @@ public class MainCtrl {
 
                 break;
 
-            case"EliminateOptionJoker":
+            case"Eliminate Option Joker":
                 EliminateOptionJoker eliminateOptionJoker =
-                        (EliminateOptionJoker) this.getJoker("EliminateOptionJoker");
+                        (EliminateOptionJoker) this.getJoker("Eliminate Option Joker");
                 handleEliminateOptionJoker(eliminateOptionJoker);
                 if(game instanceof MultiPlayerGame) {
                     String Path = "/app/jokerAlert/" + getGameId();
@@ -1109,6 +1115,10 @@ private List<JokerCard> getJokerList() {
             MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
             @Override
             public void run() {
+                if(exitedGame){
+                    timer.cancel();
+                    setExitedGame(false);
+                }
                 if(game instanceof MultiPlayerGame){
                     MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
                 }
@@ -1201,11 +1211,11 @@ private List<JokerCard> getJokerList() {
         players.add(player4);
         players.add(player5);
         
-        JokerCard j1 = new AdditionalPointsJoker("AdditionalPointsJoker","Description",
+        JokerCard j1 = new AdditionalPointsJoker("Additional Points Joker","Description",
                 false,
                 player1,q1);
-        JokerCard j2 = new QuestionChangeJoker("QuestionChangeJoker","Description",false);
-        JokerCard j3 = new EliminateOptionJoker("EliminateOptionJoker","Description",
+        JokerCard j2 = new QuestionChangeJoker("Question Change Joker","Description",false);
+        JokerCard j3 = new EliminateOptionJoker("Eliminate Option Joker","Description",
                 false,(MultipleChoiceQuestion) q1);
         ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
         MultiPlayerGame initialisedGame = new MultiPlayerGame(questionArray,jokerCards,players);
