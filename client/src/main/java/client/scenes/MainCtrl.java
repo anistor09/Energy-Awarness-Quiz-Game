@@ -586,7 +586,12 @@ public class MainCtrl {
             case "admin":
                 primaryStage.setScene(admin);
                 adminPanelCtrl.searchBox.clear();
-                adminPanelCtrl.setListOfActivities(serverUtils.getActivities());
+                if(serverUtils.testConnection()) {
+                    adminPanelCtrl.setListOfActivities(serverUtils.getActivities());
+                } else {
+                    goTo("error");
+                    break;
+                }
                 adminPanelCtrl.activateLabels();
                 adminPanelCtrl.instantiateActivities(true, true);
                 break;

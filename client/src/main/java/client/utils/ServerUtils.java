@@ -79,6 +79,21 @@ public class ServerUtils {
         }
     }
 
+    public boolean testConnection() {
+        try{
+            List<Player> list = ClientBuilder.newClient(new ClientConfig())
+                    .target(SERVER).path("api/player")
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(new GenericType<List<Player>>() {});
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("The server url is invalid! ");
+            return false;
+        }
+    }
+
     /**
      * This method gets the quotes from the url
      * @throws IOException = In case the input is wrong
@@ -285,7 +300,7 @@ public class ServerUtils {
 
     //  MULTIPLAYER GAME LOGIC
 
-    private StompSession session = connect(WEBSOCKETSERVER + "/websocket"); //the StompSession
+    private StompSession session; //the StompSession
 
     /**
      * This method configures the StompSession for the websocket
