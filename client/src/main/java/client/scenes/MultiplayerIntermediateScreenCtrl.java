@@ -117,11 +117,28 @@ public class MultiplayerIntermediateScreenCtrl {
         this.i = 5+additionalTime;
     }
 
+    /**
+     * Refreshes the leaderboard by setting each label to an empty string. These empty labels will be filled later.
+     */
+    private void refreshLeaderboard() {
+        // set all label texts to empty
+        Label[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10};
+        Label[] scores = {score1, score2, score3, score4, score5, score6, score7, score8, score9, score10};
 
+        for (int i = 0; i < 10; i++) {
+            names[i].setText("");
+            scores[i].setText("");
+        }
+
+        playerName.setText("");
+        playerScore.setText("");
+
+    }
     /**
      * Retrieves the game and initialises the leaderboard by displaying the top ten players in descending order.
      */
     public void initialiseLeaderboard() {
+        refreshLeaderboard();
         // get list of players from server util
         List<Player> players = ((MultiPlayerGame) mainCtrl.getGame()).getPlayers();
 
