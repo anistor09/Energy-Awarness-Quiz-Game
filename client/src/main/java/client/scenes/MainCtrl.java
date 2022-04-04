@@ -210,11 +210,11 @@ public class MainCtrl {
         this.errorScreen = new Scene(errorScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
-
+        this.admin.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.multiPlayerIntermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
-//        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 //        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.multiplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");

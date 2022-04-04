@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,11 +12,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MenuCtrl">
     <top>
-        <HBox BorderPane.alignment="CENTER">
+        <HBox style="-fx-background-color: #219ebc;" BorderPane.alignment="CENTER">
             <children>
                 <Region prefHeight="100.0" prefWidth="355.0" HBox.hgrow="ALWAYS" />
                 <Label text="Quizzz" HBox.hgrow="ALWAYS">
@@ -25,7 +25,7 @@
                         <Font size="40.0" />
                     </font>
                     <HBox.margin>
-                        <Insets />
+                        <Insets top="20.0" />
                     </HBox.margin>
                     <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -35,49 +35,52 @@
             </children>
         </HBox>
     </top>
-    <center>
-        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #219EBC;" BorderPane.alignment="CENTER">
-            <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+                  <GridPane prefHeight="580.0" prefWidth="579.0">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="166.77337646484375" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.507080078125" minWidth="10.0" prefWidth="173.22662353515625" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <children>
+                          <Button fx:id="singlePlayer" mnemonicParsing="false" onMouseClicked="#goToSinglePlayerLobby" prefHeight="76.0" prefWidth="207.0" text="Single Player" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                          <ImageView fx:id="singleIcon" fitHeight="191.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                              <image>
+                                  <Image url="@../../../../../../docs/pictures/single_player.png" />
+                              </image>
+                          </ImageView>
+                  <Button fx:id="help" mnemonicParsing="false" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Help" textFill="#fb8500" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="leaderboardButton" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="57.0" prefWidth="184.0" style="-fx-background-color: #023047 #023047;" text="Leaderboard" textFill="#fb8500" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="admin" layoutX="20.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToAdmin" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Admin" textFill="#fb8500" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </GridPane.margin>
+                  </Button>
+                      </children>
+                  </GridPane>
+            <Rectangle fill="WHITE" height="580.0" stroke="WHITE" strokeType="INSIDE" width="6.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Rectangle>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="580.0" prefWidth="598.0">
                     <children>
-                        <GridPane prefHeight="579.0" prefWidth="466.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="166.77337646484375" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.507080078125" minWidth="10.0" prefWidth="173.22662353515625" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Button fx:id="singlePlayer" mnemonicParsing="false" onMouseClicked="#goToSinglePlayerLobby" prefHeight="76.0" prefWidth="207.0" text="Single Player" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <ImageView fx:id="singleIcon" fitHeight="191.0" fitWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../../../../../docs/pictures/single_player.png" />
-                                    </image>
-                                </ImageView>
-                        <Button fx:id="help" mnemonicParsing="false" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Help" textFill="#fb8500" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets left="10.0" top="15.0" />
-                           </GridPane.margin></Button>
-                        <Button fx:id="leaderboardButton" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="57.0" prefWidth="184.0" style="-fx-background-color: #023047 #023047;" text="Leaderboard" textFill="#fb8500" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets left="10.0" top="15.0" />
-                           </GridPane.margin></Button>
-                        <Button fx:id="admin" layoutX="20.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToAdmin" onMouseClicked="#goToHelp" prefHeight="57.0" prefWidth="118.0" style="-fx-background-color: #023047;" text="Admin" textFill="#fb8500" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets left="10.0" top="15.0" />
-                           </GridPane.margin>
-                        </Button>
-                            </children>
-                        </GridPane>
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <children>
-                        <GridPane prefHeight="579.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane layoutX="-12.0" prefHeight="580.0" prefWidth="479.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="134.957763671875" />
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="195.542236328125" />
@@ -105,7 +108,7 @@
                         </GridPane>
                     </children>
                 </AnchorPane>
-            </items>
-        </SplitPane>
-    </center>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>
