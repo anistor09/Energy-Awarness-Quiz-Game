@@ -11,10 +11,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class InsertUsernameMultiplayerCtrl {
@@ -80,7 +82,7 @@ public class InsertUsernameMultiplayerCtrl {
         server.sendPlayer(thisPlayer);
         mainCtrl.setLocalPlayer(thisPlayer);
         String userNameToStore = username.getText();
-        FileWriter writer = new FileWriter("src/main/resources/username");
+        FileWriter writer = new FileWriter("client/src/main/resources/username.txt");
         writer.write(userNameToStore);
         writer.close();
         mainCtrl.goTo("multiLobby");
@@ -109,9 +111,9 @@ public class InsertUsernameMultiplayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException {
-//        Scanner usernameScanner = new Scanner(new File("src/main/resources/username"));
-//        this.storedUsername = usernameScanner.next();
-//        usernameScanner.close();
+        Scanner usernameScanner = new Scanner(new File("\"client/src/main/resources/username.txt\""));
+        this.storedUsername = usernameScanner.next();
+        usernameScanner.close();
     }
 
     /**

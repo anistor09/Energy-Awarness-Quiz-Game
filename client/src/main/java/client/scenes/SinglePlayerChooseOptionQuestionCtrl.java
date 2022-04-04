@@ -483,6 +483,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         crying.setImage(new Image(MainCtrl.class.getResource("/pictures/crying.png").toString()));
 
     }
+
     private void setEmojiBarVisible(Game currentGame) {
         if(currentGame instanceof MultiPlayerGame){
             emojiBar.setVisible(true);

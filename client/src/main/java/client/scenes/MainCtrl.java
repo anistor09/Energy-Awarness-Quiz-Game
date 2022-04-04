@@ -257,6 +257,7 @@ public class MainCtrl {
         for(int i = 0; i < game.getQuestions().size();i++){
             game.getQuestions().get(i).setAllowedTime(difficulty);
         }
+        System.out.println(game.getQuestions().toString());
         goToNextSingleplayerQuestion();
 
     }
@@ -266,6 +267,7 @@ public class MainCtrl {
      * This is a timer that works in the background and switches to the next question
      */
     public void singleplayerInGameTimer() {
+        System.out.println(game.getCurrentQuestionNumber());
         int currentQuestionNumber = game.getCurrentQuestionNumber();
         Question q = game.getQuestions().get(currentQuestionNumber);
         String className = getClassName(q.getClass().getName());

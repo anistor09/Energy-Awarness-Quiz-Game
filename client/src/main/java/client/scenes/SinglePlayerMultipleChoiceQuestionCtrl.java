@@ -98,8 +98,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     private Label debug;
 
-    private Rectangle timeBar;
     @FXML
+    private Rectangle timeBar;
+
     private int timeBarWidth = 950;
 
 
@@ -436,9 +437,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-
         server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
+
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
      * @param event Event that occurs when an image view for Emoji is pressed.
