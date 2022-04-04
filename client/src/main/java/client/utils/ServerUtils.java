@@ -79,6 +79,11 @@ public class ServerUtils {
         }
     }
 
+    /**
+     * This method checks if the connection with the server has been established.
+     * It is meant to test weather the user has a server running on localhost
+     * @return true if the query for the server is successful, false if it fails.
+     */
     public boolean testConnection() {
         try{
             List<Player> list = ClientBuilder.newClient(new ClientConfig())
