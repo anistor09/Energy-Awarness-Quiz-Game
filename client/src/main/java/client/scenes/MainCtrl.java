@@ -944,29 +944,38 @@ public class MainCtrl {
                 int decreasedTime = j.returnUseCard();
                 multiplayerIntermediateScreenCtrl.setI(decreasedTime);
             }
-            String currentQuestionScreen = getClassName(game.getQuestions().
-                    get(game.getCurrentQuestionNumber())
-                    .getClass().toString());
-            switch (currentQuestionScreen) {
-                case "MultipleChoiceQuestion":
-                    Platform.runLater(()->{singlePlayerGameCtrl.startTimerAnimation();});
-                    break;
+            if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
+                String currentQuestionScreen = getClassName(game.getQuestions().
+                        get(game.getCurrentQuestionNumber())
+                        .getClass().toString());
+                switch (currentQuestionScreen) {
+                    case "MultipleChoiceQuestion":
+                        Platform.runLater(() -> {
+                            singlePlayerGameCtrl.startTimerAnimation();
+                        });
+                        break;
 
-                case "MostEnergyQuestion":
-                    Platform.runLater(()->{singlePlayerChooseOptionQuestionCtrl.startTimerAnimation();});
-                    break;
+                    case "MostEnergyQuestion":
+                        Platform.runLater(() -> {
+                            singlePlayerChooseOptionQuestionCtrl.startTimerAnimation();
+                        });
+                        break;
 
-                case "GuessQuestion":
-                    Platform.runLater(()->{
-                        singlePlayerGuessQuestionCtrl.startTimerAnimation();});
-                    break;
+                    case "GuessQuestion":
+                        Platform.runLater(() -> {
+                            singlePlayerGuessQuestionCtrl.startTimerAnimation();
+                        });
+                        break;
 
-                case "InsteadOfQuestion":
-                    Platform.runLater(()->{singleplayerInsteadOfQuestionCtrl.startTimerAnimation();});
-                    break;
+                    case "InsteadOfQuestion":
+                        Platform.runLater(() -> {
+                            singleplayerInsteadOfQuestionCtrl.startTimerAnimation();
+                        });
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
 
 
