@@ -530,7 +530,7 @@ public class MainCtrl {
     @SuppressWarnings({"checkstyle:methodlength"})
     public void goTo(String screenName) {
         visitedScreens.push(screenName);
-        switch (screenName) {
+        Platform.runLater(()->{switch (screenName) {
             case "menu":
                 primaryStage.setScene(menu);
                 break;
@@ -599,7 +599,8 @@ public class MainCtrl {
                 primaryStage.setScene(errorScreen);
                 break;
             default: primaryStage.setScene(menu);
-        }
+        }});
+
     }
 
     /**
@@ -699,17 +700,20 @@ public class MainCtrl {
                         getCurrentQuestionNumber());
         if(currentQuestion instanceof InsteadOfQuestion)
         {
-            singleplayerInsteadOfQuestionCtrl.initialiseAfterJoker();
+            Platform.runLater(()->{singleplayerInsteadOfQuestionCtrl.initialiseAfterJoker();});
         }
         else {
             eliminateOptionJokerJoker.setQuestion(currentQuestion);
             eliminateOptionJokerJoker.useCard();
         }
         if(currentQuestion instanceof MultipleChoiceQuestion) {
-            singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+            Platform.runLater(()->{
+                singlePlayerGameCtrl.initialiseSinglePlayerQuestion();});
         }
         else if(currentQuestion instanceof MostEnergyQuestion){
-            singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+            Platform.runLater(()->{
+                singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();});
+
         }
     }
 
@@ -800,22 +804,22 @@ public class MainCtrl {
     public void switchQuestionScreen(String className) {
         switch (className) {
             case "MultipleChoiceQuestion":
-                singlePlayerGameCtrl.initialiseSinglePlayerQuestion();
+                Platform.runLater(()->{singlePlayerGameCtrl.initialiseSinglePlayerQuestion();});
                 goTo("singleplayerGame");
                 break;
 
             case "MostEnergyQuestion":
-                singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();
+                Platform.runLater(()->{singlePlayerChooseOptionQuestionCtrl.initialiseMostEnergyQuestion();});
                 goTo("SingleplayerChooseOptionQuestionScreen");
                 break;
 
             case "GuessQuestion":
-                singlePlayerGuessQuestionCtrl.initialiseSinglePlayerOpenQuestion();
+                Platform.runLater(()->{singlePlayerGuessQuestionCtrl.initialiseSinglePlayerOpenQuestion();});
                 goTo("SingleplayerOpenQuestion");
                 break;
 
             case "InsteadOfQuestion":
-                singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();
+                Platform.runLater(()->{singleplayerInsteadOfQuestionCtrl.initialiseSinglePlayerInsteadOfQuestion();});
                 goTo("SingleplayerInsteadOfQuestion");
                 break;
 
@@ -941,11 +945,10 @@ public class MainCtrl {
         serverUtils.registerForTimeJoker("/topic/timeJoker/"+this.getGameId(),j->{
 
             j.setLocalPlayer(localPlayer);
+
             if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
                 int decreasedTime = j.returnUseCard();
                 multiplayerIntermediateScreenCtrl.setI(decreasedTime);
-            }
-            if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
                 String currentQuestionScreen = getClassName(game.getQuestions().
                         get(game.getCurrentQuestionNumber())
                         .getClass().toString());
