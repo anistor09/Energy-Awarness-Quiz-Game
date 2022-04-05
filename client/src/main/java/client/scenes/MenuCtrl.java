@@ -44,6 +44,9 @@ public class MenuCtrl implements Initializable {
     private ImageView multiIcon;
 
     @FXML
+    private ImageView kachow;
+
+    @FXML
     private Button multiPlayer;
 
     public void setSingleIcon(ImageView image) {
@@ -96,7 +99,7 @@ public class MenuCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         singleIcon.setImage(new Image(MainCtrl.class.getResource("/pictures/single_player.png").toString()));
         multiIcon.setImage(new Image(MainCtrl.class.getResource("/pictures/multiplayer.png").toString()));
-
+        kachow.setImage(new Image(MainCtrl.class.getResource("/pictures/lightning_picture.jpg").toString()));
 
     }
 }
