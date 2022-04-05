@@ -38,7 +38,11 @@ public class ActivityTest {
 
     @Test
     public void checkConstructor() {
+        Activity a = new Activity();
+        Activity a1 = new Activity(1L, "asd", 13L);
         assertNotNull(act1);
+        assertNotNull(a);
+        assertNotNull(a1);
     }
 
     @Test
@@ -72,4 +76,62 @@ public class ActivityTest {
                 " consumption_in_wh=4000," +
                 " source='https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower'}");
     }
+
+    @Test
+    void testGetId() {
+        assertEquals("00-shower", act1.getId());
+    }
+
+    @Test
+    void testSetId() {
+        act1.setId("0-shower");
+        assertEquals("0-shower", act1.getId());
+    }
+
+    @Test
+    void testGetImagePath() {
+        assertEquals("00/shower.png", act1.getImage_path());
+    }
+
+    @Test
+    void testSetImagePath() {
+        act1.setImage_path("a");
+        assertEquals("a", act1.getImage_path());
+    }
+
+    @Test
+    void testGetTitle() {
+        assertEquals("Taking a hot shower for 6 minutes", act1.getTitle());
+    }
+
+    @Test
+    void testSetTitle() {
+        act1.setTitle("a");
+        assertEquals("a", act1.getTitle());
+    }
+
+    @Test
+    void testGetConsumption() {
+        assertEquals(4000, act1.getConsumption_in_wh());
+    }
+
+    @Test
+    void testSetConsumption() {
+        act1.setConsumption_in_wh(1);
+        assertEquals(1, act1.getConsumption_in_wh());
+    }
+
+    @Test
+    void testGetSource() {
+        assertEquals("https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower",
+                act1.getSource());
+    }
+
+    @Test
+    void testSetSource() {
+        act1.setSource("a");
+        assertEquals("a", act1.getSource());
+    }
+
+
 }

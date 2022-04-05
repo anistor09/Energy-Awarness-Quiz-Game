@@ -117,9 +117,6 @@ public class MainCtrl {
         this.serverUtils = serverUtils;
     }
 
-    //test
-//    List<Player> test = new ArrayList<>();
-
 
     /**
      * This method will take care of initializing all scenes present in the application and starting the app with the
@@ -138,6 +135,10 @@ public class MainCtrl {
      *                                                             fxml file "Parent"
      * @param singlePlayerGamePair                                 the pair containing the singlePlayerGame controller
      *                                                             and its fxml file "Parent"
+<<<<<<< HEAD
+     *                                                             its fxml file "Parent"
+=======
+>>>>>>> development
      * @param singlePlayerChooseOptionQuestionControllerParentPair
      * @param singlePlayerOpenQuestionControllerParentPair
      */
@@ -260,9 +261,6 @@ public class MainCtrl {
         }
         goToNextSingleplayerQuestion();
 
-
-        //test
-//        this.serverUtils.sendPlayer(new Player("test", 400));
     }
 
 
@@ -375,22 +373,14 @@ public class MainCtrl {
 
             String className = getClassName(q.getClass().getName());
 
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    switchQuestionScreen(className);
-                }
-            });
+            Platform.runLater(() -> switchQuestionScreen(className));
         } else {
             SinglePlayerGame spg = (SinglePlayerGame) this.game;
             Player p = spg.getPlayer();
             p.setJokerCards(null);
             serverUtils.addPlayer(spg.getPlayer());
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
-                }
+            Platform.runLater(() -> {
+                goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
             });
         }
     }

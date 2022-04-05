@@ -42,9 +42,7 @@ public class InsteadOfQuestion extends Question{
         this.correctAnswer = options.get(0);
     }
 
-    public InsteadOfQuestion() {
-
-    }
+    public InsteadOfQuestion() {}
 
     /**
      * Compares this activity with another activity.
@@ -78,7 +76,7 @@ public class InsteadOfQuestion extends Question{
      * @param max Upper bound
      * @return Random number in given range
      */
-    private double myRandom(double min, double max) {
+    public double myRandom(double min, double max) {
         Random r = new Random();
         return (r.nextInt((int)((max-min)*10+1))+min*10) / 10.0;
     }
