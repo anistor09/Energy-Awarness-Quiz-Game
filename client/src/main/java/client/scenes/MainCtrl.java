@@ -933,12 +933,12 @@ public class MainCtrl {
     /**
      *
      */
-    public void startScanningTimeJoker(){
-        serverUtils.registerForTimeJoker("/topic/timeJoker/"+this.getGameId(),j->{
+    public void startScanningTimeJoker() {
+        serverUtils.registerForTimeJoker("/topic/timeJoker/" + this.getGameId(), j -> {
 
             j.setLocalPlayer(localPlayer);
 
-            if(!localPlayer.getUsername().equals(j.getSenderUsername())) {
+            if (!localPlayer.getUsername().equals(j.getSenderUsername())) {
                 int decreasedTime = j.returnUseCard();
                 multiplayerIntermediateScreenCtrl.setI(decreasedTime);
                 String currentQuestionScreen = getClassName(game.getQuestions().
@@ -950,10 +950,11 @@ public class MainCtrl {
                             singlePlayerGameCtrl.startTimerAnimation();
                         });
                         break;
-
-
+                }
+            }
         });
     }
+
 
     /**
      * This method creates a mock question
