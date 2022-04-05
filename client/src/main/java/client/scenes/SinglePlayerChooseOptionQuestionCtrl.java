@@ -158,6 +158,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
+        time.setStyle("-fx-background-color: #00FF00");
     }
 
     /**
@@ -275,7 +276,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     public void setTime(int i) {
-        time.setText("Time Left: " + i + "seconds");
+        time.setText("Time Left: " + i + " seconds");
         int colourChange1;
         int colourChange2;
         int colourChange3;
@@ -292,7 +293,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
             colourChange3 = 5;
         }
         if(i == colourChange1){
-            time.(Color.web("#FFFF00"));
+            time.setStyle("-fx-background-color: #FFFF00");
+        }
+        if(i == colourChange2){
+            time.setStyle("-fx-background-color: #FFA500");
+        }
+        if(i == colourChange3){
+            time.setStyle("-fx-background-color: #FF0000");
         }
     }
 

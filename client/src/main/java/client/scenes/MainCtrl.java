@@ -448,7 +448,7 @@ public class MainCtrl {
     @SuppressWarnings({"checkstyle:methodlength"})
     public void goTo(String screenName) {
         visitedScreens.push(screenName);
-        Platform.runLater(()->{switch (screenName) {
+        switch (screenName) {
             case "menu":
                 primaryStage.setScene(menu);
                 break;
@@ -517,8 +517,7 @@ public class MainCtrl {
                 primaryStage.setScene(errorScreen);
                 break;
             default: primaryStage.setScene(menu);
-        }});
-
+        }
     }
 
     /**
