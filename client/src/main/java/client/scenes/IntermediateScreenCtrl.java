@@ -40,7 +40,7 @@ public class IntermediateScreenCtrl {
                         }
                 );
                 i--;
-                if(i < 0 ){
+                if(i == 0 ){
                     timerLabel.cancel();
                     mainCtrl.checkGameStatus();
                 }

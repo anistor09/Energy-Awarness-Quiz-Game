@@ -1,5 +1,6 @@
 package client.scenes;
 
+import animatefx.animation.*;
 import client.MyFXML;
 import client.MyModule;
 import com.google.inject.Inject;
@@ -8,8 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,6 +63,9 @@ public class MenuCtrl implements Initializable {
     private Button singlePlayer;
 
     @FXML
+    private Label title;
+
+    @FXML
     void exitButton(ActionEvent event) {
         mainCtrl.closeStage();
     }
@@ -101,5 +107,22 @@ public class MenuCtrl implements Initializable {
         multiIcon.setImage(new Image(MainCtrl.class.getResource("/pictures/multiplayer.png").toString()));
         kachow.setImage(new Image(MainCtrl.class.getResource("/pictures/lightning_picture.jpg").toString()));
 
+    }
+
+    /**
+     * Runs various animation pertaining to nodes on the Menu screen.
+     */
+    public void runAnimation() {
+        new GlowText(credits, Color.rgb(255, 183, 3), Color.rgb(255, 183, 3)).play();
+        //new Bounce(exit).play();
+        //new JackInTheBox(credits).play();
+        //new Pulse(admin).play();
+        new SlideInRight(multiPlayer).play();
+        new SlideInLeft(singlePlayer).play();
+        new Tada(title).play();
+        new GlowText(title, Color.rgb(253, 158, 2),Color.rgb(33, 158, 188)).play();
+        new LightSpeedIn(title).play();
+        new RotateInDownRight(singleIcon).play();
+        new RotateInUpLeft(multiIcon).play();
     }
 }

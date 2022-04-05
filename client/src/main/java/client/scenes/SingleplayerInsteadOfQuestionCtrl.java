@@ -1,5 +1,6 @@
 package client.scenes;
 
+import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.scene.shape.Rectangle;
@@ -277,6 +278,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
             changeButtonColours(option1, "green");
             handleCorrect();
+            new Bounce(option1).play();
+            new Bounce(option1Image).play();
         } else {
             changeButtonColours(option1, "red");
             handleWrong();
@@ -291,6 +294,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
             changeButtonColours(option2, "green");
             handleCorrect();
+            new Bounce(option2).play();
+            new Bounce(option2Image).play();
         } else {
             changeButtonColours(option2, "red");
             handleWrong();
@@ -304,6 +309,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void option3Handler(){
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
             changeButtonColours(option3, "green");
+            new Bounce(option3).play();
+            new Bounce(option3Image).play();
             handleCorrect();
         } else {
             changeButtonColours(option3, "red");
@@ -361,10 +368,16 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         IntermediateScreenCtrl.setPointsGained(0);
         if (questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
             changeButtonColours(option1, "green");
+            new Bounce(option1).play();
+            new Bounce(option1Image).play();
         } else if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
             changeButtonColours(option2, "green");
+            new Bounce(option2).play();
+            new Bounce(option2Image).play();
         } else {
             changeButtonColours(option3, "green");
+            new Bounce(option3).play();
+            new Bounce(option3Image).play();
         }
     }
 

@@ -135,10 +135,6 @@ public class MainCtrl {
      *                                                             fxml file "Parent"
      * @param singlePlayerGamePair                                 the pair containing the singlePlayerGame controller
      *                                                             and its fxml file "Parent"
-<<<<<<< HEAD
-     *                                                             its fxml file "Parent"
-=======
->>>>>>> development
      * @param singlePlayerChooseOptionQuestionControllerParentPair
      * @param singlePlayerOpenQuestionControllerParentPair
      */
@@ -232,6 +228,7 @@ public class MainCtrl {
         goTo("menu");
         primaryStage.show();
         primaryStage.setResizable(false);
+        menuCtrl.runAnimation();
 
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
