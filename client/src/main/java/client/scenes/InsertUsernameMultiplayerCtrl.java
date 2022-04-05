@@ -87,7 +87,17 @@ public class InsertUsernameMultiplayerCtrl {
         server.sendPlayer(thisPlayer);
         mainCtrl.setLocalPlayer(thisPlayer);
         String userNameToStore = username.getText();
-        FileWriter writer = new FileWriter("client/src/main/resources/username");
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("src/main/resources/username");
+        } catch (FileNotFoundException e) {
+            try {
+                writer = new FileWriter("client/src/main/resources/username");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        assert writer != null;
         writer.write(userNameToStore);
         writer.close();
         mainCtrl.goTo("multiLobby");
@@ -116,8 +126,16 @@ public class InsertUsernameMultiplayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException {
-        Scanner usernameScanner = new Scanner(new File("client/src/main/resources/username"));
-
+        Scanner usernameScanner = null;
+        try {
+            usernameScanner = new Scanner(new File("src/main/resources/username"));
+        } catch (FileNotFoundException e) {
+            try {
+                usernameScanner = new Scanner(new File("client/src/main/resources/username"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         if(usernameScanner.hasNext())
             this.storedUsername = usernameScanner.next();
 
