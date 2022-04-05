@@ -3,6 +3,7 @@ package client.scenes;
 import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import commons.*;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
@@ -271,15 +272,25 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         }
     }
 
+    private void bounceEffect(Node node1, Node node2) {
+        try {
+            new Bounce(node1).play();
+            new Bounce(node2).play();
+        }
+        catch (Exception e) {
+
+        }
+
+    }
+
     /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
             changeButtonColours(option1, "green");
+            bounceEffect(option1, option1Image);
             handleCorrect();
-            new Bounce(option1).play();
-            new Bounce(option1Image).play();
         } else {
             changeButtonColours(option1, "red");
             handleWrong();
@@ -293,9 +304,8 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void option2Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
             changeButtonColours(option2, "green");
+            bounceEffect(option2, option2Image);
             handleCorrect();
-            new Bounce(option2).play();
-            new Bounce(option2Image).play();
         } else {
             changeButtonColours(option2, "red");
             handleWrong();
@@ -309,8 +319,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void option3Handler(){
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
             changeButtonColours(option3, "green");
-            new Bounce(option3).play();
-            new Bounce(option3Image).play();
+            bounceEffect(option3, option3Image);
             handleCorrect();
         } else {
             changeButtonColours(option3, "red");
@@ -368,16 +377,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         IntermediateScreenCtrl.setPointsGained(0);
         if (questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
             changeButtonColours(option1, "green");
-            new Bounce(option1).play();
-            new Bounce(option1Image).play();
+            bounceEffect(option1, option1Image);
         } else if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
             changeButtonColours(option2, "green");
-            new Bounce(option2).play();
-            new Bounce(option2Image).play();
+            bounceEffect(option2, option2Image);
         } else {
             changeButtonColours(option3, "green");
-            new Bounce(option3).play();
-            new Bounce(option3Image).play();
+            bounceEffect(option3, option3Image);
         }
     }
 

@@ -4,6 +4,7 @@ import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.animation.ScaleTransition;
@@ -204,17 +205,24 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
             button.setStyle("-fx-background-color: red");
         }
     }
+    private void bounceEffect(Node node1, Node node2) {
+        try {
+            new Bounce(node1).play();
+            new Bounce(node2).play();
+        }
+        catch (Exception e) {
 
+        }
+    }
 
     /**
      * Handles the clicks on button with option 1
      */
     public void option1Handler() {
         if(activityList.indexOf(generateExpensiveActivity()) == 0) {
-            handleCorrect();
             changeButtonColours(option1, "green");
-            new Bounce(option1).play();
-            new Bounce(option1Image).play();
+            bounceEffect(option1, option1Image);
+            handleCorrect();
         } else {
             changeButtonColours(option1, "red");
             handleWrong();
@@ -227,10 +235,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     public void option2Handler() {
         if(activityList.indexOf(generateExpensiveActivity()) == 1) {
-            handleCorrect();
+            bounceEffect(option1, option1Image);
             changeButtonColours(option2, "green");
-            new Bounce(option2).play();
-            new Bounce(option2Image).play();
+            handleCorrect();
         } else {
             changeButtonColours(option2, "red");
             handleWrong();
@@ -243,10 +250,9 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     public void option3Handler() {
         if(activityList.indexOf(generateExpensiveActivity()) == 2) {
-            handleCorrect();
+            bounceEffect(option3, option3Image);
             changeButtonColours(option3, "green");
-            new Bounce(option3).play();
-            new Bounce(option3Image).play();
+            handleCorrect();
         } else {
             changeButtonColours(option3, "red");
             handleWrong();
@@ -405,16 +411,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         IntermediateScreenCtrl.setPointsGained(0);
         if (activityList.indexOf(generateExpensiveActivity()) == 0) {
             changeButtonColours(option1, "green");
-            new Bounce(option1).play();
-            new Bounce(option1Image).play();
+            bounceEffect(option1, option1Image);
         } else if(activityList.indexOf(generateExpensiveActivity()) == 1) {
             changeButtonColours(option2, "green");
-            new Bounce(option2).play();
-            new Bounce(option2Image).play();
+            bounceEffect(option2, option2Image);
         } else {
             changeButtonColours(option3, "green");
-            new Bounce(option3).play();
-            new Bounce(option3Image).play();
+            bounceEffect(option3, option3Image);
         }
     }
     @FXML

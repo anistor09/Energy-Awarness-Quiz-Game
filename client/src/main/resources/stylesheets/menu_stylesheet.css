@@ -59,3 +59,11 @@
 #userNames {
     -fx-font-size: 15;
 }
+
+#label {
+    -fx-font-size: 40pt;
+}
+#timeLeft {
+    -fx-font-size: 40pt;
+}
+
