@@ -97,9 +97,7 @@ public class MultiplayerIntermediateScreenCtrl {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> {
                     countdown.setText("Game Continues in " + i + " Seconds");
-                });
                 i--;
                 if(i <= 0) {
                     timer.cancel();
