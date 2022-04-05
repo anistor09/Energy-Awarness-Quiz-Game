@@ -44,6 +44,8 @@ public class InsertUsernameMultiplayerCtrl {
     private Button submitButton;
     @FXML
     private Label alert;
+    @FXML
+    private Label error;
 
 
     /**
@@ -67,7 +69,10 @@ public class InsertUsernameMultiplayerCtrl {
             return;
         }
         String insertedUrl = url.getText();
-        System.out.println(insertedUrl);
+        if(!insertedUrl.endsWith("/")) {
+            insertedUrl = insertedUrl + "/";
+        }
+
         if(server.testConnection(insertedUrl)){
             server.setSERVER(insertedUrl);
         }
