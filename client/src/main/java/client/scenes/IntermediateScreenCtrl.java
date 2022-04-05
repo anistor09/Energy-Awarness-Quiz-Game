@@ -39,11 +39,11 @@ public class IntermediateScreenCtrl {
                             timeLeftLabel.setText(String.valueOf(i + 1));
                         }
                 );
-                i--;
                 if(i == 0 ){
                     timerLabel.cancel();
                     mainCtrl.checkGameStatus();
                 }
+                i--;
             }
         }, 0,1000);
     }
