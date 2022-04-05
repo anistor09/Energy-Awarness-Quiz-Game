@@ -313,18 +313,21 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
             @Override
             public void run() {
                 timeBar.setFill(Color.valueOf("#FFFF00"));
+                changeTimerBarColor.cancel();
             }
         }, colourChange1);
         changeTimerBarColor.schedule(new TimerTask() {
             @Override
             public void run() {
                 timeBar.setFill(Color.valueOf("#FFA500"));
+                changeTimerBarColor.cancel();
             }
         },colourChange2);
         changeTimerBarColor.schedule(new TimerTask() {
             @Override
             public void run() {
                 timeBar.setFill(Color.valueOf("#FF0000"));
+                changeTimerBarColor.cancel();
             }
         },colourChange3);
     }

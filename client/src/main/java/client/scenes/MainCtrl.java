@@ -262,7 +262,7 @@ public class MainCtrl {
             game.getQuestions().get(i).setAllowedTime(difficulty);
         }
         System.out.println(game.getQuestions().toString());
-        goToNextSingleplayerQuestion();
+        goToNextQuestion();
 
     }
 
@@ -271,13 +271,14 @@ public class MainCtrl {
      * This is a timer that works in the background and switches to the next question
      */
     public void singleplayerInGameTimer() {
-        System.out.println(game.getCurrentQuestionNumber());
+        System.out.println("STARTING SINGLEPLAYER INGAME TIMER");
         int currentQuestionNumber = game.getCurrentQuestionNumber();
         Question q = game.getQuestions().get(currentQuestionNumber);
         String className = getClassName(q.getClass().getName());
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                System.out.println("STARTING TIMEBAR ANIMATION");
                 switch (className) {
                     case "MultipleChoiceQuestion":
                         singlePlayerGameCtrl.startTimerAnimation();
@@ -356,33 +357,40 @@ public class MainCtrl {
         } else {
             game.setGameOver(true);
         }
-        if(game instanceof SinglePlayerGame)
-            goToNextSingleplayerQuestion();
-        if(game instanceof MultiPlayerGame)
-            goToNextMultiplayerQuestion();
+        goToNextQuestion();
     }
 
+    private void goToNextQuestion(){
+        if(!game.isGameOver()){
+            if(game instanceof SinglePlayerGame)
+                singleplayerInGameTimer();
+            else
+                multiplayerInGameTimer();
 
-    private void goToNextSingleplayerQuestion() {
-        if(!game.isGameOver()) {
-            singleplayerInGameTimer();
             int currentQuestionNumber;
-            int lastQuestionNumber;
 
             currentQuestionNumber = game.getCurrentQuestionNumber();
-            lastQuestionNumber = currentQuestionNumber - 1;
 
             Question q = game.getQuestions().get(currentQuestionNumber);
-            Question qLast = game.getQuestions().get(lastQuestionNumber);
-
             String className = getClassName(q.getClass().getName());
 
             Platform.runLater(() -> switchQuestionScreen(className));
-        } else {
-            SinglePlayerGame spg = (SinglePlayerGame) this.game;
-            Player p = spg.getPlayer();
-            p.setJokerCards(null);
-            serverUtils.addPlayer(spg.getPlayer());
+        }
+        else{
+            if(game instanceof SinglePlayerGame){
+                SinglePlayerGame spg = (SinglePlayerGame) this.game;
+                Player p = spg.getPlayer();
+                p.setJokerCards(null);
+                serverUtils.addPlayer(spg.getPlayer());
+            }
+            else{
+                MultiPlayerGame mpg = (MultiPlayerGame) this.game;
+                ArrayList<Player> players = mpg.getPlayers();
+
+                for(int i = 0; i < players.size(); i++){
+                    players.get(i).setJokerCards(null);
+                }
+            }
             Platform.runLater(() -> {
                 goTo("SinglePlayerLeaderboard");  // PUT LEADERBOARD SCREEN HERE
             });
@@ -400,94 +408,6 @@ public class MainCtrl {
         int mid = className.lastIndexOf('.') + 1;
         String finalClsName = className.substring(mid);
         return finalClsName;
-    }
-
-
-    /**
-     * This method was creating for testing purposes until we will retrieve a game from the server automatically
-     *
-     * @param player Instance of Player representing the username of the Player
-     * @return A Game instance created for testing purposes
-     */
-    public Game initialiseSinglePlayerGame(Player player) {
-        Activity act1 = new Activity("00-shower",
-                "00/shower.png",
-                "how many to take a shower (400)",
-                400,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act2 = new Activity("00-shower",
-                "00/shower.png",
-                "how many wh to take a shower(800)",
-                800,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act3 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "using smartphone (200)",
-                200,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-        Activity act4 = new Activity("00-shower",
-                "00/shower.png",
-                "Another shower (1600)",
-                1600,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act5 = new Activity("00-shower",
-                "00/shower.png",
-                "Extra shower (200)",
-                200,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act6 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Charging your smartphone at night (100)",
-                100,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-
-
-        ArrayList<Activity> options456 = new ArrayList<>(Arrays.asList(act4, act5, act6));
-        ArrayList<Activity> options256 = new ArrayList<>(Arrays.asList(act2, act5, act6));
-        ArrayList<Activity> options123 = new ArrayList<>(Arrays.asList(act1, act2, act3));
-        ArrayList<Activity> options642 = new ArrayList<>(Arrays.asList(act6, act4, act2));
-        ArrayList<Activity> options351 = new ArrayList<>(Arrays.asList(act3, act5, act1));
-        ArrayList<Activity> options45 = new ArrayList<>(Arrays.asList(act4, act5));
-
-        Question q1 = new MultipleChoiceQuestion(act1,1000,"EASY",8);
-        Question q2 = new MultipleChoiceQuestion(act2, 2000, "EASY",8);
-        Question q3 = new MultipleChoiceQuestion(act3, 2000,"EASY",8);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",8);
-        Question q5 = new MultipleChoiceQuestion(act5,1000,"EASY",8);
-        Question q6 = new MostEnergyQuestion(act1,1312,"EASY",8,options45);
-        Question q7 = new GuessQuestion(act1,2122,"EASY",8);
-        Question instead1 = new InsteadOfQuestion(act2, 1000, "EASY", 8, options456);
-        Question instead2 = new InsteadOfQuestion(act4, 1000, "EASY", 8, options256);
-        Question instead3 = new InsteadOfQuestion(act1, 1000, "EASY", 8, options123);
-        ArrayList<Question> questionArray = new ArrayList<Question>();
-
-
-        questionArray.add(q6);
-
-
-        questionArray.add(q6);
-        questionArray.add(q1);
-
-
-        questionArray.add(q1);
-        questionArray.add(q6);
-
-
-        questionArray.add(q6);
-        questionArray.add(q7);
-        questionArray.add(q1);
-        JokerCard j1 = new AdditionalPointsJoker("Additional Points Joker","Description",
-                false,
-                player, q1);
-        JokerCard j2 = new QuestionChangeJoker("Question Change Joker", "Description", false);
-        JokerCard j3 = new EliminateOptionJoker("Eliminate Option Joker", "Description",
-                false, (MultipleChoiceQuestion) q1);
-
-        ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1, j2, j3));
-
-        SinglePlayerGame initialisedGame = new SinglePlayerGame(questionArray, jokerCards, player);
-
-        return initialisedGame;
     }
 
     public Game getGame() {
@@ -987,47 +907,6 @@ public class MainCtrl {
     }
 
     /**
-     * This method creates a mock question
-     * @return An instance of anstract class Question
-     */
-    private Question getQuestion() {
-        Activity act1 = new Activity("00-shower",
-                "00/shower.png",
-                "Question 1",
-                100,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-
-        Activity act3 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Question 3",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-        Activity act4 = new Activity("00-shower",
-                "00/shower.png",
-                "Question 4",
-                4000,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act5 =new Activity("00-shower",
-                "00/shower.png",
-                "Extra Question",
-                4000,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act6 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Charging your smartphone at night",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",1);
-        Question q6 = new InsteadOfQuestion(act3, 1000, "EASY", 1, options);
-
-        Question q7 = new MostEnergyQuestion(act1,13123,"EASY",5,options);
-        Question q8 = new GuessQuestion(act1,2122,"EASY",1212);
-        return q6;
-
-    }
-
-    /**
      * The method includes the logic of the multiplayer game but it is not fully implemented.
      */
     public void startMultiPlayerGame(){
@@ -1049,9 +928,9 @@ public class MainCtrl {
     }
 
     public void playMultiPLayerGame() {
-
-        goToNextMultiplayerQuestion();
+        goToNextQuestion();
     }
+
 private List<JokerCard> getJokerList() {
 
         List<JokerCard> jokerList = new ArrayList<>();
@@ -1072,47 +951,6 @@ private List<JokerCard> getJokerList() {
 
     public static void setVisitedScreens(Stack<String> visitedScreens) {
         MainCtrl.visitedScreens = visitedScreens;
-    }
-    /**
-     * This method is responsible for the flow of the game itself
-     */
-    public void goToNextMultiplayerQuestion(){
-        if(!game.isGameOver()) {
-            multiplayerInGameTimer();
-            int currentQuestionNumber;
-            int lastQuestionNumber;
-
-            currentQuestionNumber = game.getCurrentQuestionNumber();
-            lastQuestionNumber = currentQuestionNumber - 1;
-
-            Question q = game.getQuestions().get(currentQuestionNumber);
-            Question qLast = game.getQuestions().get(lastQuestionNumber);
-
-            String className = getClassName(q.getClass().getName());
-
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    switchQuestionScreen(className);
-                }
-            });
-        }
-        else {
-            MultiPlayerGame mpg = (MultiPlayerGame) this.game;
-            ArrayList<Player> players = mpg.getPlayers();
-
-            for(int i = 0; i < players.size(); i++){
-                players.get(i).setJokerCards(null);
-            }
-
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    goTo("SinglePlayerLeaderboard");
-                }
-            });
-
-        }
     }
 
     /**
@@ -1172,91 +1010,6 @@ private List<JokerCard> getJokerList() {
                 localPlayer.setTimeLeft(localPlayer.getTimeLeft() - 1);
             }
         },0, 1000);
-    }
-
-    /**
-     * Test version of the game for testing purposes
-     * @return
-     */
-    public Game initialiseMultiPlayerGame(){
-        Activity act1 = new Activity("00-shower",
-                "00/shower.png",
-                "Question 1",
-                100,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act2 =new Activity("00-shower",
-                "00/shower.png",
-                "Question 2",
-                500,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act3 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Question 3",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-        Activity act4 = new Activity("00-shower",
-                "00/shower.png",
-                "Question 4",
-                5000,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act5 =new Activity("00-shower",
-                "00/shower.png",
-                "Question 5",
-                4000,
-                "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower");
-        Activity act6 = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Question 6",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-        Activity extraact = new Activity("00-smartphone",
-                "00/smartphone.png",
-                "Extra Question",
-                10,
-                "https://9to5mac.com/2021/09/16/iphone-13-battery-life/");
-
-        ArrayList<Activity> options = new ArrayList<>(Arrays.asList(act4, act5, act6));
-
-        Question q1 = new MultipleChoiceQuestion(act1, 2000, "EASY",5);
-        Question q2 = new MultipleChoiceQuestion(act2, 2000,"EASY",5);
-        Question q3 = new MultipleChoiceQuestion(act3,1000,"EASY",5);
-        Question q4 = new MultipleChoiceQuestion(act4,1000,"EASY",5);
-        Question q5 = new InsteadOfQuestion(act5, 1000, "EASY", 5, options);
-        Question q6 = new MultipleChoiceQuestion(act6,1000,"EASY",5);
-        Question extraquestion = new MostEnergyQuestion(extraact,13123,"EASY",5,options);
-        
-        ArrayList<Question> questionArray = new ArrayList<Question>();
-
-        questionArray.add(extraquestion);
-        questionArray.add(extraquestion);
-//        questionArray.add(q2);
-//        questionArray.add(q3);
-//        questionArray.add(q4);
-//        questionArray.add(q5);
-//        questionArray.add(q6);
-
-        Player player1 = new Player("Som",0);
-        Player player2 = new Player("Som",0);
-        Player player3 = new Player("Alex", 0);
-        Player player4 = new Player("Som",0);
-        Player player5 = new Player("Ansh", 0);
-
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
-        players.add(player5);
-        
-        JokerCard j1 = new AdditionalPointsJoker("Additional Points Joker","Description",
-                false,
-                player1,q1);
-        JokerCard j2 = new QuestionChangeJoker("Question Change Joker","Description",false);
-        JokerCard j3 = new EliminateOptionJoker("Eliminate Option Joker","Description",
-                false,(MultipleChoiceQuestion) q1);
-        ArrayList<JokerCard> jokerCards = new ArrayList<>(Arrays.asList(j1,j2,j3));
-        MultiPlayerGame initialisedGame = new MultiPlayerGame(questionArray,jokerCards,players);
-        return initialisedGame;
     }
 
     public void setGame(Game game) {

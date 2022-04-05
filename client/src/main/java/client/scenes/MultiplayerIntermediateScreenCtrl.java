@@ -106,7 +106,6 @@ public class MultiplayerIntermediateScreenCtrl {
                     i = 5;
                     mainCtrl.checkGameStatus();
                 }
-                System.out.println("wrong");
             }
         }, 0, 1000);
 
