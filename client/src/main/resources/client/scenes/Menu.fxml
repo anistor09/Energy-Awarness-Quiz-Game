@@ -23,7 +23,7 @@
                         <Font size="40.0" />
                     </font>
                     <HBox.margin>
-                        <Insets />
+                        <Insets top="20.0" />
                     </HBox.margin>
                     <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -100,7 +100,7 @@
                         <Image url="@../../../../../../docs/pictures/multiplayer.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="578.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                  <ImageView fx:id="kachow" fitHeight="578.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../../pictures/lightning_picture.jpg" />
                      </image>
