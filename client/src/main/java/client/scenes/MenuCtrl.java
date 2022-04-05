@@ -94,7 +94,7 @@ public class MenuCtrl {
 
     }
 
-    public void test(ActionEvent actionEvent) {
+    public void test() {
         new GlowText(credits, Color.RED, Color.BLUE).play();
         new Bounce(exit).play();
         new JackInTheBox(credits).play();

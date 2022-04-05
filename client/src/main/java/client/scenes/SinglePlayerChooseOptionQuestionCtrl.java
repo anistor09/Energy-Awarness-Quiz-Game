@@ -268,7 +268,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     }
 
     @FXML
-    void exit() {
+    void exit() throws InterruptedException {
         mainCtrl.setExitedGame(true);
         mainCtrl.goTo("menu");
     }

@@ -227,6 +227,7 @@ public class MainCtrl {
 
         primaryStage.setTitle("Quizzz");
         goTo("menu");
+        menuCtrl.test();
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(e -> {
