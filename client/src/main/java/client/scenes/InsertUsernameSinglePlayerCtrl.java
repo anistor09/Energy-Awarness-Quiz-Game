@@ -110,7 +110,7 @@ public class InsertUsernameSinglePlayerCtrl {
      * @throws FileNotFoundException in case the file storing the username is not found
      */
     public void initialize() throws FileNotFoundException{
-        Scanner usernameScanner = new Scanner(new File("client/src/main/resources/username.txt"));
+        Scanner usernameScanner = new Scanner(new File("client/src/main/resources/username"));
 
         if(usernameScanner.hasNext())
             this.storedUsername = usernameScanner.next();
