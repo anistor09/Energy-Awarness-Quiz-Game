@@ -91,7 +91,6 @@ public class MultiPlayerLobbyCtrl {
      * for when a player is deleted/added to the MultiPlayerGame
      */
     public void prepare() {
-        userNames.setEditable(false);
         starting = false;
         game = server.getCurrentMultiplayerGame();
         this.gameId = server.getCurrentMultiplayerGameId();
@@ -160,5 +159,4 @@ public class MultiPlayerLobbyCtrl {
     protected void goToHelp(){
         mainCtrl.goTo("help");
     }
-
 }

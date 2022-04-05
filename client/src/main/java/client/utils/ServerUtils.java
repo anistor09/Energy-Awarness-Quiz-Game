@@ -43,15 +43,13 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 public class ServerUtils {
 
     private static String SERVER = "http://localhost:8080/";
-    private static String WEBSOCKETSERVER =
+    private static final String WEBSOCKETSERVER =
             SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     private static int multiGameIndex;
 
     public void setSERVER(String SERVER) {
         ServerUtils.SERVER = SERVER;
-        WEBSOCKETSERVER = SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
-        session = connect(WEBSOCKETSERVER + "/websocket");
-        System.out.println(WEBSOCKETSERVER);
+        SERVER.replaceAll("http", "ws").replaceAll("https", "ws");
     }
 
     /**
@@ -61,26 +59,6 @@ public class ServerUtils {
      * @return true if the query for the server is successful, false if it fails.
      */
     public boolean testConnection(String SERVER){
-        try{
-            List<Player> list = ClientBuilder.newClient(new ClientConfig())
-                    .target(SERVER).path("api/player")
-                    .request(APPLICATION_JSON)
-                    .accept(APPLICATION_JSON)
-                    .get(new GenericType<List<Player>>() {});
-            return true;
-        }
-        catch (Exception e) {
-            System.out.println("The server url is invalid! ");
-            return false;
-        }
-    }
-
-    /**
-     * This method checks if the connection with the server has been established.
-     * It is meant to test weather the user has a server running on localhost
-     * @return true if the query for the server is successful, false if it fails.
-     */
-    public boolean testConnection() {
         try{
             List<Player> list = ClientBuilder.newClient(new ClientConfig())
                     .target(SERVER).path("api/player")
@@ -272,7 +250,7 @@ public class ServerUtils {
 
     //  MULTIPLAYER GAME LOGIC
 
-    private StompSession session; //the StompSession
+    private StompSession session = connect(WEBSOCKETSERVER + "/websocket"); //the StompSession
 
     /**
      * This method configures the StompSession for the websocket

@@ -7,21 +7,17 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static com.google.inject.Guice.createInjector;
 
 
-public class MenuCtrl implements Initializable {
+public class MenuCtrl {
 
     private final MainCtrl mainCtrl;
 
@@ -48,9 +44,6 @@ public class MenuCtrl implements Initializable {
 
     @FXML
     private ImageView multiIcon;
-
-    @FXML
-    private ImageView kachow;
 
     @FXML
     private Button multiPlayer;
@@ -98,14 +91,6 @@ public class MenuCtrl implements Initializable {
 
     public void goToLeaderboard(ActionEvent actionEvent) {
         mainCtrl.goTo("SinglePlayerLeaderboard");
-
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        singleIcon.setImage(new Image(MainCtrl.class.getResource("/pictures/single_player.png").toString()));
-        multiIcon.setImage(new Image(MainCtrl.class.getResource("/pictures/multiplayer.png").toString()));
-        kachow.setImage(new Image(MainCtrl.class.getResource("/pictures/lightning_picture.jpg").toString()));
 
     }
 

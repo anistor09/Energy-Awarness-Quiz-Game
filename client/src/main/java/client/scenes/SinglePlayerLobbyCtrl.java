@@ -3,6 +3,7 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 
 import java.util.ArrayList;
@@ -10,7 +11,12 @@ import java.util.List;
 
 public class SinglePlayerLobbyCtrl {
 
-
+    @FXML
+    private Label tmpLabel1;
+    @FXML
+    private Label jokerInfoLabel;
+    @FXML
+    private Label jokerNumber;
 //    @FXML
 //    private CheckBox timeTwister;
     @FXML
@@ -31,8 +37,6 @@ public class SinglePlayerLobbyCtrl {
     private RadioButton medium;
     @FXML
     private RadioButton hard;
-    @FXML
-    private RadioButton insane;
 
 
 
@@ -50,6 +54,7 @@ public class SinglePlayerLobbyCtrl {
 
     @FXML
     protected void startGameButtonClick(){
+        tmpLabel1.setText("Started the game!");
         mainCtrl.goTo("singleGame");
         mainCtrl.setStringJokers(checkedStringJokers);
         resetScreen();
@@ -61,13 +66,13 @@ public class SinglePlayerLobbyCtrl {
     private void resetScreen() {
         for(int i = 0; i < checkedStringJokers.size(); i++){
             switch (checkedStringJokers.get(i)){
-                case "Additional Points Joker":
+                case "AdditionalPointsJoker":
                     pointBoost.setSelected(false);
                     break;
-                case "Eliminate Option Joker":
+                case "EliminateOptionJoker":
                     detective.setSelected(false);
                     break;
-                case "Question Change Joker":
+                case "QuestionChangeJoker":
                     questionChange.setSelected(false);
                     break;
             }
@@ -78,6 +83,16 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void returnScreen(){
         mainCtrl.goTo("menu");
+    }
+
+    @FXML
+    protected void displayJokerInfo(){
+        jokerInfoLabel.setText("Joker info is being displayed!");
+    }
+
+    @FXML
+    protected void stopJokerInfo(){
+        jokerInfoLabel.setText("Joker Info was not pressed");
     }
 
 //    @FXML
@@ -98,19 +113,19 @@ public class SinglePlayerLobbyCtrl {
     @FXML
     protected void addPointBoost(){
         addJokerCard(pointBoost);
-        addStringJokerCard("Additional Points Joker");
+        addStringJokerCard("AdditionalPointsJoker");
     }
 
     @FXML
     protected void addDetective(){
         addJokerCard(detective);
-        addStringJokerCard("Eliminate Option Joker");
+        addStringJokerCard("EliminateOptionJoker");
     }
 
     @FXML
     protected void addQuestionChange(){
         addJokerCard(questionChange);
-        addStringJokerCard("Question Change Joker");
+        addStringJokerCard("QuestionChangeJoker");
     }
 
 //    @FXML
@@ -132,6 +147,7 @@ public class SinglePlayerLobbyCtrl {
     protected void addJokerCard(CheckBox e){
         if(checkedJokers.size() < 3){
             checkedJokers.add(e);
+            jokerNumber.setText(Integer.toString(checkedJokers.size()));
         }
         if(checkedJokers.size() == 3){
             checkedJokers.remove(0);
@@ -146,6 +162,7 @@ public class SinglePlayerLobbyCtrl {
     protected void addStringJokerCard(String e){
         if(checkedStringJokers.size() < 3){
             checkedStringJokers.add(e);
+            jokerNumber.setText(Integer.toString(checkedStringJokers.size()));
         }
         else if (checkedStringJokers.size() == 3){
             checkedStringJokers.remove(0);
@@ -163,7 +180,6 @@ public class SinglePlayerLobbyCtrl {
         easy.setSelected(true);
         medium.setSelected(false);
         hard.setSelected(false);
-        insane.setSelected(false);
         mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(30);
     }
 
@@ -171,7 +187,6 @@ public class SinglePlayerLobbyCtrl {
         easy.setSelected(false);
         medium.setSelected(true);
         hard.setSelected(false);
-        insane.setSelected(false);
         mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(20);
     }
 
@@ -179,15 +194,6 @@ public class SinglePlayerLobbyCtrl {
         easy.setSelected(false);
         medium.setSelected(false);
         hard.setSelected(true);
-        insane.setSelected(false);
-        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(12);
-    }
-
-    public void handleInsane() {
-        easy.setSelected(false);
-        medium.setSelected(false);
-        hard.setSelected(false);
-        insane.setSelected(true);
-        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(8);
+        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(10);
     }
 }

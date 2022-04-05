@@ -3,7 +3,6 @@ package client.scenes;
 import commons.MultiPlayerGame;
 import commons.Player;
 import commons.SinglePlayerGame;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
@@ -95,18 +94,16 @@ public class MultiplayerIntermediateScreenCtrl {
     public void startCountdown() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
-                Platform.runLater(() -> {
-                    countdown.setText("Game Continues in " + i + " Seconds");
-                });
-                i--;
-                if(i <= 0) {
+                if(i <= 0){
                     timer.cancel();
-                    i = 5;
+                    i=5;
                     mainCtrl.checkGameStatus();
                 }
-                System.out.println("wrong");
+                countdown.setText("Game Continues in " + i + " Seconds");
+                i--;
             }
         }, 0, 1000);
 

@@ -12,7 +12,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SinglePlayerLeaderboardCtrl">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#219ebc" height="117.0" stroke="#219ebc" strokeType="INSIDE" width="950.0" />
-      <Text layoutX="408.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Leaderboard" />
+      <Text layoutX="408.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#219ebc" height="415.0" layoutX="239.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
       <VBox layoutX="239.0" layoutY="140.0" prefHeight="416.0" prefWidth="501.0">
          <children>
