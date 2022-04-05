@@ -94,17 +94,17 @@ public class MenuCtrl {
 
     }
 
-    public void test() {
-        new GlowText(credits, Color.RED, Color.BLUE).play();
-        new Bounce(exit).play();
-        new JackInTheBox(credits).play();
-        new Pulse(admin).play();
+    public void runAnimation() {
+        new GlowText(credits, Color.rgb(255, 183, 3), Color.rgb(255, 183, 3)).play();
+        //new Bounce(exit).play();
+        //new JackInTheBox(credits).play();
+        //new Pulse(admin).play();
         new SlideInRight(multiPlayer).play();
         new SlideInLeft(singlePlayer).play();
         new Tada(title).play();
-        new GlowText(title, Color.MAGENTA, Color.AZURE).play();
+        new GlowText(title, Color.rgb(253, 158, 2),Color.rgb(33, 158, 188)).play();
         new LightSpeedIn(title).play();
-        new RotateInDownLeft(singleIcon).play();
-        new RotateInUpRight(multiIcon).play();
+        new RotateInDownRight(singleIcon).play();
+        new RotateInUpLeft(multiIcon).play();
     }
 }

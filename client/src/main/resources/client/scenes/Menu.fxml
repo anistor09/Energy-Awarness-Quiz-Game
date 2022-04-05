@@ -101,7 +101,7 @@
                                         <Image url="@../../../../../../docs/pictures/multiplayer.png" />
                                     </image>
                                 </ImageView>
-                        <Button fx:id="testAnimation" mnemonicParsing="false" onAction="#test" prefHeight="26.0" prefWidth="132.0" text="Test Animations" GridPane.rowIndex="2" />
+                        <Button fx:id="testAnimation" mnemonicParsing="false" onAction="#runAnimation" prefHeight="26.0" prefWidth="132.0" text="Test Animations" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
                     </children>

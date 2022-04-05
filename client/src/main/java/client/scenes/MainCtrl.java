@@ -230,7 +230,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         goTo("menu");
         primaryStage.show();
-        menuCtrl.test();
+        menuCtrl.runAnimation();
 
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
