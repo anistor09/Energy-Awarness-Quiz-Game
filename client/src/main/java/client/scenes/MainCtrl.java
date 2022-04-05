@@ -317,7 +317,6 @@ public class MainCtrl {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            System.out.println("STARTING TIMEBAR ANIMATION");
                             switch (className) {
                                 case "MultipleChoiceQuestion":
                                     singlePlayerGameCtrl.setTime(i+1);
@@ -957,19 +956,19 @@ private List<JokerCard> getJokerList() {
                     public void run() {
                         switch (className) {
                             case "MultipleChoiceQuestion":
-                                singlePlayerGameCtrl.setTime(localPlayer.getTimeLeft());
+                                singlePlayerGameCtrl.setTime(1 + localPlayer.getTimeLeft());
                                 break;
 
                             case "MostEnergyQuestion":
-                                singlePlayerChooseOptionQuestionCtrl.setTime(localPlayer.getTimeLeft());
+                                singlePlayerChooseOptionQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
                                 break;
 
                             case "GuessQuestion":
-                                singlePlayerGuessQuestionCtrl.setTime(localPlayer.getTimeLeft());
+                                singlePlayerGuessQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
                                 break;
 
                             case "InsteadOfQuestion":
-                                singleplayerInsteadOfQuestionCtrl.setTime(localPlayer.getTimeLeft());
+                                singleplayerInsteadOfQuestionCtrl.setTime(1 + localPlayer.getTimeLeft());
                                 break;
                             default:
                                 break;

@@ -276,6 +276,24 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
 
     public void setTime(int i) {
         time.setText("Time Left: " + i + "seconds");
+        int colourChange1;
+        int colourChange2;
+        int colourChange3;
+        if(mainCtrl.getGame() instanceof SinglePlayerGame){
+            int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                    .getAllowedTime();
+            colourChange1 = (int) ( allowedTime * 0.75);
+            colourChange2 = (int) ( allowedTime * 0.5);
+            colourChange3 = (int) ( allowedTime * 0.25);
+        }
+        else{
+            colourChange1 = 15;
+            colourChange2 = 10;
+            colourChange3 = 5;
+        }
+        if(i == colourChange1){
+            time.(Color.web("#FFFF00"));
+        }
     }
 
     /**
