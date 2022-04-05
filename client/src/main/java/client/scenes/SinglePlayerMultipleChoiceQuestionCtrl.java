@@ -1,5 +1,6 @@
 package client.scenes;
 
+import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.application.Platform;
@@ -245,6 +246,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
             changeButtonColours(option1, "green");
             handleCorrect();
+            new Bounce(option1).play();
+            new Bounce(icon1).play();
         } else {
             changeButtonColours(option1, "red");
             handleWrong();
@@ -259,6 +262,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
             changeButtonColours(option2, "green");
             handleCorrect();
+            new Bounce(option2).play();
+            new Bounce(icon2).play();
         } else {
             changeButtonColours(option2, "red");
             handleWrong();
@@ -273,6 +278,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 2) {
             changeButtonColours(option3, "green");
             handleCorrect();
+            new Bounce(option3).play();
+            new Bounce(icon3).play();
         } else {
             changeButtonColours(option3, "red");
             handleWrong();
@@ -327,10 +334,16 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     void handleWrong() {
         if (questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 0) {
             changeButtonColours(option1, "green");
+            new Bounce(option1).play();
+            new Bounce(icon1).play();
         } else if(questionObject.getOptions().indexOf(questionObject.getActivity().getConsumption_in_wh()) == 1) {
             changeButtonColours(option2, "green");
+            new Bounce(option2).play();
+            new Bounce(icon2).play();
         } else {
             changeButtonColours(option3, "green");
+            new Bounce(option3).play();
+            new Bounce(icon3).play();
         }
         IntermediateScreenCtrl.setPointsGained(0);
         questionObject.setChosenAnswerCorrect(false);
