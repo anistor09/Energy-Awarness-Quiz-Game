@@ -47,3 +47,7 @@
 #insane:selected .radio .dot {
     -fx-background-color: purple;
 }
+
+#userNames {
+    -fx-font-size: 15;
+}
