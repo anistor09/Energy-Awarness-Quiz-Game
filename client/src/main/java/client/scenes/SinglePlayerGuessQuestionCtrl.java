@@ -188,63 +188,63 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
      * This method starts the animation for the timer bar
      */
     public void startTimerAnimation() {
-        double i = 0;
-        int colourChange1 = 0;
-        int colourChange2 = 0;
-        int colourChange3 = 0;
-        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
-
-
-        if(mainCtrl.getGame() instanceof MultiPlayerGame){
-            i = mainCtrl.getLocalPlayer().getTimeLeft() + 0.5;
-            System.out.println(mainCtrl.getLocalPlayer().getTimeLeft());
-            timerAnimation.setDuration(Duration.seconds(i));
-            timerAnimation.setFromX(i*0.05);
-            timerAnimation.setToX(0);
-            timerAnimation.play();
-            if(i>15) {
-                colourChange1 = (int) (5000 - ((20-i)*1000));
-            }
-            if(i>10) {
-                colourChange2 = (int) (10000 - ((20-i)*1000));
-            }
-            if (i > 5) {
-                colourChange3 = (int) (15000 - ((20-i)*1000));
-            }
-        }
-        else{
-            i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
-            timerAnimation.setDuration(Duration.seconds(i));
-            timerAnimation.setFromX(1);
-            timerAnimation.setToX(0);
-            timerAnimation.play();
-            colourChange1 = (int) (i*1000*0.25);
-            colourChange2 = (int) (i*1000*0.5);
-            colourChange3 = (int) (i*1000*0.75);
-        }
-
-        Timer changeTimerBarColor = new Timer();
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFFF00"));
-                changeTimerBarColor.cancel();
-            }
-        }, colourChange1);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFA500"));
-                changeTimerBarColor.cancel();
-            }
-        },colourChange2);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FF0000"));
-                changeTimerBarColor.cancel();
-            }
-        },colourChange3);
+//        double i = 0;
+//        int colourChange1 = 0;
+//        int colourChange2 = 0;
+//        int colourChange3 = 0;
+//        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
+//
+//
+//        if(mainCtrl.getGame() instanceof MultiPlayerGame){
+//            i = mainCtrl.getLocalPlayer().getTimeLeft() + 0.5;
+//            System.out.println(mainCtrl.getLocalPlayer().getTimeLeft());
+//            timerAnimation.setDuration(Duration.seconds(i));
+//            timerAnimation.setFromX(i*0.05);
+//            timerAnimation.setToX(0);
+//            timerAnimation.play();
+//            if(i>15) {
+//                colourChange1 = (int) (5000 - ((20-i)*1000));
+//            }
+//            if(i>10) {
+//                colourChange2 = (int) (10000 - ((20-i)*1000));
+//            }
+//            if (i > 5) {
+//                colourChange3 = (int) (15000 - ((20-i)*1000));
+//            }
+//        }
+//        else{
+//            i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
+//            timerAnimation.setDuration(Duration.seconds(i));
+//            timerAnimation.setFromX(1);
+//            timerAnimation.setToX(0);
+//            timerAnimation.play();
+//            colourChange1 = (int) (i*1000*0.25);
+//            colourChange2 = (int) (i*1000*0.5);
+//            colourChange3 = (int) (i*1000*0.75);
+//        }
+//
+//        Timer changeTimerBarColor = new Timer();
+//        changeTimerBarColor.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                timeBar.setFill(Color.valueOf("#FFFF00"));
+//                changeTimerBarColor.cancel();
+//            }
+//        }, colourChange1);
+//        changeTimerBarColor.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                timeBar.setFill(Color.valueOf("#FFA500"));
+//                changeTimerBarColor.cancel();
+//            }
+//        },colourChange2);
+//        changeTimerBarColor.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                timeBar.setFill(Color.valueOf("#FF0000"));
+//                changeTimerBarColor.cancel();
+//            }
+//        },colourChange3);
     }
 
     /**
