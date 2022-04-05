@@ -213,9 +213,9 @@ public class MainCtrl {
         this.admin.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
-        this.multiPlayerIntermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
         this.credits.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
-//        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.multiPlayerIntermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
+        this.singlePlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.multiplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerGame.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
@@ -225,6 +225,7 @@ public class MainCtrl {
         this.singlePlayerLeaderboard.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singlePlayerStartCountdownScreen.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.multiPlayerLobby.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
 
 
         primaryStage.setTitle("Quizzz");

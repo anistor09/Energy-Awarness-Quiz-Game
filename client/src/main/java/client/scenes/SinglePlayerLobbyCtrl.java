@@ -31,6 +31,8 @@ public class SinglePlayerLobbyCtrl {
     private RadioButton medium;
     @FXML
     private RadioButton hard;
+    @FXML
+    private RadioButton insane;
 
 
 
@@ -161,6 +163,7 @@ public class SinglePlayerLobbyCtrl {
         easy.setSelected(true);
         medium.setSelected(false);
         hard.setSelected(false);
+        insane.setSelected(false);
         mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(30);
     }
 
@@ -168,6 +171,7 @@ public class SinglePlayerLobbyCtrl {
         easy.setSelected(false);
         medium.setSelected(true);
         hard.setSelected(false);
+        insane.setSelected(false);
         mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(20);
     }
 
@@ -175,6 +179,15 @@ public class SinglePlayerLobbyCtrl {
         easy.setSelected(false);
         medium.setSelected(false);
         hard.setSelected(true);
-        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(10);
+        insane.setSelected(false);
+        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(12);
+    }
+
+    public void handleInsane() {
+        easy.setSelected(false);
+        medium.setSelected(false);
+        hard.setSelected(false);
+        insane.setSelected(true);
+        mainCtrl.getSingleplayerStartCountdownScreenCtrl().setDifficulty(8);
     }
 }

@@ -79,6 +79,11 @@ public class ServerUtils {
         }
     }
 
+    /**
+     * This method checks if the connection with the server has been established.
+     * It is meant to test weather the user has a server running on localhost
+     * @return true if the query for the server is successful, false if it fails.
+     */
     public boolean testConnection() {
         try{
             List<Player> list = ClientBuilder.newClient(new ClientConfig())
@@ -94,19 +99,6 @@ public class ServerUtils {
         }
     }
 
-    /**
-     * This method gets the quotes from the url
-     * @throws IOException = In case the input is wrong
-     */
-    public void getQuotesTheHardWay() throws IOException {
-        var url = new URL("http://localhost:8080/api/quotes");
-        var is = url.openConnection().getInputStream();
-        var br = new BufferedReader(new InputStreamReader(is));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-    }
     public String getServer(){
         return SERVER;
     }

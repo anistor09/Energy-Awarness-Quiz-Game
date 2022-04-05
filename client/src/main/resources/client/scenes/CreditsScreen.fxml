@@ -56,6 +56,6 @@
                 <Font size="25.0" />
             </font>
         </Label>
-      <Button fx:id="help" layoutX="786.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToHelp" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #023047;" text="Help" textFill="#fb8500" />
+      <Button fx:id="help" layoutX="786.0" layoutY="621.0" mnemonicParsing="false" onAction="#goToHelp" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #023047; -fx-background-radius: 10;" text="Help" textFill="#fb8500" />
     </children>
 </Pane>

@@ -5,7 +5,6 @@ import client.MyModule;
 import client.utils.ServerUtils;
 import com.google.inject.Injector;
 import commons.Activity;
-import commons.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
