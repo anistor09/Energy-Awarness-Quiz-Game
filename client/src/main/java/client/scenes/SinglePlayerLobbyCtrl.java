@@ -35,8 +35,6 @@ public class SinglePlayerLobbyCtrl {
     private RadioButton insane;
 
 
-
-
     private final MainCtrl mainCtrl;
 
     ArrayList<CheckBox> checkedJokers = new ArrayList<CheckBox>();
@@ -72,6 +70,7 @@ public class SinglePlayerLobbyCtrl {
                     break;
             }
         }
+
         checkedStringJokers = new ArrayList<>();
     }
 
@@ -97,20 +96,45 @@ public class SinglePlayerLobbyCtrl {
 
     @FXML
     protected void addPointBoost(){
-        addJokerCard(pointBoost);
-        addStringJokerCard("Additional Points Joker");
+        if (pointBoost.isSelected()) {
+            System.out.println("is selected");
+            addJokerCard(pointBoost);
+            addStringJokerCard("Additional Points Joker");
+        } else {
+            System.out.println("is unselected");
+            checkedJokers.remove(pointBoost);
+            checkedStringJokers.remove("Additional Points Joker");
+        }
+
     }
 
     @FXML
     protected void addDetective(){
-        addJokerCard(detective);
-        addStringJokerCard("Eliminate Option Joker");
+        // check if it is selected
+        if (detective.isSelected()) {
+            System.out.println("is selected");
+            addJokerCard(detective);
+            addStringJokerCard("Eliminate Option Joker");
+        } else {
+            System.out.println("is unselected");
+            checkedJokers.remove(detective);
+            checkedStringJokers.remove("Eliminate Option Joker");
+        }
+
     }
 
     @FXML
     protected void addQuestionChange(){
-        addJokerCard(questionChange);
-        addStringJokerCard("Question Change Joker");
+        if (questionChange.isSelected()) {
+            System.out.println("is selected");
+            addJokerCard(questionChange);
+            addStringJokerCard("Question Change Joker");
+        } else {
+            System.out.println("is unselected");
+            checkedJokers.remove(questionChange);
+            checkedStringJokers.remove("Question Change Joker");
+        }
+
     }
 
 //    @FXML
