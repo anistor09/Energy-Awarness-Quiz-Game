@@ -150,7 +150,6 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         List<JokerCard> jokerList = player.getJokerCards();
         jokerAlertMessage.setText("");
         this.setJokers(jokerList);
-
     }
 
 
