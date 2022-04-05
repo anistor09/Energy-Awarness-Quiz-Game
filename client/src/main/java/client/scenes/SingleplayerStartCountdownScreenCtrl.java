@@ -34,7 +34,7 @@ public class SingleplayerStartCountdownScreenCtrl {
 
             @Override
             public void run() {
-                if(i < 0){
+                if(i <= 0){
                     timer.cancel();
                     Platform.runLater(new Runnable() {
                         @Override
