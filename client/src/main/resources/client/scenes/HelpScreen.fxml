@@ -7,9 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #219EBC;" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HelpCtrl">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #219EBC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HelpCtrl">
     <children>
         <Rectangle fill="#126782" height="70.0" layoutX="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="956.0" />
         <Text fill="#fb8500" layoutX="433.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Help">
@@ -62,8 +60,6 @@
                 <Font size="20.0" />
             </font>
         </Text>
-        <Button layoutX="60.0" layoutY="630.0" mnemonicParsing="false" onMouseClicked="#goToMenu" prefHeight="25.0"
-                prefWidth="62.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #023047;" text="Return"
-                textFill="#fb8500" />
+        <Button layoutX="60.0" layoutY="630.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#goToMenu" prefHeight="25.0" prefWidth="65.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #023047; -fx-background-radius: 10;" text="Return" textFill="#fb8500" />
     </children>
 </Pane>
