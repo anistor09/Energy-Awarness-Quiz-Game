@@ -34,16 +34,13 @@ public class SingleplayerStartCountdownScreenCtrl {
 
             @Override
             public void run() {
-                if(i<0){
+                if(i < 0){
                     timer.cancel();
+                    Platform.runLater(() -> timeLeft.setText("Starting Game!"));
                     mainCtrl.playSinglePLayerGame(player, difficulty);
+
                 }
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        timeLeft.setText((i + 1) + " Seconds!");
-                    }
-                });
+                Platform.runLater(() -> timeLeft.setText((i + 1) + " Seconds!"));
                 i--;
             }
         },0,1000);

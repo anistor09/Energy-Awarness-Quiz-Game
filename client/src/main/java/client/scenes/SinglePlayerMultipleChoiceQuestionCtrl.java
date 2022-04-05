@@ -32,8 +32,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     private HBox emojiBar;
 
     @FXML
-    private Label jokerMessage;
-    @FXML
     private Label ReactionName;
     @FXML
     private Label jokerAlertMessage;
@@ -98,9 +96,10 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     private Label debug;
 
-    private Rectangle timeBar;
     @FXML
-    private int timeBarWidth = 950;
+    private Rectangle timeBar;
+
+    private final int timeBarWidth = 950;
 
 
     private final MainCtrl mainCtrl;
@@ -133,7 +132,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
                 get(currentGame.getCurrentQuestionNumber());
         Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
-        score.setText(String.valueOf(player.getCurrentScore()));
+        score.setText("Score: " + player.getCurrentScore());
         Activity act = q.getActivity();
         question.setText(String.valueOf(act.getTitle()));
         List options = q.getOptions();
@@ -153,7 +152,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
-        jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         jokerAlertMessage.setText("");
     }
 
@@ -340,37 +339,37 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
             joker1.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton3() {
         if (canUseJoker(joker3.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
             joker3.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
@@ -381,15 +380,41 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * This method starts the animation for the timer bar
      */
     public void startTimerAnimation() {
-        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
-        int colourChange1 = (int) (i*1000*0.25);
-        int colourChange2 = (int) (i*1000*0.5);
-        int colourChange3 = (int) (i*1000*0.75);
-
+        double i = 0;
+        int colourChange1 = 0;
+        int colourChange2 = 0;
+        int colourChange3 = 0;
         ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
-        timerAnimation.setFromX(1);
-        timerAnimation.setToX(0);
-        timerAnimation.play();
+
+
+        if(mainCtrl.getGame() instanceof MultiPlayerGame){
+            i = mainCtrl.getLocalPlayer().getTimeLeft() + 0.5;
+            System.out.println(mainCtrl.getLocalPlayer().getTimeLeft());
+            timerAnimation.setDuration(Duration.seconds(i));
+            timerAnimation.setFromX(i*0.05);
+            timerAnimation.setToX(0);
+            timerAnimation.play();
+            if(i>15) {
+                colourChange1 = (int) (5000 - ((20-i)*1000));
+            }
+            if(i>10) {
+                colourChange2 = (int) (10000 - ((20-i)*1000));
+            }
+            if (i > 5) {
+                colourChange3 = (int) (15000 - ((20-i)*1000));
+            }
+        }
+        else{
+            i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
+            timerAnimation.setDuration(Duration.seconds(i));
+            timerAnimation.setFromX(1);
+            timerAnimation.setToX(0);
+            timerAnimation.play();
+            colourChange1 = (int) (i*1000*0.25);
+            colourChange2 = (int) (i*1000*0.5);
+            colourChange3 = (int) (i*1000*0.75);
+        }
+
         Timer changeTimerBarColor = new Timer();
         changeTimerBarColor.schedule(new TimerTask() {
             @Override
@@ -436,9 +461,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-
         server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
+
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
      * @param event Event that occurs when an image view for Emoji is pressed.
@@ -450,12 +475,25 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
+     *
+     * @param absolutePath
+     * @return
+     */
+
+    public String getLocalPath(String absolutePath){
+        String[] result = absolutePath.split("/");
+        return "/"+ result[result.length-2] + "/" + result[result.length-1];
+    }
+
+
+    /**
      * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
      * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
      */
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
-        reaction.setImage(new Image(e.getEmojiPath()));
+        String localPath = MainCtrl.class.getResource(getLocalPath(e.getEmojiPath())).toString();
+        reaction.setImage(new Image(localPath));
         ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
         scale.setToX(1);
         scale.setToY(1);
