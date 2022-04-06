@@ -321,7 +321,7 @@ public class MainCtrl {
                         if (currentQuestionNumber1 < game.getQuestions().size() - 1) {
                             goTo("intermediateScreen");
                         } else {
-                            goTo("SinglePlayerLeaderboard");
+                            checkGameStatus();
                         }
                     });
                 }
