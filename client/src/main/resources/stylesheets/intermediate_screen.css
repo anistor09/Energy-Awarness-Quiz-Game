@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');*/
 
 
 .root {
     -fx-background-color: #126782;
     -fx-font-size: 20pt;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: 'Times New Roman';
 }
 
 .label {
