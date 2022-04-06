@@ -275,6 +275,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 throw new NullPointerException("No player found");
             }
             p.setCurrentScore(p.getCurrentScore() + points);
+            mainCtrl.getLocalPlayer().setCurrentScore(mainCtrl.getLocalPlayer().getCurrentScore()+points);
             if (points == 100) {
                 actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
                         questionObject.getActivity().getConsumption_in_wh() + "wh");
