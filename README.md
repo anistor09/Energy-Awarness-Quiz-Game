@@ -11,7 +11,7 @@ Panel so people can edit/delete/create energy-Activities that will later be part
 | ![](https://eu.ui-avatars.com/api/?name=RBB&length=4&size=50&color=DDD&background=777&font-size=0.325) | Rafael Borges | R.BragaMedeirosMotaBorges@student.tudelft.nl | </br>
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Alexandru Nistor | a.nistor@student.tudelft.nl | </br>
 | ![](https://eu.ui-avatars.com/api/?name=ASK&length=4&size=50&color=DDD&background=777&font-size=0.325) | Ansh Kumar | anshkumar@student.tudelft.nl | </br>
-*Missing Max to Add*
+| ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Maksym Ziemlewski | M.Ziemlewski@student.tudelft.nl | </br>
 
 
 <!-- Instructions (remove once assignment has been completed -->
