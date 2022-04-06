@@ -220,7 +220,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
     public void option1Handler() {
         if(activityList.indexOf(generateExpensiveActivity()) == 0) {
             changeButtonColours(option1, "green");
-            bounceEffect(option1, option1Image);
+            //bounceEffect(option1, option1Image);
             handleCorrect();
         } else {
             changeButtonColours(option1, "red");
@@ -234,7 +234,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     public void option2Handler() {
         if(activityList.indexOf(generateExpensiveActivity()) == 1) {
-            bounceEffect(option1, option1Image);
+            //bounceEffect(option2, option2Image);
             changeButtonColours(option2, "green");
             handleCorrect();
         } else {
@@ -249,7 +249,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
      */
     public void option3Handler() {
         if(activityList.indexOf(generateExpensiveActivity()) == 2) {
-            bounceEffect(option3, option3Image);
+            //bounceEffect(option3, option3Image);
             changeButtonColours(option3, "green");
             handleCorrect();
         } else {
@@ -375,13 +375,13 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         IntermediateScreenCtrl.setPointsGained(0);
         if (activityList.indexOf(generateExpensiveActivity()) == 0) {
             changeButtonColours(option1, "green");
-            bounceEffect(option1, option1Image);
+            //bounceEffect(option1, option1Image);
         } else if(activityList.indexOf(generateExpensiveActivity()) == 1) {
             changeButtonColours(option2, "green");
-            bounceEffect(option2, option2Image);
+            //bounceEffect(option2, option2Image);
         } else {
             changeButtonColours(option3, "green");
-            bounceEffect(option3, option3Image);
+            //bounceEffect(option3, option3Image);
         }
     }
     @FXML

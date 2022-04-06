@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
+
+.root {
+    -fx-background-color: #126782;
+    -fx-font-size: 10pt;
+    -fx-font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+
+.label {
+    -fx-text-fill: #FD9E02;
+}

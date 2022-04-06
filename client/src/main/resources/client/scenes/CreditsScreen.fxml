@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #219EBC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CreditsCtrl">
+<Pane fx:id="credits" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #219EBC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CreditsCtrl">
     <children>
         <Rectangle fill="#126782" height="70.0" layoutX="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="956.0" />
         <Text fill="#fb8500" layoutX="419.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credits">

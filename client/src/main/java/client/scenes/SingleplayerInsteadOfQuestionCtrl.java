@@ -288,7 +288,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void option1Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0){
             changeButtonColours(option1, "green");
-            bounceEffect(option1, option1Image);
+            //bounceEffect(option1, option1Image);
             handleCorrect();
         } else {
             changeButtonColours(option1, "red");
@@ -303,7 +303,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void option2Handler() {
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1){
             changeButtonColours(option2, "green");
-            bounceEffect(option2, option2Image);
+            //bounceEffect(option2, option2Image);
             handleCorrect();
         } else {
             changeButtonColours(option2, "red");
@@ -318,7 +318,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     public void option3Handler(){
         if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 2){
             changeButtonColours(option3, "green");
-            bounceEffect(option3, option3Image);
+            //bounceEffect(option3, option3Image);
             handleCorrect();
         } else {
             changeButtonColours(option3, "red");
@@ -376,13 +376,13 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         IntermediateScreenCtrl.setPointsGained(0);
         if (questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 0) {
             changeButtonColours(option1, "green");
-            bounceEffect(option1, option1Image);
+            //bounceEffect(option1, option1Image);
         } else if(questionObject.getOptions().indexOf(questionObject.getCorrectAnswer()) == 1) {
             changeButtonColours(option2, "green");
-            bounceEffect(option2, option2Image);
+            //bounceEffect(option2, option2Image);
         } else {
             changeButtonColours(option3, "green");
-            bounceEffect(option3, option3Image);
+            //bounceEffect(option3, option3Image);
         }
     }
 
