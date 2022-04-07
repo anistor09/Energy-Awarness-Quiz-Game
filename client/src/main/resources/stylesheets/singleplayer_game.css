@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');*/
 
 .root {
     -fx-background-color: #126782;
-    -fx-font-family: 'ZCOOL QingKe HuangYou', cursive;
+    -fx-font-family: 'Times New Roman';
 }
 
 .button:hover {
