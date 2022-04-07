@@ -370,7 +370,12 @@ public class MainCtrl {
             Question q = game.getQuestions().get(currentQuestionNumber);
             String className = getClassName(q.getClass().getName());
 
-            switchQuestionScreen(className);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    switchQuestionScreen(className);
+                }
+            });
         } else {
             if (game instanceof SinglePlayerGame) {
                 SinglePlayerGame spg = (SinglePlayerGame) this.game;
