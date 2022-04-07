@@ -336,7 +336,6 @@ public class MainCtrl {
                             }
                         }
                     });
-
                     MainCtrl.setTimeLeft(i);
                     i--;
                 }

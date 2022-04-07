@@ -149,7 +149,6 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void resetScreen(){
         userAnswer.setText("");
         actualAnswer.setText("");
-        time.setStyle("-fx-background-color: #00FF00");
     }
 
     /**
@@ -183,14 +182,19 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
         image.setImage(img);
     }
 
+    /**
+     * This method sets the numerical representation of the timer and also changes the colour of the label to represent
+     * how far the player is in the question
+     * @param i is the time left for the question
+     */
     public void setTime(int i) {
         time.setText("Time Left: " + i + " seconds");
         int colourChange1;
         int colourChange2;
         int colourChange3;
+        int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
         if(mainCtrl.getGame() instanceof SinglePlayerGame){
-            int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
-                    .getAllowedTime();
             colourChange1 = (int) ( allowedTime * 0.75);
             colourChange2 = (int) ( allowedTime * 0.5);
             colourChange3 = (int) ( allowedTime * 0.25);
@@ -200,13 +204,16 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
             colourChange2 = 10;
             colourChange3 = 5;
         }
-        if(i == colourChange1){
+        if(i == allowedTime){
+            time.setStyle("-fx-background-color: #00FF00");
+        }
+        if(i < colourChange1 && i >= colourChange2){
             time.setStyle("-fx-background-color: #FFFF00");
         }
-        if(i == colourChange2){
+        if(i < colourChange2 && i >= colourChange3){
             time.setStyle("-fx-background-color: #FFA500");
         }
-        if(i == colourChange3){
+        if(i < colourChange3){
             time.setStyle("-fx-background-color: #FF0000");
         }
     }
