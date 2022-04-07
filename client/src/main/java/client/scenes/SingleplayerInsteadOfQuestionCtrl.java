@@ -4,7 +4,6 @@ import animatefx.animation.Bounce;
 import client.utils.ServerUtils;
 import commons.*;
 import javafx.scene.Node;
-import javafx.scene.shape.Rectangle;
 import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
 import javafx.event.Event;
@@ -16,7 +15,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 

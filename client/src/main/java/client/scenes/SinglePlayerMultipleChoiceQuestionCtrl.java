@@ -8,8 +8,6 @@ import javafx.animation.ScaleTransition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

@@ -3,7 +3,6 @@ package client.scenes;
 import commons.MultiPlayerGame;
 import commons.Player;
 import commons.SinglePlayerGame;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;

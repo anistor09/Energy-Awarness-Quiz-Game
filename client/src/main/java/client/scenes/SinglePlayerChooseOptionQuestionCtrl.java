@@ -5,8 +5,6 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.*;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
