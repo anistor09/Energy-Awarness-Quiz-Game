@@ -43,12 +43,12 @@
                     <children>
                         <VBox prefHeight="220.0" prefWidth="762.0">
                             <children>
-                                <Label fx:id="jokerAlertMessage" prefHeight="18.0" prefWidth="301.0" text="Label" textFill="#fc0101">
+                                <Label fx:id="jokerAlertMessage" prefHeight="30.0" prefWidth="378.0" text="Label" textFill="#fc0101">
                                     <padding>
                                         <Insets left="10.0" />
                                     </padding>
                                     <font>
-                                        <Font size="12.0" />
+                                        <Font size="14.0" />
                                     </font>
                                 </Label>
                                 <Button fx:id="joker1" mnemonicParsing="false" onAction="#handleJokerButton1" prefHeight="45.0" prefWidth="285.0" text="Joker 1" />
