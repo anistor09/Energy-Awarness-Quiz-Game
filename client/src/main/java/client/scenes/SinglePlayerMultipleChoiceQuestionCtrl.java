@@ -99,8 +99,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     public Label time;
 
-    private final int timeBarWidth = 950;
-
 
     private final MainCtrl mainCtrl;
     private MultipleChoiceQuestion questionObject;

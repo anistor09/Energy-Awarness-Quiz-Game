@@ -315,25 +315,30 @@ public class MainCtrl {
                 int currentQuestionNumber = game.getCurrentQuestionNumber();
                 Question q = game.getQuestions().get(currentQuestionNumber);
                 String className = getClassName(q.getClass().getName());
-                switch (className) {
-                    case "MultipleChoiceQuestion":
-                        singlePlayerGameCtrl.setTime(i + 1);
-                        break;
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (className) {
+                            case "MultipleChoiceQuestion":
+                                singlePlayerGameCtrl.setTime(i + 1);
+                                break;
 
-                    case "MostEnergyQuestion":
-                        singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
-                        break;
+                            case "MostEnergyQuestion":
+                                singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
+                                break;
 
-                    case "GuessQuestion":
-                        singlePlayerGuessQuestionCtrl.setTime(i + 1);
-                        break;
+                            case "GuessQuestion":
+                                singlePlayerGuessQuestionCtrl.setTime(i + 1);
+                                break;
 
-                    case "InsteadOfQuestion":
-                        singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
-                        break;
-                    default:
-                        break;
-                }
+                            case "InsteadOfQuestion":
+                                singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
 
                 MainCtrl.setTimeLeft(i);
                 i--;
