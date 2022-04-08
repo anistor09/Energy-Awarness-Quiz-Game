@@ -5,12 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class MultiPlayerGameTest {
@@ -114,4 +111,40 @@ class MultiPlayerGameTest {
         assertNotEquals(mpg, mpg3);
     }
 
+    @Test
+    void setPlayers() {
+        ArrayList<Player> newList = new ArrayList<>(Arrays.asList(player2, player4));
+        mpg.setPlayers(newList);
+        assertEquals(mpg.getPlayers(), newList);
+    }
+
+    @Test
+    void setLeaderboard() {
+        HashMap<Player, Integer> leaderboard = new HashMap<>();
+        leaderboard.put(player1, 230);
+        leaderboard.put(player5, 71);
+        mpg.setLeaderboard(leaderboard);
+        assertEquals(mpg.getLeaderboard(), leaderboard);
+    }
+
+
+    @Test
+    void getLeaderboard() {
+        HashMap<Player, Integer> leaderboard = new HashMap<>();
+        leaderboard.put(player1, 100);
+        leaderboard.put(player5, 199);
+        mpg.setLeaderboard(leaderboard);
+        assertEquals(mpg.getLeaderboard(), leaderboard);
+    }
+
+    @Test
+    void testToString() {
+        String test = mpg.toString();
+        assertEquals("MultiPlayerGame{players=[Player{id=null, " +
+                "username='som', currentScore=320}, Player{id=null, username='ansh', currentScore=220}," +
+                " Player{id=null, username='alex', currentScore=420}, Player{id=null, " +
+                "username='max', currentScore=340}, Player{id=null, username='rafael', " +
+                "currentScore=330}], leaderboard={}}",
+                mpg.toString());
+    }
 }

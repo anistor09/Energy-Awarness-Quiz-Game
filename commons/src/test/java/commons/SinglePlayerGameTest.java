@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 class SinglePlayerGameTest {
@@ -106,5 +107,40 @@ class SinglePlayerGameTest {
     @Test
     void testNotEquals() {
         assertNotEquals(spg1, spg3);
+    }
+
+    @Test
+    void getPlayer() {
+        assertEquals(player2, spg3.getPlayer());
+    }
+
+    @Test
+    void setPlayer() {
+        spg2.setPlayer(player2);
+        assertEquals(player2, spg2.getPlayer());
+    }
+
+    @Test
+    void testEquals2() {
+        assertFalse(player1.equals(spg2));
+    }
+
+    @Test
+    void testHashCode() {
+        AdditionalPointsJoker additionalPointsJoker1 = new AdditionalPointsJoker("Additional",
+                "Adds 10 additional points if you answer correctly",
+                false, player1, q4);
+        SinglePlayerGame spg4 = new SinglePlayerGame(
+                new ArrayList<Question>(Arrays.asList(q1, q2, q3, q4, q5, q6)),
+                new ArrayList<JokerCard>(Arrays.asList(additionalPointsJoker1)),
+                player2);
+        assertEquals(spg4.hashCode(), spg3.hashCode());
+    }
+
+    @Test
+    void testToString() {
+        assertEquals("SinglePlayerGame" +
+                "{player=Player{id=null, username='ansh', currentScore=220}}"
+                , spg1.toString());
     }
 }

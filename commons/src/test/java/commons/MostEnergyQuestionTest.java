@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MostEnergyQuestionTest {
     private MostEnergyQuestion q1;
@@ -76,5 +73,45 @@ class MostEnergyQuestionTest {
     void checkValidity() {
         assertFalse(q3.checkValidity());
         assertTrue(q5.checkValidity());
+    }
+
+    @Test
+    void getOtherActivities(){
+        ArrayList<Activity> test = new ArrayList<Activity>(Arrays.asList(act2, act3));
+        assertEquals(q1.getOtherActivities(), test);
+    }
+
+    @Test
+    void setOtherActivities(){
+        ArrayList<Activity> test = new ArrayList<Activity>(Arrays.asList(act4, act5));
+        q1.setOtherActivities(test);
+        assertEquals(q1.getOtherActivities(), test);
+    }
+
+    @Test
+    void testSetCorrectAnswer(){
+        q1.setCorrectAnswer(act1);
+        assertEquals(act1, q1.getCorrectAnswer());
+    }
+
+    @Test
+    void testGetCorrectAnswer(){
+        q2.setCorrectAnswer(act4);
+        assertEquals(act4, q2.getCorrectAnswer());
+    }
+
+    @Test
+    void constructorTest(){
+        MostEnergyQuestion qq = new MostEnergyQuestion();
+        assertNotNull(qq);
+    }
+
+    @Test
+    void toStringTest(){
+        String res = "MostEnergyQuestion{otherActivities=[Activity{id='1', " +
+                "image_path='change/this', title='Cook one egg', consumption_in_wh=1000, " +
+                "source='change/this'}, Activity{id='2', image_path='change/this', title='Cook two eggs', " +
+                "consumption_in_wh=2000, source='change/this'}], correctAnswer=null}";
+        assertEquals(res, q1.toString());
     }
 }
