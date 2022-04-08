@@ -276,19 +276,22 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
         int colourChange1;
         int colourChange2;
         int colourChange3;
-        int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
-                .getAllowedTime();
+        int allowedTime ;
         if(mainCtrl.getGame() instanceof SinglePlayerGame){
+            allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                    .getAllowedTime();
             colourChange1 = (int) ( allowedTime * 0.75);
             colourChange2 = (int) ( allowedTime * 0.5);
             colourChange3 = (int) ( allowedTime * 0.25);
+
         }
         else{
+            allowedTime=20;
             colourChange1 = 15;
             colourChange2 = 10;
             colourChange3 = 5;
         }
-        if(i < allowedTime && i >= colourChange1){
+        if(i <= allowedTime && i >= colourChange1){
             time.setStyle("-fx-background-color: #00FF00");
         }
         if(i < colourChange1 && i >= colourChange2){
