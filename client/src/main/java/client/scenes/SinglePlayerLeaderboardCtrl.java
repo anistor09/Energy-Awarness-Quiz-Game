@@ -99,6 +99,10 @@ public class SinglePlayerLeaderboardCtrl {
     public void initialiseLeaderboard() {
         playAgain.setVisible(true);
         if(mainCtrl.getGame() == null) {
+            if(!serverUtils.testConnection()) {
+                mainCtrl.goTo("error");
+                return;
+            }
             playAgain.setVisible(false);
         }
         // get list of players from server util

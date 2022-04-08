@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="680.0" prefWidth="950.0" stylesheets="@../../stylesheets/menu_stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminPanelCtrl">
+<AnchorPane prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminPanelCtrl">
     <children>
         <Rectangle fill="#8ecae6" height="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="950.0" />
         <Text layoutX="406.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Panel" />

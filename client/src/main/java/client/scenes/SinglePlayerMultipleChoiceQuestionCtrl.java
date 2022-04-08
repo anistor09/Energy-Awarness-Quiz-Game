@@ -2,12 +2,10 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
-import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +17,9 @@ import javafx.util.Duration;
 
 import javax.inject.Inject;
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
@@ -31,8 +31,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     private HBox emojiBar;
 
-    @FXML
-    private Label jokerMessage;
     @FXML
     private Label ReactionName;
     @FXML
@@ -98,9 +96,8 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     private Label debug;
 
-    private Rectangle timeBar;
     @FXML
-    private int timeBarWidth = 950;
+    public Label time;
 
 
     private final MainCtrl mainCtrl;
@@ -133,7 +130,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
                 get(currentGame.getCurrentQuestionNumber());
         Player player = mainCtrl.getLocalPlayer();
         questionObject = q;
-        score.setText(String.valueOf(player.getCurrentScore()));
+        score.setText("Score: " + player.getCurrentScore());
         Activity act = q.getActivity();
         question.setText(String.valueOf(act.getTitle()));
         List options = q.getOptions();
@@ -153,7 +150,7 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
 
         List<JokerCard> jokerList = player.getJokerCards();
         this.setJokers(jokerList);
-        jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         jokerAlertMessage.setText("");
     }
 
@@ -161,8 +158,6 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
-        timeBar.setWidth(950);
-        timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
     private void setEmojiBarVisible(Game currentGame) {
@@ -340,37 +335,37 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
             joker1.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton3() {
         if (canUseJoker(joker3.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
             joker3.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
@@ -378,37 +373,39 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
-     * This method starts the animation for the timer bar
+     * This method sets the numerical representation of the timer and also changes the colour of the label to represent
+     * how far the player is in the question
+     * @param i is the time left for the question
      */
-    public void startTimerAnimation() {
-        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
-        int colourChange1 = (int) (i*1000*0.25);
-        int colourChange2 = (int) (i*1000*0.5);
-        int colourChange3 = (int) (i*1000*0.75);
-
-        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
-        timerAnimation.setFromX(1);
-        timerAnimation.setToX(0);
-        timerAnimation.play();
-        Timer changeTimerBarColor = new Timer();
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFFF00"));
-            }
-        }, colourChange1);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFA500"));
-            }
-        },colourChange2);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FF0000"));
-            }
-        },colourChange3);
+    public void setTime(int i) {
+        time.setText("Time Left: " + i + " seconds");
+        int colourChange1;
+        int colourChange2;
+        int colourChange3;
+        int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
+        if(mainCtrl.getGame() instanceof SinglePlayerGame){
+            colourChange1 = (int) ( allowedTime * 0.75);
+            colourChange2 = (int) ( allowedTime * 0.5);
+            colourChange3 = (int) ( allowedTime * 0.25);
+        }
+        else{
+            colourChange1 = 15;
+            colourChange2 = 10;
+            colourChange3 = 5;
+        }
+        if(i < allowedTime && i >= colourChange1){
+            time.setStyle("-fx-background-color: #00FF00");
+        }
+        if(i < colourChange1 && i >= colourChange2){
+            time.setStyle("-fx-background-color: #FFFF00");
+        }
+        if(i < colourChange2 && i >= colourChange3){
+            time.setStyle("-fx-background-color: #FFA500");
+        }
+        if(i < colourChange3){
+            time.setStyle("-fx-background-color: #FF0000");
+        }
     }
 
     @FXML
@@ -436,9 +433,9 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
      * @param e Instance of Emoji Class that contains an emoji with the Player's username and it's image path.
      */
     public void sendEmoji(Emoji e){
-
         server.send("/app/emojis/"+mainCtrl.getGameId(),e);
     }
+
     /**
      * This  method creates an Emoji and passes it to the sendEmoji() method
      * @param event Event that occurs when an image view for Emoji is pressed.
@@ -450,12 +447,25 @@ public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {
     }
 
     /**
+     *
+     * @param absolutePath
+     * @return
+     */
+
+    public String getLocalPath(String absolutePath){
+        String[] result = absolutePath.split("/");
+        return "/"+ result[result.length-2] + "/" + result[result.length-1];
+    }
+
+
+    /**
      * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
      * @param e Instance of Emoji Class( sent through the WebSocket for Emoji Class)
      */
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
-        reaction.setImage(new Image(e.getEmojiPath()));
+        String localPath = MainCtrl.class.getResource(getLocalPath(e.getEmojiPath())).toString();
+        reaction.setImage(new Image(localPath));
         ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
         scale.setToX(1);
         scale.setToY(1);

@@ -2,8 +2,6 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import commons.*;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
@@ -24,8 +22,6 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
@@ -38,9 +34,6 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
     @FXML
     private HBox emojiBar;
-
-    @FXML
-    private Label jokerMessage;
     @FXML
     private Label ReactionName;
 
@@ -91,15 +84,13 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     private ProgressBar progressBar;
 
     @FXML
-    private Label actualAnswer;
+    private Text actualAnswer;
 
     @FXML
     private TextField userAnswer;
 
     @FXML
-    private Rectangle timeBar;
-
-    private int timeBarWidth = 950;
+    public Label time;
 
     private final MainCtrl mainCtrl;
 
@@ -135,11 +126,10 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 get(currentGame.getCurrentQuestionNumber());
         questionObject = q;
         Player player = mainCtrl.getLocalPlayer();
-        score.setText(String.valueOf(player.getCurrentScore()));
+        score.setText("Score: " + player.getCurrentScore());;
         Activity act = q.getActivity();
         question.setText("How much energy does it take?");
         questionText.setText(act.getTitle());
-        jokerMessage.setText("");
         jokerAlertMessage.setText("");
         initialiseActivityImage(act);
 
@@ -153,8 +143,6 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     public void resetScreen(){
         userAnswer.setText("");
         actualAnswer.setText("");
-        timeBar.setWidth(950);
-        timeBar.setFill(Color.valueOf("#00FF00"));
     }
 
     /**
@@ -189,37 +177,39 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     }
 
     /**
-     * This method starts the animation for the timer bar
+     * This method sets the numerical representation of the timer and also changes the colour of the label to represent
+     * how far the player is in the question
+     * @param i is the time left for the question
      */
-    public void startTimerAnimation() {
-        int i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
-        int colourChange1 = (int) (i*1000*0.25);
-        int colourChange2 = (int) (i*1000*0.5);
-        int colourChange3 = (int) (i*1000*0.75);
-
-        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
-        timerAnimation.setFromX(1);
-        timerAnimation.setToX(0);
-        timerAnimation.play();
-        Timer changeTimerBarColor = new Timer();
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFFF00"));
-            }
-        }, colourChange1);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFA500"));
-            }
-        },colourChange2);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FF0000"));
-            }
-        },colourChange3);
+    public void setTime(int i) {
+        time.setText("Time Left: " + i + " seconds");
+        int colourChange1;
+        int colourChange2;
+        int colourChange3;
+        int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
+        if(mainCtrl.getGame() instanceof SinglePlayerGame){
+            colourChange1 = (int) ( allowedTime * 0.75);
+            colourChange2 = (int) ( allowedTime * 0.5);
+            colourChange3 = (int) ( allowedTime * 0.25);
+        }
+        else{
+            colourChange1 = 15;
+            colourChange2 = 10;
+            colourChange3 = 5;
+        }
+        if(i < allowedTime && i >= colourChange1){
+            time.setStyle("-fx-background-color: #00FF00");
+        }
+        if(i < colourChange1 && i >= colourChange2){
+            time.setStyle("-fx-background-color: #FFFF00");
+        }
+        if(i < colourChange2 && i >= colourChange3){
+            time.setStyle("-fx-background-color: #FFA500");
+        }
+        if(i < colourChange3){
+            time.setStyle("-fx-background-color: #FF0000");
+        }
     }
 
     /**
@@ -250,6 +240,7 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 throw new NullPointerException("No player found");
             }
             p.setCurrentScore(p.getCurrentScore() + points);
+            mainCtrl.getLocalPlayer().setCurrentScore(mainCtrl.getLocalPlayer().getCurrentScore()+points);
             if (points == 100) {
                 actualAnswer.setText("Bullseye! As you answered, the actual consumption for this activity is " +
                         questionObject.getActivity().getConsumption_in_wh() + "wh");
@@ -296,41 +287,41 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
     @FXML
     void handleJokerButton1() {
         if(canUseJoker(joker1.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker1.getText());
             mainCtrl.handleJoker();
             joker1.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton2() {
         if(canUseJoker(joker2.getText())) {
-            jokerMessage.setText("");
+            jokerAlertMessage.setText("");
             mainCtrl.setUsedJoker(joker2.getText());
             mainCtrl.handleJoker();
             joker2.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     @FXML
     void handleJokerButton3() {
-        jokerMessage.setText("");
+        jokerAlertMessage.setText("");
         if (canUseJoker(joker3.getText())) {
             mainCtrl.setUsedJoker(joker3.getText());
             mainCtrl.handleJoker();
             joker3.setDisable(true);
         }
         else{
-            jokerMessage.setText("This joker cannot be used in this type of question!");
+            jokerAlertMessage.setText("This joker cannot be used in this type of question!");
         }
     }
     public boolean canUseJoker(String name){
-        if(name.equals("EliminateOptionJoker"))
+        if(name.equals("Eliminate Option Joker"))
             return false;
         return true;
     }
@@ -355,6 +346,17 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
                 getImage().getUrl());
         sendEmoji(e);
     }
+    /**
+     *
+     * @param absolutePath
+     * @return
+     */
+
+    public String getLocalPath(String absolutePath){
+        String[] result = absolutePath.split("/");
+        return "/"+ result[result.length-2] + "/" + result[result.length-1];
+    }
+
 
     /**
      * This method initialises the Scene with the last Emoji that was sent through the WebSocket.
@@ -362,7 +364,8 @@ public class SinglePlayerGuessQuestionCtrl implements Initializable {
      */
     public void initialiseEmoji(Emoji e) {
         ReactionName.setText(e.getSender());
-        reaction.setImage(new Image(e.getEmojiPath()));
+        String localPath = MainCtrl.class.getResource(getLocalPath(e.getEmojiPath())).toString();
+        reaction.setImage(new Image(localPath));
         ScaleTransition scale = new ScaleTransition(Duration.millis(50),reaction);
         scale.setToX(1);
         scale.setToY(1);
