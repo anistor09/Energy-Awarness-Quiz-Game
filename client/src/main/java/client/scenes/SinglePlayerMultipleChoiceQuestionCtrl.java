@@ -2,12 +2,10 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
-import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +17,9 @@ import javafx.util.Duration;
 
 import javax.inject.Inject;
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class SinglePlayerMultipleChoiceQuestionCtrl implements Initializable {

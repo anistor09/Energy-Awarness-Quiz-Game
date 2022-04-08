@@ -2,9 +2,8 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
-import javafx.scene.shape.Rectangle;
-import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,14 +13,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-
 import javax.inject.Inject;
-import java.util.*;
 import java.net.URL;
+import java.util.*;
 
 public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
 

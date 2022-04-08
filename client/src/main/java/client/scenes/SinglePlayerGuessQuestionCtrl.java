@@ -2,8 +2,6 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import commons.*;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
@@ -24,8 +22,6 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class SinglePlayerGuessQuestionCtrl implements Initializable {
 
