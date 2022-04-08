@@ -104,7 +104,7 @@ public class MultiplayerIntermediateScreenCtrl {
                 if(i <= 0) {
                     timer.cancel();
                     i = 5;
-                    mainCtrl.checkGameStatus();
+                    Platform.runLater(() -> mainCtrl.checkGameStatus());
                 }
             }
         }, 0, 1000);
