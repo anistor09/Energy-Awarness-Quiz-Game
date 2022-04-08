@@ -2,9 +2,8 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.*;
-import javafx.scene.shape.Rectangle;
-import javafx.application.Platform;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,14 +13,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-
 import javax.inject.Inject;
-import java.util.*;
 import java.net.URL;
+import java.util.*;
 
 public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
 
@@ -106,7 +103,7 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     private Label score;
 
     @FXML
-    private Rectangle timeBar;
+    public Label time;
 
     private final int timeBarWidth = 950;
 
@@ -239,8 +236,6 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
         option1.setStyle("-fx-background-color: #8ECAE6");
         option2.setStyle("-fx-background-color: #8ECAE6");
         option3.setStyle("-fx-background-color: #8ECAE6");
-        timeBar.setWidth(950);
-        timeBar.setFill(Color.valueOf("#00FF00"));
 
     }
 
@@ -449,63 +444,39 @@ public class SingleplayerInsteadOfQuestionCtrl implements Initializable {
     }
 
     /**
-     * This method starts the animation for the timer bar
+     * This method sets the numerical representation of the timer and also changes the colour of the label to represent
+     * how far the player is in the question
+     * @param i is the time left for the question
      */
-    public void startTimerAnimation() {
-        double i = 0;
-        int colourChange1 = 0;
-        int colourChange2 = 0;
-        int colourChange3 = 0;
-        ScaleTransition timerAnimation = new ScaleTransition(Duration.seconds(i), timeBar);
-
-
-        if(mainCtrl.getGame() instanceof MultiPlayerGame){
-            i = mainCtrl.getLocalPlayer().getTimeLeft() + 0.5;
-            System.out.println(mainCtrl.getLocalPlayer().getTimeLeft());
-            timerAnimation.setDuration(Duration.seconds(i));
-            timerAnimation.setFromX(i*0.05);
-            timerAnimation.setToX(0);
-            timerAnimation.play();
-            if(i>15) {
-                colourChange1 = (int) (5000 - ((20-i)*1000));
-            }
-            if(i>10) {
-                colourChange2 = (int) (10000 - ((20-i)*1000));
-            }
-            if (i > 5) {
-                colourChange3 = (int) (15000 - ((20-i)*1000));
-            }
+    public void setTime(int i) {
+        time.setText("Time Left: " + i + " seconds");
+        int colourChange1;
+        int colourChange2;
+        int colourChange3;
+        int allowedTime = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber())
+                .getAllowedTime();
+        if(mainCtrl.getGame() instanceof SinglePlayerGame){
+            colourChange1 = (int) ( allowedTime * 0.75);
+            colourChange2 = (int) ( allowedTime * 0.5);
+            colourChange3 = (int) ( allowedTime * 0.25);
         }
         else{
-            i = mainCtrl.getGame().getQuestions().get(mainCtrl.getGame().getCurrentQuestionNumber()).getAllowedTime();
-            timerAnimation.setDuration(Duration.seconds(i));
-            timerAnimation.setFromX(1);
-            timerAnimation.setToX(0);
-            timerAnimation.play();
-            colourChange1 = (int) (i*1000*0.25);
-            colourChange2 = (int) (i*1000*0.5);
-            colourChange3 = (int) (i*1000*0.75);
+            colourChange1 = 15;
+            colourChange2 = 10;
+            colourChange3 = 5;
         }
-
-        Timer changeTimerBarColor = new Timer();
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFFF00"));
-            }
-        }, colourChange1);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FFA500"));
-            }
-        },colourChange2);
-        changeTimerBarColor.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeBar.setFill(Color.valueOf("#FF0000"));
-            }
-        },colourChange3);
+        if(i < allowedTime && i >= colourChange1){
+            time.setStyle("-fx-background-color: #00FF00");
+        }
+        if(i < colourChange1 && i >= colourChange2){
+            time.setStyle("-fx-background-color: #FFFF00");
+        }
+        if(i < colourChange2 && i >= colourChange3){
+            time.setStyle("-fx-background-color: #FFA500");
+        }
+        if(i < colourChange3){
+            time.setStyle("-fx-background-color: #FF0000");
+        }
     }
 
     public int getPointsGained() {

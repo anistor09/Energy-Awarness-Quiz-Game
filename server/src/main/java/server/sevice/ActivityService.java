@@ -9,6 +9,7 @@ import server.database.ActivityRepository;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -110,8 +111,18 @@ public class ActivityService {
      */
     public void processImagePacket(ImagePacket file) throws IOException {
         byte[] arr =  file.getByteArr();
-        Files.write(Path.of("src/main/resources/Activity_bank/extra/", file.getFileName()), arr);
-        Files.write(Path.of("build/resources/main/Activity_bank/extra/", file.getFileName()), arr);
+        try {
+            Files.write(Path.of("src/main/resources/Activity_bank/extra/", file.getFileName()), arr);
+            Files.write(Path.of("build/resources/main/Activity_bank/extra/", file.getFileName()), arr);
+        } catch (NoSuchFileException e) {
+            try {
+                Files.write(Path.of("server/src/main/resources/Activity_bank/extra/", file.getFileName()), arr);
+                Files.write(Path.of("server/build/resources/main/Activity_bank/extra/", file.getFileName()), arr);
+            } catch (Exception e1) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 

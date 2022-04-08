@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,20 +23,20 @@
                 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="753.0">
                     <children>
                         <Pane prefHeight="300.0" prefWidth="350.0">
-                     <children>
-                        <ImageView fx:id="image" fitHeight="225.0" fitWidth="225.0" layoutX="-69.0" layoutY="-63.0" pickOnBounds="true" preserveRatio="true" />
-                        <Text fx:id="questionText" layoutX="-54.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="194.7294921875" />
-                     </children>
+                            <children>
+                                <ImageView fx:id="image" fitHeight="225.0" fitWidth="225.0" layoutX="-69.0" layoutY="-63.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="questionText" layoutX="-54.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="194.7294921875" />
+                            </children>
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <TextField fx:id="userAnswer" layoutX="-97.0" layoutY="65.0" onAction="#changeGuess" prefHeight="54.0" prefWidth="238.0" promptText="Your guess">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </TextField>
-                        <Text fx:id="actualAnswer" layoutX="-86.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="215.7294921875" />
-                     </children>
+                            <children>
+                                <TextField fx:id="userAnswer" layoutX="-97.0" layoutY="65.0" onAction="#changeGuess" prefHeight="54.0" prefWidth="238.0" promptText="Your guess">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Text fx:id="actualAnswer" layoutX="-86.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="215.7294921875" />
+                            </children>
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0" />
                     </children>
@@ -53,9 +52,9 @@
                                     <padding>
                                         <Insets left="10.0" />
                                     </padding>
-                           <font>
-                              <Font size="12.0" />
-                           </font>
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
                                 </Label>
                                 <Button fx:id="joker1" mnemonicParsing="false" onAction="#handleJokerButton1" prefHeight="45.0" prefWidth="285.0" text="Joker 1" />
                                 <Button fx:id="joker2" mnemonicParsing="false" onAction="#handleJokerButton2" prefHeight="45.0" prefWidth="285.0" text="Joker 2" />
@@ -67,7 +66,7 @@
                         </VBox>
                         <VBox prefHeight="140.0" prefWidth="957.0">
                             <children>
-                                <Label fx:id="time" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Time Left: " textAlignment="CENTER" visible="false" VBox.vgrow="SOMETIMES">
+                                <Label fx:id="time" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="262.0" text="Time Left: " textAlignment="CENTER" VBox.vgrow="SOMETIMES">
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="100.0" top="10.0" />
                                     </padding>
@@ -75,7 +74,7 @@
                                         <Font size="16.0" />
                                     </font>
                                     <VBox.margin>
-                                        <Insets top="20.0" />
+                                        <Insets left="-30.0" top="20.0" />
                                     </VBox.margin>
                                 </Label>
                                 <Label fx:id="score" contentDisplay="CENTER" prefHeight="40.0" prefWidth="210.0" text="Your Score: " textAlignment="JUSTIFY">
@@ -194,11 +193,6 @@
                         <Insets />
                     </VBox.margin>
                 </HBox>
-                <Rectangle fx:id="timeBar" fill="WHITE" height="10.0" stroke="BLACK" strokeType="INSIDE" width="950.0">
-                    <VBox.margin>
-                        <Insets top="5.0" />
-                    </VBox.margin>
-                </Rectangle>
             </children>
         </VBox>
     </bottom>

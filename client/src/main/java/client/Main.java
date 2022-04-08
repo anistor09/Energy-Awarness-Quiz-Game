@@ -15,19 +15,16 @@
  */
 package client;
 
-import static com.google.inject.Guice.createInjector;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-
 import client.scenes.*;
-
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.io.FileNotFoundException;
+
+import static com.google.inject.Guice.createInjector;
 
 
 public class Main extends Application {
@@ -35,7 +32,7 @@ public class Main extends Application {
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) {
         launch();
     }
 
@@ -45,7 +42,7 @@ public class Main extends Application {
      * @param primaryStage is the Stage where the game will take place in
      */
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         Pair<MenuCtrl, Parent> menu = FXML.load(MenuCtrl.class, "client", "scenes", "Menu.fxml");
         Pair<SinglePlayerLobbyCtrl, Parent> singleLobby =
                 FXML.load(SinglePlayerLobbyCtrl.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
