@@ -210,6 +210,7 @@ public class MainCtrl {
         this.errorScreen = new Scene(errorScreenCtrlParentPair.getValue());
 
         this.exitedGame = false;
+        this.editActivity.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.admin.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.menu.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.intermediateScreen.getStylesheets().add("@../../stylesheets/singleplayer_game.css");
