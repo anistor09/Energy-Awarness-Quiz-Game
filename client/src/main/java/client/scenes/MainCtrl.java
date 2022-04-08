@@ -272,29 +272,6 @@ public class MainCtrl {
      * This is a timer that works in the background and switches to the next question
      */
     public void singleplayerInGameTimer() {
-        System.out.println("STARTING SINGLEPLAYER INGAME TIMER");
-        int currentQuestionNumber = game.getCurrentQuestionNumber();
-        Question q = game.getQuestions().get(currentQuestionNumber);
-        String className = getClassName(q.getClass().getName());
-        switch (className) {
-            case "MultipleChoiceQuestion":
-                singlePlayerGameCtrl.startTimerAnimation();
-                break;
-
-            case "MostEnergyQuestion":
-                singlePlayerChooseOptionQuestionCtrl.startTimerAnimation();
-                break;
-
-            case "GuessQuestion":
-                singlePlayerGuessQuestionCtrl.startTimerAnimation();
-                break;
-
-            case "InsteadOfQuestion":
-                singleplayerInsteadOfQuestionCtrl.startTimerAnimation();
-                break;
-            default:
-                break;
-        }
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = game.getQuestions().get(game.getCurrentQuestionNumber()).getAllowedTime();
@@ -333,9 +310,33 @@ public class MainCtrl {
                     if (!usedQuestionChangeJoker) {
                         currentQuestionNumber = game.getCurrentQuestionNumber();
                     }
-                    MainCtrl.setTimeLeft(i);
-                    i--;
+
                 }
+                int currentQuestionNumber = game.getCurrentQuestionNumber();
+                Question q = game.getQuestions().get(currentQuestionNumber);
+                String className = getClassName(q.getClass().getName());
+                switch (className) {
+                    case "MultipleChoiceQuestion":
+                        singlePlayerGameCtrl.setTime(i + 1);
+                        break;
+
+                    case "MostEnergyQuestion":
+                        singlePlayerChooseOptionQuestionCtrl.setTime(i + 1);
+                        break;
+
+                    case "GuessQuestion":
+                        singlePlayerGuessQuestionCtrl.setTime(i + 1);
+                        break;
+
+                    case "InsteadOfQuestion":
+                        singleplayerInsteadOfQuestionCtrl.setTime(i + 1);
+                        break;
+                    default:
+                        break;
+                }
+
+                MainCtrl.setTimeLeft(i);
+                i--;
             }
         }, 0, 1000);
     }
@@ -954,33 +955,6 @@ public class MainCtrl {
      * switches between the question and intermediate screens
      */
     public void multiplayerInGameTimer() {
-        int currentQuestionNumber = game.getCurrentQuestionNumber();
-        Question q = game.getQuestions().get(currentQuestionNumber);
-        String className = getClassName(q.getClass().getName());
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                switch (className) {
-                    case "MultipleChoiceQuestion":
-                        singlePlayerGameCtrl.startTimerAnimation();
-                        break;
-
-                    case "MostEnergyQuestion":
-                        singlePlayerChooseOptionQuestionCtrl.startTimerAnimation();
-                        break;
-
-                    case "GuessQuestion":
-                        singlePlayerGuessQuestionCtrl.startTimerAnimation();
-                        break;
-
-                    case "InsteadOfQuestion":
-                        singleplayerInsteadOfQuestionCtrl.startTimerAnimation();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             MultiPlayerGame multiPlayerGame = (MultiPlayerGame) game;
@@ -999,6 +973,33 @@ public class MainCtrl {
                     localPlayer.setTimeLeft(20);
                     Platform.runLater(() -> goTo("multiplayerIntermediateScreen"));
                 }
+                int currentQuestionNumber = game.getCurrentQuestionNumber();
+                Question q = game.getQuestions().get(currentQuestionNumber);
+                String className = getClassName(q.getClass().getName());
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (className) {
+                            case "MultipleChoiceQuestion":
+                                singlePlayerGameCtrl.setTime(localPlayer.getTimeLeft()+1);
+                                break;
+
+                            case "MostEnergyQuestion":
+                                singlePlayerChooseOptionQuestionCtrl.setTime(localPlayer.getTimeLeft()+1);
+                                break;
+
+                            case "GuessQuestion":
+                                singlePlayerGuessQuestionCtrl.setTime(localPlayer.getTimeLeft()+1);
+                                break;
+
+                            case "InsteadOfQuestion":
+                                singleplayerInsteadOfQuestionCtrl.setTime(localPlayer.getTimeLeft()+1);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
                 localPlayer.setTimeLeft(localPlayer.getTimeLeft() - 1);
             }
         }, 0, 1000);
