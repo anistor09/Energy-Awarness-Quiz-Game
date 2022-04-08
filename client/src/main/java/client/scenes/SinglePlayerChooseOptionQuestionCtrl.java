@@ -287,7 +287,7 @@ public class SinglePlayerChooseOptionQuestionCtrl implements Initializable {
             colourChange2 = 10;
             colourChange3 = 5;
         }
-        if(i == allowedTime){
+        if(i < allowedTime && i >= colourChange1){
             time.setStyle("-fx-background-color: #00FF00");
         }
         if(i < colourChange1 && i >= colourChange2){
