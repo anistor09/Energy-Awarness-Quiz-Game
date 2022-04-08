@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -114,7 +115,7 @@ public class ActivityService {
         try {
             Files.write(Path.of("src/main/resources/Activity_bank/extra/", file.getFileName()), arr);
             Files.write(Path.of("build/resources/main/Activity_bank/extra/", file.getFileName()), arr);
-        } catch (FileNotFoundException e) {
+        } catch (NoSuchFileException e) {
             try {
                 Files.write(Path.of("server/src/main/resources/Activity_bank/extra/", file.getFileName()), arr);
                 Files.write(Path.of("server/build/resources/main/Activity_bank/extra/", file.getFileName()), arr);
