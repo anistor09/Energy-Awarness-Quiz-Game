@@ -226,6 +226,7 @@ public class MainCtrl {
         this.singlePlayerStartCountdownScreen.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.singleplayerInsertInfo.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
         this.multiPlayerLobby.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
+        this.editActivity.getStylesheets().add("@../../stylesheets/menu_stylesheet.css");
 
 
         primaryStage.setTitle("Quizzz");
