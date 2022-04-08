@@ -30,18 +30,13 @@ class JokerAlertTest {
     }
     @Test
     void getSenderUsername() {
-        assertEquals("teesting", username1);
-    }
-
-    @Test
-    void getSenderUsername2() {
-        assertEquals("boss", username2);
+        assertEquals("teesting", alert.getSenderUsername());
     }
 
     @Test
     void setSenderUsername() {
-        alert.setSenderUsername("miau");
-        assertEquals("miau", alert.getSenderUsername());
+        alert.setSenderUsername("int");
+        assertEquals("int", alert.getSenderUsername());
     }
 
     @Test
